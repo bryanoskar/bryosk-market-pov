@@ -37,15 +37,12 @@
     box-shadow:0 2px 8px rgba(0,0,0,.3);}
   .gval{font-size:12px; opacity:.85; margin-top:8px; font-weight:600;}
 
-  /* LIVE TICKER + banner */
   .tickerwrap{margin:0 -22px 8px; background:#0f1830;}
   .livebar{display:flex; align-items:center; gap:8px; justify-content:center; flex-wrap:wrap;
     font-size:11.5px; color:var(--muted); padding:12px 0 2px; text-align:center;}
-  .dot{width:8px; height:8px; border-radius:50%; background:var(--pos); display:inline-block;
-    box-shadow:0 0 0 0 rgba(22,163,106,.6); animation:pulse 1.8s infinite; opacity:.35;}
+  .dot{width:8px; height:8px; border-radius:50%; background:var(--pos); display:inline-block; opacity:.35; animation:pulse 1.8s infinite;}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(22,163,106,.5)}70%{box-shadow:0 0 0 7px rgba(22,163,106,0)}100%{box-shadow:0 0 0 0 rgba(22,163,106,0)}}
 
-  /* SECTIONS */
   section{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
   section.in{opacity:1; transform:none;}
   h2{font-size:11.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent);
@@ -54,7 +51,6 @@
     padding:18px 20px; font-size:16.5px; border-radius:8px; box-shadow:0 6px 20px -16px rgba(0,0,0,.3);}
   .bottomline strong{color:var(--accent);}
 
-  /* SNAPSHOT */
   .rows{display:flex; flex-direction:column; gap:8px;}
   .row{display:grid; grid-template-columns:96px 100px 1fr; gap:12px; align-items:center;
     background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px;
@@ -64,8 +60,7 @@
   .row:hover .asset::after{opacity:1; transform:translateX(0);}
   .asset{font-weight:700; font-size:14.5px; position:relative;}
   .asset .livetag{font-size:8.5px; letter-spacing:.05em; color:var(--pos); font-weight:700; display:block; margin-top:1px;}
-  .asset::after{content:"↗"; font-size:11px; color:var(--muted); opacity:0; margin-left:5px;
-    transform:translateX(-4px); transition:.18s; display:inline-block;}
+  .asset::after{content:"↗"; font-size:11px; color:var(--muted); opacity:0; margin-left:5px; transform:translateX(-4px); transition:.18s; display:inline-block;}
   .lvl{font-variant-numeric:tabular-nums; font-weight:700; font-size:14.5px;}
   .delta{font-variant-numeric:tabular-nums; font-weight:700; font-size:13px;}
   .pos{color:var(--pos);} .neg{color:var(--neg);} .flat{color:var(--muted);}
@@ -75,31 +70,40 @@
   .bar.pos{background:var(--pos);} .bar.neg{background:var(--neg);} .bar.flat{background:#c7ccd6;}
   .drv{font-size:12.5px; color:#555;}
 
-  ul{padding-left:18px;} li{margin:8px 0; font-size:14.8px;} li strong{font-weight:700;}
-  .conf{display:inline-block; font-size:10px; letter-spacing:.06em; text-transform:uppercase;
-    background:#eef0f4; color:#555; padding:2px 9px; border-radius:10px; font-weight:700; margin-left:4px;}
-  .tilt{background:var(--card); border:1px solid var(--line); padding:17px 20px; border-radius:8px; font-size:15px;
-    box-shadow:0 6px 20px -16px rgba(0,0,0,.3);} .tilt b{color:var(--accent);}
+  /* LEADERBOARD */
+  .lbstamp{font-size:11px; color:var(--muted); margin:-6px 0 10px;}
+  .lbgrid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;}
+  .lbcard{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 13px;}
+  .lbcard h3{font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px; color:var(--accent); font-weight:700;}
+  .lbrow{display:flex; justify-content:space-between; gap:6px; font-size:12.5px; padding:5px 0; border-bottom:1px solid #f2f2ef; font-variant-numeric:tabular-nums;}
+  .lbrow:last-child{border-bottom:none;}
+  .lbsym{font-weight:700;} .lbv{color:#777; margin-left:auto; margin-right:8px;}
 
-  /* SCENARIO CARDS */
+  /* STOCK MOVER CARDS */
+  .mvr{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:13px 16px; margin-bottom:8px; box-shadow:0 6px 18px -16px rgba(0,0,0,.3);}
+  .mvsym{font-weight:800; font-size:15px;}
+  .mvwhy,.mvlt{font-size:13px; color:#444; margin-top:4px;}
+  .note{font-size:11.5px; color:var(--muted); margin-top:6px; font-style:italic;}
+  .tvbox{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:6px; overflow:hidden;}
+
+  ul{padding-left:18px;} li{margin:8px 0; font-size:14.8px;} li strong{font-weight:700;}
+  .conf{display:inline-block; font-size:10px; letter-spacing:.06em; text-transform:uppercase; background:#eef0f4; color:#555; padding:2px 9px; border-radius:10px; font-weight:700; margin-left:4px;}
+  .tilt{background:var(--card); border:1px solid var(--line); padding:17px 20px; border-radius:8px; font-size:15px; box-shadow:0 6px 20px -16px rgba(0,0,0,.3);} .tilt b{color:var(--accent);}
+
   .scen{display:flex; flex-direction:column; gap:10px;}
-  .scard{border:1px solid var(--line); border-left:4px solid; border-radius:10px; padding:13px 16px;
-    background:var(--card); box-shadow:0 6px 18px -16px rgba(0,0,0,.3);}
+  .scard{border:1px solid var(--line); border-left:4px solid; border-radius:10px; padding:13px 16px; background:var(--card); box-shadow:0 6px 18px -16px rgba(0,0,0,.3);}
   .scard.bull{border-left-color:var(--pos);} .scard.base{border-left-color:var(--amber);} .scard.bear{border-left-color:var(--neg);}
   .scard .sh{font-weight:800; font-size:12.5px; text-transform:uppercase; letter-spacing:.07em; margin-bottom:3px;}
   .scard.bull .sh{color:var(--pos);} .scard.base .sh{color:#b9892a;} .scard.bear .sh{color:var(--neg);}
-  .scard .prob{float:right; font-size:12px; color:var(--muted); font-weight:700;}
-  .scard .sp{font-size:13.5px; color:#444;}
+  .scard .prob{float:right; font-size:12px; color:var(--muted); font-weight:700;} .scard .sp{font-size:13.5px; color:#444;}
 
-  .share{position:fixed; right:18px; bottom:18px; z-index:5; background:var(--accent); color:#fff;
-    border:none; border-radius:30px; padding:13px 20px; font-size:14px; font-weight:700; cursor:pointer;
-    box-shadow:0 10px 30px -8px rgba(26,43,74,.6); transition:transform .15s;}
+  .share{position:fixed; right:18px; bottom:18px; z-index:5; background:var(--accent); color:#fff; border:none; border-radius:30px; padding:13px 20px; font-size:14px; font-weight:700; cursor:pointer; box-shadow:0 10px 30px -8px rgba(26,43,74,.6); transition:transform .15s;}
   .share:hover{transform:scale(1.05);}
   .foot{margin-top:38px; padding-top:16px; border-top:1px solid var(--line); font-size:12px; color:var(--muted);}
   .src{margin-top:6px; line-height:1.9;} .src a{color:#555; text-decoration:none; border-bottom:1px dotted #ccc;}
   @media(max-width:520px){
     .hero h1{font-size:27px;} .row{grid-template-columns:80px 84px 1fr; gap:9px; padding:11px;}
-    .drv{font-size:11.5px;} .asset{font-size:13px;}
+    .drv{font-size:11.5px;} .asset{font-size:13px;} .lbgrid{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -116,7 +120,6 @@
     </div>
   </div>
 
-  <!-- LIVE TradingView ticker tape -->
   <div class="tickerwrap">
     <div class="tradingview-widget-container">
       <div class="tradingview-widget-container__widget"></div>
@@ -140,6 +143,31 @@
 
   <section><h2>Bottom Line</h2><div class="bottomline" id="bottomline"></div></section>
   <section><h2>Cross-Asset Snapshot · crypto live · tap a row for chart</h2><div class="rows" id="rows"></div></section>
+
+  <section><h2>Crypto Leaderboard · LIVE (top-100 by mkt cap)</h2>
+    <div class="lbstamp" id="lbstamp">Loading live leaderboard…</div>
+    <div class="lbgrid">
+      <div class="lbcard"><h3>Top Volume (24h)</h3><div id="lbVol"></div></div>
+      <div class="lbcard"><h3>Top Gainers (24h)</h3><div id="lbGain"></div></div>
+      <div class="lbcard"><h3>Top Losers (24h)</h3><div id="lbLoss"></div></div>
+    </div>
+  </section>
+
+  <section><h2>Crypto Derivatives Positioning Flow</h2><ul id="derivFlow"></ul></section>
+
+  <section><h2>Stock Market Movers · LIVE</h2>
+    <div class="tvbox">
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js" async>
+        {"colorTheme":"light","dateRange":"1D","exchange":"US","showChart":false,"locale":"en","largeChartUrl":"","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":420}
+        </script>
+      </div>
+    </div>
+  </section>
+
+  <section><h2>Stock Movers · Catalysts &amp; Long-Term</h2><div id="stockMovers"></div></section>
+
   <section><h2>China &amp; Hong Kong</h2><ul id="chinaHK"></ul></section>
   <section><h2>Technical Levels</h2><ul id="tech"></ul></section>
   <section><h2>What's Driving It</h2><ul id="drivers"></ul></section>
@@ -151,7 +179,7 @@
   <section><h2>Conviction Tilt</h2><div class="tilt" id="tilt"></div></section>
 
   <div class="foot">
-    <strong>Research / education, not financial advice.</strong> Ticker tape &amp; crypto rows update <strong>live</strong> in your browser; the written analysis is authored as of the date above. Crypto live via CoinGecko; market data via TradingView.
+    <strong>Research / education, not financial advice.</strong> Ticker tape, crypto rows &amp; leaderboard and the stock-movers panel update <strong>live</strong> in your browser (CoinGecko + TradingView). The written analysis, derivatives-positioning read and stock catalysts are authored as of the date above.
     <div class="src" id="sources"></div>
   </div>
 </div>
@@ -180,14 +208,25 @@ const DATA = {
     {a:"IHSG",lvl:"~6,095",d:"−3.5%",dir:"neg",mag:63,drv:"MSCI 29 May outflow overhang",url:"https://www.tradingview.com/symbols/IDX-COMPOSITE/"},
     {a:"USD/IDR",lvl:"~17,597",d:"weak",dir:"neg",mag:42,drv:"Rp49.3T YTD foreign selling",url:"https://www.tradingview.com/symbols/USDIDR/"}
   ],
+  derivFlow:[
+    "<strong>BTC perp OI ~6,370 contracts</strong> — roughly flat after yesterday's $657M long-liquidation flush. Leverage has reset; price basing on lighter OI is the <em>healthy</em> kind of consolidation, not distribution.",
+    "<strong>ETH OI steady ~184k</strong> as price recovers toward $2,090 — reads as mild short-covering / cautious re-leveraging, constructive.",
+    "<strong>24h perp turnover ~$690M BTC / ~$260M ETH</strong> — real participation, but no euphoric crowded-long rebuild yet. Positioning is cleaner than 24h ago.",
+    "<em>Proxy note:</em> derivatives OI &amp; volume from the connected feed as of the timestamp above — a live-at-authoring read of <em>positioning</em> flow, not browser-live spot exchange netflows (those require a paid on-chain feed)."
+  ],
+  stockMovers:[
+    {sym:"Micron (MU)", chg:"+19%", dir:"pos", why:"Crossed $1T market cap on a wave of analyst bullishness (UBS sees &gt;100% upside) tied to AI/HBM memory demand.", lt:"Structural HBM/AI-memory supercycle is a real multi-year tailwind; key risk is memory's historic cyclicality and a rich valuation after a parabolic run — size accordingly."},
+    {sym:"Tech / Semis (broad)", chg:"+1.2% Nasdaq", dir:"pos", why:"AI leadership drove fresh record highs; offset by energy weakness as oil fell on Iran de-escalation.", lt:"AI capex theme intact, but breadth is narrowing — watch for the rotation into value/industrials to reassert if yields stop falling."},
+    {sym:"Energy (XLE)", chg:"laggard", dir:"neg", why:"Steepest sector decline as WTI slid on Strait-of-Hormuz reopening optimism.", lt:"De-escalation caps oil near-term; longer-term energy still benefits from tight capex discipline and any reflation surprise."}
+  ],
   chinaHK:[
     "<strong>Mainland weak:</strong> Shanghai Composite −1.25% to 4,094; CSI 300 ~4,922. <strong>Semis/tech led the drop</strong> — Cambricon −4.99%, Hygon −5.98%, SMIC −1.67%. Yet <strong>industrial profits +18.2% YoY</strong> (Jan–Apr): fundamentals solid, sentiment soft.",
-    "<strong>Hong Kong diverging:</strong> Hang Seng ~flat (25,600), but the <strong>Hang Seng TECH index +1.59%</strong> (4,947) — HK electronics/semis bid even as A-share semis derisk. A clear intra-China split."
+    "<strong>Hong Kong diverging:</strong> Hang Seng ~flat (25,600), but the <strong>Hang Seng TECH index +1.59%</strong> (4,947) — HK electronics/semis bid even as A-share semis derisk. A clear intra-China split favoring HK near-term."
   ],
   tech:[
     "<strong>BTC $75.9k</strong> — reclaimed the $75.7k shelf after tagging $75.2k; resistance $77.3–78.0k, support $75.2k then $74.2k. Bias: basing.",
-    "<strong>ETH $2,090</strong> — back above $2,053 support, pushing the $2,139 resistance; relative strength improving vs BTC.",
-    "<strong>Gold $4,494</strong> — soft, support $4,475 / resistance $4,538; still structurally firm."
+    "<strong>ETH $2,090</strong> — back above $2,053 support, pressing $2,139 resistance; relative strength improving vs BTC.",
+    "<strong>Gold $4,494</strong> — soft; support $4,475 / resistance $4,538; structurally firm."
   ],
   drivers:[
     "<strong>Rates headwind is reversing:</strong> Warsh's dovish-leaning Fed + Iran de-escalation push 10Y to a 2-week low (~4.48%) and price hikes out — exactly the relief crypto and duration needed.",
@@ -197,7 +236,7 @@ const DATA = {
   news:[
     "<strong>New Fed Chair:</strong> Kevin Warsh sworn in 22 May (first White House ceremony since Greenspan '87), pledging a 'reform-oriented Fed'; Trump pushing for cuts → market reads dovish, yields down.",
     "<strong>US–Iran:</strong> Trump/Rubio say a deal is <em>close</em> — concessions to reopen the Strait of Hormuz → lower oil, cooling inflation fears.",
-    "<strong>Micron +19%</strong> past $1T cap (UBS: >100% upside) — AI/memory mania extending.",
+    "<strong>Micron +19%</strong> past $1T cap (UBS: &gt;100% upside) — AI/memory mania extending.",
     "<strong>Indonesia:</strong> 29 May MSCI rebalance forces ~$1.8B / Rp18.5T passive selling (AMMN, BREN, TPIA removed).",
     "<strong>On deck:</strong> US PCE inflation print — the key swing for the rates/crypto path."
   ],
@@ -237,7 +276,7 @@ $("bottomline").innerHTML=DATA.bottomLine;
 $("gval").textContent="Risk score "+DATA.riskScore+"/100 — "+DATA.riskLabel;
 $("tilt").innerHTML=DATA.tilt;
 const li=arr=>arr.map(x=>"<li>"+x+"</li>").join("");
-["chinaHK","tech","drivers","news","rotation","corp","watch"].forEach(k=>$(k).innerHTML=li(DATA[k]));
+["chinaHK","tech","drivers","news","rotation","corp","watch","derivFlow"].forEach(k=>$(k).innerHTML=li(DATA[k]));
 $("rows").innerHTML=DATA.snapshot.map(r=>
   `<a class="row" href="${r.url}" target="_blank" rel="noopener" ${r.cg?`data-cg="${r.cg}"`:""}>
      <span class="asset">${r.a}${r.cg?'<span class="livetag">● LIVE</span>':''}</span>
@@ -247,12 +286,15 @@ $("rows").innerHTML=DATA.snapshot.map(r=>
        <span class="bartrack"><span class="bar ${r.dir}" data-mag="${r.mag}"></span></span>
      </span>
    </a>`).join("");
+$("stockMovers").innerHTML=DATA.stockMovers.map(s=>
+  `<div class="mvr"><span class="mvsym">${s.sym} <span class="delta ${s.dir}">${s.chg}</span></span>
+   <div class="mvwhy"><strong>Why:</strong> ${s.why}</div>
+   <div class="mvlt"><strong>Long-term:</strong> ${s.lt}</div></div>`).join("");
 const S=DATA.scenarios;
 $("scen").innerHTML=["bull","base","bear"].map(k=>
   `<div class="scard ${k}"><div class="sh">${k.toUpperCase()}<span class="prob">${S[k].prob}</span></div><div class="sp">${S[k].text}</div></div>`).join("");
 $("sources").innerHTML="Sources: "+DATA.sources.map(s=>`<a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a>`).join(" · ");
 
-/* reveal + animate */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}}),{threshold:.12});
 document.querySelectorAll("section").forEach(s=>io.observe(s));
 window.addEventListener("load",()=>{
@@ -265,8 +307,7 @@ function fmtP(p){ if(p>=1000) return "$"+Math.round(p).toLocaleString("en-US"); 
 async function liveUpdate(){
   try{
     const r=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,ripple&vs_currencies=usd&include_24hr_change=true");
-    if(!r.ok) throw 0;
-    const d=await r.json();
+    if(!r.ok) throw 0; const d=await r.json();
     document.querySelectorAll(".row[data-cg]").forEach(row=>{
       const o=d[row.dataset.cg]; if(!o) return;
       const p=o.usd, ch=o.usd_24h_change||0, dir=ch>=0?"pos":"neg";
@@ -274,11 +315,26 @@ async function liveUpdate(){
       const dEl=row.querySelector(".delta"); dEl.textContent=(ch>=0?"+":"")+ch.toFixed(1)+"%"; dEl.className="delta "+dir;
       const bar=row.querySelector(".bar"); bar.className="bar "+dir; bar.style.width=Math.min(Math.abs(ch)*18,100)+"%";
     });
-    $("livedot").style.opacity=1;
-    $("livestamp").textContent="Live crypto prices · updated "+new Date().toLocaleTimeString();
+    $("livedot").style.opacity=1; $("livestamp").textContent="Live crypto prices · updated "+new Date().toLocaleTimeString();
   }catch(e){ $("livestamp").textContent="Live feed unavailable — showing the daily snapshot (analysis still current)"; }
 }
+/* ====== LIVE crypto leaderboard (CoinGecko markets) ====== */
+async function liveLeaderboard(){
+  try{
+    const r=await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&price_change_percentage=24h");
+    if(!r.ok) throw 0; const m=await r.json();
+    const fmtV=v=>v>=1e9?"$"+(v/1e9).toFixed(1)+"B":"$"+Math.round(v/1e6)+"M";
+    const pct=c=>(c>=0?"+":"")+(c||0).toFixed(1)+"%";
+    const ch=c=>c.price_change_percentage_24h||0;
+    const mk=(arr,val)=>arr.map(c=>`<div class="lbrow"><span class="lbsym">${c.symbol.toUpperCase()}</span><span class="lbv">${val(c)}</span><span class="${ch(c)>=0?'pos':'neg'}">${pct(ch(c))}</span></div>`).join("");
+    $("lbVol").innerHTML=mk([...m].sort((a,b)=>b.total_volume-a.total_volume).slice(0,5), c=>fmtV(c.total_volume));
+    $("lbGain").innerHTML=mk([...m].sort((a,b)=>ch(b)-ch(a)).slice(0,5), c=>fmtP(c.current_price));
+    $("lbLoss").innerHTML=mk([...m].sort((a,b)=>ch(a)-ch(b)).slice(0,5), c=>fmtP(c.current_price));
+    $("lbstamp").textContent="● Live · updated "+new Date().toLocaleTimeString()+" · among top-100 by market cap";
+  }catch(e){ $("lbstamp").textContent="Leaderboard temporarily unavailable (CoinGecko rate-limited) — retrying…"; }
+}
 liveUpdate(); setInterval(liveUpdate,60000);
+liveLeaderboard(); setInterval(liveLeaderboard,90000);
 
 function doShare(){
   if(navigator.share){navigator.share({title:"BryOsk Market PoV",text:DATA.bottomLine.replace(/<[^>]+>/g,""),url:location.href}).catch(()=>{});}

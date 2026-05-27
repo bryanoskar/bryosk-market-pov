@@ -10,31 +10,32 @@
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;}
   /* 1080x1920 IG story stage. Screenshot this card. */
   .stage{width:1080px;height:1920px;position:relative;overflow:hidden;color:#fff;
-    background:linear-gradient(160deg,#0c1326 0%,#16284a 50%,#21406f 100%);
-    transform-origin:top center;}
-  .stage::after{content:"";position:absolute;inset:0;
-    background:radial-gradient(900px 500px at 80% 0%,rgba(120,170,255,.22),transparent 60%);}
-  .pad{position:relative;z-index:1;padding:96px 84px;height:100%;display:flex;flex-direction:column;}
+    background:linear-gradient(160deg,#0c1326 0%,#16284a 50%,#21406f 100%);transform-origin:top center;}
+  .stage::after{content:"";position:absolute;inset:0;background:radial-gradient(900px 500px at 80% 0%,rgba(120,170,255,.22),transparent 60%);}
+  .pad{position:relative;z-index:1;padding:88px 84px;height:100%;display:flex;flex-direction:column;}
   .brand{font-size:30px;letter-spacing:.34em;text-transform:uppercase;opacity:.78;font-weight:600;}
-  h1{font-size:96px;font-weight:800;letter-spacing:-.02em;line-height:1.02;margin:18px 0 8px;}
-  .date{font-size:30px;opacity:.7;margin-bottom:46px;}
-  .regime{font-size:26px;letter-spacing:.16em;text-transform:uppercase;opacity:.6;margin-bottom:14px;}
-  .gtrack{height:20px;border-radius:14px;background:linear-gradient(90deg,#e0453e,#e8b13e,#16a36a);position:relative;margin-bottom:14px;}
-  .gmark{position:absolute;top:50%;left:42%;width:38px;height:38px;border-radius:50%;background:#fff;border:7px solid #16284a;transform:translate(-50%,-50%);}
-  .gval{font-size:30px;font-weight:700;opacity:.9;margin-bottom:50px;}
-  .bl{font-size:42px;line-height:1.4;font-weight:500;margin-bottom:54px;}
+  h1{font-size:90px;font-weight:800;letter-spacing:-.02em;line-height:1.02;margin:16px 0 6px;}
+  .date{font-size:29px;opacity:.7;margin-bottom:34px;}
+  .regime{font-size:25px;letter-spacing:.16em;text-transform:uppercase;opacity:.6;margin-bottom:12px;}
+  .gtrack{height:18px;border-radius:14px;background:linear-gradient(90deg,#e0453e,#e8b13e,#16a36a);position:relative;margin-bottom:12px;}
+  .gmark{position:absolute;top:50%;left:42%;width:36px;height:36px;border-radius:50%;background:#fff;border:7px solid #16284a;transform:translate(-50%,-50%);}
+  .gval{font-size:28px;font-weight:700;opacity:.9;margin-bottom:36px;}
+  .bl{font-size:40px;line-height:1.36;font-weight:500;margin-bottom:34px;}
   .bl b{color:#9fc2ff;}
   .levels{display:flex;flex-direction:column;gap:0;border-top:2px solid rgba(255,255,255,.18);}
-  .lrow{display:flex;justify-content:space-between;align-items:center;padding:26px 4px;border-bottom:2px solid rgba(255,255,255,.12);}
-  .la{font-size:40px;font-weight:700;}
+  .lrow{display:flex;justify-content:space-between;align-items:center;padding:20px 4px;border-bottom:2px solid rgba(255,255,255,.12);}
+  .la{font-size:38px;font-weight:700;}
   .lr{display:flex;align-items:baseline;gap:26px;}
-  .ll{font-size:40px;font-weight:700;font-variant-numeric:tabular-nums;}
-  .ld{font-size:36px;font-weight:700;font-variant-numeric:tabular-nums;width:200px;text-align:right;}
+  .ll{font-size:38px;font-weight:700;font-variant-numeric:tabular-nums;}
+  .ld{font-size:34px;font-weight:700;font-variant-numeric:tabular-nums;width:210px;text-align:right;}
   .pos{color:#3ddc97;} .neg{color:#ff6b63;} .flat{color:#c7ccd6;}
-  .tilt{margin-top:auto;background:rgba(255,255,255,.08);border-left:8px solid #9fc2ff;
-    border-radius:14px;padding:34px 38px;font-size:34px;line-height:1.4;}
-  .tilt b{color:#9fc2ff;}
-  .foot{margin-top:34px;font-size:24px;opacity:.55;text-align:center;}
+  .pov{margin-top:auto;background:rgba(255,255,255,.08);border-left:8px solid #9fc2ff;border-radius:14px;padding:28px 34px;}
+  .pov .lbl{font-size:21px;letter-spacing:.16em;text-transform:uppercase;opacity:.58;font-weight:700;margin-bottom:6px;}
+  .pov .txt{font-size:31px;line-height:1.34;margin-bottom:20px;}
+  .pov .txt:last-child{margin-bottom:0;}
+  .pov b{color:#9fc2ff;}
+  .foot{margin-top:26px;font-size:23px;opacity:.6;text-align:center;line-height:1.5;}
+  .foot b{opacity:.9;}
   @media(max-width:1100px){.stage{transform:scale(.42);}}
 </style>
 </head>
@@ -50,17 +51,21 @@
     <div class="gval" id="gv"></div>
 
     <div class="bl" id="bl"></div>
-
     <div class="levels" id="levels"></div>
 
-    <div class="tilt" id="tilt"></div>
-    <div class="foot">Research / education · not financial advice</div>
+    <div class="pov">
+      <div class="lbl">Stance</div>
+      <div class="txt" id="stance"></div>
+      <div class="lbl">Timing · vs current price</div>
+      <div class="txt" id="timing"></div>
+    </div>
+    <div class="foot" id="foot"></div>
   </div>
 </div>
 <script>
-/* shares the same DATA shape as BryOsk-Market-PoV.html — the daily run fills this */
+/* shares the DATA shape with BryOsk-Market-PoV.html — the daily run fills this */
 const DATA={
-  dateLong:"Wednesday, 27 May 2026", riskScore:55, riskLabel:"Neutral, tilting constructive",
+  dateLong:"Wednesday, 27 May 2026", asOf:"27 May · 09:13 UTC", riskScore:55, riskLabel:"Neutral, tilting constructive",
   blShort:"Regime is <b>turning</b>: a dovish-leaning new Fed (Warsh) + Iran de-escalation pull yields down (10Y ~4.48%) and price hikes <em>out</em>. Crypto stabilizing, US stocks at records.",
   key:[
     {a:"BTC",lvl:"$75,881",d:"−1.1%",dir:"neg"},
@@ -71,14 +76,17 @@ const DATA={
     {a:"Hang Seng",lvl:"25,600",d:"flat",dir:"flat"},
     {a:"IHSG",lvl:"6,095",d:"−3.5%",dir:"neg"}
   ],
-  tiltShort:"Lean <b>less defensive</b> as yields fall — constructive on <b>quality growth + crypto</b> if PCE cooperates · <b>HK tech &gt; mainland</b> · sideline Indonesia pre-MSCI (29 May). <b>Med conviction.</b>"
+  stance:"<b>Selectively constructive.</b> Falling yields &amp; a dovish Fed help crypto + quality growth; cautious on China A-shares and Indonesia pre-MSCI (29 May).",
+  timing:"Better risk/reward <b>near support than chasing</b> — BTC basing ~$75k, ETH reclaiming $2,090. Patience into the PCE inflation print."
 };
 const $=i=>document.getElementById(i);
 $("d").textContent=DATA.dateLong;
 $("gv").textContent="Score "+DATA.riskScore+"/100 — "+DATA.riskLabel;
 $("gm").style.left=DATA.riskScore+"%";
 $("bl").innerHTML=DATA.blShort;
-$("tilt").innerHTML=DATA.tiltShort;
+$("stance").innerHTML=DATA.stance;
+$("timing").innerHTML=DATA.timing;
+$("foot").innerHTML="Research / education · <b>not financial advice</b><br>as of "+DATA.asOf+" · live → bryanoskar.github.io/bryosk-market-pov";
 $("levels").innerHTML=DATA.key.map(k=>
   `<div class="lrow"><span class="la">${k.a}</span><span class="lr"><span class="ll">${k.lvl}</span><span class="ld ${k.dir}">${k.d}</span></span></div>`).join("");
 </script>

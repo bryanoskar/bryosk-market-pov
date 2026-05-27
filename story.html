@@ -60,18 +60,18 @@
 <script>
 /* shares the same DATA shape as BryOsk-Market-PoV.html — the daily run fills this */
 const DATA={
-  dateLong:"Wednesday, 27 May 2026", riskScore:42, riskLabel:"Mixed — defensive rotation",
-  blShort:"Equities at records, but a <b>structural rotation into value, energy &amp; defensives</b> is pressuring crypto and gold. The relief rally is narrow.",
+  dateLong:"Wednesday, 27 May 2026", riskScore:55, riskLabel:"Neutral, tilting constructive",
+  blShort:"Regime is <b>turning</b>: a dovish-leaning new Fed (Warsh) + Iran de-escalation pull yields down (10Y ~4.48%) and price hikes <em>out</em>. Crypto stabilizing, US stocks at records.",
   key:[
-    {a:"BTC",lvl:"$75,736",d:"−2.2%",dir:"neg"},
-    {a:"ETH",lvl:"$2,067",d:"−2.7%",dir:"neg"},
-    {a:"Gold",lvl:"$4,498",d:"−1.5%",dir:"neg"},
-    {a:"S&P 500",lvl:"record",d:"+0.6%",dir:"pos"},
-    {a:"10Y",lvl:"4.57%",d:"flat",dir:"flat"},
-    {a:"IHSG",lvl:"6,162",d:"−8.4% wk",dir:"neg"},
-    {a:"USD/IDR",lvl:"17,600",d:"weak",dir:"neg"}
+    {a:"BTC",lvl:"$75,881",d:"−1.1%",dir:"neg"},
+    {a:"ETH",lvl:"$2,090",d:"−0.3%",dir:"neg"},
+    {a:"Gold",lvl:"$4,494",d:"−0.6%",dir:"neg"},
+    {a:"S&P 500",lvl:"7,519",d:"+0.6%",dir:"pos"},
+    {a:"10Y",lvl:"4.48%",d:"↓ 2wk low",dir:"pos"},
+    {a:"Hang Seng",lvl:"25,600",d:"flat",dir:"flat"},
+    {a:"IHSG",lvl:"6,095",d:"−3.5%",dir:"neg"}
   ],
-  tiltShort:"Lean <b>value/defensives + energy</b> over high-beta tech · constructive <b>gold on dips</b> · sideline crypto &amp; EM-Indonesia pre-MSCI (29 May). <b>Med conviction.</b>"
+  tiltShort:"Lean <b>less defensive</b> as yields fall — constructive on <b>quality growth + crypto</b> if PCE cooperates · <b>HK tech &gt; mainland</b> · sideline Indonesia pre-MSCI (29 May). <b>Med conviction.</b>"
 };
 const $=i=>document.getElementById(i);
 $("d").textContent=DATA.dateLong;

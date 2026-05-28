@@ -151,8 +151,6 @@
         {"description":"ETH","proName":"BINANCE:ETHUSDT"},
         {"description":"Gold","proName":"TVC:GOLD"},
         {"description":"WTI","proName":"TVC:USOIL"},
-        {"description":"US 10Y Yield","proName":"TVC:TNX"},
-        {"description":"DXY","proName":"CAPITALCOM:DXY"},
         {"description":"Hang Seng","proName":"HSI:HSI"},
         {"description":"Shanghai","proName":"SSE:000001"},
         {"description":"CSI 300","proName":"SSE:000300"},
@@ -220,14 +218,12 @@
       <div class="seg" id="stkSeg">
         <button class="segbtn active" data-market="us">US</button>
         <button class="segbtn" data-market="id">Indonesia</button>
-        <button class="segbtn" data-market="hk">Hong Kong</button>
         <button class="segbtn" data-market="cn">China</button>
       </div>
       <div id="stkPanel"></div>
       <div id="stocksWidgets">
         <div class="tvbox tvlazy" data-market="us" data-src="https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js" data-cfg='{"colorTheme":"light","dateRange":"1D","exchange":"US","showChart":false,"locale":"en","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":400}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
         <div class="tvbox tvlazy" data-market="id" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"Indonesia Top Caps","originalName":"Indonesia","symbols":[{"name":"IDX:BBCA","displayName":"Bank Central Asia"},{"name":"IDX:BBRI","displayName":"Bank BRI"},{"name":"IDX:BMRI","displayName":"Bank Mandiri"},{"name":"IDX:TLKM","displayName":"Telkom"},{"name":"IDX:ASII","displayName":"Astra Intl"},{"name":"IDX:UNVR","displayName":"Unilever Indonesia"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
-        <div class="tvbox tvlazy" data-market="hk" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"HK / Greater China — US-listed ADRs & ETFs","originalName":"Hong Kong","symbols":[{"name":"NYSE:BABA","displayName":"Alibaba (BABA)"},{"name":"NASDAQ:JD","displayName":"JD.com"},{"name":"NASDAQ:PDD","displayName":"PDD Holdings"},{"name":"NASDAQ:BIDU","displayName":"Baidu"},{"name":"NYSE:HSBC","displayName":"HSBC"},{"name":"AMEX:EWH","displayName":"iShares MSCI Hong Kong"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
         <div class="tvbox tvlazy" data-market="cn" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"China — US-listed ADRs & ETFs","originalName":"China","symbols":[{"name":"AMEX:FXI","displayName":"iShares China Large-Cap"},{"name":"AMEX:ASHR","displayName":"CSI 300 ETF (ASHR)"},{"name":"NYSE:BABA","displayName":"Alibaba"},{"name":"NASDAQ:PDD","displayName":"PDD Holdings"},{"name":"NYSE:NIO","displayName":"NIO"},{"name":"NASDAQ:BIDU","displayName":"Baidu"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
       </div>
     </section>
@@ -345,10 +341,6 @@ const DATA = {
         {sym:"Big-cap banks (BBCA, BBRI)", chg:"heavy", dir:"neg", why:"Index heavyweights bear the brunt of passive MSCI selling + foreign outflows.", lt:"Valuations attractive — wait for the flow cliff to clear post-29 May."},
         {sym:"AMMN / BREN / TPIA", chg:"deleted", dir:"neg", why:"Removed from MSCI Global Standard → forced passive selling.", lt:"Free-float/concentration overhang; structural."}],
       caps:{large:"BBCA, BBRI, BMRI, TLKM, ASII (index heavyweights)", mid:"Domestic-consumption &amp; property mid-caps", small:"IDX SmallCap — illiquid, most MSCI-flow sensitive"} },
-    hk:{ topic:"Hang Seng ~flat (25,600) but Hang Seng TECH +1.6% — HK tech/semis bid even as mainland A-shares derisk.",
-      movers:[
-        {sym:"HK Tech (HSTECH)", chg:"+1.6%", dir:"pos", why:"Electronics/semis rotated into HK as a cheaper China-tech proxy.", lt:"HK tech &gt; mainland near-term; watch 26k Hang Seng break."}],
-      caps:{large:"Tencent (0700), Alibaba (9988), HSBC, Meituan", mid:"HSCEI / HS Tech mid-caps", small:"GEM / small-cap H-shares — thin liquidity"} },
     cn:{ topic:"A-share semis sold hard (Cambricon −5%, Hygon −6%, SMIC −1.7%) — industrial profits +18.2% YoY (Jan–Apr): fundamentals solid, sentiment soft.",
       movers:[
         {sym:"Semis (Cambricon, Hygon)", chg:"−5 to −6%", dir:"neg", why:"Profit-taking; policy/AI-chip headlines.", lt:"Domestic-substitution theme intact long-term; volatile near-term."}],

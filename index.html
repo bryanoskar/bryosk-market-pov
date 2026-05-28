@@ -98,10 +98,15 @@
   /* POSITIONS */
   .posnote{background:rgba(0,68,124,.05); border:1px solid var(--line); border-left:3px solid var(--accent); padding:12px 16px; font-size:12.5px; color:#444; border-radius:8px; margin-bottom:14px;}
   .posnote strong{color:var(--accent);}
+  .poscontrols{display:flex; align-items:center; gap:10px; margin-bottom:14px; flex-wrap:wrap;}
+  .posinput{flex:1; min-width:200px; padding:10px 14px; font-size:13px; border:1px solid var(--line); border-radius:8px; background:var(--card); color:var(--ink); font-family:inherit; outline:none; transition:.15s;}
+  .posinput::placeholder{color:var(--muted);}
+  .posinput:focus{border-color:var(--accent); box-shadow:0 0 0 3px rgba(0,68,124,.1);}
+  .postag{font-size:10.5px; color:var(--muted); letter-spacing:.07em; text-transform:uppercase; font-weight:700; white-space:nowrap;}
   .mkthd{font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--teal); font-weight:700; margin:16px 0 8px;}
   .mkthd:first-child{margin-top:0;}
   .posgrid{display:flex; flex-direction:column; gap:10px;}
-  .poscard{background:var(--card); border:1px solid var(--line); border-left:4px solid; border-radius:10px; padding:14px 16px; box-shadow:0 6px 18px -16px rgba(0,0,0,.25); transition:transform .15s ease, box-shadow .15s ease;}
+  .poscard{background:var(--card); border:1px solid var(--line); border-left:4px solid; border-radius:10px; padding:11px 14px; box-shadow:0 6px 18px -16px rgba(0,0,0,.25); transition:transform .15s ease, box-shadow .15s ease;}
   .poscard:hover{transform:translateY(-1px); box-shadow:0 10px 26px -14px rgba(0,68,124,.3);}
   .poscard.buy{border-left-color:var(--pos);} .poscard.hold{border-left-color:var(--sand2);} .poscard.sell,.poscard.avoid{border-left-color:var(--neg);}
   .poscard .topline{display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; flex-wrap:wrap; gap:8px;}
@@ -110,10 +115,10 @@
   .poscard .badge.buy{background:rgba(22,163,106,.13); color:var(--pos);}
   .poscard .badge.hold{background:rgba(198,195,182,.4); color:#7a7560;}
   .poscard .badge.sell,.poscard .badge.avoid{background:rgba(224,69,62,.13); color:var(--neg);}
-  .poscard .meta{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:7px;}
-  .poscard .thesis{font-size:13.5px; color:#333; margin-bottom:4px;}
+  .poscard .meta{font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:5px;}
+  .poscard .thesis{font-size:12.5px; color:#333; margin-bottom:3px; line-height:1.5;}
   .poscard .thesis strong, .poscard .risk strong{color:var(--accent);}
-  .poscard .risk{font-size:12.5px; color:#555;}
+  .poscard .risk{font-size:12px; color:#555; line-height:1.5;}
 
   .share{position:fixed; right:18px; bottom:18px; z-index:30; background:var(--accent); color:#fff; border:none; border-radius:30px; padding:13px 20px; font-size:14px; font-weight:700; cursor:pointer; box-shadow:0 10px 30px -8px rgba(0,68,124,.6); transition:transform .15s;}
   .share:hover{transform:scale(1.05);}
@@ -146,8 +151,8 @@
         {"description":"ETH","proName":"BINANCE:ETHUSDT"},
         {"description":"Gold","proName":"TVC:GOLD"},
         {"description":"WTI","proName":"TVC:USOIL"},
-        {"description":"US 10Y","proName":"TVC:US10Y"},
-        {"description":"DXY","proName":"TVC:DXY"},
+        {"description":"US 10Y Yield","proName":"TVC:TNX"},
+        {"description":"DXY","proName":"CAPITALCOM:DXY"},
         {"description":"Hang Seng","proName":"HSI:HSI"},
         {"description":"Shanghai","proName":"SSE:000001"},
         {"description":"CSI 300","proName":"SSE:000300"},
@@ -180,7 +185,8 @@
   <div class="tabpanel">
     <section>
       <h2>Positions · Buy / Hold / Sell · focus list</h2>
-      <div class="posnote"><strong>Research / education, not financial advice.</strong> Each rating reflects a personal PoV with stated <strong>conviction</strong> and <strong>time horizon</strong>; size & risk-management are yours. Small-cap exposure uses ETFs / indices as a defensible proxy rather than naming obscure tickers.</div>
+      <div class="posnote"><strong>Research / education, not financial advice.</strong> Each rating reflects a personal PoV with stated <strong>conviction</strong> and <strong>time horizon</strong>; size & risk-management are yours. Small-cap exposure uses ETFs / indices as a defensible proxy.</div>
+      <div class="poscontrols"><input type="text" id="posFilter" placeholder="Filter by ticker, name, market, BUY/HOLD/SELL…" class="posinput" autocomplete="off"><span class="postag" id="posCount"></span></div>
       <div id="positions"></div>
     </section>
   </div>
@@ -221,8 +227,8 @@
       <div id="stocksWidgets">
         <div class="tvbox tvlazy" data-market="us" data-src="https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js" data-cfg='{"colorTheme":"light","dateRange":"1D","exchange":"US","showChart":false,"locale":"en","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":400}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
         <div class="tvbox tvlazy" data-market="id" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"Indonesia Top Caps","originalName":"Indonesia","symbols":[{"name":"IDX:BBCA","displayName":"Bank Central Asia"},{"name":"IDX:BBRI","displayName":"Bank BRI"},{"name":"IDX:BMRI","displayName":"Bank Mandiri"},{"name":"IDX:TLKM","displayName":"Telkom"},{"name":"IDX:ASII","displayName":"Astra Intl"},{"name":"IDX:UNVR","displayName":"Unilever Indonesia"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
-        <div class="tvbox tvlazy" data-market="hk" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"Hong Kong Top Caps","originalName":"Hong Kong","symbols":[{"name":"HKEX:700","displayName":"Tencent"},{"name":"HKEX:9988","displayName":"Alibaba"},{"name":"HKEX:5","displayName":"HSBC"},{"name":"HKEX:3690","displayName":"Meituan"},{"name":"HKEX:1211","displayName":"BYD"},{"name":"HKEX:9618","displayName":"JD.com"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
-        <div class="tvbox tvlazy" data-market="cn" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"China A-shares Top Caps","originalName":"China","symbols":[{"name":"SSE:600519","displayName":"Kweichow Moutai"},{"name":"SSE:601398","displayName":"ICBC"},{"name":"SZSE:300750","displayName":"CATL"},{"name":"SZSE:002594","displayName":"BYD"},{"name":"SSE:601318","displayName":"Ping An"},{"name":"SSE:688981","displayName":"SMIC"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
+        <div class="tvbox tvlazy" data-market="hk" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"HK / Greater China — US-listed ADRs & ETFs","originalName":"Hong Kong","symbols":[{"name":"NYSE:BABA","displayName":"Alibaba (BABA)"},{"name":"NASDAQ:JD","displayName":"JD.com"},{"name":"NASDAQ:PDD","displayName":"PDD Holdings"},{"name":"NASDAQ:BIDU","displayName":"Baidu"},{"name":"NYSE:HSBC","displayName":"HSBC"},{"name":"AMEX:EWH","displayName":"iShares MSCI Hong Kong"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
+        <div class="tvbox tvlazy" data-market="cn" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"China — US-listed ADRs & ETFs","originalName":"China","symbols":[{"name":"AMEX:FXI","displayName":"iShares China Large-Cap"},{"name":"AMEX:ASHR","displayName":"CSI 300 ETF (ASHR)"},{"name":"NYSE:BABA","displayName":"Alibaba"},{"name":"NASDAQ:PDD","displayName":"PDD Holdings"},{"name":"NYSE:NIO","displayName":"NIO"},{"name":"NASDAQ:BIDU","displayName":"Baidu"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
       </div>
     </section>
     <section><h2>Equity Technicals</h2><ul id="techEquity"></ul></section>
@@ -435,6 +441,26 @@ $("sources").innerHTML="Sources: "+DATA.sources.map(s=>`<a href="${s[1]}" target
     html+="</div>";
   });
   $("positions").innerHTML=html;
+})();
+/* positions filter */
+(function(){
+  const inp=$("posFilter"), cnt=$("posCount");
+  function update(){
+    const q=inp.value.toLowerCase().trim(); let visible=0;
+    document.querySelectorAll("#positions .poscard").forEach(c=>{
+      const show=!q || c.textContent.toLowerCase().includes(q);
+      c.style.display=show?"":"none"; if(show) visible++;
+    });
+    document.querySelectorAll("#positions .mkthd").forEach(h=>{
+      const grid=h.nextElementSibling;
+      if(grid && grid.classList.contains("posgrid")){
+        const any=[...grid.children].some(c=>c.style.display!=="none");
+        h.style.display=any?"":"none"; grid.style.display=any?"":"none";
+      }
+    });
+    cnt.textContent=visible+" of "+DATA.positions.length+" shown";
+  }
+  inp.addEventListener("input",update); update();
 })();
 
 /* ====== TABS + motion ====== */

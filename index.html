@@ -11,14 +11,10 @@
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth; -webkit-text-size-adjust:100%;}
-  body{background:var(--bg); color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
-    line-height:1.6; font-size:16px; -webkit-font-smoothing:antialiased;}
+  body{background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif; line-height:1.6; font-size:16px; -webkit-font-smoothing:antialiased;}
   .wrap{max-width:780px; margin:0 auto; padding:0 22px 90px;}
 
-  .hero{position:relative; overflow:hidden; border-radius:0 0 22px 22px;
-    background:linear-gradient(135deg,var(--navy) 0%,var(--accent) 58%,var(--teal) 120%);
-    color:#fff; padding:42px 30px 30px; margin:0 -22px 0; box-shadow:0 18px 50px -24px rgba(0,39,86,.6);}
+  .hero{position:relative; overflow:hidden; border-radius:0 0 22px 22px; background:linear-gradient(135deg,var(--navy) 0%,var(--accent) 58%,var(--teal) 120%); color:#fff; padding:42px 30px 30px; margin:0 -22px 0; box-shadow:0 18px 50px -24px rgba(0,39,86,.6);}
   .hero::after{content:""; position:absolute; inset:0; background:radial-gradient(800px 300px at 80% -10%,rgba(120,190,220,.28),transparent 60%); animation:drift 14s ease-in-out infinite alternate;}
   @keyframes drift{from{transform:translateX(-30px)} to{transform:translateX(30px)}}
   .brand{font-size:12px; letter-spacing:.28em; text-transform:uppercase; opacity:.78; font-weight:600; position:relative; z-index:1;}
@@ -40,7 +36,6 @@
   .tab:hover{color:var(--ink);}
   .tab.active{color:#fff; background:var(--accent); box-shadow:0 6px 16px -10px rgba(0,68,124,.8);}
   .tabind{position:absolute; bottom:6px; left:0; width:0; height:3px; background:var(--teal); border-radius:3px; transition:left .32s cubic-bezier(.2,.8,.2,1), width .32s cubic-bezier(.2,.8,.2,1);}
-
   .tabpanel{display:none;}
   .tabpanel.active{display:block; animation:panelIn .42s ease;}
   @keyframes panelIn{from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none}}
@@ -100,6 +95,26 @@
   .scard.bull .sh{color:var(--pos);} .scard.base .sh{color:#8a8674;} .scard.bear .sh{color:var(--neg);}
   .scard .prob{float:right; font-size:12px; color:var(--muted); font-weight:700;} .scard .sp{font-size:13.5px; color:#444;}
 
+  /* POSITIONS */
+  .posnote{background:rgba(0,68,124,.05); border:1px solid var(--line); border-left:3px solid var(--accent); padding:12px 16px; font-size:12.5px; color:#444; border-radius:8px; margin-bottom:14px;}
+  .posnote strong{color:var(--accent);}
+  .mkthd{font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--teal); font-weight:700; margin:16px 0 8px;}
+  .mkthd:first-child{margin-top:0;}
+  .posgrid{display:flex; flex-direction:column; gap:10px;}
+  .poscard{background:var(--card); border:1px solid var(--line); border-left:4px solid; border-radius:10px; padding:14px 16px; box-shadow:0 6px 18px -16px rgba(0,0,0,.25); transition:transform .15s ease, box-shadow .15s ease;}
+  .poscard:hover{transform:translateY(-1px); box-shadow:0 10px 26px -14px rgba(0,68,124,.3);}
+  .poscard.buy{border-left-color:var(--pos);} .poscard.hold{border-left-color:var(--sand2);} .poscard.sell,.poscard.avoid{border-left-color:var(--neg);}
+  .poscard .topline{display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; flex-wrap:wrap; gap:8px;}
+  .poscard .sym{font-weight:800; font-size:15.5px;} .poscard .sym small{color:var(--muted); font-weight:600; font-size:13px; margin-left:4px;}
+  .poscard .badge{font-size:10.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; padding:4px 11px; border-radius:14px;}
+  .poscard .badge.buy{background:rgba(22,163,106,.13); color:var(--pos);}
+  .poscard .badge.hold{background:rgba(198,195,182,.4); color:#7a7560;}
+  .poscard .badge.sell,.poscard .badge.avoid{background:rgba(224,69,62,.13); color:var(--neg);}
+  .poscard .meta{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:7px;}
+  .poscard .thesis{font-size:13.5px; color:#333; margin-bottom:4px;}
+  .poscard .thesis strong, .poscard .risk strong{color:var(--accent);}
+  .poscard .risk{font-size:12.5px; color:#555;}
+
   .share{position:fixed; right:18px; bottom:18px; z-index:30; background:var(--accent); color:#fff; border:none; border-radius:30px; padding:13px 20px; font-size:14px; font-weight:700; cursor:pointer; box-shadow:0 10px 30px -8px rgba(0,68,124,.6); transition:transform .15s;}
   .share:hover{transform:scale(1.05);}
   .foot{margin-top:34px; padding-top:16px; border-top:1px solid var(--line); font-size:12px; color:var(--muted);}
@@ -116,11 +131,7 @@
     <div class="brand">BryOsk · Market PoV</div>
     <h1>Cross-Asset Read</h1>
     <div class="date" id="dateline"></div>
-    <div class="gauge">
-      <div class="lab"><span>Risk-Off</span><span>Neutral</span><span>Risk-On</span></div>
-      <div class="gtrack"><div class="gmark" id="gmark"></div></div>
-      <div class="gval" id="gval"></div>
-    </div>
+    <div class="gauge"><div class="lab"><span>Risk-Off</span><span>Neutral</span><span>Risk-On</span></div><div class="gtrack"><div class="gmark" id="gmark"></div></div><div class="gval" id="gval"></div></div>
   </div>
 
   <div class="tickerwrap">
@@ -149,6 +160,7 @@
 
   <div class="tabbar" id="tabbar">
     <button class="tab active">Overview</button>
+    <button class="tab">Positions</button>
     <button class="tab">Crypto</button>
     <button class="tab">Stocks</button>
     <button class="tab">Macro &amp; Global</button>
@@ -162,6 +174,15 @@
     <section><h2>Cross-Asset Snapshot · crypto live · tap a row for chart</h2><div class="rows" id="rows"></div></section>
     <section><h2>Bull · Base · Bear · whole market</h2><div class="scen" id="scenOverview"></div></section>
     <section><h2>Conviction Tilt</h2><div class="tilt" id="tilt"></div></section>
+  </div>
+
+  <!-- POSITIONS -->
+  <div class="tabpanel">
+    <section>
+      <h2>Positions · Buy / Hold / Sell · focus list</h2>
+      <div class="posnote"><strong>Research / education, not financial advice.</strong> Each rating reflects a personal PoV with stated <strong>conviction</strong> and <strong>time horizon</strong>; size & risk-management are yours. Small-cap exposure uses ETFs / indices as a defensible proxy rather than naming obscure tickers.</div>
+      <div id="positions"></div>
+    </section>
   </div>
 
   <!-- CRYPTO -->
@@ -199,9 +220,9 @@
       <div id="stkPanel"></div>
       <div id="stocksWidgets">
         <div class="tvbox tvlazy" data-market="us" data-src="https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js" data-cfg='{"colorTheme":"light","dateRange":"1D","exchange":"US","showChart":false,"locale":"en","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":400}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
-        <div class="tvbox tvlazy" data-market="id" data-src="https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js" data-cfg='{"colorTheme":"light","dateRange":"1D","exchange":"IDX","showChart":false,"locale":"en","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":400}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
+        <div class="tvbox tvlazy" data-market="id" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"Indonesia Top Caps","originalName":"Indonesia","symbols":[{"name":"IDX:BBCA","displayName":"Bank Central Asia"},{"name":"IDX:BBRI","displayName":"Bank BRI"},{"name":"IDX:BMRI","displayName":"Bank Mandiri"},{"name":"IDX:TLKM","displayName":"Telkom"},{"name":"IDX:ASII","displayName":"Astra Intl"},{"name":"IDX:UNVR","displayName":"Unilever Indonesia"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
         <div class="tvbox tvlazy" data-market="hk" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"Hong Kong Top Caps","originalName":"Hong Kong","symbols":[{"name":"HKEX:700","displayName":"Tencent"},{"name":"HKEX:9988","displayName":"Alibaba"},{"name":"HKEX:5","displayName":"HSBC"},{"name":"HKEX:3690","displayName":"Meituan"},{"name":"HKEX:1211","displayName":"BYD"},{"name":"HKEX:9618","displayName":"JD.com"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
-        <div class="tvbox tvlazy" data-market="cn" data-src="https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js" data-cfg='{"colorTheme":"light","dateRange":"1D","exchange":"SSE","showChart":false,"locale":"en","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":400}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
+        <div class="tvbox tvlazy" data-market="cn" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"China A-shares Top Caps","originalName":"China","symbols":[{"name":"SSE:600519","displayName":"Kweichow Moutai"},{"name":"SSE:601398","displayName":"ICBC"},{"name":"SZSE:300750","displayName":"CATL"},{"name":"SZSE:002594","displayName":"BYD"},{"name":"SSE:601318","displayName":"Ping An"},{"name":"SSE:688981","displayName":"SMIC"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
       </div>
     </section>
     <section><h2>Equity Technicals</h2><ul id="techEquity"></ul></section>
@@ -226,7 +247,7 @@
   </div>
 
   <div class="foot">
-    <strong>Research / education, not financial advice.</strong> Ticker tape, crypto rows, leaderboard, cap-tiers &amp; stock-mover panels update <strong>live</strong> in your browser (CoinGecko + TradingView). Written analysis, scenarios, technicals, derivatives &amp; funding are authored as of the date above; stock cap-tier names are illustrative.
+    <strong>Research / education, not financial advice.</strong> Ticker tape, crypto rows, leaderboard, cap-tiers &amp; stock-mover panels update <strong>live</strong> in your browser (CoinGecko + TradingView). Written analysis, positions, scenarios, technicals, derivatives &amp; funding are authored as of the date above; stock cap-tier names are illustrative; small-cap exposure uses ETFs / indices as proxy.
     <div class="src" id="sources"></div>
   </div>
 </div>
@@ -235,116 +256,135 @@
 <script>
 /* ====== DATA — the daily run replaces ONLY this object ====== */
 const DATA = {
-  dateLong:"Wednesday, 27 May 2026",
-  feedTime:"2026-05-27 09:29 UTC",
-  riskScore:55, riskLabel:"Neutral, tilting constructive — the rates headwind is reversing",
-  bottomLine:"The regime is <strong>turning</strong>: a newly sworn-in, easing-leaning Fed (Warsh) + US–Iran de-escalation is pulling yields down (<strong>10Y ~4.48%</strong>) and pricing <em>out</em> the hikes that hammered crypto. Crypto is basing, US equities at records. Offsets: mainland-China tech/semi selling, Indonesia's 29 May MSCI outflow cliff, and the PCE inflation print as the swing event.",
+  dateLong:"Thursday, 28 May 2026",
+  feedTime:"2026-05-28 14:48 UTC",
+  riskScore:42, riskLabel:"Defensive bias — crypto broke down despite falling yields; awaiting PCE",
+  bottomLine:"Crypto <strong>broke down</strong>: BTC lost the $74.2k 'bear-trigger' from yesterday's note → <strong>$72,900 (−2.8%)</strong>, ETH worse at <strong>$1,987 (−3.4%)</strong>. The dovish-Fed + Iran-de-escalation backdrop (10Y ~4.48%) <em>hasn't been enough</em> — risk-off is leaking out via crypto first. US equities still near records, gold catching a slight safe-haven bid. <strong>PCE</strong> remains the swing event.",
   snapshot:[
-    {a:"BTC",cg:"bitcoin",lvl:"$75,704",d:"−1.2%",dir:"neg",mag:22,drv:"Basing; holding the $75.2k shelf",url:"https://www.tradingview.com/symbols/BTCUSD/"},
-    {a:"ETH",cg:"ethereum",lvl:"$2,078",d:"−0.8%",dir:"neg",mag:15,drv:"Holding ~$2,078 as yields ease",url:"https://www.tradingview.com/symbols/ETHUSD/"},
-    {a:"SOL",cg:"solana",lvl:"$83.5",d:"−1.2%",dir:"neg",mag:21,drv:"Softer with majors",url:"https://www.tradingview.com/symbols/SOLUSD/"},
-    {a:"XRP",cg:"ripple",lvl:"$1.33",d:"−1.0%",dir:"neg",mag:18,drv:"Softer with majors",url:"https://www.tradingview.com/symbols/XRPUSD/"},
-    {a:"Gold",lvl:"$4,490",d:"−0.8%",dir:"neg",mag:14,drv:"Premium bleeding on de-escalation",url:"https://www.tradingview.com/symbols/XAUUSD/"},
-    {a:"S&P 500",lvl:"7,519",d:"+0.6%",dir:"pos",mag:11,drv:"Record close; Micron +19% (>$1T)",url:"https://www.tradingview.com/symbols/SPX/"},
-    {a:"Nasdaq",lvl:"26,656",d:"+1.2%",dir:"pos",mag:22,drv:"Record; tech leadership",url:"https://www.tradingview.com/symbols/IXIC/"},
-    {a:"10Y UST",lvl:"~4.48%",d:"↓ 2-wk low",dir:"flat",mag:14,drv:"Warsh + Iran → hikes priced out",url:"https://www.tradingview.com/symbols/TVC-US10Y/"},
-    {a:"Shanghai",lvl:"4,094",d:"−1.3%",dir:"neg",mag:24,drv:"Semis/tech sold (Cambricon −5%)",url:"https://www.tradingview.com/symbols/SSE-000001/"},
-    {a:"CSI 300",lvl:"~4,922",d:"soft",dir:"neg",mag:12,drv:"Mainland tech drag",url:"https://www.tradingview.com/symbols/SSE-000300/"},
-    {a:"Hang Seng",lvl:"~25,600",d:"flat",dir:"flat",mag:6,drv:"HS Tech +1.6% — HK tech diverging up",url:"https://www.tradingview.com/symbols/HSI-HSI/"},
-    {a:"WTI",lvl:"falling",d:"↓",dir:"neg",mag:30,drv:"Hormuz reopening optimism",url:"https://www.tradingview.com/symbols/TVC-USOIL/"},
-    {a:"IHSG",lvl:"~6,095",d:"−3.5%",dir:"neg",mag:63,drv:"MSCI 29 May outflow overhang",url:"https://www.tradingview.com/symbols/IDX-COMPOSITE/"},
-    {a:"USD/IDR",lvl:"~17,597",d:"weak",dir:"neg",mag:42,drv:"Rp49.3T YTD foreign selling",url:"https://www.tradingview.com/symbols/USDIDR/"}
+    {a:"BTC",cg:"bitcoin",lvl:"$72,900",d:"−2.8%",dir:"neg",mag:50,drv:"Broke $74.2k → bear-case trigger active",url:"https://www.tradingview.com/symbols/BTCUSD/"},
+    {a:"ETH",cg:"ethereum",lvl:"$1,987",d:"−3.4%",dir:"neg",mag:62,drv:"Broke $2,053 support; worse than BTC",url:"https://www.tradingview.com/symbols/ETHUSD/"},
+    {a:"SOL",cg:"solana",lvl:"$80.8",d:"−3.4%",dir:"neg",mag:62,drv:"Lost $82.7; next $76",url:"https://www.tradingview.com/symbols/SOLUSD/"},
+    {a:"XRP",cg:"ripple",lvl:"$1.30",d:"−2.2%",dir:"neg",mag:40,drv:"Lost $1.32; broader crypto risk-off",url:"https://www.tradingview.com/symbols/XRPUSD/"},
+    {a:"Gold",lvl:"$4,459",d:"+0.4%",dir:"pos",mag:8,drv:"Slight safe-haven bid as crypto fell",url:"https://www.tradingview.com/symbols/XAUUSD/"},
+    {a:"S&P 500",lvl:"7,519",d:"+0.6%",dir:"pos",mag:11,drv:"Records held (as of 26 May close)",url:"https://www.tradingview.com/symbols/SPX/"},
+    {a:"Nasdaq",lvl:"26,656",d:"+1.2%",dir:"pos",mag:22,drv:"Tech leadership (26 May close)",url:"https://www.tradingview.com/symbols/IXIC/"},
+    {a:"10Y UST",lvl:"~4.48%",d:"flat",dir:"flat",mag:8,drv:"Range-bound post-Warsh; PCE looms",url:"https://www.tradingview.com/symbols/TVC-US10Y/"},
+    {a:"Shanghai",lvl:"4,094",d:"−1.3%",dir:"neg",mag:24,drv:"Semis still under pressure",url:"https://www.tradingview.com/symbols/SHCOMP/"},
+    {a:"CSI 300",lvl:"~4,922",d:"soft",dir:"neg",mag:12,drv:"Mainland tech drag persists",url:"https://www.tradingview.com/symbols/000300/"},
+    {a:"Hang Seng",lvl:"~25,600",d:"flat",dir:"flat",mag:6,drv:"HS Tech holding the relative-strength leadership",url:"https://www.tradingview.com/symbols/HSI/"},
+    {a:"WTI",lvl:"~$93",d:"weak",dir:"neg",mag:28,drv:"Hormuz reopening optimism capping",url:"https://www.tradingview.com/symbols/TVC-USOIL/"},
+    {a:"IHSG",lvl:"~6,095",d:"weak",dir:"neg",mag:50,drv:"29 May MSCI outflow cliff tomorrow",url:"https://www.tradingview.com/symbols/IDX-COMPOSITE/"},
+    {a:"USD/IDR",lvl:"~17,597",d:"weak",dir:"neg",mag:42,drv:"Rupiah pinned at stress highs",url:"https://www.tradingview.com/symbols/USDIDR/"}
+  ],
+  positions:[
+    /* CRYPTO */
+    {sym:"BTC", name:"Bitcoin", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Med", horizon:"1–3m", thesis:"Lost the $74.2k bear-trigger; OI rebuilt ~3% as price fell (new shorts opening) with basis still ~flat (some dip-buying). Wait for a $75k reclaim before fresh adds, or capitulation to $68–70k for a higher-conviction entry.", risk:"Loses $72k → cascading liquidations toward $68–70k. A hot PCE keeps shorts in control."},
+    {sym:"ETH", name:"Ethereum", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Low–Med", horizon:"1–3m", thesis:"Broke harder than BTC (−3.4%); relative weakness vs BTC returning. Needs to hold $1,950 and reclaim $2,053 to turn. No rush.", risk:"Loses $1,950 → opens $1,800s. Crypto-wide risk-off persists."},
+    /* US */
+    {sym:"NVDA", name:"Nvidia", market:"US", cap:"Mega cap", position:"BUY", conviction:"High", horizon:"6–12m", thesis:"Structural AI / data-center spend; falling-yield regime is a duration tailwind for quality growth. Buy meaningful pullbacks, not chases.", risk:"AI-capex pause, China export-rule tightening, or sentiment unwind off rich multiples."},
+    {sym:"MU", name:"Micron", market:"US", cap:"Large cap", position:"HOLD", conviction:"Med", horizon:"3–6m", thesis:"HBM/AI-memory super-cycle is real — but the +19% spike past $1T and parabolic move makes the tactical setup stretched. Wait for a 10–15% pullback.", risk:"Memory's notorious cyclicality, demand digestion, and a premium valuation after a big run."},
+    {sym:"XLE", name:"Energy Select Sector ETF", market:"US", cap:"Large-cap ETF", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"YTD sector leader (+22%) on capex discipline + cyclical rotation. The Iran de-escalation oil dip improves the entry, not the thesis.", risk:"Sustained oil weakness if a real Iran deal lands. Hedge ideas: pair with quality growth."},
+    {sym:"IWM", name:"iShares Russell 2000 (US small-cap proxy)", market:"US", cap:"Small-cap ETF", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"Small-caps are most rate-sensitive; falling yields broaden the rally beyond mega-cap AI. The Warsh-Fed regime + soft PCE = the bull setup.", risk:"A hot PCE snaps yields back up and reverses the rotation hardest in small-caps."},
+    /* HONG KONG */
+    {sym:"0700.HK", name:"Tencent", market:"Hong Kong", cap:"Mega cap", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"HK tech bid intact (HS Tech +1.6%); cheaper-than-mainland China-tech exposure with gaming, cloud and ad recovery. Best HK liquid name.", risk:"Mainland regulatory headlines, weak China consumer demand, or A-share semis dragging sentiment."},
+    {sym:"HSCEI", name:"HK H-share Mid/Small proxy", market:"Hong Kong", cap:"Mid/Small-cap ETF", position:"HOLD", conviction:"Low", horizon:"3–6m", thesis:"HK mid/small-caps as a torque trade IF China sentiment turns — but conviction is low until the mainland semis sell-off stabilises.", risk:"Thin liquidity, China headline-sensitive, and mainland weakness can drag."},
+    /* CHINA */
+    {sym:"CSI 1000", name:"Mainland small-cap proxy (CSI 1000 ETF)", market:"China", cap:"Small-cap ETF", position:"HOLD", conviction:"Low", horizon:"3–6m", thesis:"Industrial profits +18.2% YoY say the fundamentals are okay, but the tech/semis selloff says sentiment isn't. Wait for stabilisation; HK > mainland near-term.", risk:"Continued A-share derisking; policy disappointment; passive outflows."},
+    /* INDONESIA */
+    {sym:"BBCA", name:"Bank Central Asia", market:"Indonesia", cap:"Large cap", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"Dominant banking franchise, structurally profitable, cheap valuation. Wait for the 29 May MSCI passive-flow cliff to clear, then accumulate.", risk:"Rupiah continues weak past Bank Indonesia's 5.25% defence; broader EM derisking."},
+    {sym:"IDX SmallCap", name:"IDX SmallCap Index (proxy via ETF/basket)", market:"Indonesia", cap:"Small-cap proxy", position:"AVOID", conviction:"Med", horizon:"1–3m", thesis:"Most MSCI-flow sensitive segment; 29 May rebalance = peak forced selling. Capitulation in progress.", risk:"A sharp post-29 May snapback if the flow cliff is fully digested; revisit then."}
   ],
   derivFlow:[
-    "<strong>BTC perp OI ~6,360 contracts</strong> — flat after the $657M long-liquidation flush. Leverage reset; basing on lighter OI is healthy consolidation, not distribution.",
-    "<strong>ETH OI steady ~184k</strong> as price holds ~$2,078 — mild short-covering / cautious re-leveraging.",
-    "<strong>24h perp turnover ~$690M BTC / ~$260M ETH</strong> — real participation, no euphoric crowded-long rebuild.",
-    "<em>Proxy note:</em> OI &amp; volume from the connected feed — positioning flow as of the timestamp above, not browser-live spot exchange netflows."
+    "<strong>BTC perp OI ~6,550 (up ~3% from 6,360)</strong> as price broke $74.2k → fresh positioning <em>during</em> the move, predominantly new shorts opening.",
+    "<strong>ETH OI ~184k roughly flat</strong> despite the harder −3.4% break — capitulation/long-puke without aggressive new shorting yet.",
+    "<strong>24h perp turnover ~$740M BTC / ~$360M ETH</strong> — elevated participation in the break (vs $690M / $260M yesterday); real flow, not a low-vol drift lower.",
+    "<em>Proxy note:</em> OI &amp; volume from the connected feed at the timestamp above — positioning flow, not browser-live spot exchange netflows."
   ],
   funding:[
-    "<strong>BTC perp ~flat to index</strong> (mark $75,708 vs index $75,701) → funding neutral: no crowded longs after the flush.",
-    "<strong>ETH perp ~flat to index</strong> (mark $2,078 vs index $2,078) → neutral funding; balanced positioning as price holds.",
-    "<strong>Leverage reset, not stretched</strong> (BTC OI ~6,360 / ETH ~184k) — balanced positioning lowers downside fragility, leaves upside room if PCE cooperates.",
-    "<em>Proxy note:</em> basis (perp vs index) + OI from the feed as of the timestamp above — a funding-pressure proxy, not a third-party aggregated funding index."
+    "<strong>BTC perp ~+0.02% to index</strong> (mark $72,753 vs index $72,740) → a tiny premium = some dip-buying despite the OI rise. Mixed signal: shorts building under the surface, dip-buyers absorbing.",
+    "<strong>Net read:</strong> bearish positioning building but NOT yet a euphoric crowded-short. That's actually <strong>squeeze fuel</strong> on any soft-PCE / risk-on catalyst.",
+    "<strong>Leverage tilting up on shorts</strong> (BTC OI +3% during sell-off = classic short-build during weakness).",
+    "<em>Proxy note:</em> basis (perp vs index) + OI from the feed as of the timestamp above — funding-pressure proxy, not a third-party aggregated funding index."
   ],
   techCrypto:[
-    "<strong>BTC $75.7k</strong> — basing on the $75.2k shelf; resistance $77.3–78.0k, support $75.2k then $74.2k. Reclaim $78k = trend repair.",
-    "<strong>ETH $2,078</strong> — above $2,053 support, pressing $2,139 resistance; relative strength improving vs BTC.",
-    "<strong>SOL $83.5</strong> — support $82.7 / resistance $86.1; range-bound with majors.",
-    "<strong>XRP $1.33</strong> — support $1.32 / resistance $1.36; coiling."
+    "<strong>BTC $72.9k</strong> — lost the $74.2k bear-trigger. Support: $72k → $68–70k zone. Resistance: $74.2k (now overhead) → $75.7k → $77.3k. Bias bearish until $75k reclaim.",
+    "<strong>ETH $1,987</strong> — broke $2,053. Support: $1,950 → $1,850. Resistance: $2,053 → $2,139. Relative weakness vs BTC returning.",
+    "<strong>SOL $80.8</strong> — lost $82.7. Support: $79.9 → $76. Resistance: $82.7 → $86.",
+    "<strong>XRP $1.30</strong> — lost $1.32. Support: $1.27 → $1.24. Resistance: $1.32 → $1.36.",
+    "<strong>Gold $4,459</strong> — holding $4,440 zone; resistance $4,538. Modest safe-haven bid as crypto fell."
   ],
   techEquity:[
-    "<strong>S&P 500 7,519</strong> — record-high regime; support 7,400 / no overhead resistance (price discovery). Trend up while above 50-DMA.",
-    "<strong>Nasdaq 26,656</strong> — leadership index, extended; AI/semis carrying breadth — watch for narrowing.",
+    "<strong>S&amp;P 500 7,519</strong> — record-high regime intact; support 7,400. Trend up while above 50-DMA.",
+    "<strong>Nasdaq 26,656</strong> — AI/semis carrying breadth; narrowing leadership a watchpoint.",
     "<strong>Shanghai 4,094</strong> — below 4,150 resistance; support ~4,050. Semis the drag.",
-    "<strong>CSI 300 ~4,922</strong> — capped near 4,950; mainland needs a semis stabilisation to turn.",
-    "<strong>Hang Seng ~25,600</strong> — coiling; HS Tech leading — break 26k = HK risk-on confirmation.",
-    "<strong>IHSG ~6,095</strong> — heavy into 29 May MSCI; key support 6,000, then the prior 5,900s air-pocket."
+    "<strong>CSI 300 ~4,922</strong> — capped near 4,950; needs semis stabilisation.",
+    "<strong>Hang Seng ~25,600</strong> — coiling; HS Tech leading — 26k break = HK risk-on confirmation.",
+    "<strong>IHSG ~6,095</strong> — heavy into 29 May MSCI; key support 6,000."
   ],
   techMacro:[
-    "<strong>Gold $4,490</strong> — support $4,475 / resistance $4,538; structurally firm, tactically soft on de-escalation.",
-    "<strong>WTI &lt;$93</strong> — 5-week low; broken support, next demand zone ~$90. Capped while Hormuz reopens.",
-    "<strong>US 10Y ~4.48%</strong> — broke to a 2-week low; below 4.45% opens 4.30%. The swing variable for risk.",
-    "<strong>DXY ~99.3</strong> — range-bound; a break under 98.5 would broaden the risk-on/EM relief.",
-    "<strong>USD/IDR ~17,597</strong> — rupiah at stress highs; BI defending, but flows dominate into 29 May."
+    "<strong>Gold $4,459</strong> — support $4,440 / resistance $4,538; modest safe-haven bid today.",
+    "<strong>WTI ~$93</strong> — broken support; demand zone ~$90. Capped while Hormuz reopens.",
+    "<strong>US 10Y ~4.48%</strong> — sitting at 2-week low; below 4.45% opens 4.30%. The swing variable.",
+    "<strong>DXY ~99.3</strong> — range-bound; sub-98.5 break would broaden EM relief.",
+    "<strong>USD/IDR ~17,597</strong> — stress highs; BI defending, flows dominate into 29 May."
   ],
   stockMarkets:{
-    us:{ topic:"AI/memory mania (Micron +19%, >$1T) + a dovish new Fed (Warsh) drove fresh records; energy lagged as oil fell.",
+    us:{ topic:"AI/memory mania (Micron +19%, >$1T) + dovish new Fed (Warsh) drove fresh records (26 May close); energy lagged as oil fell.",
       movers:[
-        {sym:"Micron (MU)", chg:"+19%", dir:"pos", why:"Crossed $1T on AI/HBM demand; UBS sees &gt;100% upside.", lt:"Structural HBM supercycle tailwind; risk = memory cyclicality + rich valuation."},
-        {sym:"Energy (XLE)", chg:"laggard", dir:"neg", why:"Steepest sector drop as WTI slid on Iran de-escalation.", lt:"Capped near-term; capex discipline supports longer-term."}],
-      caps:{large:"Nvidia, Microsoft, Micron (AI mega-caps leading)", mid:"S&P MidCap 400 / MDY — cyclical & industrial tilt", small:"Russell 2000 / IWM — rate-sensitive, perks up as yields fall"} },
+        {sym:"Micron (MU)", chg:"+19%", dir:"pos", why:"Crossed $1T on AI/HBM demand; UBS sees &gt;100% upside.", lt:"Structural HBM tailwind; risk = memory cyclicality + rich valuation."},
+        {sym:"Energy (XLE)", chg:"laggard", dir:"neg", why:"Steepest sector drop as WTI slid on de-escalation.", lt:"Capped near-term; capex discipline supports longer-term."}],
+      caps:{large:"Nvidia, Microsoft, Micron (AI mega-caps leading)", mid:"S&P MidCap 400 / MDY — cyclical &amp; industrial tilt", small:"Russell 2000 / IWM — rate-sensitive, perks up as yields fall"} },
     id:{ topic:"29 May MSCI rebalance forcing ~$1.8B / Rp18.5T passive outflows; IHSG ~6,095, rupiah ~17,597; banks under pressure.",
       movers:[
-        {sym:"Big-cap banks (BBCA, BBRI)", chg:"heavy", dir:"neg", why:"Index heavyweights bear the brunt of passive MSCI selling + foreign outflows.", lt:"Cheap valuations building, but wait for the flow cliff to clear post-29 May."},
-        {sym:"AMMN / BREN / TPIA", chg:"deleted", dir:"neg", why:"Removed from MSCI Global Standard → forced passive selling.", lt:"Free-float/concentration overhang; structural, not just cyclical."}],
-      caps:{large:"BBCA, BBRI, BMRI, TLKM, ASII (index heavyweights)", mid:"Domestic-consumption & property mid-caps", small:"IDX SmallCap — illiquid, most MSCI-flow sensitive"} },
+        {sym:"Big-cap banks (BBCA, BBRI)", chg:"heavy", dir:"neg", why:"Index heavyweights bear the brunt of passive MSCI selling + foreign outflows.", lt:"Valuations attractive — wait for the flow cliff to clear post-29 May."},
+        {sym:"AMMN / BREN / TPIA", chg:"deleted", dir:"neg", why:"Removed from MSCI Global Standard → forced passive selling.", lt:"Free-float/concentration overhang; structural."}],
+      caps:{large:"BBCA, BBRI, BMRI, TLKM, ASII (index heavyweights)", mid:"Domestic-consumption &amp; property mid-caps", small:"IDX SmallCap — illiquid, most MSCI-flow sensitive"} },
     hk:{ topic:"Hang Seng ~flat (25,600) but Hang Seng TECH +1.6% — HK tech/semis bid even as mainland A-shares derisk.",
       movers:[
-        {sym:"HK Tech (HSTECH)", chg:"+1.6%", dir:"pos", why:"Electronics/semis rotated into HK as a cheaper China-tech proxy.", lt:"HK tech &gt; mainland near-term; watch a 26k Hang Seng break for confirmation."}],
+        {sym:"HK Tech (HSTECH)", chg:"+1.6%", dir:"pos", why:"Electronics/semis rotated into HK as a cheaper China-tech proxy.", lt:"HK tech &gt; mainland near-term; watch 26k Hang Seng break."}],
       caps:{large:"Tencent (0700), Alibaba (9988), HSBC, Meituan", mid:"HSCEI / HS Tech mid-caps", small:"GEM / small-cap H-shares — thin liquidity"} },
-    cn:{ topic:"A-share semis sold hard (Cambricon −5%, Hygon −6%, SMIC −1.7%) — yet industrial profits +18.2% YoY (Jan–Apr): fundamentals solid, sentiment soft.",
+    cn:{ topic:"A-share semis sold hard (Cambricon −5%, Hygon −6%, SMIC −1.7%) — industrial profits +18.2% YoY (Jan–Apr): fundamentals solid, sentiment soft.",
       movers:[
-        {sym:"Semis (Cambricon, Hygon)", chg:"−5 to −6%", dir:"neg", why:"Profit-taking after a strong run; policy/AI-chip headlines.", lt:"Domestic-substitution theme intact long-term; volatile near-term."}],
+        {sym:"Semis (Cambricon, Hygon)", chg:"−5 to −6%", dir:"neg", why:"Profit-taking; policy/AI-chip headlines.", lt:"Domestic-substitution theme intact long-term; volatile near-term."}],
       caps:{large:"Kweichow Moutai, CATL, ICBC, SMIC", mid:"CSI 500 — mid-cap industrials", small:"CSI 1000 / ChiNext — high-beta small-caps"} }
   },
   chinaHK:[
-    "<strong>Mainland weak:</strong> Shanghai −1.25% to 4,094; CSI 300 ~4,922. Semis/tech led the drop — Cambricon −4.99%, Hygon −5.98%, SMIC −1.67%. Yet industrial profits +18.2% YoY: fundamentals solid, sentiment soft.",
-    "<strong>Hong Kong diverging:</strong> Hang Seng ~flat (25,600), but Hang Seng TECH +1.59% (4,947) — HK bid as a cheaper China-tech proxy. A clear intra-China split favoring HK near-term."
+    "<strong>Mainland weak:</strong> Shanghai −1.25% to 4,094; CSI 300 ~4,922. Semis/tech led the drop. Industrial profits +18.2% YoY: fundamentals solid, sentiment soft.",
+    "<strong>Hong Kong diverging:</strong> Hang Seng ~flat (25,600), Hang Seng TECH +1.59% (4,947) — HK bid as cheaper China-tech proxy. Intra-China split favors HK near-term."
   ],
   drivers:[
-    "<strong>Rates headwind reversing:</strong> Warsh's dovish-leaning Fed + Iran de-escalation push 10Y to a 2-week low (~4.48%) and price hikes out — the relief crypto + duration needed.",
-    "<strong>Equity records are tech-led</strong> (Micron +19%), but the structural rotation into value/energy/industrials remains intact underneath.",
-    "<strong>China is the soft spot:</strong> A-share semis derisk while HK tech rallies — flows favor HK over the mainland near-term."
+    "<strong>Crypto break-down is the news today:</strong> falling-yield bullish setup wasn't enough — BTC lost $74.2k, ETH worse. Risk-off is leaking out of crypto first while equities haven't reacted yet.",
+    "<strong>Rates regime still constructive in theory</strong> (10Y 4.48% holds, Warsh dovish) — but markets need the PCE print to confirm.",
+    "<strong>China soft / HK firm</strong> dynamic intact; Indonesia heavy into 29 May MSCI."
   ],
   news:[
-    "<strong>New Fed Chair:</strong> Kevin Warsh sworn in 22 May (first White House ceremony since Greenspan '87), 'reform-oriented Fed'; Trump pushing cuts → dovish read, yields down.",
-    "<strong>US–Iran:</strong> Trump/Rubio say a deal is <em>close</em> — concessions to reopen the Strait of Hormuz → lower oil, cooling inflation fears.",
-    "<strong>Micron +19%</strong> past $1T cap (UBS: &gt;100% upside) — AI/memory mania extending.",
-    "<strong>Indonesia:</strong> 29 May MSCI rebalance forces ~$1.8B / Rp18.5T passive selling (AMMN, BREN, TPIA removed).",
-    "<strong>On deck:</strong> US PCE inflation print — the key swing for the rates/crypto path."
+    "<strong>Crypto break-down:</strong> BTC −2.8% to $72.9k (lost $74.2k bear-trigger), ETH −3.4% to $1,987, alts in line. Trigger: positioning unwind + caution into PCE.",
+    "<strong>Fed Chair Warsh</strong> sworn in 22 May; market still positioned for an easier policy path, but PCE will test it.",
+    "<strong>US–Iran:</strong> deal 'close' per Trump/Rubio; Strait of Hormuz reopening optimism keeping oil capped.",
+    "<strong>Indonesia 29 May MSCI:</strong> ~$1.8B / Rp18.5T forced passive selling tomorrow.",
+    "<strong>On deck:</strong> PCE inflation — the swing factor for everything."
   ],
   rotation:[
-    "<strong>Where money is going:</strong> still favoring Energy, Industrials, Staples, Utilities &amp; value YTD — but falling yields reopen the door to <strong>quality growth + crypto</strong>. <span class='conf'>Confidence: Medium</span>",
-    "<strong>Forecast (if yields keep falling):</strong> broadening risk-on — duration-sensitive growth, crypto &amp; gold re-rate; HK tech &gt; mainland A-shares; EM (incl. Indonesia) gets a post-MSCI bid.",
-    "<strong>Invalidation:</strong> a hot PCE → yields snap back, rotation reverts hard to defensives."
+    "<strong>Where money is going:</strong> Energy / Industrials / Staples / value YTD remain leaders. Today's crypto sell-off shows duration-sensitive risk-assets stalled — rotation thesis still alive but waiting on PCE. <span class='conf'>Confidence: Medium</span>",
+    "<strong>If PCE soft:</strong> growth + crypto + small-caps + EM (incl. Indonesia post-29 May) catch a sharp bid.",
+    "<strong>If PCE hot:</strong> defensives lead, crypto extends lower, EM stays heavy."
   ],
   corp:[
-    "<strong>29 May — MSCI semi-annual rebalance</strong>: six Indonesian mega-caps (AMMN, BREN, TPIA) removed → ~$1.8B / Rp18.5T forced passive selling; peak pressure on IHSG / IDR.",
+    "<strong>29 May — MSCI semi-annual rebalance</strong>: ~$1.8B / Rp18.5T forced selling on AMMN, BREN, TPIA; peak pressure on IHSG / IDR.",
     "<strong>US:</strong> earnings light post-Memorial Day; big-box retail next week. M&amp;A backdrop active."
   ],
   watch:[
     "<strong>US PCE inflation</strong> — the swing factor for yields, crypto and the whole rotation.",
-    "<strong>29 May MSCI day</strong> — capitulation vs. snapback near IHSG 6,000.",
-    "<strong>BTC $75.2k / $74.2k</strong> — holds = base building; loses = retest lower."
+    "<strong>29 May MSCI day (tomorrow)</strong> — capitulation vs. snapback near IHSG 6,000.",
+    "<strong>BTC $72k / ETH $1,950</strong> — holds = base building; loses = capitulation lower."
   ],
-  tilt:"Yesterday's rates headwind is <b>reversing</b> — lean <b>less defensive</b>: constructive on <b>quality growth + crypto stabilization</b> if PCE cooperates, still respect <b>energy/industrials/value</b>; <b>HK tech &gt; mainland A-shares</b>; <b>sideline Indonesia until post-29 May</b>. <span class='conf'>Med Conviction</span><br><span style='color:#6b7280;font-size:13.5px;'>Breaks on a hot PCE. Personal research, not advice.</span>",
+  tilt:"Yesterday's 'rates headwind reversing' thesis is <b>intact</b> but risk assets aren't responding today — crypto broke down despite falling yields. <b>Lean defensive bias</b> into PCE: respect <b>energy/industrials/value</b>, keep <b>quality growth on the buy list for pullbacks</b> (NVDA), <b>HK tech &gt; mainland</b>, <b>sideline Indonesia</b> until post-29 May. <span class='conf'>Med Conviction</span><br><span style='color:#6b7280;font-size:13.5px;'>Thesis confirms on a soft PCE + BTC reclaiming $75k. Breaks on a hot PCE or BTC losing $72k. Personal research, not advice.</span>",
   scenarios:{
-    overview:{bull:{prob:"~30%",text:"US–Iran deal + soft PCE → cuts repriced → broad risk-on across stocks, crypto and EM."},base:{prob:"~50%",text:"De-escalation holds; records grind higher on rotation; crypto ranges; China soft / HK firm; Indonesia stabilises post-MSCI."},bear:{prob:"~20%",text:"Talks collapse or hot PCE → yields & oil spike → risk-off across the board."}},
-    crypto:{bull:{prob:"~35%",text:"Yields keep falling + ETF inflows resume → BTC reclaims $78k, alts (SOL/XRP) outperform."},base:{prob:"~50%",text:"BTC ranges $74–78k post-flush; neutral funding, clean leverage — accumulation regime, not trend."},bear:{prob:"~15%",text:"Risk-off / hot PCE → BTC loses $74.2k, alts drop harder; OI rebuilds short."}},
-    stocks:{bull:{prob:"~30%",text:"Falling yields broaden the rally beyond AI — small/mid-caps (IWM) and cyclicals catch up."},base:{prob:"~50%",text:"Records held by mega-cap AI; value/energy/industrials lead under the surface; breadth narrow."},bear:{prob:"~20%",text:"Hot PCE / AI wobble → mega-cap unwind drags indices; defensives outperform."}},
-    macro:{bull:{prob:"~30%",text:"Disinflation confirmed → 10Y &lt;4.3%, DXY softens, EM (China/Indonesia) relief rally."},base:{prob:"~50%",text:"10Y 4.4–4.6%, DXY range-bound; China soft / HK firm; rupiah pressured into 29 May."},bear:{prob:"~20%",text:"Sticky PCE or oil spike → yields & USD up, EM + China sell harder."}},
-    outlook:{bull:{prob:"~30%",text:"Add risk on dips: quality growth + crypto + post-MSCI EM; lean into the yield-down tailwind."},base:{prob:"~50%",text:"Selective: barbell value/energy with quality growth; accumulate crypto near support; sideline Indonesia pre-29 May."},bear:{prob:"~20%",text:"De-risk: raise cash, favor defensives & gold; wait for PCE clarity before re-engaging."}}
+    overview:{bull:{prob:"~25%",text:"Soft PCE + Iran deal → cuts repriced → broad risk-on; crypto squeezes higher into clean short positioning."},base:{prob:"~50%",text:"PCE in line; equities grind near records on value/industrial rotation; crypto ranges $68–78k; China soft / HK firm; Indonesia stabilises post-MSCI."},bear:{prob:"~25%",text:"Hot PCE → yields & USD up → risk-off broadens; BTC capitulates to $68–70k; EM + China sell harder."}},
+    crypto:{bull:{prob:"~25%",text:"Soft PCE + short squeeze (new shorts trapped) → BTC reclaims $75k → $78k; alts outperform."},base:{prob:"~45%",text:"BTC ranges $68–75k post-flush; positioning resets; accumulation regime, not trend."},bear:{prob:"~30%",text:"$72k breaks → cascading liqs to $68–70k; ETH below $1,950 opens $1,800s."}},
+    stocks:{bull:{prob:"~30%",text:"Falling yields + soft PCE broaden rally — small/mid-caps (IWM) and cyclicals catch up; records extend."},base:{prob:"~50%",text:"Records held by mega-cap AI; value/energy/industrials lead under surface; breadth narrow."},bear:{prob:"~20%",text:"Hot PCE / AI wobble → mega-cap unwind drags indices; defensives outperform."}},
+    macro:{bull:{prob:"~25%",text:"Disinflation confirmed → 10Y &lt;4.3%, DXY softens, EM relief rally."},base:{prob:"~50%",text:"10Y 4.4–4.6%, DXY range-bound; China soft / HK firm; rupiah pressured into 29 May."},bear:{prob:"~25%",text:"Sticky PCE or oil spike → yields & USD up, EM + China sell harder."}},
+    outlook:{bull:{prob:"~25%",text:"Add risk on the soft-PCE confirmation: quality growth + crypto + post-MSCI EM; the rotation broadens."},base:{prob:"~50%",text:"Selective: barbell value/energy with quality growth; accumulate crypto on $68–70k tests; sideline Indonesia pre-29 May."},bear:{prob:"~25%",text:"De-risk: raise cash, lean defensive + gold; wait for PCE clarity."}}
   },
   sources:[
     ["TheStreet — US market","https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-may-26-2026"],
@@ -375,17 +415,40 @@ function renderScen(id,obj){ $(id).innerHTML=["bull","base","bear"].map(k=>
 ["overview","crypto","stocks","macro","outlook"].forEach(k=>renderScen("scen"+k.charAt(0).toUpperCase()+k.slice(1),DATA.scenarios[k]));
 $("sources").innerHTML="Sources: "+DATA.sources.map(s=>`<a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a>`).join(" · ");
 
+/* ====== POSITIONS render ====== */
+(function renderPositions(){
+  const groups={}; DATA.positions.forEach(p=>{ if(!groups[p.market]) groups[p.market]=[]; groups[p.market].push(p); });
+  const order=["Crypto","US","Hong Kong","China","Indonesia"];
+  let html="";
+  order.forEach(mkt=>{
+    if(!groups[mkt]) return;
+    html+=`<div class="mkthd">${mkt}</div><div class="posgrid">`;
+    groups[mkt].forEach(p=>{
+      const cls=p.position.toLowerCase();
+      html+=`<div class="poscard ${cls}">
+        <div class="topline"><span class="sym">${p.sym}<small>${p.name?" · "+p.name:""}</small></span><span class="badge ${cls}">${p.position}</span></div>
+        <div class="meta">${p.cap} · ${p.horizon} · ${p.conviction} conviction</div>
+        <div class="thesis"><strong>Thesis:</strong> ${p.thesis}</div>
+        <div class="risk"><strong>Key risk:</strong> ${p.risk}</div>
+      </div>`;
+    });
+    html+="</div>";
+  });
+  $("positions").innerHTML=html;
+})();
+
 /* ====== TABS + motion ====== */
 const tabs=[...document.querySelectorAll(".tab")];
 const panels=[...document.querySelectorAll(".tabpanel")];
 const ind=$("tabind");
 function initWidget(box){ if(!box||box.dataset.done) return; const s=document.createElement("script"); s.type="text/javascript"; s.async=true; s.src=box.dataset.src; s.text=box.dataset.cfg; box.querySelector(".tradingview-widget-container").appendChild(s); box.dataset.done="1"; }
 function moveInd(i){ const t=tabs[i]; ind.style.left=t.offsetLeft+"px"; ind.style.width=t.offsetWidth+"px"; }
+const STOCKS_TAB_INDEX=3;
 function activate(i){
   tabs.forEach((t,j)=>t.classList.toggle("active",j===i));
   panels.forEach((p,j)=>p.classList.toggle("active",j===i));
   moveInd(i);
-  if(i===2) renderStk(curMkt);
+  if(i===STOCKS_TAB_INDEX) renderStk(curMkt);
   panels[i].querySelectorAll(".bar").forEach(b=>{b.style.width="0";requestAnimationFrame(()=>requestAnimationFrame(()=>b.style.width=b.dataset.mag+"%"));});
   $("tabbar").scrollIntoView({block:"start"});
 }

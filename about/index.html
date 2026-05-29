@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About &amp; Methodology · BryOsk Market PoV</title>
+<meta name="description" content="How each BryOsk Market PoV is produced — methodology, data sources, position framework, honesty rules.">
+<meta name="theme-color" content="#00447c">
+<link rel="canonical" href="https://bryanoskar.github.io/bryosk-market-pov/about/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BryOsk Market PoV">
+<meta property="og:title" content="About &amp; Methodology · BryOsk Market PoV">
+<meta property="og:description" content="How each daily note is produced — methodology, data sources, position framework, honesty rules.">
+<meta property="og:url" content="https://bryanoskar.github.io/bryosk-market-pov/about/">
+<meta property="og:image" content="https://bryanoskar.github.io/bryosk-market-pov/og-image.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="About &amp; Methodology · BryOsk Market PoV">
+<meta name="twitter:description" content="How each daily note is produced — methodology, data sources, position framework.">
+<meta name="twitter:image" content="https://bryanoskar.github.io/bryosk-market-pov/og-image.svg">
+<style>
+  :root{
+    --ink:#212121; --muted:#6b7280; --line:#e4e3dd; --bg:#f2f3f4; --card:#ffffff;
+    --pos:#16a36a; --neg:#e0453e; --amber:#c4983e; --accent:#00447c; --teal:#0b7b9e; --sand:#dddace; --sand2:#c6c3b6; --navy:#002756;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth; -webkit-text-size-adjust:100%;}
+  body{background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif; line-height:1.65; font-size:16px; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:760px; margin:0 auto; padding:0 22px 80px;}
+
+  .hero{position:relative; overflow:hidden; border-radius:0 0 22px 22px;
+    background:linear-gradient(135deg,var(--navy) 0%,var(--accent) 58%,var(--teal) 120%);
+    color:#fff; padding:46px 30px 34px; margin:0 -22px 26px;
+    box-shadow:0 18px 50px -24px rgba(0,39,86,.6);}
+  .hero::after{content:""; position:absolute; inset:0;
+    background:radial-gradient(800px 300px at 80% -10%,rgba(120,190,220,.28),transparent 60%);
+    animation:drift 14s ease-in-out infinite alternate;}
+  @keyframes drift{from{transform:translateX(-30px)} to{transform:translateX(30px)}}
+  .brand{font-size:12px; letter-spacing:.28em; text-transform:uppercase; opacity:.78; font-weight:600; position:relative; z-index:1;}
+  .hero h1{font-size:31px; font-weight:800; letter-spacing:-.02em; margin:8px 0 4px; position:relative; z-index:1;}
+  .hero .sub{font-size:13.5px; opacity:.78; position:relative; z-index:1; max-width:560px;}
+  .navrow{position:relative; z-index:1; display:flex; gap:8px; margin-top:18px; flex-wrap:wrap;}
+  .navrow a{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:#fff; opacity:.85; text-decoration:none; padding:7px 14px; border:1px solid rgba(255,255,255,.3); border-radius:18px; transition:.15s;}
+  .navrow a:hover{opacity:1; background:rgba(255,255,255,.1);}
+
+  section{margin-bottom:28px;}
+  h2{font-size:13px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:30px 0 12px; padding-bottom:8px; border-bottom:1px solid var(--line);}
+  h2:first-child{margin-top:8px;}
+  p{font-size:15.5px; color:#2a2a2a; margin-bottom:12px;}
+  p strong{color:var(--accent);}
+  ul{padding-left:20px; margin:8px 0 16px;}
+  li{font-size:15px; color:#2a2a2a; margin:7px 0; line-height:1.6;}
+  li strong{color:var(--accent);}
+  li code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:13.5px; background:#eceae3; padding:1.5px 6px; border-radius:4px;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal); padding:18px 22px; border-radius:10px; box-shadow:0 6px 20px -16px rgba(0,0,0,.25);}
+  .card h3{font-size:14px; font-weight:800; color:var(--accent); margin-bottom:8px; letter-spacing:.02em;}
+  .card.warn{border-left-color:var(--amber);}
+  .card.warn h3{color:#8a6515;}
+  .card.disclaimer{border-left-color:var(--neg); background:rgba(224,69,62,.04);}
+  .card.disclaimer h3{color:var(--neg);}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .pill{display:inline-block; font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:800; padding:3px 10px; border-radius:12px; margin-right:4px;}
+  .pill.buy{background:rgba(22,163,106,.13); color:var(--pos);}
+  .pill.hold{background:rgba(198,195,182,.4); color:#7a7560;}
+  .pill.sell{background:rgba(224,69,62,.13); color:var(--neg);}
+
+  .foot{margin-top:36px; padding-top:16px; border-top:1px solid var(--line); font-size:12px; color:var(--muted); text-align:center; line-height:1.8;}
+  .foot a{color:var(--teal); text-decoration:none; border-bottom:1px dotted var(--sand2);}
+
+  @media(max-width:520px){
+    .hero h1{font-size:25px;} .grid2{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="brand">BryOsk · Market PoV</div>
+    <h1>About &amp; Methodology</h1>
+    <div class="sub">How each daily note is produced, what data goes in, and the rules I hold myself to.</div>
+    <div class="navrow">
+      <a href="../">← Today's note</a>
+      <a href="../archive/">📊 Track Record</a>
+    </div>
+  </div>
+
+  <section>
+    <h2>Who</h2>
+    <p><strong>Bryan Oskar</strong> (publishing as <strong>BryOsk</strong>) — a personal investor and analyst based in Indonesia. This site is my own daily research, written first for me and shared publicly so others can read along and judge the calls over time.</p>
+    <p>This is <strong>not a regulated advisory service</strong>. It's a one-person research note. If you find it useful, that's the point. If you act on it, that's your decision.</p>
+  </section>
+
+  <section>
+    <h2>What this is</h2>
+    <p>A daily institutional-grade cross-asset read covering <strong>crypto, US equities, Indonesia (IDX), China &amp; Hong Kong, and macro</strong>. Each note answers: <em>what's happening, what's driving it, what to watch, and where conviction sits.</em></p>
+    <p>The framework is CFA-curriculum-grounded — scenarios with explicit probabilities, position ratings with conviction tags, risk-management front and centre. The tone is institutional; the audience is personal.</p>
+  </section>
+
+  <section>
+    <h2>Methodology — how each daily note is produced</h2>
+    <ol style="padding-left:22px;">
+      <li style="margin:10px 0;"><strong>Live data pull</strong> — fresh crypto + derivatives feed (BTC, ETH, SOL, XRP perpetuals + gold) with open interest, basis, and volume.</li>
+      <li style="margin:10px 0;"><strong>Cross-asset web research</strong> — current US equities, macro/rates, oil, China/HK, IDX headlines and corporate-action calendar.</li>
+      <li style="margin:10px 0;"><strong>Synthesis</strong> — CFA-framed: bottom line, cross-asset snapshot, drivers, technicals, capital rotation, Bull/Base/Bear scenarios per domain.</li>
+      <li style="margin:10px 0;"><strong>Positions</strong> — 8–12 named Buy/Hold/Sell calls with conviction, time horizon, thesis, and the specific risk that breaks each one.</li>
+      <li style="margin:10px 0;"><strong>Archive on publish</strong> — every note saved unedited at <a href="../archive/" style="color:var(--teal);">/archive/</a> so it ages publicly.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Data sources</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Live, in-browser</h3>
+        <p style="font-size:13.5px;"><strong>CoinGecko</strong> — crypto rows, leaderboard, market-cap buckets (free, no key).<br>
+        <strong>TradingView</strong> — ticker tape + US stock movers (free widget tier).</p>
+      </div>
+      <div class="card">
+        <h3>Daily-authored</h3>
+        <p style="font-size:13.5px;">Connected <strong>market-data feed</strong> — perp prices, OI, basis (proxy for funding/leverage).<br>
+        <strong>Web research</strong> — Trading Economics, CNBC, Bloomberg, Reuters, central-bank pages, Coinglass, MSCI, HeyGoTrade (Indonesia).</p>
+      </div>
+    </div>
+    <p style="font-size:13.5px; color:#555; margin-top:10px; font-style:italic;">Every note lists the specific sources used that day at the bottom of the page.</p>
+  </section>
+
+  <section>
+    <h2>Position framework</h2>
+    <p>Each position in the daily focus list carries four required tags:</p>
+    <ul>
+      <li><span class="pill buy">Buy</span> <span class="pill hold">Hold</span> <span class="pill sell">Sell</span> — directional view (or <code>AVOID</code>).</li>
+      <li><strong>Conviction:</strong> Low / Medium / High — how strong the read is. "High" is rare on purpose.</li>
+      <li><strong>Time horizon:</strong> typically 1–3m, 3–6m, 6–12m, or 12–24m — set explicitly so you can judge it later.</li>
+      <li><strong>Thesis &amp; key risk:</strong> a one-line "why I think this" + the single thing that would falsify it. If I can't articulate the risk, the call isn't ready.</li>
+    </ul>
+    <p>Small-cap exposure uses <strong>ETF / index proxies</strong> (Russell 2000 IWM, IDX SmallCap, CSI 1000, HSCEI) rather than fabricating obscure tickers — accuracy and trust over coverage.</p>
+  </section>
+
+  <section>
+    <h2>Honesty rules I hold myself to</h2>
+    <div class="card warn">
+      <h3>What I won't do</h3>
+      <ul style="margin:6px 0 0;">
+        <li>Quietly edit or delete past notes — <strong>they all live in <a href="../archive/" style="color:var(--teal);">/archive/</a></strong>.</li>
+        <li>Fabricate small-cap tickers I can't defend — ETF proxies instead.</li>
+        <li>Label feed-derived metrics as "live" when they're authored — the page distinguishes <em>live</em> (browser-updated) vs <em>authored</em> (as-of timestamp).</li>
+        <li>Hide widget failures — if a panel breaks, I either fix it or remove it; the page degrades gracefully.</li>
+        <li>Frame this as financial advice. It is not.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>What's live vs authored</h2>
+    <ul>
+      <li><strong>Live (browser-updated):</strong> ticker tape, crypto price rows, crypto leaderboard + market-cap buckets, stock-mover panels.</li>
+      <li><strong>Authored (as of feed timestamp shown):</strong> bottom line, drivers, scenarios, positions, technical levels, derivatives positioning, funding read.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Cadence</h2>
+    <p>The note refreshes <strong>daily</strong> (on first app launch each day, when the auto-publish pipeline is working — manual updates fill the gap when it's not). Each refresh writes a new dated archive entry. Live prices on the page update continuously while it's open.</p>
+  </section>
+
+  <section>
+    <h2>Disclaimer</h2>
+    <div class="card disclaimer">
+      <h3>Read this</h3>
+      <p style="font-size:14px; color:#3a3a3a;">Everything on this site is <strong>personal research and education</strong>. It is <strong>not</strong> investment advice, a solicitation, or a regulated financial service. Past calls (visible in the archive) do not predict future results. I am one person sharing my own views — you are solely responsible for your own decisions, position sizing, and risk management. If you need professional advice, consult a licensed financial advisor in your jurisdiction.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Contact &amp; sources</h2>
+    <p style="font-size:14px;">
+      Site repo: <a href="https://github.com/bryanoskar/bryosk-market-pov" style="color:var(--teal);">github.com/bryanoskar/bryosk-market-pov</a><br>
+      Today's note: <a href="../" style="color:var(--teal);">bryanoskar.github.io/bryosk-market-pov</a><br>
+      Track record: <a href="../archive/" style="color:var(--teal);">bryanoskar.github.io/bryosk-market-pov/archive/</a>
+    </p>
+  </section>
+
+  <div class="foot">
+    <strong>Research / education, not financial advice.</strong><br>
+    <a href="../">← Back to today's note</a>
+  </div>
+</div>
+</body>
+</html>

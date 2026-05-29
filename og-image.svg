@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f1830"/>
+      <stop offset="58%" stop-color="#1a2b4a"/>
+      <stop offset="120%" stop-color="#0b7b9e"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="80%" cy="-10%" r="60%">
+      <stop offset="0%" stop-color="#78bedc" stop-opacity="0.28"/>
+      <stop offset="60%" stop-color="#78bedc" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gauge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#e0453e"/>
+      <stop offset="50%" stop-color="#e8b13e"/>
+      <stop offset="100%" stop-color="#16a36a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- left edge accent -->
+  <rect x="0" y="0" width="6" height="630" fill="#0b7b9e" opacity="0.7"/>
+
+  <!-- BRAND eyebrow -->
+  <text x="80" y="100" fill="#ffffff" opacity="0.82"
+        font-family="system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif"
+        font-size="26" letter-spacing="9" font-weight="700">BRYOSK · MARKET POV</text>
+
+  <!-- HEADLINE -->
+  <text x="80" y="260" fill="#ffffff"
+        font-family="system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif"
+        font-size="104" font-weight="800" letter-spacing="-2">Cross-Asset Read</text>
+
+  <!-- SUB -->
+  <text x="80" y="330" fill="#ffffff" opacity="0.85"
+        font-family="system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif"
+        font-size="38" font-weight="500">Daily institutional-grade view of the market</text>
+
+  <!-- COVERAGE pill -->
+  <g transform="translate(80, 380)">
+    <rect x="0" y="0" width="780" height="56" rx="28" fill="#ffffff" fill-opacity="0.10"/>
+    <text x="32" y="36" fill="#9fc2ff"
+          font-family="system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif"
+          font-size="26" font-weight="700" letter-spacing="2">CRYPTO · US · INDONESIA · CHINA / HK · MACRO</text>
+  </g>
+
+  <!-- RISK GAUGE preview -->
+  <g transform="translate(80, 480)">
+    <text x="0" y="0" fill="#ffffff" opacity="0.7"
+          font-family="system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif"
+          font-size="20" letter-spacing="5" font-weight="700">RISK REGIME</text>
+    <rect x="0" y="14" width="500" height="20" rx="10" fill="url(#gauge)"/>
+    <circle cx="240" cy="24" r="16" fill="#ffffff" stroke="#00447c" stroke-width="6"/>
+  </g>
+
+  <!-- Bottom divider -->
+  <line x1="80" y1="558" x2="1120" y2="558" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1"/>
+
+  <!-- URL + tagline -->
+  <text x="80" y="595" fill="#ffffff" opacity="0.7"
+        font-family="system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif"
+        font-size="22" font-weight="500">bryanoskar.github.io/bryosk-market-pov</text>
+  <text x="1120" y="595" fill="#9fc2ff" text-anchor="end"
+        font-family="system-ui, -apple-system, Segoe UI, Helvetica, Arial, sans-serif"
+        font-size="20" font-weight="700" letter-spacing="2">LIVE · DAILY · ARCHIVED</text>
+</svg>

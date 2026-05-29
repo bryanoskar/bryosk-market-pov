@@ -1,0 +1,30 @@
+{
+  "lastUpdated": "2026-05-29",
+  "since": "2026-05-27",
+  "entries": [
+    {
+      "date": "2026-05-29",
+      "dateLong": "Friday, 29 May 2026",
+      "riskScore": 48,
+      "riskLabel": "Neutral, leaning constructive — short-covering bounce; awaiting BTC $74k reclaim + PCE",
+      "bottomLineExcerpt": "Bear-case from yesterday is partially unwinding: BTC bouncing +0.7% to $73.7k (held the $72k support), ETH leading +1.5%, gold ripping +2.9% on safe-haven flows. OI down across crypto while price up = clean short-covering bounce. Today is MSCI rebalance day — IDX peak forced selling live now.",
+      "file": "2026-05-29.html"
+    },
+    {
+      "date": "2026-05-28",
+      "dateLong": "Thursday, 28 May 2026",
+      "riskScore": 42,
+      "riskLabel": "Defensive bias — crypto broke down despite falling yields; awaiting PCE",
+      "bottomLineExcerpt": "Crypto broke down: BTC lost the $74.2k 'bear-trigger' from yesterday's note → $72,900 (−2.8%), ETH worse at $1,987 (−3.4%). The dovish-Fed + Iran de-escalation backdrop (10Y ~4.48%) hasn't been enough — risk-off is leaking out via crypto first. US equities still near records, gold catching a slight safe-haven bid. PCE remains the swing event.",
+      "file": "2026-05-28.html"
+    },
+    {
+      "date": "2026-05-27",
+      "dateLong": "Wednesday, 27 May 2026",
+      "riskScore": 55,
+      "riskLabel": "Neutral, tilting constructive — the rates headwind is reversing",
+      "bottomLineExcerpt": "The regime is turning: a newly sworn-in, easing-leaning Fed (Warsh) + US–Iran de-escalation is pulling yields down (10Y ~4.48%, a 2-week low) and pricing out the hikes that hammered crypto. Crypto is basing, US equities at records. Offsets: mainland-China tech/semi selling, Indonesia's 29 May MSCI outflow cliff, and the PCE inflation print as the swing event.",
+      "file": "2026-05-27.html"
+    }
+  ]
+}

@@ -98,15 +98,10 @@
   /* POSITIONS */
   .posnote{background:rgba(0,68,124,.05); border:1px solid var(--line); border-left:3px solid var(--accent); padding:12px 16px; font-size:12.5px; color:#444; border-radius:8px; margin-bottom:14px;}
   .posnote strong{color:var(--accent);}
-  .poscontrols{display:flex; align-items:center; gap:10px; margin-bottom:14px; flex-wrap:wrap;}
-  .posinput{flex:1; min-width:200px; padding:10px 14px; font-size:13px; border:1px solid var(--line); border-radius:8px; background:var(--card); color:var(--ink); font-family:inherit; outline:none; transition:.15s;}
-  .posinput::placeholder{color:var(--muted);}
-  .posinput:focus{border-color:var(--accent); box-shadow:0 0 0 3px rgba(0,68,124,.1);}
-  .postag{font-size:10.5px; color:var(--muted); letter-spacing:.07em; text-transform:uppercase; font-weight:700; white-space:nowrap;}
   .mkthd{font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--teal); font-weight:700; margin:16px 0 8px;}
   .mkthd:first-child{margin-top:0;}
   .posgrid{display:flex; flex-direction:column; gap:10px;}
-  .poscard{background:var(--card); border:1px solid var(--line); border-left:4px solid; border-radius:10px; padding:11px 14px; box-shadow:0 6px 18px -16px rgba(0,0,0,.25); transition:transform .15s ease, box-shadow .15s ease;}
+  .poscard{background:var(--card); border:1px solid var(--line); border-left:4px solid; border-radius:10px; padding:14px 16px; box-shadow:0 6px 18px -16px rgba(0,0,0,.25); transition:transform .15s ease, box-shadow .15s ease;}
   .poscard:hover{transform:translateY(-1px); box-shadow:0 10px 26px -14px rgba(0,68,124,.3);}
   .poscard.buy{border-left-color:var(--pos);} .poscard.hold{border-left-color:var(--sand2);} .poscard.sell,.poscard.avoid{border-left-color:var(--neg);}
   .poscard .topline{display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; flex-wrap:wrap; gap:8px;}
@@ -115,10 +110,10 @@
   .poscard .badge.buy{background:rgba(22,163,106,.13); color:var(--pos);}
   .poscard .badge.hold{background:rgba(198,195,182,.4); color:#7a7560;}
   .poscard .badge.sell,.poscard .badge.avoid{background:rgba(224,69,62,.13); color:var(--neg);}
-  .poscard .meta{font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:5px;}
-  .poscard .thesis{font-size:12.5px; color:#333; margin-bottom:3px; line-height:1.5;}
+  .poscard .meta{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:7px;}
+  .poscard .thesis{font-size:13.5px; color:#333; margin-bottom:4px;}
   .poscard .thesis strong, .poscard .risk strong{color:var(--accent);}
-  .poscard .risk{font-size:12px; color:#555; line-height:1.5;}
+  .poscard .risk{font-size:12.5px; color:#555;}
 
   .share{position:fixed; right:18px; bottom:18px; z-index:30; background:var(--accent); color:#fff; border:none; border-radius:30px; padding:13px 20px; font-size:14px; font-weight:700; cursor:pointer; box-shadow:0 10px 30px -8px rgba(0,68,124,.6); transition:transform .15s;}
   .share:hover{transform:scale(1.05);}
@@ -151,6 +146,8 @@
         {"description":"ETH","proName":"BINANCE:ETHUSDT"},
         {"description":"Gold","proName":"TVC:GOLD"},
         {"description":"WTI","proName":"TVC:USOIL"},
+        {"description":"US 10Y","proName":"TVC:US10Y"},
+        {"description":"DXY","proName":"TVC:DXY"},
         {"description":"Hang Seng","proName":"HSI:HSI"},
         {"description":"Shanghai","proName":"SSE:000001"},
         {"description":"CSI 300","proName":"SSE:000300"},
@@ -183,8 +180,7 @@
   <div class="tabpanel">
     <section>
       <h2>Positions · Buy / Hold / Sell · focus list</h2>
-      <div class="posnote"><strong>Research / education, not financial advice.</strong> Each rating reflects a personal PoV with stated <strong>conviction</strong> and <strong>time horizon</strong>; size & risk-management are yours. Small-cap exposure uses ETFs / indices as a defensible proxy.</div>
-      <div class="poscontrols"><input type="text" id="posFilter" placeholder="Filter by ticker, name, market, BUY/HOLD/SELL…" class="posinput" autocomplete="off"><span class="postag" id="posCount"></span></div>
+      <div class="posnote"><strong>Research / education, not financial advice.</strong> Each rating reflects a personal PoV with stated <strong>conviction</strong> and <strong>time horizon</strong>; size & risk-management are yours. Small-cap exposure uses ETFs / indices as a defensible proxy rather than naming obscure tickers.</div>
       <div id="positions"></div>
     </section>
   </div>
@@ -218,13 +214,15 @@
       <div class="seg" id="stkSeg">
         <button class="segbtn active" data-market="us">US</button>
         <button class="segbtn" data-market="id">Indonesia</button>
+        <button class="segbtn" data-market="hk">Hong Kong</button>
         <button class="segbtn" data-market="cn">China</button>
       </div>
       <div id="stkPanel"></div>
       <div id="stocksWidgets">
         <div class="tvbox tvlazy" data-market="us" data-src="https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js" data-cfg='{"colorTheme":"light","dateRange":"1D","exchange":"US","showChart":false,"locale":"en","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":400}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
         <div class="tvbox tvlazy" data-market="id" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"Indonesia Top Caps","originalName":"Indonesia","symbols":[{"name":"IDX:BBCA","displayName":"Bank Central Asia"},{"name":"IDX:BBRI","displayName":"Bank BRI"},{"name":"IDX:BMRI","displayName":"Bank Mandiri"},{"name":"IDX:TLKM","displayName":"Telkom"},{"name":"IDX:ASII","displayName":"Astra Intl"},{"name":"IDX:UNVR","displayName":"Unilever Indonesia"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
-        <div class="tvbox tvlazy" data-market="cn" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"China — US-listed ADRs & ETFs","originalName":"China","symbols":[{"name":"AMEX:FXI","displayName":"iShares China Large-Cap"},{"name":"AMEX:ASHR","displayName":"CSI 300 ETF (ASHR)"},{"name":"NYSE:BABA","displayName":"Alibaba"},{"name":"NASDAQ:PDD","displayName":"PDD Holdings"},{"name":"NYSE:NIO","displayName":"NIO"},{"name":"NASDAQ:BIDU","displayName":"Baidu"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
+        <div class="tvbox tvlazy" data-market="hk" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"Hong Kong Top Caps","originalName":"Hong Kong","symbols":[{"name":"HKEX:700","displayName":"Tencent"},{"name":"HKEX:9988","displayName":"Alibaba"},{"name":"HKEX:5","displayName":"HSBC"},{"name":"HKEX:3690","displayName":"Meituan"},{"name":"HKEX:1211","displayName":"BYD"},{"name":"HKEX:9618","displayName":"JD.com"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
+        <div class="tvbox tvlazy" data-market="cn" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"China A-shares Top Caps","originalName":"China","symbols":[{"name":"SSE:600519","displayName":"Kweichow Moutai"},{"name":"SSE:601398","displayName":"ICBC"},{"name":"SZSE:300750","displayName":"CATL"},{"name":"SZSE:002594","displayName":"BYD"},{"name":"SSE:601318","displayName":"Ping An"},{"name":"SSE:688981","displayName":"SMIC"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
       </div>
     </section>
     <section><h2>Equity Technicals</h2><ul id="techEquity"></ul></section>
@@ -249,7 +247,6 @@
   </div>
 
   <div class="foot">
-    <div style="margin-bottom:14px; padding:10px 14px; background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal); border-radius:8px; font-size:13.5px;"><a href="archive/" style="color:var(--accent); font-weight:800; text-decoration:none;">📊 View Track Record →</a> <span style="color:var(--muted); margin-left:6px;">every past note, unedited · 3 archived since 27 May 2026</span></div>
     <strong>Research / education, not financial advice.</strong> Ticker tape, crypto rows, leaderboard, cap-tiers &amp; stock-mover panels update <strong>live</strong> in your browser (CoinGecko + TradingView). Written analysis, positions, scenarios, technicals, derivatives &amp; funding are authored as of the date above; stock cap-tier names are illustrative; small-cap exposure uses ETFs / indices as proxy.
     <div class="src" id="sources"></div>
   </div>
@@ -259,16 +256,16 @@
 <script>
 /* ====== DATA — the daily run replaces ONLY this object ====== */
 const DATA = {
-  dateLong:"Friday, 29 May 2026",
-  feedTime:"2026-05-29 07:22 UTC",
-  riskScore:48, riskLabel:"Neutral, leaning constructive — short-covering bounce; awaiting BTC $74k reclaim + PCE",
-  bottomLine:"Bear-case from yesterday is <strong>partially unwinding</strong>: BTC bouncing <strong>+0.7% to $73.7k</strong> (held the $72k support), ETH leading <strong>+1.5%</strong>, gold ripping <strong>+2.9%</strong> on safe-haven flows. OI <em>down</em> across crypto while price up = clean <strong>short-covering bounce</strong>, not a euphoric long-stack. <strong>Today is MSCI rebalance day</strong> — IDX peak forced selling live now. No confirmed trend repair until BTC reclaims <strong>$74.2k</strong>; PCE still the swing event.",
+  dateLong:"Thursday, 28 May 2026",
+  feedTime:"2026-05-28 14:48 UTC",
+  riskScore:42, riskLabel:"Defensive bias — crypto broke down despite falling yields; awaiting PCE",
+  bottomLine:"Crypto <strong>broke down</strong>: BTC lost the $74.2k 'bear-trigger' from yesterday's note → <strong>$72,900 (−2.8%)</strong>, ETH worse at <strong>$1,987 (−3.4%)</strong>. The dovish-Fed + Iran-de-escalation backdrop (10Y ~4.48%) <em>hasn't been enough</em> — risk-off is leaking out via crypto first. US equities still near records, gold catching a slight safe-haven bid. <strong>PCE</strong> remains the swing event.",
   snapshot:[
-    {a:"BTC",cg:"bitcoin",lvl:"$73,719",d:"+0.7%",dir:"pos",mag:12,drv:"Bouncing; held $72k, eyeing $74.2k reclaim",url:"https://www.tradingview.com/symbols/BTCUSD/"},
-    {a:"ETH",cg:"ethereum",lvl:"$2,016",d:"+1.5%",dir:"pos",mag:25,drv:"Leading the bounce; back through $2,000",url:"https://www.tradingview.com/symbols/ETHUSD/"},
-    {a:"SOL",cg:"solana",lvl:"$82.3",d:"+1.7%",dir:"pos",mag:28,drv:"Reclaimed $82; high-beta bid",url:"https://www.tradingview.com/symbols/SOLUSD/"},
-    {a:"XRP",cg:"ripple",lvl:"$1.32",d:"+2.0%",dir:"pos",mag:35,drv:"Bounce; reclaimed $1.30",url:"https://www.tradingview.com/symbols/XRPUSD/"},
-    {a:"Gold",lvl:"$4,514",d:"+2.9%",dir:"pos",mag:52,drv:"Strong safe-haven bid; rally accelerated",url:"https://www.tradingview.com/symbols/XAUUSD/"},
+    {a:"BTC",cg:"bitcoin",lvl:"$72,900",d:"−2.8%",dir:"neg",mag:50,drv:"Broke $74.2k → bear-case trigger active",url:"https://www.tradingview.com/symbols/BTCUSD/"},
+    {a:"ETH",cg:"ethereum",lvl:"$1,987",d:"−3.4%",dir:"neg",mag:62,drv:"Broke $2,053 support; worse than BTC",url:"https://www.tradingview.com/symbols/ETHUSD/"},
+    {a:"SOL",cg:"solana",lvl:"$80.8",d:"−3.4%",dir:"neg",mag:62,drv:"Lost $82.7; next $76",url:"https://www.tradingview.com/symbols/SOLUSD/"},
+    {a:"XRP",cg:"ripple",lvl:"$1.30",d:"−2.2%",dir:"neg",mag:40,drv:"Lost $1.32; broader crypto risk-off",url:"https://www.tradingview.com/symbols/XRPUSD/"},
+    {a:"Gold",lvl:"$4,459",d:"+0.4%",dir:"pos",mag:8,drv:"Slight safe-haven bid as crypto fell",url:"https://www.tradingview.com/symbols/XAUUSD/"},
     {a:"S&P 500",lvl:"7,519",d:"+0.6%",dir:"pos",mag:11,drv:"Records held (as of 26 May close)",url:"https://www.tradingview.com/symbols/SPX/"},
     {a:"Nasdaq",lvl:"26,656",d:"+1.2%",dir:"pos",mag:22,drv:"Tech leadership (26 May close)",url:"https://www.tradingview.com/symbols/IXIC/"},
     {a:"10Y UST",lvl:"~4.48%",d:"flat",dir:"flat",mag:8,drv:"Range-bound post-Warsh; PCE looms",url:"https://www.tradingview.com/symbols/TVC-US10Y/"},
@@ -298,15 +295,15 @@ const DATA = {
     {sym:"IDX SmallCap", name:"IDX SmallCap Index (proxy via ETF/basket)", market:"Indonesia", cap:"Small-cap proxy", position:"AVOID", conviction:"Med", horizon:"1–3m", thesis:"Most MSCI-flow sensitive segment; 29 May rebalance = peak forced selling. Capitulation in progress.", risk:"A sharp post-29 May snapback if the flow cliff is fully digested; revisit then."}
   ],
   derivFlow:[
-    "<strong>BTC perp OI ~6,490 — DOWN from 6,546 yesterday</strong> as price bounced → <em>shorts covering</em>, not new long-stacking. Healthy positioning reset.",
-    "<strong>ETH OI ~184k flat</strong> while price up +1.5% — relative-strength leadership returning quietly.",
-    "<strong>SOL/XRP OI both down 3–4%</strong> alongside their bounces — the same short-covering pattern across the high-beta names.",
+    "<strong>BTC perp OI ~6,550 (up ~3% from 6,360)</strong> as price broke $74.2k → fresh positioning <em>during</em> the move, predominantly new shorts opening.",
+    "<strong>ETH OI ~184k roughly flat</strong> despite the harder −3.4% break — capitulation/long-puke without aggressive new shorting yet.",
+    "<strong>24h perp turnover ~$740M BTC / ~$360M ETH</strong> — elevated participation in the break (vs $690M / $260M yesterday); real flow, not a low-vol drift lower.",
     "<em>Proxy note:</em> OI &amp; volume from the connected feed at the timestamp above — positioning flow, not browser-live spot exchange netflows."
   ],
   funding:[
-    "<strong>BTC perp ~+0.01% to index</strong> (mark $73,733 vs index $73,724) → essentially neutral funding. No crowded longs back yet despite the bounce.",
-    "<strong>ETH perp ~flat to index</strong> (mark $2,016 vs index $2,016) — neutral. Bounce isn't levered.",
-    "<strong>Net read:</strong> shorts unwound (OI down across the board), longs haven't re-stacked, basis ~flat → <strong>cleanest positioning in days</strong>. Constructive setup if PCE cooperates.",
+    "<strong>BTC perp ~+0.02% to index</strong> (mark $72,753 vs index $72,740) → a tiny premium = some dip-buying despite the OI rise. Mixed signal: shorts building under the surface, dip-buyers absorbing.",
+    "<strong>Net read:</strong> bearish positioning building but NOT yet a euphoric crowded-short. That's actually <strong>squeeze fuel</strong> on any soft-PCE / risk-on catalyst.",
+    "<strong>Leverage tilting up on shorts</strong> (BTC OI +3% during sell-off = classic short-build during weakness).",
     "<em>Proxy note:</em> basis (perp vs index) + OI from the feed as of the timestamp above — funding-pressure proxy, not a third-party aggregated funding index."
   ],
   techCrypto:[
@@ -342,6 +339,10 @@ const DATA = {
         {sym:"Big-cap banks (BBCA, BBRI)", chg:"heavy", dir:"neg", why:"Index heavyweights bear the brunt of passive MSCI selling + foreign outflows.", lt:"Valuations attractive — wait for the flow cliff to clear post-29 May."},
         {sym:"AMMN / BREN / TPIA", chg:"deleted", dir:"neg", why:"Removed from MSCI Global Standard → forced passive selling.", lt:"Free-float/concentration overhang; structural."}],
       caps:{large:"BBCA, BBRI, BMRI, TLKM, ASII (index heavyweights)", mid:"Domestic-consumption &amp; property mid-caps", small:"IDX SmallCap — illiquid, most MSCI-flow sensitive"} },
+    hk:{ topic:"Hang Seng ~flat (25,600) but Hang Seng TECH +1.6% — HK tech/semis bid even as mainland A-shares derisk.",
+      movers:[
+        {sym:"HK Tech (HSTECH)", chg:"+1.6%", dir:"pos", why:"Electronics/semis rotated into HK as a cheaper China-tech proxy.", lt:"HK tech &gt; mainland near-term; watch 26k Hang Seng break."}],
+      caps:{large:"Tencent (0700), Alibaba (9988), HSBC, Meituan", mid:"HSCEI / HS Tech mid-caps", small:"GEM / small-cap H-shares — thin liquidity"} },
     cn:{ topic:"A-share semis sold hard (Cambricon −5%, Hygon −6%, SMIC −1.7%) — industrial profits +18.2% YoY (Jan–Apr): fundamentals solid, sentiment soft.",
       movers:[
         {sym:"Semis (Cambricon, Hygon)", chg:"−5 to −6%", dir:"neg", why:"Profit-taking; policy/AI-chip headlines.", lt:"Domestic-substitution theme intact long-term; volatile near-term."}],
@@ -357,10 +358,10 @@ const DATA = {
     "<strong>China soft / HK firm</strong> dynamic intact; Indonesia heavy into 29 May MSCI."
   ],
   news:[
-    "<strong>Crypto bouncing today (29 May):</strong> BTC +0.7% to $73.7k (held $72k support), ETH +1.5% to $2,016, alts +2%. OI down across the board → short-covering bounce, not a euphoric long-stack.",
+    "<strong>Crypto break-down:</strong> BTC −2.8% to $72.9k (lost $74.2k bear-trigger), ETH −3.4% to $1,987, alts in line. Trigger: positioning unwind + caution into PCE.",
     "<strong>Fed Chair Warsh</strong> sworn in 22 May; market still positioned for an easier policy path, but PCE will test it.",
     "<strong>US–Iran:</strong> deal 'close' per Trump/Rubio; Strait of Hormuz reopening optimism keeping oil capped.",
-    "<strong>TODAY — 29 May MSCI rebalance LIVE:</strong> ~$1.8B / Rp18.5T forced passive selling on AMMN/BREN/TPIA. Peak IDX outflow pressure happening NOW; watch for capitulation vs snapback near IHSG 6,000.",
+    "<strong>Indonesia 29 May MSCI:</strong> ~$1.8B / Rp18.5T forced passive selling tomorrow.",
     "<strong>On deck:</strong> PCE inflation — the swing factor for everything."
   ],
   rotation:[
@@ -377,7 +378,7 @@ const DATA = {
     "<strong>29 May MSCI day (tomorrow)</strong> — capitulation vs. snapback near IHSG 6,000.",
     "<strong>BTC $72k / ETH $1,950</strong> — holds = base building; loses = capitulation lower."
   ],
-  tilt:"Bear-case from yesterday is <b>partially unwinding</b> — crypto bouncing on clean short-covering, gold rallying, $72k BTC support held. But the <b>$74.2k bear-trigger is still overhead</b> — no trend repair until reclaim. <b>Lean neutral-to-constructive</b>: respect <b>energy/industrials/value</b>, add <b>quality growth on dips</b> (NVDA), <b>watch the IDX post-MSCI-close snapback later today</b>. <span class='conf'>Med Conviction</span><br><span style='color:#6b7280;font-size:13.5px;'>Thesis confirms on BTC reclaiming $74.2k + a soft PCE. Breaks on BTC losing $72k or a hot PCE. Personal research, not advice.</span>",
+  tilt:"Yesterday's 'rates headwind reversing' thesis is <b>intact</b> but risk assets aren't responding today — crypto broke down despite falling yields. <b>Lean defensive bias</b> into PCE: respect <b>energy/industrials/value</b>, keep <b>quality growth on the buy list for pullbacks</b> (NVDA), <b>HK tech &gt; mainland</b>, <b>sideline Indonesia</b> until post-29 May. <span class='conf'>Med Conviction</span><br><span style='color:#6b7280;font-size:13.5px;'>Thesis confirms on a soft PCE + BTC reclaiming $75k. Breaks on a hot PCE or BTC losing $72k. Personal research, not advice.</span>",
   scenarios:{
     overview:{bull:{prob:"~25%",text:"Soft PCE + Iran deal → cuts repriced → broad risk-on; crypto squeezes higher into clean short positioning."},base:{prob:"~50%",text:"PCE in line; equities grind near records on value/industrial rotation; crypto ranges $68–78k; China soft / HK firm; Indonesia stabilises post-MSCI."},bear:{prob:"~25%",text:"Hot PCE → yields & USD up → risk-off broadens; BTC capitulates to $68–70k; EM + China sell harder."}},
     crypto:{bull:{prob:"~25%",text:"Soft PCE + short squeeze (new shorts trapped) → BTC reclaims $75k → $78k; alts outperform."},base:{prob:"~45%",text:"BTC ranges $68–75k post-flush; positioning resets; accumulation regime, not trend."},bear:{prob:"~30%",text:"$72k breaks → cascading liqs to $68–70k; ETH below $1,950 opens $1,800s."}},
@@ -434,26 +435,6 @@ $("sources").innerHTML="Sources: "+DATA.sources.map(s=>`<a href="${s[1]}" target
     html+="</div>";
   });
   $("positions").innerHTML=html;
-})();
-/* positions filter */
-(function(){
-  const inp=$("posFilter"), cnt=$("posCount");
-  function update(){
-    const q=inp.value.toLowerCase().trim(); let visible=0;
-    document.querySelectorAll("#positions .poscard").forEach(c=>{
-      const show=!q || c.textContent.toLowerCase().includes(q);
-      c.style.display=show?"":"none"; if(show) visible++;
-    });
-    document.querySelectorAll("#positions .mkthd").forEach(h=>{
-      const grid=h.nextElementSibling;
-      if(grid && grid.classList.contains("posgrid")){
-        const any=[...grid.children].some(c=>c.style.display!=="none");
-        h.style.display=any?"":"none"; grid.style.display=any?"":"none";
-      }
-    });
-    cnt.textContent=visible+" of "+DATA.positions.length+" shown";
-  }
-  inp.addEventListener("input",update); update();
 })();
 
 /* ====== TABS + motion ====== */

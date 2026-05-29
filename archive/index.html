@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Record · BryOsk Market PoV</title>
+<style>
+  :root{
+    --ink:#212121; --muted:#6b7280; --line:#e4e3dd; --bg:#f2f3f4; --card:#ffffff;
+    --pos:#16a36a; --neg:#e0453e; --amber:#c4983e; --accent:#00447c; --teal:#0b7b9e; --sand:#dddace; --sand2:#c6c3b6; --navy:#002756;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth; -webkit-text-size-adjust:100%;}
+  body{background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif; line-height:1.6; font-size:16px; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:760px; margin:0 auto; padding:0 22px 80px;}
+
+  .hero{position:relative; overflow:hidden; border-radius:0 0 22px 22px;
+    background:linear-gradient(135deg,var(--navy) 0%,var(--accent) 58%,var(--teal) 120%);
+    color:#fff; padding:46px 30px 36px; margin:0 -22px 22px;
+    box-shadow:0 18px 50px -24px rgba(0,39,86,.6);}
+  .hero::after{content:""; position:absolute; inset:0;
+    background:radial-gradient(800px 300px at 80% -10%,rgba(120,190,220,.28),transparent 60%);
+    animation:drift 14s ease-in-out infinite alternate;}
+  @keyframes drift{from{transform:translateX(-30px)} to{transform:translateX(30px)}}
+  .brand{font-size:12px; letter-spacing:.28em; text-transform:uppercase; opacity:.78; font-weight:600; position:relative; z-index:1;}
+  .hero h1{font-size:31px; font-weight:800; letter-spacing:-.02em; margin:8px 0 4px; position:relative; z-index:1;}
+  .hero .sub{font-size:13.5px; opacity:.78; position:relative; z-index:1; max-width:560px;}
+  .backlink{position:relative; z-index:1; display:inline-flex; align-items:center; gap:6px; margin-top:18px; font-size:12.5px; color:#fff; opacity:.85; text-decoration:none; padding:7px 12px; border:1px solid rgba(255,255,255,.3); border-radius:18px; transition:.15s;}
+  .backlink:hover{opacity:1; background:rgba(255,255,255,.1);}
+
+  .intro{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal); padding:18px 22px; border-radius:10px; margin-bottom:24px; font-size:14.5px; color:#333; box-shadow:0 6px 20px -16px rgba(0,0,0,.25);}
+  .intro strong{color:var(--accent);}
+  .count{font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-weight:700; margin:6px 0 14px;}
+
+  .entry{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px 22px; margin-bottom:14px; box-shadow:0 6px 22px -16px rgba(0,0,0,.25); transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;}
+  .entry:hover{transform:translateY(-2px); box-shadow:0 14px 32px -18px rgba(0,68,124,.4); border-color:var(--sand2);}
+  .entryhead{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; margin-bottom:8px;}
+  .entrydate{font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-weight:700;}
+  .entrytitle{font-size:18px; font-weight:800; letter-spacing:-.01em; margin-top:2px; color:var(--ink);}
+  .riskbadge{font-size:11px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; padding:5px 11px; border-radius:14px; white-space:nowrap; font-variant-numeric:tabular-nums;}
+  .riskbadge.high{background:rgba(22,163,106,.13); color:var(--pos);}
+  .riskbadge.mid{background:rgba(196,152,62,.13); color:var(--amber);}
+  .riskbadge.low{background:rgba(224,69,62,.13); color:var(--neg);}
+  .risklabel{font-size:12px; color:var(--muted); margin-top:4px; font-style:italic;}
+  .excerpt{font-size:14px; color:#3a3a3a; margin:12px 0 14px; line-height:1.6;}
+  .readmore{display:inline-flex; align-items:center; gap:5px; font-size:13px; color:var(--accent); font-weight:700; text-decoration:none; padding:5px 0;}
+  .readmore:hover{color:var(--teal);}
+  .readmore::after{content:"→"; transition:transform .18s ease; display:inline-block;}
+  .readmore:hover::after{transform:translateX(3px);}
+
+  .loading{text-align:center; padding:40px 20px; color:var(--muted); font-size:14px;}
+  .foot{margin-top:36px; padding-top:16px; border-top:1px solid var(--line); font-size:12px; color:var(--muted); text-align:center;}
+  .foot a{color:var(--teal); text-decoration:none; border-bottom:1px dotted var(--sand2);}
+
+  /* fade-in motion */
+  .entry{opacity:0; transform:translateY(12px); transition:opacity .45s ease, transform .45s ease;}
+  .entry.in{opacity:1; transform:none;}
+
+  @media(max-width:520px){
+    .hero h1{font-size:25px;} .entry{padding:16px 18px;} .entrytitle{font-size:16px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="brand">BryOsk · Market PoV</div>
+    <h1>Track Record</h1>
+    <div class="sub">Every daily note since 27 May 2026, exactly as published. No edits, no deletions — so you can see how each call aged.</div>
+    <a class="backlink" href="../">← Today's note</a>
+  </div>
+
+  <div class="intro">
+    <strong>Why this page exists.</strong> Predictions are easy; honest accountability is rare. Every BryOsk Market PoV is archived here on publish — full text, original timestamp, original risk score. Click any entry to see exactly what was written that day. Use it to judge the read before you trust the next one.
+  </div>
+
+  <div class="count" id="count">Loading archive…</div>
+  <div id="entries"><div class="loading">Loading past notes…</div></div>
+
+  <div class="foot">
+    <strong>Research / education, not financial advice.</strong><br>
+    Live note → <a href="../">bryanoskar.github.io/bryosk-market-pov</a>
+  </div>
+</div>
+
+<script>
+async function loadArchive(){
+  try{
+    const r = await fetch("metadata.json");
+    if(!r.ok) throw 0;
+    const data = await r.json();
+    const entries = data.entries || [];
+    document.getElementById("count").textContent =
+      entries.length + (entries.length===1?" note":" notes") + " archived · since " + data.since;
+    const html = entries.map(e=>{
+      const score = e.riskScore;
+      const cls = score>=55 ? "high" : (score>=40 ? "mid" : "low");
+      return `<a class="entry" href="${e.file}" target="_blank" rel="noopener" style="text-decoration:none; color:inherit; display:block;">
+        <div class="entryhead">
+          <div>
+            <div class="entrydate">${e.date}</div>
+            <div class="entrytitle">${e.dateLong}</div>
+            <div class="risklabel">${e.riskLabel}</div>
+          </div>
+          <span class="riskbadge ${cls}">Risk ${score}/100</span>
+        </div>
+        <div class="excerpt">${e.bottomLineExcerpt}</div>
+        <span class="readmore">Read the full note </span>
+      </a>`;
+    }).join("");
+    document.getElementById("entries").innerHTML = html;
+    // reveal animation
+    const io = new IntersectionObserver(es=>es.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+    }), {threshold:.08});
+    document.querySelectorAll(".entry").forEach((el,i)=>{
+      setTimeout(()=>io.observe(el), i*60);
+    });
+  }catch(e){
+    document.getElementById("entries").innerHTML =
+      '<div class="loading">Archive temporarily unavailable. Please try refreshing.</div>';
+    document.getElementById("count").textContent = "";
+  }
+}
+loadArchive();
+</script>
+</body>
+</html>

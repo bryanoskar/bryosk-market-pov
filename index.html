@@ -79,6 +79,10 @@
   .bartrack{height:5px; background:#e8e8e3; border-radius:4px; overflow:hidden;}
   .bar{height:100%; width:0; border-radius:4px; transition:width 1.1s cubic-bezier(.2,.8,.2,1);}
   .bar.pos{background:var(--pos);} .bar.neg{background:var(--neg);} .bar.flat{background:var(--sand2);}
+  /* Sparkline rows (crypto): replace flat bar with a 7-day SVG mini-chart */
+  .sparkrow .bartrack{height:22px; background:transparent; border-radius:0; overflow:visible;}
+  .spark{display:block; width:100%; height:22px; opacity:0; animation:sparkIn .55s ease forwards;}
+  @keyframes sparkIn{from{opacity:0; transform:translateY(2px)} to{opacity:1; transform:none}}
   .drv{font-size:12.5px; color:#555;}
 
   .lbstamp{font-size:11px; color:var(--muted); margin:-6px 0 10px;}
@@ -423,7 +427,7 @@ $("tilt").innerHTML=DATA.tilt;
 const li=arr=>arr.map(x=>"<li>"+x+"</li>").join("");
 ["derivFlow","funding","techCrypto","techEquity","techMacro","chinaHK","drivers","news","rotation","corp","watch"].forEach(k=>$(k).innerHTML=li(DATA[k]));
 $("rows").innerHTML=DATA.snapshot.map(r=>
-  `<a class="row" href="${r.url}" target="_blank" rel="noopener" ${r.cg?`data-cg="${r.cg}"`:""}>
+  `<a class="row${r.cg?' sparkrow':''}" href="${r.url}" target="_blank" rel="noopener" ${r.cg?`data-cg="${r.cg}"`:""}>
      <span class="asset">${r.a}${r.cg?'<span class="livetag">● LIVE</span>':''}</span>
      <span><span class="lvl">${r.lvl}</span></span>
      <span class="rt"><span><span class="delta ${r.dir}">${r.d}</span> <span class="drv">— ${r.drv}</span></span>
@@ -531,9 +535,20 @@ async function liveUpdate(){
     $("livedot").style.opacity=1; $("livestamp").textContent="Live crypto prices · updated "+new Date().toLocaleTimeString();
   }catch(e){ $("livestamp").textContent="Live feed unavailable — showing the daily snapshot (analysis still current)"; }
 }
+function sparkSVG(prices, width=120, height=22){
+  if(!prices || prices.length<2) return "";
+  const min=Math.min(...prices), max=Math.max(...prices), range=max-min||1, N=prices.length;
+  const pad=2;
+  const pts=prices.map((p,i)=>`${(i/(N-1)*width).toFixed(1)},${(height-pad-((p-min)/range)*(height-pad*2)).toFixed(1)}`).join(" ");
+  const up=prices[N-1]>=prices[0];
+  const stroke=up?"#16a36a":"#e0453e";
+  const fill=up?"rgba(22,163,106,0.14)":"rgba(224,69,62,0.14)";
+  const area=pts+` ${width},${height} 0,${height}`;
+  return `<svg class="spark" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none"><polygon points="${area}" fill="${fill}"/><polyline points="${pts}" fill="none" stroke="${stroke}" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
+}
 async function liveMarkets(){
   try{
-    const r=await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&price_change_percentage=24h");
+    const r=await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&price_change_percentage=24h&sparkline=true");
     if(!r.ok) throw 0; const m=await r.json();
     const fmtV=v=>v>=1e9?"$"+(v/1e9).toFixed(1)+"B":"$"+Math.round(v/1e6)+"M";
     const pct=c=>(c>=0?"+":"")+(c||0).toFixed(1)+"%"; const ch=c=>c.price_change_percentage_24h||0;
@@ -546,6 +561,14 @@ async function liveMarkets(){
     $("capMid").innerHTML=mk(m.slice(49,54), c=>fmtP(c.current_price));
     $("capSmall").innerHTML=mk(m.slice(195,200), c=>fmtP(c.current_price));
     $("lbstamp").textContent="● Live · updated "+new Date().toLocaleTimeString()+" · Large=top5 · Mid≈#50 · Small≈#200 by mkt cap";
+    // Sparklines for crypto rows in the Cross-Asset Snapshot
+    const sparkMap={};
+    m.forEach(c=>{ if(c.sparkline_in_7d && c.sparkline_in_7d.price) sparkMap[c.id]=c.sparkline_in_7d.price; });
+    document.querySelectorAll(".sparkrow").forEach(row=>{
+      const prices=sparkMap[row.dataset.cg]; if(!prices) return;
+      const track=row.querySelector(".bartrack"); if(!track) return;
+      track.innerHTML=sparkSVG(prices);
+    });
   }catch(e){ $("lbstamp").textContent="Live data temporarily unavailable (CoinGecko rate-limited) — retrying…"; }
 }
 liveUpdate(); setInterval(liveUpdate,60000);

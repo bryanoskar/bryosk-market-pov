@@ -1,0 +1,39 @@
+name: Daily Archive
+
+# Runs the archive script every day at 00:10 UTC (= 07:10 WIB).
+# Can also be triggered manually from the Actions tab → "Run workflow".
+on:
+  schedule:
+    - cron: '10 0 * * *'
+  workflow_dispatch:
+
+# Allow the job to commit and push the new archive entry back to the repo.
+permissions:
+  contents: write
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run daily archive script
+        run: python scripts/daily-archive.py
+
+      - name: Commit & push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "Nothing new to archive today."
+          else
+            git commit -m "Daily auto-archive $(date -u +%Y-%m-%d)"
+            git push
+          fi

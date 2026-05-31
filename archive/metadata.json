@@ -1,7 +1,15 @@
 {
-  "lastUpdated": "2026-05-30",
+  "lastUpdated": "2026-05-31",
   "since": "2026-05-27",
   "entries": [
+    {
+      "date": "2026-05-31",
+      "dateLong": "Saturday, 30 May 2026",
+      "riskScore": 50,
+      "riskLabel": "Neutral · range mode — deleveraging completing; awaiting BTC $74.2k reclaim + PCE",
+      "bottomLineExcerpt": "Modest weekend follow-through to Friday's bounce: BTC +0.6% to $73.6k (range $72.4–74.2k), ETH leading +1.0%, gold incremental bid +0.5%. Big positioning cleanup across alts (SOL OI −8.6%, XRP OI −10%) — healthy deleveraging reset, not euphoric long-stacking. Friday's MSCI rebalance is behind us; equities closed for the weekend. No confirmed trend repair until BTC reclaims $74.2k; PCE remains the swing event.",
+      "file": "2026-05-31.html"
+    },
     {
       "date": "2026-05-30",
       "dateLong": "Saturday, 30 May 2026",

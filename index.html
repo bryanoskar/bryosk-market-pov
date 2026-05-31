@@ -83,9 +83,9 @@
   .sparkrow .bartrack{height:22px; background:transparent; border-radius:0; overflow:visible;}
   .spark{display:block; width:100%; height:22px; opacity:0; animation:sparkIn .55s ease forwards;}
   @keyframes sparkIn{from{opacity:0; transform:translateY(2px)} to{opacity:1; transform:none}}
-  /* TradingView mini-chart rows (Gold/S&P/Nasdaq/10Y): live chart embed when market open */
-  .tvrow .bartrack{height:auto; min-height:100px; background:transparent; border-radius:0; overflow:visible; padding:0;}
-  .tvrow .tradingview-widget-container{height:100px;}
+  /* TradingView mini-chart rows: live chart embed when market open */
+  .tvrow .bartrack{height:auto; min-height:130px; background:transparent; border-radius:0; overflow:visible; padding:0;}
+  .tvrow .tradingview-widget-container{height:130px;}
   .drv{font-size:12.5px; color:#555;}
 
   .lbstamp{font-size:11px; color:var(--muted); margin:-6px 0 10px;}
@@ -298,13 +298,13 @@ const DATA = {
     {a:"Gold",tv:"TVC:GOLD",lvl:"$4,539",d:"flat",dir:"flat",mag:2,drv:"Consolidating Friday's rally",url:"https://www.tradingview.com/symbols/XAUUSD/"},
     {a:"S&P 500",tv:"FOREXCOM:SPXUSD",lvl:"7,519",d:"+0.6%",dir:"pos",mag:11,drv:"Records held (as of 26 May close)",url:"https://www.tradingview.com/symbols/SPX/"},
     {a:"Nasdaq",tv:"FOREXCOM:NSXUSD",lvl:"26,656",d:"+1.2%",dir:"pos",mag:22,drv:"Tech leadership (26 May close)",url:"https://www.tradingview.com/symbols/IXIC/"},
-    {a:"10Y UST",tv:"TVC:TNX",lvl:"~4.48%",d:"flat",dir:"flat",mag:8,drv:"Range-bound post-Warsh; PCE looms",url:"https://www.tradingview.com/symbols/TVC-US10Y/"},
-    {a:"Shanghai",lvl:"4,094",d:"−1.3%",dir:"neg",mag:24,drv:"Semis still under pressure",url:"https://www.tradingview.com/symbols/SHCOMP/"},
-    {a:"CSI 300",lvl:"~4,922",d:"soft",dir:"neg",mag:12,drv:"Mainland tech drag persists",url:"https://www.tradingview.com/symbols/000300/"},
-    {a:"Hang Seng",lvl:"~25,600",d:"flat",dir:"flat",mag:6,drv:"HS Tech holding the relative-strength leadership",url:"https://www.tradingview.com/symbols/HSI/"},
-    {a:"WTI",lvl:"~$93",d:"weak",dir:"neg",mag:28,drv:"Hormuz reopening optimism capping",url:"https://www.tradingview.com/symbols/TVC-USOIL/"},
-    {a:"IHSG",lvl:"~6,095",d:"weak",dir:"neg",mag:50,drv:"29 May MSCI outflow cliff tomorrow",url:"https://www.tradingview.com/symbols/IDX-COMPOSITE/"},
-    {a:"USD/IDR",lvl:"~17,597",d:"weak",dir:"neg",mag:42,drv:"Rupiah pinned at stress highs",url:"https://www.tradingview.com/symbols/USDIDR/"}
+    {a:"10Y UST",tv:"TVC:US10Y",lvl:"~4.48%",d:"flat",dir:"flat",mag:8,drv:"Range-bound post-Warsh; PCE looms",url:"https://www.tradingview.com/symbols/TVC-US10Y/"},
+    {a:"Shanghai",tv:"SSE:000001",lvl:"4,094",d:"−1.3%",dir:"neg",mag:24,drv:"Semis still under pressure",url:"https://www.tradingview.com/symbols/SSE-000001/"},
+    {a:"CSI 300",tv:"SSE:000300",lvl:"~4,922",d:"soft",dir:"neg",mag:12,drv:"Mainland tech drag persists",url:"https://www.tradingview.com/symbols/SSE-000300/"},
+    {a:"Hang Seng",tv:"HSI:HSI",lvl:"~25,600",d:"flat",dir:"flat",mag:6,drv:"HS Tech holding the relative-strength leadership",url:"https://www.tradingview.com/symbols/HSI-HSI/"},
+    {a:"WTI",tv:"TVC:USOIL",lvl:"~$93",d:"weak",dir:"neg",mag:28,drv:"Hormuz reopening optimism capping",url:"https://www.tradingview.com/symbols/WTI/"},
+    {a:"IHSG",tv:"IDX:COMPOSITE",lvl:"~6,095",d:"weak",dir:"neg",mag:50,drv:"29 May MSCI outflow cliff tomorrow",url:"https://www.tradingview.com/symbols/IDX-COMPOSITE/"},
+    {a:"USD/IDR",tv:"FX_IDC:USDIDR",lvl:"~17,597",d:"weak",dir:"neg",mag:42,drv:"Rupiah pinned at stress highs",url:"https://www.tradingview.com/symbols/USDIDR/"}
   ],
   positions:[
     /* CRYPTO */
@@ -527,7 +527,7 @@ function initOverviewCharts(){
     const s=document.createElement("script");
     s.type="text/javascript"; s.async=true;
     s.src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js";
-    s.text=JSON.stringify({symbol:sym,width:"100%",height:100,locale:"en",dateRange:"1M",colorTheme:"light",isTransparent:true,autosize:false,largeChartUrl:"",noTimeScale:true,trendLineColor:"rgba(0, 68, 124, 1)",underLineColor:"rgba(0, 68, 124, 0.15)",underLineBottomColor:"rgba(0, 68, 124, 0)"});
+    s.text=JSON.stringify({symbol:sym,width:"100%",height:130,locale:"en",dateRange:"1M",colorTheme:"light",isTransparent:true,autosize:false,largeChartUrl:"",noTimeScale:true,trendLineColor:"rgba(0, 68, 124, 1)",underLineColor:"rgba(0, 68, 124, 0.15)",underLineBottomColor:"rgba(0, 68, 124, 0)"});
     track.querySelector(".tradingview-widget-container").appendChild(s);
     row.setAttribute("data-tv-done","1");
   });

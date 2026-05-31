@@ -49,6 +49,17 @@ def strip_tags(text: str) -> str:
     return re.sub(r"\s+", " ", no_tags).strip()
 
 
+def parse_date_long(s: str) -> str | None:
+    """Convert 'Sunday, 31 May 2026' → '2026-05-31'. Returns None on parse failure."""
+    if not s:
+        return None
+    try:
+        dt = datetime.strptime(s, "%A, %d %B %Y")
+        return dt.strftime("%Y-%m-%d")
+    except ValueError:
+        return None
+
+
 def main() -> int:
     if not INDEX_HTML.exists():
         print(f"ERROR: index.html not found at {INDEX_HTML}", file=sys.stderr)
@@ -65,6 +76,17 @@ def main() -> int:
 
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     archive_file = ARCHIVE_DIR / f"{today}.html"
+
+    # Guard: skip archiving if the page hasn't been refreshed for today yet.
+    # Without this check, the cron would preserve yesterday's content under
+    # today's filename (which happened on 2026-05-31 before this fix).
+    in_file_date = parse_date_long(date_long)
+    if in_file_date and in_file_date != today:
+        print(
+            f"Skipping: page dateLong is {date_long!r} (= {in_file_date}), "
+            f"not today ({today}). index.html hasn't been refreshed for today yet."
+        )
+        return 0
 
     meta = json.loads(METADATA_JSON.read_text(encoding="utf-8"))
     existing_dates = {e.get("date") for e in meta.get("entries", [])}

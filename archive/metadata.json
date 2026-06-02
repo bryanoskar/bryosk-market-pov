@@ -1,7 +1,15 @@
 {
-  "lastUpdated": "2026-05-31",
+  "lastUpdated": "2026-06-02",
   "since": "2026-05-27",
   "entries": [
+    {
+      "date": "2026-06-02",
+      "dateLong": "Tuesday, 2 June 2026",
+      "riskScore": 40,
+      "riskLabel": "Defensive — crypto broke down, equities decoupled at records, Iran/oil flipping",
+      "bottomLineExcerpt": "Regime split. Crypto bear-case triggered: BTC lost $72k support to $71.4k (−2.9%), ETH back below $2,000 (−1.6%), alts soft, gold also down −1.1% (no clean haven bid). BUT US equities decoupled at new record highs on NVDA (+2%, new PC chip) — AI mega-cap leadership. Oil +5% on Iran/Hormuz tension re-emerging (reversing the de-escalation thesis). PCE (May 28) mixed — MoM softer than expected (0.4% vs 0.5%), but YoY headline 3.8% / core 3.3% are hottest since 2023. Crypto-equity divergence rarely ",
+      "file": "2026-06-02.html"
+    },
     {
       "date": "2026-05-31",
       "dateLong": "Sunday, 31 May 2026",

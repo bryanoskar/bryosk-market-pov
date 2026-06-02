@@ -286,16 +286,16 @@
 <script>
 /* ====== DATA — the daily run replaces ONLY this object ====== */
 const DATA = {
-  dateLong:"Tuesday, 2 June 2026",
-  feedTime:"2026-06-01 18:11 UTC",
-  riskScore:40, riskLabel:"Defensive — crypto broke down, equities decoupled at records, Iran/oil flipping",
-  bottomLine:"<strong>Regime split.</strong> Crypto bear-case triggered: BTC <strong>lost $72k support to $71.4k (−2.9%)</strong>, ETH back below $2,000 (−1.6%), alts soft, gold also down −1.1% (no clean haven bid). BUT US equities <strong>decoupled at new record highs</strong> on NVDA (+2%, new PC chip) — AI mega-cap leadership. Oil <strong>+5%</strong> on Iran/Hormuz tension <em>re-emerging</em> (reversing the de-escalation thesis). PCE (May 28) mixed — MoM softer than expected (0.4% vs 0.5%), but YoY headline 3.8% / core 3.3% are hottest since 2023. Crypto-equity divergence rarely lasts — one will give.",
+  dateLong:"Wednesday, 3 June 2026",
+  feedTime:"2026-06-02 19:05 UTC",
+  riskScore:30, riskLabel:"Risk-off — crypto cascade in motion, $70k psychological broken, Iran escalation",
+  bottomLine:"<strong>Crypto cascade.</strong> BTC <strong>broke below the $70k psychological</strong> to $67.2k (−5.9%, low $66.9k) — first time in ~2 months. ETH back below $2,000 (low ~$1,965), SOL crushed −6% to $75.9 (OI +11% = fresh shorts), alts in liquidation mode. <strong>Trigger stack</strong>: Strategy disclosed its first BTC sale in ~4 years (32 BTC ≈ $2.5M — tiny $ but the <em>'never sell'</em> narrative broke) + Iran/Hormuz escalation headlines + ~<strong>$1B total liquidations</strong> + technical stops cascading. Gold flat — not catching haven bid even on this. <strong>The crypto-equity divergence from yesterday is now resolving — toward crypto's direction.</strong>",
   snapshot:[
-    {a:"BTC",cg:"bitcoin",lvl:"$71,437",d:"−2.9%",dir:"neg",mag:55,drv:"Bear-case triggered: lost the $72k support",url:"https://www.tradingview.com/symbols/BTCUSD/"},
-    {a:"ETH",cg:"ethereum",lvl:"$1,984",d:"−1.6%",dir:"neg",mag:30,drv:"Lost $2,000; bounce thesis failed",url:"https://www.tradingview.com/symbols/ETHUSD/"},
-    {a:"SOL",cg:"solana",lvl:"$80.7",d:"−1.2%",dir:"neg",mag:22,drv:"OI +13%: shorts rebuilding on the breakdown",url:"https://www.tradingview.com/symbols/SOLUSD/"},
-    {a:"XRP",cg:"ripple",lvl:"$1.30",d:"−2.3%",dir:"neg",mag:42,drv:"Failed the bounce; back at $1.30",url:"https://www.tradingview.com/symbols/XRPUSD/"},
-    {a:"Gold",tv:"TVC:GOLD",lvl:"$4,486",d:"−1.1%",dir:"neg",mag:20,drv:"No clean haven bid despite crypto risk-off",url:"https://www.tradingview.com/symbols/XAUUSD/"},
+    {a:"BTC",cg:"bitcoin",lvl:"$67,213",d:"−5.9%",dir:"neg",mag:80,drv:"Cascade: broke $70k psychological, low $66.9k",url:"https://www.tradingview.com/symbols/BTCUSD/"},
+    {a:"ETH",cg:"ethereum",lvl:"$1,965",d:"−1.0%",dir:"neg",mag:18,drv:"Lost $2,000; testing $1,950 base",url:"https://www.tradingview.com/symbols/ETHUSD/"},
+    {a:"SOL",cg:"solana",lvl:"$75.9",d:"−6.0%",dir:"neg",mag:80,drv:"Crushed; OI +11% = new shorts cascading in",url:"https://www.tradingview.com/symbols/SOLUSD/"},
+    {a:"XRP",cg:"ripple",lvl:"~$1.25",d:"−4%",dir:"neg",mag:55,drv:"Caught in the broader liquidation cascade",url:"https://www.tradingview.com/symbols/XRPUSD/"},
+    {a:"Gold",tv:"TVC:GOLD",lvl:"$4,487",d:"flat",dir:"flat",mag:2,drv:"NOT catching haven bid — unusual on a risk-off day",url:"https://www.tradingview.com/symbols/XAUUSD/"},
     {a:"S&P 500",tv:"FOREXCOM:SPXUSD",lvl:"~7,520",d:"+0.1%",dir:"pos",mag:4,drv:"New record high; AI leadership intact",url:"https://www.tradingview.com/symbols/SPX/"},
     {a:"Nasdaq",tv:"FOREXCOM:NSXUSD",lvl:"~26,730",d:"+0.3%",dir:"pos",mag:8,drv:"New record high; NVDA +2% new PC chip",url:"https://www.tradingview.com/symbols/IXIC/"},
     {a:"10Y UST",lvl:"~4.48%",d:"flat",dir:"flat",mag:8,drv:"Range-bound post-Warsh; PCE looms · yield-chart skipped (TradingView free tier doesn't license live yield charts)",url:"https://www.tradingview.com/symbols/TVC-US10Y/"},
@@ -328,9 +328,9 @@ const DATA = {
     {sym:"BREN", name:"Barito Renewables Energy", market:"Indonesia", cap:"Mid cap (post-MSCI)", position:"AVOID", conviction:"Med", horizon:"1–3m", thesis:"Removed from MSCI Global Standard on 29 May → ongoing forced passive-selling pressure. Free-float / concentration concerns remain. Avoid until capitulation completes.", risk:"Faster-than-expected snapback once passive flow clears; corporate moves improving free float."}
   ],
   derivFlow:[
-    "<strong>BTC perp OI ~6,490 — DOWN from 6,546 yesterday</strong> as price bounced → <em>shorts covering</em>, not new long-stacking. Healthy positioning reset.",
-    "<strong>ETH OI ~184k flat</strong> while price up +1.5% — relative-strength leadership returning quietly.",
-    "<strong>SOL/XRP OI both down 3–4%</strong> alongside their bounces — the same short-covering pattern across the high-beta names.",
+    "<strong>BTC perp OI ~6,470 (slight increase)</strong> while price down −5.9% → fresh shorts opening on the breakdown, not capitulation deleveraging yet. Volume <strong>$898M 24h</strong> (vs $716M previous) — heavy participation.",
+    "<strong>SOL OI +11% to ~47.5k</strong> while price down −6% → aggressive new shorts cascading in alongside the price drop. Bearish positioning building.",
+    "<strong>~$1B total crypto liquidations in 24h</strong> per reports — long-side flushed; positioning resetting violently.",
     "<em>Proxy note:</em> OI &amp; volume from the connected feed at the timestamp above — positioning flow, not browser-live spot exchange netflows."
   ],
   funding:[
@@ -387,7 +387,7 @@ const DATA = {
     "<strong>China soft / HK firm</strong> dynamic intact; Indonesia heavy into 29 May MSCI."
   ],
   news:[
-    "<strong>Crypto broke down (1 Jun):</strong> BTC −2.9% to $71.4k (lost the $72k support that held the entire bounce), ETH back below $2,000, alts soft. SOL OI +13% = new shorts opening on the breakdown.",
+    "<strong>Crypto cascade (2 Jun):</strong> BTC −5.9% to $67.2k (broke $70k psychological), ETH below $1,965, SOL −6% to $75.9, ~$1B in 24h liquidations. Strategy disclosed its first BTC sale in 4 years (32 BTC — small $ but 'never sell' narrative broke). Iran/Hormuz escalation headlines compounding.",
     "<strong>Fed Chair Warsh</strong> sworn in 22 May; market still positioned for an easier policy path, but PCE will test it.",
     "<strong>US–Iran:</strong> deal 'close' per Trump/Rubio; Strait of Hormuz reopening optimism keeping oil capped.",
     "<strong>TODAY — 29 May MSCI rebalance LIVE:</strong> ~$1.8B / Rp18.5T forced passive selling on AMMN/BREN/TPIA. Peak IDX outflow pressure happening NOW; watch for capitulation vs snapback near IHSG 6,000.",
@@ -407,7 +407,7 @@ const DATA = {
     "<strong>29 May MSCI day (tomorrow)</strong> — capitulation vs. snapback near IHSG 6,000.",
     "<strong>BTC $72k / ETH $1,950</strong> — holds = base building; loses = capitulation lower."
   ],
-  tilt:"Bear-case <b>partially triggered</b>: BTC lost $72k, alts soft, but equities decoupled at records. Two ways this resolves: equities catch down to crypto, OR crypto recovers as the AI narrative pulls. <b>Lean defensive on crypto</b> — no fresh adds until BTC reclaims $73k+; respect <b>NVDA/AI mega-cap leadership</b>; watch <b>oil's Iran flip</b> for inflation read-through; <b>IDX still post-MSCI weak</b>. <span class='conf'>Med Conviction</span><br><span style='color:#6b7280;font-size:13.5px;'>Thesis confirms on equities catching down + crypto stabilising. Breaks on BTC losing $70k or equities making another leg up alone. Personal research, not advice.</span>",
+  tilt:"Bear-case <b>fully playing out</b>: BTC lost $70k decisively, ETH lost $2k, SOL/alts in cascade liquidation. The crypto-equity divergence I flagged yesterday is resolving toward crypto's direction. <b>Stand down on crypto</b> — no fresh adds until BTC stabilises ($66k or $70k reclaim). Watch <b>equities catching down</b> — that's the next shoe. Iran escalation a real macro risk now; gold's flat reaction is the tell — sentiment is selling everything. <span class='conf'>Med-High Conviction (on the defensive call)</span><br><span style='color:#6b7280;font-size:13.5px;'>Thesis confirms on equities following crypto lower this week. Breaks on BTC reclaiming $70k with volume + Iran de-escalation headlines. Personal research, not advice.</span>",
   scenarios:{
     overview:{bull:{prob:"~25%",text:"Soft PCE + Iran deal → cuts repriced → broad risk-on; crypto squeezes higher into clean short positioning."},base:{prob:"~50%",text:"PCE in line; equities grind near records on value/industrial rotation; crypto ranges $68–78k; China soft / HK firm; Indonesia stabilises post-MSCI."},bear:{prob:"~25%",text:"Hot PCE → yields & USD up → risk-off broadens; BTC capitulates to $68–70k; EM + China sell harder."}},
     crypto:{bull:{prob:"~25%",text:"Soft PCE + short squeeze (new shorts trapped) → BTC reclaims $75k → $78k; alts outperform."},base:{prob:"~45%",text:"BTC ranges $68–75k post-flush; positioning resets; accumulation regime, not trend."},bear:{prob:"~30%",text:"$72k breaks → cascading liqs to $68–70k; ETH below $1,950 opens $1,800s."}},

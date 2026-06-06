@@ -111,6 +111,12 @@
   .conf{display:inline-block; font-size:10px; letter-spacing:.06em; text-transform:uppercase; background:#e9e7df; color:var(--accent); padding:2px 9px; border-radius:10px; font-weight:700; margin-left:4px;}
   .tilt{background:var(--card); border:1px solid var(--line); border-left:4px solid var(--teal); padding:17px 20px; border-radius:8px; font-size:15px; box-shadow:0 6px 20px -16px rgba(0,0,0,.25);} .tilt b{color:var(--accent);}
 
+  /* Assets-to-watch tile (Outlook tab, 2-3 week horizon) */
+  .watchitem{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:8px; padding:11px 14px; margin-bottom:8px; box-shadow:0 4px 14px -12px rgba(0,0,0,.2);}
+  .watchitem .wh{font-size:13.5px; font-weight:800; color:var(--ink); margin-bottom:4px;}
+  .watchitem .wh b{color:var(--accent); margin-right:6px;}
+  .watchitem .wh em{color:var(--teal); font-style:normal; font-weight:700;}
+  .watchitem .ww{font-size:12.5px; color:#555; line-height:1.55;}
   .scen{display:flex; flex-direction:column; gap:10px;}
   .scard{border:1px solid var(--line); border-left:4px solid; border-radius:10px; padding:13px 16px; background:var(--card); box-shadow:0 6px 18px -16px rgba(0,0,0,.25);}
   .scard.bull{border-left-color:var(--pos);} .scard.base{border-left-color:var(--sand2);} .scard.bear{border-left-color:var(--neg);}
@@ -268,6 +274,7 @@
     <section><h2>Capital Rotation &amp; Flow Forecast</h2><ul id="rotation"></ul></section>
     <section><h2>Corporate Actions Watch</h2><ul id="corp"></ul></section>
     <section><h2>What We're Watching · 24–48h</h2><ul id="watch"></ul></section>
+    <section><h2>Assets to Watch · next 2–3 weeks</h2><div id="assetsWatch"></div></section>
     <section><h2>Bull · Base · Bear · strategy</h2><div class="scen" id="scenOutlook"></div></section>
   </div>
 
@@ -286,16 +293,16 @@
 <script>
 /* ====== DATA — the daily run replaces ONLY this object ====== */
 const DATA = {
-  dateLong:"Wednesday, 3 June 2026",
-  feedTime:"2026-06-02 19:05 UTC",
-  riskScore:30, riskLabel:"Risk-off — crypto cascade in motion, $70k psychological broken, Iran escalation",
-  bottomLine:"<strong>Crypto cascade.</strong> BTC <strong>broke below the $70k psychological</strong> to $67.2k (−5.9%, low $66.9k) — first time in ~2 months. ETH back below $2,000 (low ~$1,965), SOL crushed −6% to $75.9 (OI +11% = fresh shorts), alts in liquidation mode. <strong>Trigger stack</strong>: Strategy disclosed its first BTC sale in ~4 years (32 BTC ≈ $2.5M — tiny $ but the <em>'never sell'</em> narrative broke) + Iran/Hormuz escalation headlines + ~<strong>$1B total liquidations</strong> + technical stops cascading. Gold flat — not catching haven bid even on this. <strong>The crypto-equity divergence from yesterday is now resolving — toward crypto's direction.</strong>",
+  dateLong:"Saturday, 6 June 2026",
+  feedTime:"2026-06-06 12:25 UTC",
+  riskScore:22, riskLabel:"Risk-off panic — crypto cascade extends, gold catching down, US-Israel-Iran escalation",
+  bottomLine:"<strong>The cascade deepened.</strong> BTC now <strong>$60.8k</strong> (low $59k overnight) — down ~$6.5k from Wednesday. ETH <strong>devastated to $1,557</strong> (low $1,504) — −21% in 3 days. SOL/alts down −10% with OI at <strong>record high</strong> = massive short accumulation = potential squeeze fuel. Gold finally <strong>caught down to $4,312 (−3.6%)</strong> — the haven thesis failed; this is a <em>liquidity event</em>, not classic risk-off. Trigger: <strong>US + Israel joint strikes on Iran</strong> + ~$3B 2-day liquidations (85% longs) + continued ETF outflows. <strong>Looking for capitulation signal</strong> — extreme positioning often marks the bottom.",
   snapshot:[
-    {a:"BTC",cg:"bitcoin",lvl:"$67,213",d:"−5.9%",dir:"neg",mag:80,drv:"Cascade: broke $70k psychological, low $66.9k",url:"https://www.tradingview.com/symbols/BTCUSD/"},
-    {a:"ETH",cg:"ethereum",lvl:"$1,965",d:"−1.0%",dir:"neg",mag:18,drv:"Lost $2,000; testing $1,950 base",url:"https://www.tradingview.com/symbols/ETHUSD/"},
-    {a:"SOL",cg:"solana",lvl:"$75.9",d:"−6.0%",dir:"neg",mag:80,drv:"Crushed; OI +11% = new shorts cascading in",url:"https://www.tradingview.com/symbols/SOLUSD/"},
-    {a:"XRP",cg:"ripple",lvl:"~$1.25",d:"−4%",dir:"neg",mag:55,drv:"Caught in the broader liquidation cascade",url:"https://www.tradingview.com/symbols/XRPUSD/"},
-    {a:"Gold",tv:"TVC:GOLD",lvl:"$4,487",d:"flat",dir:"flat",mag:2,drv:"NOT catching haven bid — unusual on a risk-off day",url:"https://www.tradingview.com/symbols/XAUUSD/"},
+    {a:"BTC",cg:"bitcoin",lvl:"$60,854",d:"−2.4%",dir:"neg",mag:55,drv:"Tested $59k overnight; positioning deleveraging",url:"https://www.tradingview.com/symbols/BTCUSD/"},
+    {a:"ETH",cg:"ethereum",lvl:"$1,557",d:"−6.5%",dir:"neg",mag:90,drv:"Devastated; lost $1,600, tested $1,500",url:"https://www.tradingview.com/symbols/ETHUSD/"},
+    {a:"SOL",cg:"solana",lvl:"~$75",d:"−10%",dir:"neg",mag:95,drv:"OI at RECORD HIGH = massive shorts = squeeze fuel",url:"https://www.tradingview.com/symbols/SOLUSD/"},
+    {a:"XRP",cg:"ripple",lvl:"~$1.10",d:"−9%",dir:"neg",mag:80,drv:"In broader liquidation cascade",url:"https://www.tradingview.com/symbols/XRPUSD/"},
+    {a:"Gold",tv:"TVC:GOLD",lvl:"$4,312",d:"−3.6%",dir:"neg",mag:50,drv:"Caught DOWN: liquidity event, haven bid broken",url:"https://www.tradingview.com/symbols/XAUUSD/"},
     {a:"S&P 500",tv:"FOREXCOM:SPXUSD",lvl:"~7,520",d:"+0.1%",dir:"pos",mag:4,drv:"New record high; AI leadership intact",url:"https://www.tradingview.com/symbols/SPX/"},
     {a:"Nasdaq",tv:"FOREXCOM:NSXUSD",lvl:"~26,730",d:"+0.3%",dir:"pos",mag:8,drv:"New record high; NVDA +2% new PC chip",url:"https://www.tradingview.com/symbols/IXIC/"},
     {a:"10Y UST",lvl:"~4.48%",d:"flat",dir:"flat",mag:8,drv:"Range-bound post-Warsh; PCE looms · yield-chart skipped (TradingView free tier doesn't license live yield charts)",url:"https://www.tradingview.com/symbols/TVC-US10Y/"},
@@ -328,9 +335,9 @@ const DATA = {
     {sym:"BREN", name:"Barito Renewables Energy", market:"Indonesia", cap:"Mid cap (post-MSCI)", position:"AVOID", conviction:"Med", horizon:"1–3m", thesis:"Removed from MSCI Global Standard on 29 May → ongoing forced passive-selling pressure. Free-float / concentration concerns remain. Avoid until capitulation completes.", risk:"Faster-than-expected snapback once passive flow clears; corporate moves improving free float."}
   ],
   derivFlow:[
-    "<strong>BTC perp OI ~6,470 (slight increase)</strong> while price down −5.9% → fresh shorts opening on the breakdown, not capitulation deleveraging yet. Volume <strong>$898M 24h</strong> (vs $716M previous) — heavy participation.",
-    "<strong>SOL OI +11% to ~47.5k</strong> while price down −6% → aggressive new shorts cascading in alongside the price drop. Bearish positioning building.",
-    "<strong>~$1B total crypto liquidations in 24h</strong> per reports — long-side flushed; positioning resetting violently.",
+    "<strong>BTC perp OI down to ~6,100</strong> (from 6,467 on Jun 2) → long-side deleveraging in progress. Volume <strong>$967M 24h</strong> — heaviest in months.",
+    "<strong>SOL OI at RECORD HIGH</strong> while price down −10% → aggressive short accumulation. This is the asymmetric squeeze setup — extreme positioning often marks bottoms.",
+    "<strong>~$3B in 2-day liquidations (Jun 3-4)</strong>, 85% LONGS. BTC $777M, ETH $398M, SOL $89M. Long-side largely flushed.",
     "<em>Proxy note:</em> OI &amp; volume from the connected feed at the timestamp above — positioning flow, not browser-live spot exchange netflows."
   ],
   funding:[
@@ -387,7 +394,7 @@ const DATA = {
     "<strong>China soft / HK firm</strong> dynamic intact; Indonesia heavy into 29 May MSCI."
   ],
   news:[
-    "<strong>Crypto cascade (2 Jun):</strong> BTC −5.9% to $67.2k (broke $70k psychological), ETH below $1,965, SOL −6% to $75.9, ~$1B in 24h liquidations. Strategy disclosed its first BTC sale in 4 years (32 BTC — small $ but 'never sell' narrative broke). Iran/Hormuz escalation headlines compounding.",
+    "<strong>Cascade deepens (3-6 Jun):</strong> BTC down to $60.8k (low $59k), ETH crushed to $1,557 (low $1,504), SOL/alts −10%, ~$3B in 2-day liquidations (85% longs). <strong>US + Israel launched joint strikes on Iran</strong> — the macro tail risk we'd been dismissing. Gold also caught DOWN (−3.6%) → liquidity event, not classic risk-off.",
     "<strong>Fed Chair Warsh</strong> sworn in 22 May; market still positioned for an easier policy path, but PCE will test it.",
     "<strong>US–Iran:</strong> deal 'close' per Trump/Rubio; Strait of Hormuz reopening optimism keeping oil capped.",
     "<strong>TODAY — 29 May MSCI rebalance LIVE:</strong> ~$1.8B / Rp18.5T forced passive selling on AMMN/BREN/TPIA. Peak IDX outflow pressure happening NOW; watch for capitulation vs snapback near IHSG 6,000.",
@@ -403,11 +410,19 @@ const DATA = {
     "<strong>US:</strong> earnings light post-Memorial Day; big-box retail next week. M&amp;A backdrop active."
   ],
   watch:[
-    "<strong>US PCE inflation</strong> — the swing factor for yields, crypto and the whole rotation.",
-    "<strong>29 May MSCI day (tomorrow)</strong> — capitulation vs. snapback near IHSG 6,000.",
-    "<strong>BTC $72k / ETH $1,950</strong> — holds = base building; loses = capitulation lower."
+    "<strong>Iran de-escalation headline</strong> — single largest positive catalyst; would reverse the cascade impulse.",
+    "<strong>BTC capitulation signal</strong> — break of $59k → $55k in play; reclaim $63k with volume = bounce attempt.",
+    "<strong>Equity follow-through</strong> — do S&P/Nasdaq finally catch down to the crypto + gold sell-off? Records can't hold forever."
   ],
-  tilt:"Bear-case <b>fully playing out</b>: BTC lost $70k decisively, ETH lost $2k, SOL/alts in cascade liquidation. The crypto-equity divergence I flagged yesterday is resolving toward crypto's direction. <b>Stand down on crypto</b> — no fresh adds until BTC stabilises ($66k or $70k reclaim). Watch <b>equities catching down</b> — that's the next shoe. Iran escalation a real macro risk now; gold's flat reaction is the tell — sentiment is selling everything. <span class='conf'>Med-High Conviction (on the defensive call)</span><br><span style='color:#6b7280;font-size:13.5px;'>Thesis confirms on equities following crypto lower this week. Breaks on BTC reclaiming $70k with volume + Iran de-escalation headlines. Personal research, not advice.</span>",
+  assetsWatch:[
+    {asset:"BTC", trigger:"Reclaim $63k with volume", why:"First signal the cascade is exhausting. Loss of $59k overnight low → $55k in play next."},
+    {asset:"ETH", trigger:"Hold $1,500 / reclaim $1,650", why:"Psychological + technical battleground. Loss of $1,500 opens the $1,200s."},
+    {asset:"SOL", trigger:"OI rolling over from record high", why:"Extreme short positioning = squeeze fuel. Watch for OI peak + price stabilisation = the asymmetric setup."},
+    {asset:"Gold (XAU)", trigger:"Reclaim $4,400 cleanly", why:"True risk-off should bid gold. Continued weakness here = USD/cash bid still dominating (liquidity event)."},
+    {asset:"S&P 500", trigger:"Break ~7,400 support", why:"Equities still near records as I write; a break would confirm risk-off has broadened from crypto into equities."},
+    {asset:"NVDA (AI bellwether)", trigger:"Hold ~$135 / break = AI trade unwinding", why:"The leadership name. If even NVDA cracks, the AI narrative gap widens and the sell-off broadens."}
+  ],
+  tilt:"Cascade is <b>full liquidity-event mode</b> — gold sold down with crypto = forced-selling/cash-raise dynamic, not classic risk-off. <b>Stand down still</b> on adding risk; SOL OI at record-high shorts is the asymmetric squeeze setup to watch. <b>Capitulation signals to track</b>: BTC reclaim $63k (first bounce signal), or extreme positioning unwind (OI collapse), or Iran de-escalation headline. Equities have to catch down further — they can't hold records with crypto and gold both broken. <span class='conf'>Med-High Conviction (defensive)</span><br><span style='color:#6b7280;font-size:13.5px;'>Thesis confirms on equities following lower + capitulation print. Breaks on BTC reclaim $63k with conviction or Iran de-escalation. Personal research, not advice.</span>",
   scenarios:{
     overview:{bull:{prob:"~25%",text:"Soft PCE + Iran deal → cuts repriced → broad risk-on; crypto squeezes higher into clean short positioning."},base:{prob:"~50%",text:"PCE in line; equities grind near records on value/industrial rotation; crypto ranges $68–78k; China soft / HK firm; Indonesia stabilises post-MSCI."},bear:{prob:"~25%",text:"Hot PCE → yields & USD up → risk-off broadens; BTC capitulates to $68–70k; EM + China sell harder."}},
     crypto:{bull:{prob:"~25%",text:"Soft PCE + short squeeze (new shorts trapped) → BTC reclaims $75k → $78k; alts outperform."},base:{prob:"~45%",text:"BTC ranges $68–75k post-flush; positioning resets; accumulation regime, not trend."},bear:{prob:"~30%",text:"$72k breaks → cascading liqs to $68–70k; ETH below $1,950 opens $1,800s."}},
@@ -442,6 +457,10 @@ $("rows").innerHTML=DATA.snapshot.map(r=>
 function renderScen(id,obj){ $(id).innerHTML=["bull","base","bear"].map(k=>
   `<div class="scard ${k}"><div class="sh">${k.toUpperCase()}<span class="prob">${obj[k].prob}</span></div><div class="sp">${obj[k].text}</div></div>`).join(""); }
 ["overview","crypto","stocks","macro","outlook"].forEach(k=>renderScen("scen"+k.charAt(0).toUpperCase()+k.slice(1),DATA.scenarios[k]));
+if(DATA.assetsWatch && $("assetsWatch")){
+  $("assetsWatch").innerHTML=DATA.assetsWatch.map(a=>
+    `<div class="watchitem"><div class="wh"><b>${a.asset}</b> · <em>${a.trigger}</em></div><div class="ww">${a.why}</div></div>`).join("");
+}
 $("sources").innerHTML="Sources: "+DATA.sources.map(s=>`<a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a>`).join(" · ");
 
 /* ====== POSITIONS render ====== */

@@ -293,19 +293,19 @@
 <script>
 /* ====== DATA — the daily run replaces ONLY this object ====== */
 const DATA = {
-  dateLong:"Saturday, 6 June 2026",
-  feedTime:"2026-06-06 12:25 UTC",
-  riskScore:22, riskLabel:"Risk-off panic — crypto cascade extends, gold catching down, US-Israel-Iran escalation",
-  bottomLine:"<strong>The cascade deepened.</strong> BTC now <strong>$60.8k</strong> (low $59k overnight) — down ~$6.5k from Wednesday. ETH <strong>devastated to $1,557</strong> (low $1,504) — −21% in 3 days. SOL/alts down −10% with OI at <strong>record high</strong> = massive short accumulation = potential squeeze fuel. Gold finally <strong>caught down to $4,312 (−3.6%)</strong> — the haven thesis failed; this is a <em>liquidity event</em>, not classic risk-off. Trigger: <strong>US + Israel joint strikes on Iran</strong> + ~$3B 2-day liquidations (85% longs) + continued ETF outflows. <strong>Looking for capitulation signal</strong> — extreme positioning often marks the bottom.",
+  dateLong:"Friday, 12 June 2026",
+  feedTime:"2026-06-11 18:36 UTC",
+  riskScore:40, riskLabel:"Neutral defensive — bounce active, $63k BTC reclaim achieved, macro mixed",
+  bottomLine:"<strong>Bounce engaged.</strong> Crypto has recovered some of the cascade: BTC <strong>back at $63,393 (+2.5%, range $61–63.7k)</strong> — the $63k reclaim trigger from last week's Watch list has fired. ETH <strong>$1,682 (+3.3%)</strong> — bounced ~$130 off the $1,504 low. <strong>Macro state (12 Jun)</strong>: <strong>10Y UST 4.55%</strong> (up 7bps), DXY <strong>100.06</strong> (firm), Fed Funds <strong>3.50–3.75%</strong> (unchanged 3 meetings, Dec hike still priced), May CPI YoY <strong>4.2%</strong> (accelerated — fastest in 3 years on energy). Iran de-escalation news still mixed. Not yet a confirmed turn — needs follow-through above $65k + ETH back over $1,700 for trend repair.",
   snapshot:[
-    {a:"BTC",cg:"bitcoin",lvl:"$60,854",d:"−2.4%",dir:"neg",mag:55,drv:"Tested $59k overnight; positioning deleveraging",url:"https://www.tradingview.com/symbols/BTCUSD/"},
-    {a:"ETH",cg:"ethereum",lvl:"$1,557",d:"−6.5%",dir:"neg",mag:90,drv:"Devastated; lost $1,600, tested $1,500",url:"https://www.tradingview.com/symbols/ETHUSD/"},
-    {a:"SOL",cg:"solana",lvl:"~$75",d:"−10%",dir:"neg",mag:95,drv:"OI at RECORD HIGH = massive shorts = squeeze fuel",url:"https://www.tradingview.com/symbols/SOLUSD/"},
-    {a:"XRP",cg:"ripple",lvl:"~$1.10",d:"−9%",dir:"neg",mag:80,drv:"In broader liquidation cascade",url:"https://www.tradingview.com/symbols/XRPUSD/"},
-    {a:"Gold",tv:"TVC:GOLD",lvl:"$4,312",d:"−3.6%",dir:"neg",mag:50,drv:"Caught DOWN: liquidity event, haven bid broken",url:"https://www.tradingview.com/symbols/XAUUSD/"},
+    {a:"BTC",cg:"bitcoin",lvl:"$63,393",d:"+2.5%",dir:"pos",mag:35,drv:"Reclaimed $63k Watch trigger; needs $65k follow-through",url:"https://www.tradingview.com/symbols/BTCUSD/"},
+    {a:"ETH",cg:"ethereum",lvl:"$1,682",d:"+3.3%",dir:"pos",mag:50,drv:"Bounced ~$130 off the $1,504 low",url:"https://www.tradingview.com/symbols/ETHUSD/"},
+    {a:"SOL",cg:"solana",lvl:"~$83",d:"+3%",dir:"pos",mag:35,drv:"Squeeze fuel still: high short OI vs price stabilising",url:"https://www.tradingview.com/symbols/SOLUSD/"},
+    {a:"XRP",cg:"ripple",lvl:"~$1.20",d:"+2%",dir:"pos",mag:25,drv:"Bouncing with broader risk-on",url:"https://www.tradingview.com/symbols/XRPUSD/"},
+    {a:"Gold",tv:"TVC:GOLD",lvl:"~$4,380",d:"+1.5%",dir:"pos",mag:20,drv:"Stabilising after the liquidity-event sell-off",url:"https://www.tradingview.com/symbols/XAUUSD/"},
     {a:"S&P 500",tv:"FOREXCOM:SPXUSD",lvl:"~7,520",d:"+0.1%",dir:"pos",mag:4,drv:"New record high; AI leadership intact",url:"https://www.tradingview.com/symbols/SPX/"},
     {a:"Nasdaq",tv:"FOREXCOM:NSXUSD",lvl:"~26,730",d:"+0.3%",dir:"pos",mag:8,drv:"New record high; NVDA +2% new PC chip",url:"https://www.tradingview.com/symbols/IXIC/"},
-    {a:"10Y UST",lvl:"~4.48%",d:"flat",dir:"flat",mag:8,drv:"Range-bound post-Warsh; PCE looms · yield-chart skipped (TradingView free tier doesn't license live yield charts)",url:"https://www.tradingview.com/symbols/TVC-US10Y/"},
+    {a:"10Y UST",lvl:"4.55%",d:"+7bps",dir:"neg",mag:14,drv:"Crept up post-CPI; May CPI 4.2% YoY (3-yr high on energy)",url:"https://www.tradingview.com/symbols/TVC-US10Y/"},
     {a:"Shanghai",tv:"SSE:000001",lvl:"4,094",d:"−1.3%",dir:"neg",mag:24,drv:"Semis still under pressure",url:"https://www.tradingview.com/symbols/SSE-000001/"},
     {a:"CSI 300",tv:"SSE:000300",lvl:"~4,922",d:"soft",dir:"neg",mag:12,drv:"Mainland tech drag persists",url:"https://www.tradingview.com/symbols/SSE-000300/"},
     {a:"Hang Seng",tv:"HSI:HSI",lvl:"~25,600",d:"flat",dir:"flat",mag:6,drv:"HS Tech holding the relative-strength leadership",url:"https://www.tradingview.com/symbols/HSI-HSI/"},
@@ -394,7 +394,7 @@ const DATA = {
     "<strong>China soft / HK firm</strong> dynamic intact; Indonesia heavy into 29 May MSCI."
   ],
   news:[
-    "<strong>Cascade deepens (3-6 Jun):</strong> BTC down to $60.8k (low $59k), ETH crushed to $1,557 (low $1,504), SOL/alts −10%, ~$3B in 2-day liquidations (85% longs). <strong>US + Israel launched joint strikes on Iran</strong> — the macro tail risk we'd been dismissing. Gold also caught DOWN (−3.6%) → liquidity event, not classic risk-off.",
+    "<strong>Bounce engaged (12 Jun):</strong> BTC reclaimed $63k (the Watch-list trigger), ETH +3.3% off $1,504 low. May CPI <strong>4.2% YoY</strong> released — fastest in 3 years on energy; 10Y back to 4.55%. Macro mixed (hot CPI vs steady Fed at 3.50–3.75%). Not a confirmed turn — needs $65k follow-through.",
     "<strong>Fed Chair Warsh</strong> sworn in 22 May; market still positioned for an easier policy path, but PCE will test it.",
     "<strong>US–Iran:</strong> deal 'close' per Trump/Rubio; Strait of Hormuz reopening optimism keeping oil capped.",
     "<strong>TODAY — 29 May MSCI rebalance LIVE:</strong> ~$1.8B / Rp18.5T forced passive selling on AMMN/BREN/TPIA. Peak IDX outflow pressure happening NOW; watch for capitulation vs snapback near IHSG 6,000.",
@@ -415,14 +415,14 @@ const DATA = {
     "<strong>Equity follow-through</strong> — do S&P/Nasdaq finally catch down to the crypto + gold sell-off? Records can't hold forever."
   ],
   assetsWatch:[
-    {asset:"BTC", trigger:"Reclaim $63k with volume", why:"First signal the cascade is exhausting. Loss of $59k overnight low → $55k in play next."},
+    {asset:"BTC", trigger:"FOLLOW-THROUGH above $65k", why:"$63k trigger HAS FIRED (12 Jun, currently $63.4k). Next confirmation = sustained move above $65k. Failure to break $65k = chop / retest $61k."},
     {asset:"ETH", trigger:"Hold $1,500 / reclaim $1,650", why:"Psychological + technical battleground. Loss of $1,500 opens the $1,200s."},
     {asset:"SOL", trigger:"OI rolling over from record high", why:"Extreme short positioning = squeeze fuel. Watch for OI peak + price stabilisation = the asymmetric setup."},
     {asset:"Gold (XAU)", trigger:"Reclaim $4,400 cleanly", why:"True risk-off should bid gold. Continued weakness here = USD/cash bid still dominating (liquidity event)."},
     {asset:"S&P 500", trigger:"Break ~7,400 support", why:"Equities still near records as I write; a break would confirm risk-off has broadened from crypto into equities."},
     {asset:"NVDA (AI bellwether)", trigger:"Hold ~$135 / break = AI trade unwinding", why:"The leadership name. If even NVDA cracks, the AI narrative gap widens and the sell-off broadens."}
   ],
-  tilt:"Cascade is <b>full liquidity-event mode</b> — gold sold down with crypto = forced-selling/cash-raise dynamic, not classic risk-off. <b>Stand down still</b> on adding risk; SOL OI at record-high shorts is the asymmetric squeeze setup to watch. <b>Capitulation signals to track</b>: BTC reclaim $63k (first bounce signal), or extreme positioning unwind (OI collapse), or Iran de-escalation headline. Equities have to catch down further — they can't hold records with crypto and gold both broken. <span class='conf'>Med-High Conviction (defensive)</span><br><span style='color:#6b7280;font-size:13.5px;'>Thesis confirms on equities following lower + capitulation print. Breaks on BTC reclaim $63k with conviction or Iran de-escalation. Personal research, not advice.</span>",
+  tilt:"<b>$63k BTC reclaim trigger has fired</b> — first bounce signal active, but no confirmed trend repair yet. Gold also stabilising = liquidity-event is releasing. <b>Cautious add on dips</b> rather than chase the bounce: wait for $65k BTC follow-through + ETH back over $1,700 + cleaner positioning. Macro mixed (CPI hot, Fed steady) — not a clean bull setup; watch macro data + Iran headlines closely. <span class='conf'>Med Conviction</span><br><span style='color:#6b7280;font-size:13.5px;'>Thesis confirms on BTC over $65k + ETH over $1,700. Breaks on rejection back below $61k + return of Iran escalation. Personal research, not advice.</span>",
   scenarios:{
     overview:{bull:{prob:"~25%",text:"Soft PCE + Iran deal → cuts repriced → broad risk-on; crypto squeezes higher into clean short positioning."},base:{prob:"~50%",text:"PCE in line; equities grind near records on value/industrial rotation; crypto ranges $68–78k; China soft / HK firm; Indonesia stabilises post-MSCI."},bear:{prob:"~25%",text:"Hot PCE → yields & USD up → risk-off broadens; BTC capitulates to $68–70k; EM + China sell harder."}},
     crypto:{bull:{prob:"~25%",text:"Soft PCE + short squeeze (new shorts trapped) → BTC reclaims $75k → $78k; alts outperform."},base:{prob:"~45%",text:"BTC ranges $68–75k post-flush; positioning resets; accumulation regime, not trend."},bear:{prob:"~30%",text:"$72k breaks → cascading liqs to $68–70k; ETH below $1,950 opens $1,800s."}},

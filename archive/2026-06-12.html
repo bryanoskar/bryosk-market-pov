@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BryOsk Market PoV — Daily Cross-Asset Read</title>
+<meta name="description" content="Daily institutional-grade market read across crypto, US, China/HK, and Indonesia. Bull/Base/Bear scenarios, Buy/Hold/Sell positions, full archived track record.">
+<meta name="theme-color" content="#00447c">
+<link rel="canonical" href="https://bryanoskar.github.io/bryosk-market-pov/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BryOsk Market PoV">
+<meta property="og:title" content="BryOsk Market PoV — Daily Cross-Asset Read">
+<meta property="og:description" content="Daily institutional-grade market read · crypto · US · Indonesia · China/HK · macro. Bull/Base/Bear scenarios, Buy/Hold/Sell positions, full archive.">
+<meta property="og:url" content="https://bryanoskar.github.io/bryosk-market-pov/">
+<meta property="og:image" content="https://bryanoskar.github.io/bryosk-market-pov/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="BryOsk Market PoV — Daily Cross-Asset Read">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BryOsk Market PoV — Daily Cross-Asset Read">
+<meta name="twitter:description" content="Daily institutional-grade market read · crypto · US · Indonesia · China/HK · macro. Bull/Base/Bear scenarios, Buy/Hold/Sell positions.">
+<meta name="twitter:image" content="https://bryanoskar.github.io/bryosk-market-pov/og-image.png">
+<style>
+  :root{
+    --ink:#212121; --muted:#6b7280; --line:#e4e3dd; --bg:#f2f3f4; --card:#ffffff;
+    --pos:#16a36a; --neg:#e0453e; --accent:#00447c; --teal:#0b7b9e; --sand:#dddace; --sand2:#c6c3b6; --navy:#002756;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth; -webkit-text-size-adjust:100%;}
+  body{background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif; line-height:1.6; font-size:16px; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:780px; margin:0 auto; padding:0 22px 90px;}
+
+  .hero{position:relative; overflow:hidden; border-radius:0 0 22px 22px; background:linear-gradient(135deg,var(--navy) 0%,var(--accent) 58%,var(--teal) 120%); color:#fff; padding:42px 30px 30px; margin:0 -22px 0; box-shadow:0 18px 50px -24px rgba(0,39,86,.6);}
+  .hero::after{content:""; position:absolute; inset:0; background:radial-gradient(800px 300px at 80% -10%,rgba(120,190,220,.28),transparent 60%); animation:drift 14s ease-in-out infinite alternate;}
+  @keyframes drift{from{transform:translateX(-30px)} to{transform:translateX(30px)}}
+  .brand{font-size:12px; letter-spacing:.28em; text-transform:uppercase; opacity:.78; font-weight:600; position:relative; z-index:1;}
+  .hero h1{font-size:31px; font-weight:800; letter-spacing:-.02em; margin:8px 0 4px; position:relative; z-index:1;}
+  .hero .date{font-size:13px; opacity:.72; position:relative; z-index:1;}
+  .gauge{position:relative; z-index:1; margin-top:20px;}
+  .gauge .lab{display:flex; justify-content:space-between; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; opacity:.7; margin-bottom:6px;}
+  .gtrack{height:8px; border-radius:6px; background:linear-gradient(90deg,#e0453e,#e8b13e,#16a36a); position:relative;}
+  .gmark{position:absolute; top:50%; width:16px; height:16px; border-radius:50%; background:#fff; border:3px solid var(--accent); transform:translate(-50%,-50%); left:0; transition:left 1.4s cubic-bezier(.2,.8,.2,1); box-shadow:0 2px 8px rgba(0,0,0,.3);}
+  .gval{font-size:12px; opacity:.9; margin-top:8px; font-weight:600;}
+
+  .tickerwrap{margin:0 -22px 0; background:var(--navy);}
+  .livebar{display:flex; align-items:center; gap:8px; justify-content:center; flex-wrap:wrap; font-size:11.5px; color:var(--muted); padding:10px 0 0; text-align:center;}
+  .dot{width:8px; height:8px; border-radius:50%; background:var(--pos); display:inline-block; opacity:.35; animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(22,163,106,.5)}70%{box-shadow:0 0 0 7px rgba(22,163,106,0)}100%{box-shadow:0 0 0 0 rgba(22,163,106,0)}}
+
+  .tabbar{position:sticky; top:0; z-index:20; display:flex; gap:4px; background:rgba(242,243,244,.93); backdrop-filter:saturate(180%) blur(8px); padding:10px 0 12px; margin:14px 0 6px; border-bottom:1px solid var(--line); overflow-x:auto; -webkit-overflow-scrolling:touch;}
+  .tab{flex:0 0 auto; padding:9px 15px; font-size:13px; font-weight:700; color:var(--muted); background:none; border:none; cursor:pointer; border-radius:8px; white-space:nowrap; transition:color .2s, background .2s;}
+  .tab:hover{color:var(--ink);}
+  .tab.active{color:#fff; background:var(--accent); box-shadow:0 6px 16px -10px rgba(0,68,124,.8);}
+  .tabind{position:absolute; bottom:6px; left:0; width:0; height:3px; background:var(--teal); border-radius:3px; transition:left .32s cubic-bezier(.2,.8,.2,1), width .32s cubic-bezier(.2,.8,.2,1);}
+  .tabpanel{display:none;}
+  .tabpanel.active{display:block; animation:panelIn .42s ease;}
+  @keyframes panelIn{from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none}}
+  .tabpanel.active section{animation:rise .5s ease backwards;}
+  .tabpanel.active section:nth-child(1){animation-delay:.03s} .tabpanel.active section:nth-child(2){animation-delay:.10s}
+  .tabpanel.active section:nth-child(3){animation-delay:.17s} .tabpanel.active section:nth-child(4){animation-delay:.24s}
+  .tabpanel.active section:nth-child(5){animation-delay:.31s} .tabpanel.active section:nth-child(6){animation-delay:.38s}
+  @keyframes rise{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
+
+  h2{font-size:11.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:26px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);}
+  section:first-child h2{margin-top:14px;}
+  .bottomline{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal); padding:18px 20px; font-size:16.5px; border-radius:8px; box-shadow:0 6px 20px -16px rgba(0,0,0,.25);} .bottomline strong{color:var(--accent);}
+
+  .rows{display:flex; flex-direction:column; gap:8px;}
+  .row{display:grid; grid-template-columns:96px 100px 1fr; gap:12px; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; text-decoration:none; color:inherit; cursor:pointer; transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;}
+  .row:hover{transform:translateY(-2px); box-shadow:0 10px 26px -14px rgba(0,68,124,.35); border-color:var(--sand2);}
+  .row:hover .asset::after{opacity:1; transform:translateX(0);}
+  .asset{font-weight:700; font-size:14.5px; position:relative;}
+  .asset .livetag{font-size:8.5px; letter-spacing:.05em; color:var(--teal); font-weight:700; display:block; margin-top:1px;}
+  .asset::after{content:"↗"; font-size:11px; color:var(--muted); opacity:0; margin-left:5px; transform:translateX(-4px); transition:.18s; display:inline-block;}
+  .lvl{font-variant-numeric:tabular-nums; font-weight:700; font-size:14.5px;}
+  .delta{font-variant-numeric:tabular-nums; font-weight:700; font-size:13px;}
+  .pos{color:var(--pos);} .neg{color:var(--neg);} .flat{color:var(--muted);}
+  .rt{display:flex; flex-direction:column; gap:5px;}
+  .bartrack{height:5px; background:#e8e8e3; border-radius:4px; overflow:hidden;}
+  .bar{height:100%; width:0; border-radius:4px; transition:width 1.1s cubic-bezier(.2,.8,.2,1);}
+  .bar.pos{background:var(--pos);} .bar.neg{background:var(--neg);} .bar.flat{background:var(--sand2);}
+  /* Sparkline rows (crypto): replace flat bar with a 7-day SVG mini-chart */
+  .sparkrow .bartrack{height:22px; background:transparent; border-radius:0; overflow:visible;}
+  .spark{display:block; width:100%; height:22px; opacity:0; animation:sparkIn .55s ease forwards;}
+  @keyframes sparkIn{from{opacity:0; transform:translateY(2px)} to{opacity:1; transform:none}}
+  /* TradingView mini-chart rows: live chart embed when market open */
+  .tvrow .bartrack{height:auto; min-height:130px; background:transparent; border-radius:0; overflow:visible; padding:0;}
+  .tvrow .tradingview-widget-container{height:130px;}
+  .drv{font-size:12.5px; color:#555;}
+
+  .lbstamp{font-size:11px; color:var(--muted); margin:-6px 0 10px;}
+  .lbgrid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;}
+  .lbcard{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 13px;}
+  .lbcard h3{font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px; color:var(--accent); font-weight:700;}
+  .lbrow{display:flex; justify-content:space-between; gap:6px; font-size:12.5px; padding:5px 0; border-bottom:1px solid #f0efe9; font-variant-numeric:tabular-nums;}
+  .lbrow:last-child{border-bottom:none;} .lbsym{font-weight:700;} .lbv{color:#777; margin-left:auto; margin-right:8px;}
+
+  .seg{display:inline-flex; gap:4px; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:4px; margin-bottom:12px; flex-wrap:wrap;}
+  .segbtn{padding:7px 14px; font-size:12.5px; font-weight:700; color:var(--muted); background:none; border:none; border-radius:7px; cursor:pointer; transition:.18s;}
+  .segbtn.active{background:var(--accent); color:#fff;}
+  .topic{background:var(--sand); border-radius:10px; padding:13px 16px; font-size:13.5px; margin-bottom:10px;} .topic strong{color:var(--accent);}
+  .caps{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:13px 16px; margin-top:8px; font-size:13px;}
+  .caps>strong{color:var(--accent); display:block; margin-bottom:6px; font-size:11px; letter-spacing:.06em; text-transform:uppercase;}
+  .cap-l{margin:4px 0;} .cap-l b{color:var(--teal);}
+  .mvr{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:13px 16px; margin-bottom:8px; box-shadow:0 6px 18px -16px rgba(0,0,0,.25);}
+  .mvsym{font-weight:800; font-size:15px;} .mvwhy,.mvlt{font-size:13px; color:#444; margin-top:4px;}
+  .tvbox{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:6px; overflow:hidden;}
+  .cap{font-size:11.5px; color:var(--muted); margin:0 0 8px;}
+
+  ul{padding-left:18px;} li{margin:8px 0; font-size:14.8px;} li strong{font-weight:700;}
+  .conf{display:inline-block; font-size:10px; letter-spacing:.06em; text-transform:uppercase; background:#e9e7df; color:var(--accent); padding:2px 9px; border-radius:10px; font-weight:700; margin-left:4px;}
+  .tilt{background:var(--card); border:1px solid var(--line); border-left:4px solid var(--teal); padding:17px 20px; border-radius:8px; font-size:15px; box-shadow:0 6px 20px -16px rgba(0,0,0,.25);} .tilt b{color:var(--accent);}
+
+  /* Assets-to-watch tile (Outlook tab, 2-3 week horizon) */
+  .watchitem{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:8px; padding:11px 14px; margin-bottom:8px; box-shadow:0 4px 14px -12px rgba(0,0,0,.2);}
+  .watchitem .wh{font-size:13.5px; font-weight:800; color:var(--ink); margin-bottom:4px;}
+  .watchitem .wh b{color:var(--accent); margin-right:6px;}
+  .watchitem .wh em{color:var(--teal); font-style:normal; font-weight:700;}
+  .watchitem .ww{font-size:12.5px; color:#555; line-height:1.55;}
+  .scen{display:flex; flex-direction:column; gap:10px;}
+  .scard{border:1px solid var(--line); border-left:4px solid; border-radius:10px; padding:13px 16px; background:var(--card); box-shadow:0 6px 18px -16px rgba(0,0,0,.25);}
+  .scard.bull{border-left-color:var(--pos);} .scard.base{border-left-color:var(--sand2);} .scard.bear{border-left-color:var(--neg);}
+  .scard .sh{font-weight:800; font-size:12.5px; text-transform:uppercase; letter-spacing:.07em; margin-bottom:3px;}
+  .scard.bull .sh{color:var(--pos);} .scard.base .sh{color:#8a8674;} .scard.bear .sh{color:var(--neg);}
+  .scard .prob{float:right; font-size:12px; color:var(--muted); font-weight:700;} .scard .sp{font-size:13.5px; color:#444;}
+
+  /* POSITIONS */
+  .posnote{background:rgba(0,68,124,.05); border:1px solid var(--line); border-left:3px solid var(--accent); padding:12px 16px; font-size:12.5px; color:#444; border-radius:8px; margin-bottom:14px;}
+  .posnote strong{color:var(--accent);}
+  .poscontrols{display:flex; align-items:center; gap:10px; margin-bottom:14px; flex-wrap:wrap;}
+  .posinput{flex:1; min-width:200px; padding:10px 14px; font-size:13px; border:1px solid var(--line); border-radius:8px; background:var(--card); color:var(--ink); font-family:inherit; outline:none; transition:.15s;}
+  .posinput::placeholder{color:var(--muted);}
+  .posinput:focus{border-color:var(--accent); box-shadow:0 0 0 3px rgba(0,68,124,.1);}
+  .postag{font-size:10.5px; color:var(--muted); letter-spacing:.07em; text-transform:uppercase; font-weight:700; white-space:nowrap;}
+  .mkthd{font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--teal); font-weight:700; margin:16px 0 8px;}
+  .mkthd:first-child{margin-top:0;}
+  .posgrid{display:flex; flex-direction:column; gap:10px;}
+  .poscard{background:var(--card); border:1px solid var(--line); border-left:4px solid; border-radius:10px; padding:11px 14px; box-shadow:0 6px 18px -16px rgba(0,0,0,.25); transition:transform .15s ease, box-shadow .15s ease;}
+  .poscard:hover{transform:translateY(-1px); box-shadow:0 10px 26px -14px rgba(0,68,124,.3);}
+  .poscard.buy{border-left-color:var(--pos);} .poscard.hold{border-left-color:var(--sand2);} .poscard.sell,.poscard.avoid{border-left-color:var(--neg);}
+  .poscard .topline{display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; flex-wrap:wrap; gap:8px;}
+  .poscard .sym{font-weight:800; font-size:15.5px;} .poscard .sym small{color:var(--muted); font-weight:600; font-size:13px; margin-left:4px;}
+  .poscard .badge{font-size:10.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; padding:4px 11px; border-radius:14px;}
+  .poscard .badge.buy{background:rgba(22,163,106,.13); color:var(--pos);}
+  .poscard .badge.hold{background:rgba(198,195,182,.4); color:#7a7560;}
+  .poscard .badge.sell,.poscard .badge.avoid{background:rgba(224,69,62,.13); color:var(--neg);}
+  .poscard .meta{font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:5px;}
+  .poscard .thesis{font-size:12.5px; color:#333; margin-bottom:3px; line-height:1.5;}
+  .poscard .thesis strong, .poscard .risk strong{color:var(--accent);}
+  .poscard .risk{font-size:12px; color:#555; line-height:1.5;}
+
+  .share{position:fixed; right:18px; bottom:18px; z-index:30; background:var(--accent); color:#fff; border:none; border-radius:30px; padding:13px 20px; font-size:14px; font-weight:700; cursor:pointer; box-shadow:0 10px 30px -8px rgba(0,68,124,.6); transition:transform .15s;}
+  .share:hover{transform:scale(1.05);}
+  .foot{margin-top:34px; padding-top:16px; border-top:1px solid var(--line); font-size:12px; color:var(--muted);}
+  .src{margin-top:6px; line-height:1.9;} .src a{color:var(--teal); text-decoration:none; border-bottom:1px dotted var(--sand2);}
+  @media(max-width:520px){
+    .hero h1{font-size:25px;} .row{grid-template-columns:78px 82px 1fr; gap:9px; padding:11px;}
+    .drv{font-size:11.5px;} .asset{font-size:13px;} .lbgrid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="brand">BryOsk · Market PoV</div>
+    <h1>Cross-Asset Read</h1>
+    <div class="date" id="dateline"></div>
+    <div class="gauge"><div class="lab"><span>Risk-Off</span><span>Neutral</span><span>Risk-On</span></div><div class="gtrack"><div class="gmark" id="gmark"></div></div><div class="gval" id="gval"></div></div>
+  </div>
+
+  <div class="tickerwrap">
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+      {"symbols":[
+        {"description":"S&P 500","proName":"FOREXCOM:SPXUSD"},
+        {"description":"Nasdaq 100","proName":"FOREXCOM:NSXUSD"},
+        {"description":"Dow","proName":"FOREXCOM:DJI"},
+        {"description":"BTC","proName":"BINANCE:BTCUSDT"},
+        {"description":"ETH","proName":"BINANCE:ETHUSDT"},
+        {"description":"Gold","proName":"TVC:GOLD"},
+        {"description":"WTI","proName":"TVC:USOIL"},
+        {"description":"Hang Seng","proName":"HSI:HSI"},
+        {"description":"Shanghai","proName":"SSE:000001"},
+        {"description":"CSI 300","proName":"SSE:000300"},
+        {"description":"USD/IDR","proName":"FX_IDC:USDIDR"}
+      ],"showSymbolLogo":true,"colorTheme":"light","isTransparent":true,"displayMode":"adaptive","locale":"en"}
+      </script>
+    </div>
+  </div>
+  <div class="livebar"><span class="dot" id="livedot"></span><span id="livestamp">Connecting live prices…</span></div>
+
+  <div class="tabbar" id="tabbar">
+    <button class="tab active">Overview</button>
+    <button class="tab">Positions</button>
+    <button class="tab">Crypto</button>
+    <button class="tab">Stocks</button>
+    <button class="tab">Macro &amp; Global</button>
+    <button class="tab">Outlook</button>
+    <div class="tabind" id="tabind"></div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="tabpanel active">
+    <section><h2>Bottom Line</h2><div class="bottomline" id="bottomline"></div></section>
+    <section><h2>Cross-Asset Snapshot · crypto live · tap a row for chart</h2><div class="rows" id="rows"></div></section>
+    <section><h2>Bull · Base · Bear · whole market</h2><div class="scen" id="scenOverview"></div></section>
+    <section><h2>Conviction Tilt</h2><div class="tilt" id="tilt"></div></section>
+  </div>
+
+  <!-- POSITIONS -->
+  <div class="tabpanel">
+    <section>
+      <h2>Positions · Buy / Hold / Sell · focus list</h2>
+      <div class="posnote"><strong>Research / education, not financial advice.</strong> Each rating reflects a personal PoV with stated <strong>conviction</strong> and <strong>time horizon</strong>; size & risk-management are yours. Small-cap exposure uses ETFs / indices as a defensible proxy.</div>
+      <div class="poscontrols"><input type="text" id="posFilter" placeholder="Filter by ticker, name, market, BUY/HOLD/SELL…" class="posinput" autocomplete="off"><span class="postag" id="posCount"></span></div>
+      <div id="positions"></div>
+    </section>
+  </div>
+
+  <!-- CRYPTO -->
+  <div class="tabpanel">
+    <section><h2>Crypto Leaderboard · LIVE</h2>
+      <div class="lbstamp" id="lbstamp">Loading live data…</div>
+      <div class="lbgrid">
+        <div class="lbcard"><h3>Top Volume (24h)</h3><div id="lbVol"></div></div>
+        <div class="lbcard"><h3>Top Gainers (24h)</h3><div id="lbGain"></div></div>
+        <div class="lbcard"><h3>Top Losers (24h)</h3><div id="lbLoss"></div></div>
+      </div>
+    </section>
+    <section><h2>By Market Cap · LIVE</h2>
+      <div class="lbgrid">
+        <div class="lbcard"><h3>Large Cap</h3><div id="capLarge"></div></div>
+        <div class="lbcard"><h3>Mid Cap</h3><div id="capMid"></div></div>
+        <div class="lbcard"><h3>Small Cap</h3><div id="capSmall"></div></div>
+      </div>
+    </section>
+    <section><h2>Derivatives Positioning Flow</h2><ul id="derivFlow"></ul></section>
+    <section><h2>Funding &amp; Leverage</h2><ul id="funding"></ul></section>
+    <section><h2>Crypto Technicals</h2><ul id="techCrypto"></ul></section>
+    <section><h2>Bull · Base · Bear · crypto</h2><div class="scen" id="scenCrypto"></div></section>
+  </div>
+
+  <!-- STOCKS -->
+  <div class="tabpanel">
+    <section><h2>Stock Movers · LIVE</h2>
+      <div class="seg" id="stkSeg">
+        <button class="segbtn active" data-market="us">US</button>
+        <button class="segbtn" data-market="id">Indonesia</button>
+        <button class="segbtn" data-market="cn">China</button>
+      </div>
+      <div id="stkPanel"></div>
+      <div id="stocksWidgets">
+        <div class="tvbox tvlazy" data-market="us" data-src="https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js" data-cfg='{"colorTheme":"light","dateRange":"1D","exchange":"US","showChart":false,"locale":"en","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":400}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
+        <div class="tvbox tvlazy" data-market="id" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"Indonesia Top Caps","originalName":"Indonesia","symbols":[{"name":"IDX:BBCA","displayName":"Bank Central Asia"},{"name":"IDX:BBRI","displayName":"Bank BRI"},{"name":"IDX:BMRI","displayName":"Bank Mandiri"},{"name":"IDX:TLKM","displayName":"Telkom"},{"name":"IDX:ASII","displayName":"Astra Intl"},{"name":"IDX:UNVR","displayName":"Unilever Indonesia"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
+        <div class="tvbox tvlazy" data-market="cn" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"China — US-listed ADRs & ETFs","originalName":"China","symbols":[{"name":"AMEX:FXI","displayName":"iShares China Large-Cap"},{"name":"AMEX:ASHR","displayName":"CSI 300 ETF (ASHR)"},{"name":"NYSE:BABA","displayName":"Alibaba"},{"name":"NASDAQ:PDD","displayName":"PDD Holdings"},{"name":"NYSE:NIO","displayName":"NIO"},{"name":"NASDAQ:BIDU","displayName":"Baidu"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
+      </div>
+    </section>
+    <section><h2>Equity Technicals</h2><ul id="techEquity"></ul></section>
+    <section><h2>Bull · Base · Bear · equities</h2><div class="scen" id="scenStocks"></div></section>
+  </div>
+
+  <!-- MACRO & GLOBAL -->
+  <div class="tabpanel">
+    <section><h2>China &amp; Hong Kong</h2><ul id="chinaHK"></ul></section>
+    <section><h2>What's Driving It</h2><ul id="drivers"></ul></section>
+    <section><h2>Current News</h2><ul id="news"></ul></section>
+    <section><h2>Macro Technicals · gold · oil · rates · FX</h2><ul id="techMacro"></ul></section>
+    <section><h2>Bull · Base · Bear · macro &amp; global</h2><div class="scen" id="scenMacro"></div></section>
+  </div>
+
+  <!-- OUTLOOK -->
+  <div class="tabpanel">
+    <section><h2>Capital Rotation &amp; Flow Forecast</h2><ul id="rotation"></ul></section>
+    <section><h2>Corporate Actions Watch</h2><ul id="corp"></ul></section>
+    <section><h2>What We're Watching · 24–48h</h2><ul id="watch"></ul></section>
+    <section><h2>Assets to Watch · next 2–3 weeks</h2><div id="assetsWatch"></div></section>
+    <section><h2>Bull · Base · Bear · strategy</h2><div class="scen" id="scenOutlook"></div></section>
+  </div>
+
+  <div class="foot">
+    <div style="margin-bottom:14px; padding:12px 16px; background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal); border-radius:8px; font-size:13.5px; display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px;">
+      <a href="archive/" style="color:var(--accent); font-weight:800; text-decoration:none;">📊 Track Record →</a>
+      <a href="about/" style="color:var(--accent); font-weight:800; text-decoration:none;">📖 About &amp; Methodology →</a>
+      <span style="color:var(--muted); font-size:12.5px;">every past note, unedited · how each day's read is produced</span>
+    </div>
+    <strong>Research / education, not financial advice.</strong> Ticker tape, crypto rows, leaderboard, cap-tiers &amp; stock-mover panels update <strong>live</strong> in your browser (CoinGecko + TradingView). Written analysis, positions, scenarios, technicals, derivatives &amp; funding are authored as of the date above; stock cap-tier names are illustrative; small-cap exposure uses ETFs / indices as proxy.
+    <div class="src" id="sources"></div>
+  </div>
+</div>
+<button class="share" onclick="doShare()">Share ↗</button>
+
+<script>
+/* ====== DATA — the daily run replaces ONLY this object ====== */
+const DATA = {
+  dateLong:"Friday, 12 June 2026",
+  feedTime:"2026-06-11 18:36 UTC",
+  riskScore:40, riskLabel:"Neutral defensive — bounce active, $63k BTC reclaim achieved, macro mixed",
+  bottomLine:"<strong>Bounce engaged.</strong> Crypto has recovered some of the cascade: BTC <strong>back at $63,393 (+2.5%, range $61–63.7k)</strong> — the $63k reclaim trigger from last week's Watch list has fired. ETH <strong>$1,682 (+3.3%)</strong> — bounced ~$130 off the $1,504 low. <strong>Macro state (12 Jun)</strong>: <strong>10Y UST 4.55%</strong> (up 7bps), DXY <strong>100.06</strong> (firm), Fed Funds <strong>3.50–3.75%</strong> (unchanged 3 meetings, Dec hike still priced), May CPI YoY <strong>4.2%</strong> (accelerated — fastest in 3 years on energy). Iran de-escalation news still mixed. Not yet a confirmed turn — needs follow-through above $65k + ETH back over $1,700 for trend repair.",
+  snapshot:[
+    {a:"BTC",cg:"bitcoin",lvl:"$63,393",d:"+2.5%",dir:"pos",mag:35,drv:"Reclaimed $63k Watch trigger; needs $65k follow-through",url:"https://www.tradingview.com/symbols/BTCUSD/"},
+    {a:"ETH",cg:"ethereum",lvl:"$1,682",d:"+3.3%",dir:"pos",mag:50,drv:"Bounced ~$130 off the $1,504 low",url:"https://www.tradingview.com/symbols/ETHUSD/"},
+    {a:"SOL",cg:"solana",lvl:"~$83",d:"+3%",dir:"pos",mag:35,drv:"Squeeze fuel still: high short OI vs price stabilising",url:"https://www.tradingview.com/symbols/SOLUSD/"},
+    {a:"XRP",cg:"ripple",lvl:"~$1.20",d:"+2%",dir:"pos",mag:25,drv:"Bouncing with broader risk-on",url:"https://www.tradingview.com/symbols/XRPUSD/"},
+    {a:"Gold",tv:"TVC:GOLD",lvl:"~$4,380",d:"+1.5%",dir:"pos",mag:20,drv:"Stabilising after the liquidity-event sell-off",url:"https://www.tradingview.com/symbols/XAUUSD/"},
+    {a:"S&P 500",tv:"FOREXCOM:SPXUSD",lvl:"~7,520",d:"+0.1%",dir:"pos",mag:4,drv:"New record high; AI leadership intact",url:"https://www.tradingview.com/symbols/SPX/"},
+    {a:"Nasdaq",tv:"FOREXCOM:NSXUSD",lvl:"~26,730",d:"+0.3%",dir:"pos",mag:8,drv:"New record high; NVDA +2% new PC chip",url:"https://www.tradingview.com/symbols/IXIC/"},
+    {a:"10Y UST",lvl:"4.55%",d:"+7bps",dir:"neg",mag:14,drv:"Crept up post-CPI; May CPI 4.2% YoY (3-yr high on energy)",url:"https://www.tradingview.com/symbols/TVC-US10Y/"},
+    {a:"Shanghai",tv:"SSE:000001",lvl:"4,094",d:"−1.3%",dir:"neg",mag:24,drv:"Semis still under pressure",url:"https://www.tradingview.com/symbols/SSE-000001/"},
+    {a:"CSI 300",tv:"SSE:000300",lvl:"~4,922",d:"soft",dir:"neg",mag:12,drv:"Mainland tech drag persists",url:"https://www.tradingview.com/symbols/SSE-000300/"},
+    {a:"Hang Seng",tv:"HSI:HSI",lvl:"~25,600",d:"flat",dir:"flat",mag:6,drv:"HS Tech holding the relative-strength leadership",url:"https://www.tradingview.com/symbols/HSI-HSI/"},
+    {a:"WTI",tv:"TVC:USOIL",lvl:"~$97",d:"+5%",dir:"pos",mag:35,drv:"FLIP: Iran/Hormuz tension re-emerging",url:"https://www.tradingview.com/symbols/WTI/"},
+    {a:"IHSG",tv:"IDX:COMPOSITE",lvl:"~6,095",d:"weak",dir:"neg",mag:50,drv:"29 May MSCI outflow cliff tomorrow",url:"https://www.tradingview.com/symbols/IDX-COMPOSITE/"},
+    {a:"USD/IDR",tv:"FX_IDC:USDIDR",lvl:"~17,597",d:"weak",dir:"neg",mag:42,drv:"Rupiah pinned at stress highs",url:"https://www.tradingview.com/symbols/USDIDR/"}
+  ],
+  positions:[
+    /* CRYPTO */
+    {sym:"BTC", name:"Bitcoin", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Med", horizon:"1–3m", thesis:"Lost the $74.2k bear-trigger; OI rebuilt ~3% as price fell (new shorts opening) with basis still ~flat (some dip-buying). Wait for a $75k reclaim before fresh adds, or capitulation to $68–70k for a higher-conviction entry.", risk:"Loses $72k → cascading liquidations toward $68–70k. A hot PCE keeps shorts in control."},
+    {sym:"ETH", name:"Ethereum", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Low–Med", horizon:"1–3m", thesis:"Broke harder than BTC (−3.4%); relative weakness vs BTC returning. Needs to hold $1,950 and reclaim $2,053 to turn. No rush.", risk:"Loses $1,950 → opens $1,800s. Crypto-wide risk-off persists."},
+    /* US */
+    {sym:"NVDA", name:"Nvidia", market:"US", cap:"Mega cap", position:"BUY", conviction:"High", horizon:"6–12m", thesis:"Structural AI / data-center spend; falling-yield regime is a duration tailwind for quality growth. Buy meaningful pullbacks, not chases.", risk:"AI-capex pause, China export-rule tightening, or sentiment unwind off rich multiples."},
+    {sym:"MU", name:"Micron", market:"US", cap:"Large cap", position:"HOLD", conviction:"Med", horizon:"3–6m", thesis:"HBM/AI-memory super-cycle is real — but the +19% spike past $1T and parabolic move makes the tactical setup stretched. Wait for a 10–15% pullback.", risk:"Memory's notorious cyclicality, demand digestion, and a premium valuation after a big run."},
+    {sym:"XLE", name:"Energy Select Sector ETF", market:"US", cap:"Large-cap ETF", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"YTD sector leader (+22%) on capex discipline + cyclical rotation. The Iran de-escalation oil dip improves the entry, not the thesis.", risk:"Sustained oil weakness if a real Iran deal lands. Hedge ideas: pair with quality growth."},
+    {sym:"VRT", name:"Vertiv", market:"US", cap:"Mid cap", position:"BUY", conviction:"High", horizon:"6–12m", thesis:"AI-infrastructure picks-and-shovels: liquid cooling, power &amp; thermal gear for hyperscale + AI data centers. Benefits from any hyperscaler that builds AI compute, regardless of which model wins.", risk:"Hyperscaler capex pause; valuation already extended after the AI run."},
+    {sym:"NET", name:"Cloudflare", market:"US", cap:"Mid cap", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"Shifting from CDN into security + AI inference platform via Workers AI &amp; Zero Trust. Enterprise large-deal momentum is the near-term catalyst.", risk:"Competitive intensity (Akamai, Fastly, hyperscalers); broader AI sentiment unwind."},
+    /* HONG KONG */
+    {sym:"0700.HK", name:"Tencent", market:"Hong Kong", cap:"Mega cap", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"HK tech bid intact (HS Tech +1.6%); cheaper-than-mainland China-tech exposure with gaming, cloud and ad recovery. Best HK liquid name.", risk:"Mainland regulatory headlines, weak China consumer demand, or A-share semis dragging sentiment."},
+    {sym:"HSCEI", name:"HK H-share Mid/Small proxy", market:"Hong Kong", cap:"Mid/Small-cap ETF", position:"HOLD", conviction:"Low", horizon:"3–6m", thesis:"HK mid/small-caps as a torque trade IF China sentiment turns — but conviction is low until the mainland semis sell-off stabilises.", risk:"Thin liquidity, China headline-sensitive, and mainland weakness can drag."},
+    /* CHINA */
+    {sym:"Sungrow (300274)", name:"Sungrow Power Supply", market:"China", cap:"Mid cap", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"Renewables + AI-data-center power story: inverter/storage leader. China's anti-involution policy could stabilise solar margins while AI compute build drives power-supply gear demand.", risk:"Solar oversupply still real near-term; US tariff risk on Chinese clean-tech; A-share sentiment soft."},
+    {sym:"LONGi (601012)", name:"LONGi Green Energy", market:"China", cap:"Mid cap", position:"AVOID", conviction:"Med", horizon:"3–6m", thesis:"Largest solar module maker caught in the price-war / oversupply cycle. Anti-involution policy may help eventually but timing uncertain, and US tariffs add downside. Negative sentiment intact.", risk:"Faster-than-expected policy shift restoring pricing power; trade-deal news that lifts solar broadly."},
+    /* INDONESIA */
+    {sym:"BBCA", name:"Bank Central Asia", market:"Indonesia", cap:"Large cap", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"Dominant banking franchise, structurally profitable, cheap valuation. Wait for the 29 May MSCI passive-flow cliff to clear, then accumulate.", risk:"Rupiah continues weak past Bank Indonesia's 5.25% defence; broader EM derisking."},
+    {sym:"CPIN", name:"Charoen Pokphand Indonesia", market:"Indonesia", cap:"Mid cap", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"Dominant poultry producer + defensive consumer name. Analyst-flagged as a post-MSCI flow stabilisation pick; domestic-demand resilience even with rupiah weakness.", risk:"Feed-cost (corn/soy) volatility; rupiah-driven import-cost pressure."},
+    {sym:"BREN", name:"Barito Renewables Energy", market:"Indonesia", cap:"Mid cap (post-MSCI)", position:"AVOID", conviction:"Med", horizon:"1–3m", thesis:"Removed from MSCI Global Standard on 29 May → ongoing forced passive-selling pressure. Free-float / concentration concerns remain. Avoid until capitulation completes.", risk:"Faster-than-expected snapback once passive flow clears; corporate moves improving free float."}
+  ],
+  derivFlow:[
+    "<strong>BTC perp OI down to ~6,100</strong> (from 6,467 on Jun 2) → long-side deleveraging in progress. Volume <strong>$967M 24h</strong> — heaviest in months.",
+    "<strong>SOL OI at RECORD HIGH</strong> while price down −10% → aggressive short accumulation. This is the asymmetric squeeze setup — extreme positioning often marks bottoms.",
+    "<strong>~$3B in 2-day liquidations (Jun 3-4)</strong>, 85% LONGS. BTC $777M, ETH $398M, SOL $89M. Long-side largely flushed.",
+    "<em>Proxy note:</em> OI &amp; volume from the connected feed at the timestamp above — positioning flow, not browser-live spot exchange netflows."
+  ],
+  funding:[
+    "<strong>BTC perp ~+0.01% to index</strong> (mark $73,733 vs index $73,724) → essentially neutral funding. No crowded longs back yet despite the bounce.",
+    "<strong>ETH perp ~flat to index</strong> (mark $2,016 vs index $2,016) — neutral. Bounce isn't levered.",
+    "<strong>Net read:</strong> shorts unwound (OI down across the board), longs haven't re-stacked, basis ~flat → <strong>cleanest positioning in days</strong>. Constructive setup if PCE cooperates.",
+    "<em>Proxy note:</em> basis (perp vs index) + OI from the feed as of the timestamp above — funding-pressure proxy, not a third-party aggregated funding index."
+  ],
+  techCrypto:[
+    "<strong>BTC $72.9k</strong> — lost the $74.2k bear-trigger. Support: $72k → $68–70k zone. Resistance: $74.2k (now overhead) → $75.7k → $77.3k. Bias bearish until $75k reclaim.",
+    "<strong>ETH $1,987</strong> — broke $2,053. Support: $1,950 → $1,850. Resistance: $2,053 → $2,139. Relative weakness vs BTC returning.",
+    "<strong>SOL $80.8</strong> — lost $82.7. Support: $79.9 → $76. Resistance: $82.7 → $86.",
+    "<strong>XRP $1.30</strong> — lost $1.32. Support: $1.27 → $1.24. Resistance: $1.32 → $1.36.",
+    "<strong>Gold $4,459</strong> — holding $4,440 zone; resistance $4,538. Modest safe-haven bid as crypto fell."
+  ],
+  techEquity:[
+    "<strong>S&amp;P 500 7,519</strong> — record-high regime intact; support 7,400. Trend up while above 50-DMA.",
+    "<strong>Nasdaq 26,656</strong> — AI/semis carrying breadth; narrowing leadership a watchpoint.",
+    "<strong>Shanghai 4,094</strong> — below 4,150 resistance; support ~4,050. Semis the drag.",
+    "<strong>CSI 300 ~4,922</strong> — capped near 4,950; needs semis stabilisation.",
+    "<strong>Hang Seng ~25,600</strong> — coiling; HS Tech leading — 26k break = HK risk-on confirmation.",
+    "<strong>IHSG ~6,095</strong> — heavy into 29 May MSCI; key support 6,000."
+  ],
+  techMacro:[
+    "<strong>Gold $4,459</strong> — support $4,440 / resistance $4,538; modest safe-haven bid today.",
+    "<strong>WTI ~$93</strong> — broken support; demand zone ~$90. Capped while Hormuz reopens.",
+    "<strong>US 10Y ~4.48%</strong> — sitting at 2-week low; below 4.45% opens 4.30%. The swing variable.",
+    "<strong>DXY ~99.3</strong> — range-bound; sub-98.5 break would broaden EM relief.",
+    "<strong>USD/IDR ~17,597</strong> — stress highs; BI defending, flows dominate into 29 May."
+  ],
+  stockMarkets:{
+    us:{ topic:"AI/memory mania (Micron +19%, >$1T) + dovish new Fed (Warsh) drove fresh records (26 May close); energy lagged as oil fell.",
+      movers:[
+        {sym:"Micron (MU)", chg:"+19%", dir:"pos", why:"Crossed $1T on AI/HBM demand; UBS sees &gt;100% upside.", lt:"Structural HBM tailwind; risk = memory cyclicality + rich valuation."},
+        {sym:"Energy (XLE)", chg:"laggard", dir:"neg", why:"Steepest sector drop as WTI slid on de-escalation.", lt:"Capped near-term; capex discipline supports longer-term."}],
+      caps:{large:"Nvidia, Microsoft, Micron (AI mega-caps leading)", mid:"S&P MidCap 400 / MDY — cyclical &amp; industrial tilt", small:"Russell 2000 / IWM — rate-sensitive, perks up as yields fall"} },
+    id:{ topic:"29 May MSCI rebalance forcing ~$1.8B / Rp18.5T passive outflows; IHSG ~6,095, rupiah ~17,597; banks under pressure.",
+      movers:[
+        {sym:"Big-cap banks (BBCA, BBRI)", chg:"heavy", dir:"neg", why:"Index heavyweights bear the brunt of passive MSCI selling + foreign outflows.", lt:"Valuations attractive — wait for the flow cliff to clear post-29 May."},
+        {sym:"AMMN / BREN / TPIA", chg:"deleted", dir:"neg", why:"Removed from MSCI Global Standard → forced passive selling.", lt:"Free-float/concentration overhang; structural."}],
+      caps:{large:"BBCA, BBRI, BMRI, TLKM, ASII (index heavyweights)", mid:"Domestic-consumption &amp; property mid-caps", small:"IDX SmallCap — illiquid, most MSCI-flow sensitive"} },
+    cn:{ topic:"A-share semis sold hard (Cambricon −5%, Hygon −6%, SMIC −1.7%) — industrial profits +18.2% YoY (Jan–Apr): fundamentals solid, sentiment soft.",
+      movers:[
+        {sym:"Semis (Cambricon, Hygon)", chg:"−5 to −6%", dir:"neg", why:"Profit-taking; policy/AI-chip headlines.", lt:"Domestic-substitution theme intact long-term; volatile near-term."}],
+      caps:{large:"Kweichow Moutai, CATL, ICBC, SMIC", mid:"CSI 500 — mid-cap industrials", small:"CSI 1000 / ChiNext — high-beta small-caps"} }
+  },
+  chinaHK:[
+    "<strong>Mainland weak:</strong> Shanghai −1.25% to 4,094; CSI 300 ~4,922. Semis/tech led the drop. Industrial profits +18.2% YoY: fundamentals solid, sentiment soft.",
+    "<strong>Hong Kong diverging:</strong> Hang Seng ~flat (25,600), Hang Seng TECH +1.59% (4,947) — HK bid as cheaper China-tech proxy. Intra-China split favors HK near-term."
+  ],
+  drivers:[
+    "<strong>Crypto break-down is the news today:</strong> falling-yield bullish setup wasn't enough — BTC lost $74.2k, ETH worse. Risk-off is leaking out of crypto first while equities haven't reacted yet.",
+    "<strong>Rates regime still constructive in theory</strong> (10Y 4.48% holds, Warsh dovish) — but markets need the PCE print to confirm.",
+    "<strong>China soft / HK firm</strong> dynamic intact; Indonesia heavy into 29 May MSCI."
+  ],
+  news:[
+    "<strong>Bounce engaged (12 Jun):</strong> BTC reclaimed $63k (the Watch-list trigger), ETH +3.3% off $1,504 low. May CPI <strong>4.2% YoY</strong> released — fastest in 3 years on energy; 10Y back to 4.55%. Macro mixed (hot CPI vs steady Fed at 3.50–3.75%). Not a confirmed turn — needs $65k follow-through.",
+    "<strong>Fed Chair Warsh</strong> sworn in 22 May; market still positioned for an easier policy path, but PCE will test it.",
+    "<strong>US–Iran:</strong> deal 'close' per Trump/Rubio; Strait of Hormuz reopening optimism keeping oil capped.",
+    "<strong>TODAY — 29 May MSCI rebalance LIVE:</strong> ~$1.8B / Rp18.5T forced passive selling on AMMN/BREN/TPIA. Peak IDX outflow pressure happening NOW; watch for capitulation vs snapback near IHSG 6,000.",
+    "<strong>On deck:</strong> PCE inflation — the swing factor for everything."
+  ],
+  rotation:[
+    "<strong>Where money is going:</strong> Energy / Industrials / Staples / value YTD remain leaders. Today's crypto sell-off shows duration-sensitive risk-assets stalled — rotation thesis still alive but waiting on PCE. <span class='conf'>Confidence: Medium</span>",
+    "<strong>If PCE soft:</strong> growth + crypto + small-caps + EM (incl. Indonesia post-29 May) catch a sharp bid.",
+    "<strong>If PCE hot:</strong> defensives lead, crypto extends lower, EM stays heavy."
+  ],
+  corp:[
+    "<strong>29 May — MSCI semi-annual rebalance</strong>: ~$1.8B / Rp18.5T forced selling on AMMN, BREN, TPIA; peak pressure on IHSG / IDR.",
+    "<strong>US:</strong> earnings light post-Memorial Day; big-box retail next week. M&amp;A backdrop active."
+  ],
+  watch:[
+    "<strong>Iran de-escalation headline</strong> — single largest positive catalyst; would reverse the cascade impulse.",
+    "<strong>BTC capitulation signal</strong> — break of $59k → $55k in play; reclaim $63k with volume = bounce attempt.",
+    "<strong>Equity follow-through</strong> — do S&P/Nasdaq finally catch down to the crypto + gold sell-off? Records can't hold forever."
+  ],
+  assetsWatch:[
+    {asset:"BTC", trigger:"FOLLOW-THROUGH above $65k", why:"$63k trigger HAS FIRED (12 Jun, currently $63.4k). Next confirmation = sustained move above $65k. Failure to break $65k = chop / retest $61k."},
+    {asset:"ETH", trigger:"Hold $1,500 / reclaim $1,650", why:"Psychological + technical battleground. Loss of $1,500 opens the $1,200s."},
+    {asset:"SOL", trigger:"OI rolling over from record high", why:"Extreme short positioning = squeeze fuel. Watch for OI peak + price stabilisation = the asymmetric setup."},
+    {asset:"Gold (XAU)", trigger:"Reclaim $4,400 cleanly", why:"True risk-off should bid gold. Continued weakness here = USD/cash bid still dominating (liquidity event)."},
+    {asset:"S&P 500", trigger:"Break ~7,400 support", why:"Equities still near records as I write; a break would confirm risk-off has broadened from crypto into equities."},
+    {asset:"NVDA (AI bellwether)", trigger:"Hold ~$135 / break = AI trade unwinding", why:"The leadership name. If even NVDA cracks, the AI narrative gap widens and the sell-off broadens."}
+  ],
+  tilt:"<b>$63k BTC reclaim trigger has fired</b> — first bounce signal active, but no confirmed trend repair yet. Gold also stabilising = liquidity-event is releasing. <b>Cautious add on dips</b> rather than chase the bounce: wait for $65k BTC follow-through + ETH back over $1,700 + cleaner positioning. Macro mixed (CPI hot, Fed steady) — not a clean bull setup; watch macro data + Iran headlines closely. <span class='conf'>Med Conviction</span><br><span style='color:#6b7280;font-size:13.5px;'>Thesis confirms on BTC over $65k + ETH over $1,700. Breaks on rejection back below $61k + return of Iran escalation. Personal research, not advice.</span>",
+  scenarios:{
+    overview:{bull:{prob:"~25%",text:"Soft PCE + Iran deal → cuts repriced → broad risk-on; crypto squeezes higher into clean short positioning."},base:{prob:"~50%",text:"PCE in line; equities grind near records on value/industrial rotation; crypto ranges $68–78k; China soft / HK firm; Indonesia stabilises post-MSCI."},bear:{prob:"~25%",text:"Hot PCE → yields & USD up → risk-off broadens; BTC capitulates to $68–70k; EM + China sell harder."}},
+    crypto:{bull:{prob:"~25%",text:"Soft PCE + short squeeze (new shorts trapped) → BTC reclaims $75k → $78k; alts outperform."},base:{prob:"~45%",text:"BTC ranges $68–75k post-flush; positioning resets; accumulation regime, not trend."},bear:{prob:"~30%",text:"$72k breaks → cascading liqs to $68–70k; ETH below $1,950 opens $1,800s."}},
+    stocks:{bull:{prob:"~30%",text:"Falling yields + soft PCE broaden rally — small/mid-caps (IWM) and cyclicals catch up; records extend."},base:{prob:"~50%",text:"Records held by mega-cap AI; value/energy/industrials lead under surface; breadth narrow."},bear:{prob:"~20%",text:"Hot PCE / AI wobble → mega-cap unwind drags indices; defensives outperform."}},
+    macro:{bull:{prob:"~25%",text:"Disinflation confirmed → 10Y &lt;4.3%, DXY softens, EM relief rally."},base:{prob:"~50%",text:"10Y 4.4–4.6%, DXY range-bound; China soft / HK firm; rupiah pressured into 29 May."},bear:{prob:"~25%",text:"Sticky PCE or oil spike → yields & USD up, EM + China sell harder."}},
+    outlook:{bull:{prob:"~25%",text:"Add risk on the soft-PCE confirmation: quality growth + crypto + post-MSCI EM; the rotation broadens."},base:{prob:"~50%",text:"Selective: barbell value/energy with quality growth; accumulate crypto on $68–70k tests; sideline Indonesia pre-29 May."},bear:{prob:"~25%",text:"De-risk: raise cash, lean defensive + gold; wait for PCE clarity."}}
+  },
+  sources:[
+    ["TheStreet — US market","https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-may-26-2026"],
+    ["Federal Reserve — Warsh oath","https://www.federalreserve.gov/newsevents/pressreleases/other20260522a.htm"],
+    ["CNBC — Warsh & rate cuts","https://www.cnbc.com/2026/05/22/trump-kevin-warsh-fed-chair-interest-rates.html"],
+    ["Trading Economics — China","https://tradingeconomics.com/china/stock-market"],
+    ["Trading Economics — US 10Y","https://tradingeconomics.com/united-states/government-bond-yield"],
+    ["HeyGoTrade — MSCI Indonesia","https://www.heygotrade.com/en/news/msci-indonesia-rebalancing-may-2026-outflow/"]
+  ]
+};
+/* ====== RENDER ENGINE — do not edit below ====== */
+const $=id=>document.getElementById(id);
+$("dateline").textContent=DATA.dateLong+"  ·  Authored "+DATA.feedTime;
+$("bottomline").innerHTML=DATA.bottomLine;
+$("gval").textContent="Risk score "+DATA.riskScore+"/100 — "+DATA.riskLabel;
+$("tilt").innerHTML=DATA.tilt;
+const li=arr=>arr.map(x=>"<li>"+x+"</li>").join("");
+["derivFlow","funding","techCrypto","techEquity","techMacro","chinaHK","drivers","news","rotation","corp","watch"].forEach(k=>$(k).innerHTML=li(DATA[k]));
+$("rows").innerHTML=DATA.snapshot.map(r=>
+  `<a class="row${r.cg?' sparkrow':''}${r.tv?' tvrow':''}" href="${r.url}" target="_blank" rel="noopener" ${r.cg?`data-cg="${r.cg}" `:""}${r.tv?`data-tv="${r.tv}"`:""}>
+     <span class="asset">${r.a}${r.cg?'<span class="livetag">● LIVE</span>':''}</span>
+     <span><span class="lvl">${r.lvl}</span></span>
+     <span class="rt"><span><span class="delta ${r.dir}">${r.d}</span> <span class="drv">— ${r.drv}</span></span>
+       <span class="bartrack"><span class="bar ${r.dir}" data-mag="${r.mag}"></span></span></span>
+   </a>`).join("");
+function renderScen(id,obj){ $(id).innerHTML=["bull","base","bear"].map(k=>
+  `<div class="scard ${k}"><div class="sh">${k.toUpperCase()}<span class="prob">${obj[k].prob}</span></div><div class="sp">${obj[k].text}</div></div>`).join(""); }
+["overview","crypto","stocks","macro","outlook"].forEach(k=>renderScen("scen"+k.charAt(0).toUpperCase()+k.slice(1),DATA.scenarios[k]));
+if(DATA.assetsWatch && $("assetsWatch")){
+  $("assetsWatch").innerHTML=DATA.assetsWatch.map(a=>
+    `<div class="watchitem"><div class="wh"><b>${a.asset}</b> · <em>${a.trigger}</em></div><div class="ww">${a.why}</div></div>`).join("");
+}
+$("sources").innerHTML="Sources: "+DATA.sources.map(s=>`<a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a>`).join(" · ");
+
+/* ====== POSITIONS render ====== */
+(function renderPositions(){
+  const groups={}; DATA.positions.forEach(p=>{ if(!groups[p.market]) groups[p.market]=[]; groups[p.market].push(p); });
+  const order=["Crypto","US","Hong Kong","China","Indonesia"];
+  let html="";
+  order.forEach(mkt=>{
+    if(!groups[mkt]) return;
+    html+=`<div class="mkthd">${mkt}</div><div class="posgrid">`;
+    groups[mkt].forEach(p=>{
+      const cls=p.position.toLowerCase();
+      html+=`<div class="poscard ${cls}">
+        <div class="topline"><span class="sym">${p.sym}<small>${p.name?" · "+p.name:""}</small></span><span class="badge ${cls}">${p.position}</span></div>
+        <div class="meta">${p.cap} · ${p.horizon} · ${p.conviction} conviction</div>
+        <div class="thesis"><strong>Thesis:</strong> ${p.thesis}</div>
+        <div class="risk"><strong>Key risk:</strong> ${p.risk}</div>
+      </div>`;
+    });
+    html+="</div>";
+  });
+  $("positions").innerHTML=html;
+})();
+/* positions filter */
+(function(){
+  const inp=$("posFilter"), cnt=$("posCount");
+  function update(){
+    const q=inp.value.toLowerCase().trim(); let visible=0;
+    document.querySelectorAll("#positions .poscard").forEach(c=>{
+      const show=!q || c.textContent.toLowerCase().includes(q);
+      c.style.display=show?"":"none"; if(show) visible++;
+    });
+    document.querySelectorAll("#positions .mkthd").forEach(h=>{
+      const grid=h.nextElementSibling;
+      if(grid && grid.classList.contains("posgrid")){
+        const any=[...grid.children].some(c=>c.style.display!=="none");
+        h.style.display=any?"":"none"; grid.style.display=any?"":"none";
+      }
+    });
+    cnt.textContent=visible+" of "+DATA.positions.length+" shown";
+  }
+  inp.addEventListener("input",update); update();
+})();
+
+/* ====== TABS + motion ====== */
+const tabs=[...document.querySelectorAll(".tab")];
+const panels=[...document.querySelectorAll(".tabpanel")];
+const ind=$("tabind");
+function initWidget(box){ if(!box||box.dataset.done) return; const s=document.createElement("script"); s.type="text/javascript"; s.async=true; s.src=box.dataset.src; s.text=box.dataset.cfg; box.querySelector(".tradingview-widget-container").appendChild(s); box.dataset.done="1"; }
+function moveInd(i){ const t=tabs[i]; ind.style.left=t.offsetLeft+"px"; ind.style.width=t.offsetWidth+"px"; }
+const STOCKS_TAB_INDEX=3;
+function activate(i){
+  tabs.forEach((t,j)=>t.classList.toggle("active",j===i));
+  panels.forEach((p,j)=>p.classList.toggle("active",j===i));
+  moveInd(i);
+  if(i===STOCKS_TAB_INDEX) renderStk(curMkt);
+  panels[i].querySelectorAll(".bar").forEach(b=>{b.style.width="0";requestAnimationFrame(()=>requestAnimationFrame(()=>b.style.width=b.dataset.mag+"%"));});
+  $("tabbar").scrollIntoView({block:"start"});
+}
+tabs.forEach((t,i)=>t.addEventListener("click",()=>activate(i)));
+window.addEventListener("resize",()=>{const a=tabs.findIndex(t=>t.classList.contains("active"));if(a>=0)moveInd(a);});
+
+/* ====== STOCKS segmented control ====== */
+let curMkt="us";
+const STK=DATA.stockMarkets;
+function renderStk(mkt){
+  curMkt=mkt; const m=STK[mkt];
+  $("stkPanel").innerHTML=
+    `<div class="topic"><strong>Hot topic:</strong> ${m.topic}</div>`+
+    m.movers.map(s=>`<div class="mvr"><span class="mvsym">${s.sym} <span class="delta ${s.dir}">${s.chg}</span></span><div class="mvwhy"><strong>Why:</strong> ${s.why}</div><div class="mvlt"><strong>Long-term:</strong> ${s.lt}</div></div>`).join("")+
+    `<div class="caps"><strong>Across market caps (illustrative)</strong><div class="cap-l"><b>Large:</b> ${m.caps.large}</div><div class="cap-l"><b>Mid:</b> ${m.caps.mid}</div><div class="cap-l"><b>Small:</b> ${m.caps.small}</div></div>`;
+  document.querySelectorAll("#stkSeg .segbtn").forEach(b=>b.classList.toggle("active",b.dataset.market===mkt));
+  document.querySelectorAll("#stocksWidgets .tvbox").forEach(b=>b.style.display=b.dataset.market===mkt?"block":"none");
+  initWidget(document.querySelector('#stocksWidgets .tvbox[data-market="'+mkt+'"]'));
+}
+document.querySelectorAll("#stkSeg .segbtn").forEach(b=>b.addEventListener("click",()=>renderStk(b.dataset.market)));
+
+function initOverviewCharts(){
+  document.querySelectorAll(".tvrow:not([data-tv-done])").forEach(row=>{
+    const sym=row.dataset.tv; if(!sym) return;
+    const track=row.querySelector(".bartrack"); if(!track) return;
+    track.innerHTML='<div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div>';
+    const s=document.createElement("script");
+    s.type="text/javascript"; s.async=true;
+    s.src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js";
+    s.text=JSON.stringify({symbol:sym,width:"100%",height:130,locale:"en",dateRange:"1M",colorTheme:"light",isTransparent:true,autosize:false,largeChartUrl:"",noTimeScale:true,trendLineColor:"rgba(0, 68, 124, 1)",underLineColor:"rgba(0, 68, 124, 0.15)",underLineBottomColor:"rgba(0, 68, 124, 0)"});
+    track.querySelector(".tradingview-widget-container").appendChild(s);
+    row.setAttribute("data-tv-done","1");
+  });
+}
+window.addEventListener("load",()=>{
+  moveInd(0);
+  setTimeout(()=>{$("gmark").style.left=DATA.riskScore+"%";},250);
+  setTimeout(()=>document.querySelectorAll(".tabpanel.active .bar").forEach(b=>b.style.width=b.dataset.mag+"%"),450);
+  setTimeout(initOverviewCharts,600);
+});
+
+/* ====== LIVE crypto (CoinGecko) ====== */
+function fmtP(p){ if(p>=1000) return "$"+Math.round(p).toLocaleString("en-US"); if(p>=1) return "$"+p.toFixed(2); return "$"+p.toFixed(4); }
+async function liveUpdate(){
+  try{
+    const r=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,ripple&vs_currencies=usd&include_24hr_change=true");
+    if(!r.ok) throw 0; const d=await r.json();
+    document.querySelectorAll(".row[data-cg]").forEach(row=>{
+      const o=d[row.dataset.cg]; if(!o) return;
+      const p=o.usd, ch=o.usd_24h_change||0, dir=ch>=0?"pos":"neg";
+      row.querySelector(".lvl").textContent=fmtP(p);
+      const dEl=row.querySelector(".delta"); dEl.textContent=(ch>=0?"+":"")+ch.toFixed(1)+"%"; dEl.className="delta "+dir;
+      const bar=row.querySelector(".bar"); bar.className="bar "+dir; bar.style.width=Math.min(Math.abs(ch)*18,100)+"%";
+    });
+    $("livedot").style.opacity=1; $("livestamp").textContent="Live crypto prices · updated "+new Date().toLocaleTimeString();
+  }catch(e){ $("livestamp").textContent="Live feed unavailable — showing the daily snapshot (analysis still current)"; }
+}
+function sparkSVG(prices, width=120, height=22){
+  if(!prices || prices.length<2) return "";
+  const min=Math.min(...prices), max=Math.max(...prices), range=max-min||1, N=prices.length;
+  const pad=2;
+  const pts=prices.map((p,i)=>`${(i/(N-1)*width).toFixed(1)},${(height-pad-((p-min)/range)*(height-pad*2)).toFixed(1)}`).join(" ");
+  const up=prices[N-1]>=prices[0];
+  const stroke=up?"#16a36a":"#e0453e";
+  const fill=up?"rgba(22,163,106,0.14)":"rgba(224,69,62,0.14)";
+  const area=pts+` ${width},${height} 0,${height}`;
+  return `<svg class="spark" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none"><polygon points="${area}" fill="${fill}"/><polyline points="${pts}" fill="none" stroke="${stroke}" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
+}
+async function liveMarkets(){
+  try{
+    const r=await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&price_change_percentage=24h&sparkline=true");
+    if(!r.ok) throw 0; const m=await r.json();
+    const fmtV=v=>v>=1e9?"$"+(v/1e9).toFixed(1)+"B":"$"+Math.round(v/1e6)+"M";
+    const pct=c=>(c>=0?"+":"")+(c||0).toFixed(1)+"%"; const ch=c=>c.price_change_percentage_24h||0;
+    const mk=(arr,val)=>arr.map(c=>`<div class="lbrow"><span class="lbsym">${c.symbol.toUpperCase()}</span><span class="lbv">${val(c)}</span><span class="${ch(c)>=0?'pos':'neg'}">${pct(ch(c))}</span></div>`).join("");
+    const top100=m.slice(0,100);
+    $("lbVol").innerHTML=mk([...m].sort((a,b)=>b.total_volume-a.total_volume).slice(0,5), c=>fmtV(c.total_volume));
+    $("lbGain").innerHTML=mk([...top100].sort((a,b)=>ch(b)-ch(a)).slice(0,5), c=>fmtP(c.current_price));
+    $("lbLoss").innerHTML=mk([...top100].sort((a,b)=>ch(a)-ch(b)).slice(0,5), c=>fmtP(c.current_price));
+    $("capLarge").innerHTML=mk(m.slice(0,5), c=>fmtP(c.current_price));
+    $("capMid").innerHTML=mk(m.slice(49,54), c=>fmtP(c.current_price));
+    $("capSmall").innerHTML=mk(m.slice(195,200), c=>fmtP(c.current_price));
+    $("lbstamp").textContent="● Live · updated "+new Date().toLocaleTimeString()+" · Large=top5 · Mid≈#50 · Small≈#200 by mkt cap";
+    // Sparklines for crypto rows in the Cross-Asset Snapshot
+    const sparkMap={};
+    m.forEach(c=>{ if(c.sparkline_in_7d && c.sparkline_in_7d.price) sparkMap[c.id]=c.sparkline_in_7d.price; });
+    document.querySelectorAll(".sparkrow").forEach(row=>{
+      const prices=sparkMap[row.dataset.cg]; if(!prices) return;
+      const track=row.querySelector(".bartrack"); if(!track) return;
+      track.innerHTML=sparkSVG(prices);
+    });
+  }catch(e){ $("lbstamp").textContent="Live data temporarily unavailable (CoinGecko rate-limited) — retrying…"; }
+}
+liveUpdate(); setInterval(liveUpdate,60000);
+liveMarkets(); setInterval(liveMarkets,90000);
+
+function doShare(){
+  if(navigator.share){navigator.share({title:"BryOsk Market PoV",text:DATA.bottomLine.replace(/<[^>]+>/g,""),url:location.href}).catch(()=>{});}
+  else{navigator.clipboard&&navigator.clipboard.writeText(location.href);alert("Link copied. For Instagram, screenshot the story card.");}
+}
+</script>
+</body>
+</html>

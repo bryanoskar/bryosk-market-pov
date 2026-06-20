@@ -79,6 +79,16 @@
   .bartrack{height:5px; background:#e8e8e3; border-radius:4px; overflow:hidden;}
   .bar{height:100%; width:0; border-radius:4px; transition:width 1.1s cubic-bezier(.2,.8,.2,1);}
   .bar.pos{background:var(--pos);} .bar.neg{background:var(--neg);} .bar.flat{background:var(--sand2);}
+  /* Hot Today — what's moving in each market (Stocks tab) */
+  .hot-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;}
+  .hot-card{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; box-shadow:0 6px 18px -16px rgba(0,0,0,.25);}
+  .hot-card h3{font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:8px;}
+  .hot-row{padding:6px 0; border-bottom:1px solid #f0efe9;}
+  .hot-row:last-child{border-bottom:none;}
+  .hot-sym{font-weight:700; font-size:13px; margin-right:6px;}
+  .hot-row .delta{font-size:12.5px;}
+  .hot-why{font-size:11.5px; color:#555; margin-top:2px; line-height:1.4;}
+  @media(max-width:600px){.hot-grid{grid-template-columns:1fr;}}
   /* Sparkline rows (crypto): replace flat bar with a 7-day SVG mini-chart */
   .sparkrow .bartrack{height:22px; background:transparent; border-radius:0; overflow:visible;}
   .spark{display:block; width:100%; height:22px; opacity:0; animation:sparkIn .55s ease forwards;}
@@ -256,6 +266,7 @@
         <div class="tvbox tvlazy" data-market="cn" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"China — US-listed ADRs & ETFs","originalName":"China","symbols":[{"name":"AMEX:FXI","displayName":"iShares China Large-Cap"},{"name":"AMEX:ASHR","displayName":"CSI 300 ETF (ASHR)"},{"name":"NYSE:BABA","displayName":"Alibaba"},{"name":"NASDAQ:PDD","displayName":"PDD Holdings"},{"name":"NYSE:NIO","displayName":"NIO"},{"name":"NASDAQ:BIDU","displayName":"Baidu"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
       </div>
     </section>
+    <section><h2>🔥 Hot Today · what's actually moving</h2><div id="hotToday"></div></section>
     <section><h2>Equity Technicals</h2><ul id="techEquity"></ul></section>
     <section><h2>Bull · Base · Bear · equities</h2><div class="scen" id="scenStocks"></div></section>
   </div>
@@ -293,16 +304,16 @@
 <script>
 /* ====== DATA — the daily run replaces ONLY this object ====== */
 const DATA = {
-  dateLong:"Friday, 12 June 2026",
-  feedTime:"2026-06-11 18:36 UTC",
-  riskScore:40, riskLabel:"Neutral defensive — bounce active, $63k BTC reclaim achieved, macro mixed",
-  bottomLine:"<strong>Bounce engaged.</strong> Crypto has recovered some of the cascade: BTC <strong>back at $63,393 (+2.5%, range $61–63.7k)</strong> — the $63k reclaim trigger from last week's Watch list has fired. ETH <strong>$1,682 (+3.3%)</strong> — bounced ~$130 off the $1,504 low. <strong>Macro state (12 Jun)</strong>: <strong>10Y UST 4.55%</strong> (up 7bps), DXY <strong>100.06</strong> (firm), Fed Funds <strong>3.50–3.75%</strong> (unchanged 3 meetings, Dec hike still priced), May CPI YoY <strong>4.2%</strong> (accelerated — fastest in 3 years on energy). Iran de-escalation news still mixed. Not yet a confirmed turn — needs follow-through above $65k + ETH back over $1,700 for trend repair.",
+  dateLong:"Sunday, 21 June 2026",
+  feedTime:"2026-06-20 18:13 UTC",
+  riskScore:42, riskLabel:"Neutral · range-bound bounce stalling below $65k; BI hike + Iran the macro shifts",
+  bottomLine:"<strong>Range mode.</strong> A week since the $63k reclaim, crypto is <em>stalling below $65k follow-through</em>: BTC $63,804 (+1.2%), ETH $1,727 (+1.4%), sideways consolidation rather than trend repair. Notable shifts: <strong>Bank Indonesia hiked +25bp (75bp cumulative since May)</strong> to defend the rupiah — supports IDX recovery; <strong>INTC +10.6%</strong> on Trump announcing Intel will produce Apple chips in US (chip-repatriation narrative); HSTECH snapped its 2-session rally on profit-taking. 10Y holds 4.55%, Fed funds 3.50–3.75% unchanged. <strong>Needs a catalyst</strong> — either BTC over $65k cleanly OR rejection back to $61k. Sideways week without conviction.",
   snapshot:[
-    {a:"BTC",cg:"bitcoin",lvl:"$63,393",d:"+2.5%",dir:"pos",mag:35,drv:"Reclaimed $63k Watch trigger; needs $65k follow-through",url:"https://www.tradingview.com/symbols/BTCUSD/"},
-    {a:"ETH",cg:"ethereum",lvl:"$1,682",d:"+3.3%",dir:"pos",mag:50,drv:"Bounced ~$130 off the $1,504 low",url:"https://www.tradingview.com/symbols/ETHUSD/"},
-    {a:"SOL",cg:"solana",lvl:"~$83",d:"+3%",dir:"pos",mag:35,drv:"Squeeze fuel still: high short OI vs price stabilising",url:"https://www.tradingview.com/symbols/SOLUSD/"},
-    {a:"XRP",cg:"ripple",lvl:"~$1.20",d:"+2%",dir:"pos",mag:25,drv:"Bouncing with broader risk-on",url:"https://www.tradingview.com/symbols/XRPUSD/"},
-    {a:"Gold",tv:"TVC:GOLD",lvl:"~$4,380",d:"+1.5%",dir:"pos",mag:20,drv:"Stabilising after the liquidity-event sell-off",url:"https://www.tradingview.com/symbols/XAUUSD/"},
+    {a:"BTC",cg:"bitcoin",lvl:"$63,804",d:"+1.2%",dir:"pos",mag:20,drv:"Range-bound; $65k follow-through still pending",url:"https://www.tradingview.com/symbols/BTCUSD/"},
+    {a:"ETH",cg:"ethereum",lvl:"$1,727",d:"+1.4%",dir:"pos",mag:22,drv:"Drifting higher; capped near $1,750",url:"https://www.tradingview.com/symbols/ETHUSD/"},
+    {a:"SOL",cg:"solana",lvl:"~$85",d:"+1.5%",dir:"pos",mag:22,drv:"Consolidating; squeeze setup still building",url:"https://www.tradingview.com/symbols/SOLUSD/"},
+    {a:"XRP",cg:"ripple",lvl:"~$1.22",d:"+0.5%",dir:"pos",mag:10,drv:"Quiet trade; range-bound with majors",url:"https://www.tradingview.com/symbols/XRPUSD/"},
+    {a:"Gold",tv:"TVC:GOLD",lvl:"~$4,420",d:"+1%",dir:"pos",mag:14,drv:"Slow recovery; geopolitics keeping a bid",url:"https://www.tradingview.com/symbols/XAUUSD/"},
     {a:"S&P 500",tv:"FOREXCOM:SPXUSD",lvl:"~7,520",d:"+0.1%",dir:"pos",mag:4,drv:"New record high; AI leadership intact",url:"https://www.tradingview.com/symbols/SPX/"},
     {a:"Nasdaq",tv:"FOREXCOM:NSXUSD",lvl:"~26,730",d:"+0.3%",dir:"pos",mag:8,drv:"New record high; NVDA +2% new PC chip",url:"https://www.tradingview.com/symbols/IXIC/"},
     {a:"10Y UST",lvl:"4.55%",d:"+7bps",dir:"neg",mag:14,drv:"Crept up post-CPI; May CPI 4.2% YoY (3-yr high on energy)",url:"https://www.tradingview.com/symbols/TVC-US10Y/"},
@@ -310,8 +321,8 @@ const DATA = {
     {a:"CSI 300",tv:"SSE:000300",lvl:"~4,922",d:"soft",dir:"neg",mag:12,drv:"Mainland tech drag persists",url:"https://www.tradingview.com/symbols/SSE-000300/"},
     {a:"Hang Seng",tv:"HSI:HSI",lvl:"~25,600",d:"flat",dir:"flat",mag:6,drv:"HS Tech holding the relative-strength leadership",url:"https://www.tradingview.com/symbols/HSI-HSI/"},
     {a:"WTI",tv:"TVC:USOIL",lvl:"~$97",d:"+5%",dir:"pos",mag:35,drv:"FLIP: Iran/Hormuz tension re-emerging",url:"https://www.tradingview.com/symbols/WTI/"},
-    {a:"IHSG",tv:"IDX:COMPOSITE",lvl:"~6,095",d:"weak",dir:"neg",mag:50,drv:"29 May MSCI outflow cliff tomorrow",url:"https://www.tradingview.com/symbols/IDX-COMPOSITE/"},
-    {a:"USD/IDR",tv:"FX_IDC:USDIDR",lvl:"~17,597",d:"weak",dir:"neg",mag:42,drv:"Rupiah pinned at stress highs",url:"https://www.tradingview.com/symbols/USDIDR/"}
+    {a:"IHSG",tv:"IDX:COMPOSITE",lvl:"~6,185",d:"+3% wk",dir:"pos",mag:30,drv:"2nd straight weekly gain; bargain-hunting after 6-yr trough",url:"https://www.tradingview.com/symbols/IDX-COMPOSITE/"},
+    {a:"USD/IDR",tv:"FX_IDC:USDIDR",lvl:"firmer",d:"BI hike",dir:"pos",mag:25,drv:"BI +25bp (75bp cumulative since May) to defend rupiah",url:"https://www.tradingview.com/symbols/USDIDR/"}
   ],
   positions:[
     /* CRYPTO */
@@ -383,6 +394,32 @@ const DATA = {
       movers:[
         {sym:"Semis (Cambricon, Hygon)", chg:"−5 to −6%", dir:"neg", why:"Profit-taking; policy/AI-chip headlines.", lt:"Domestic-substitution theme intact long-term; volatile near-term."}],
       caps:{large:"Kweichow Moutai, CATL, ICBC, SMIC", mid:"CSI 500 — mid-cap industrials", small:"CSI 1000 / ChiNext — high-beta small-caps"} }
+  },
+  hotToday:{
+    us:[
+      {sym:"INTC", chg:"+10.6%", dir:"pos", why:"Trump: Intel will produce chips for Apple in US (repatriation)"},
+      {sym:"MU", chg:"+8.5%", dir:"pos", why:"AI memory leadership; HBM demand intact"},
+      {sym:"CAT", chg:"+3.7%", dir:"pos", why:"Industrial / cyclical bid"},
+      {sym:"NVDA", chg:"+2.8%", dir:"pos", why:"AI mega-cap strength continues"},
+      {sym:"IBM", chg:"−5.4%", dir:"neg", why:"Tech-rotation casualty"},
+      {sym:"CRM", chg:"−2.7%", dir:"neg", why:"Software pullback on rotation"}
+    ],
+    id:[
+      {sym:"MDKA", chg:"+7.3%", dir:"pos", why:"Merdeka Copper Gold; commodity bid"},
+      {sym:"BBCA", chg:"+3.7%", dir:"pos", why:"Large-cap bank recovery; BI hike supportive"},
+      {sym:"SCMA", chg:"+2.0%", dir:"pos", why:"Surya Citra Media; defensive media bid"},
+      {sym:"CPIN", chg:"+1.5%", dir:"pos", why:"Defensive consumer; post-MSCI flow stabilising"},
+      {sym:"TLKM", chg:"−7.8%", dir:"neg", why:"Notable laggard; selling pressure"},
+      {sym:"ELSA", chg:"−5.7%", dir:"neg", why:"Elnusa; energy-services sell-off"}
+    ],
+    cn:[
+      {sym:"Lenovo (0992)", chg:"−4.4%", dir:"neg", why:"PC/AI hardware drag"},
+      {sym:"Pop Mart (9992)", chg:"−4.1%", dir:"neg", why:"Consumer-discretionary profit-take"},
+      {sym:"Meituan (3690)", chg:"−3.5%", dir:"neg", why:"Profit-take after Q1 beat (RMB 91B rev, +5.6% YoY)"},
+      {sym:"Xiaomi (1810)", chg:"−3.3%", dir:"neg", why:"Tech sector pull-back"},
+      {sym:"HSTECH", chg:"−1.4%", dir:"neg", why:"Snapped 2-session rally on profit-take"},
+      {sym:"Tencent (0700)", chg:"−1.2%", dir:"neg", why:"Holding up; AI/LLM commercialisation theme building"}
+    ]
   },
   chinaHK:[
     "<strong>Mainland weak:</strong> Shanghai −1.25% to 4,094; CSI 300 ~4,922. Semis/tech led the drop. Industrial profits +18.2% YoY: fundamentals solid, sentiment soft.",
@@ -460,6 +497,15 @@ function renderScen(id,obj){ $(id).innerHTML=["bull","base","bear"].map(k=>
 if(DATA.assetsWatch && $("assetsWatch")){
   $("assetsWatch").innerHTML=DATA.assetsWatch.map(a=>
     `<div class="watchitem"><div class="wh"><b>${a.asset}</b> · <em>${a.trigger}</em></div><div class="ww">${a.why}</div></div>`).join("");
+}
+if(DATA.hotToday && $("hotToday")){
+  const HOT_LABELS={us:"🇺🇸 US", id:"🇮🇩 Indonesia", cn:"🇨🇳 China / HK"};
+  $("hotToday").innerHTML="<div class=\"hot-grid\">"+["us","id","cn"].map(mkt=>{
+    const items=DATA.hotToday[mkt]||[];
+    return `<div class="hot-card"><h3>${HOT_LABELS[mkt]}</h3>`+
+      items.map(r=>`<div class="hot-row"><span class="hot-sym">${r.sym}</span><span class="delta ${r.dir}">${r.chg}</span><div class="hot-why">${r.why}</div></div>`).join("")
+    +`</div>`;
+  }).join("")+"</div>";
 }
 $("sources").innerHTML="Sources: "+DATA.sources.map(s=>`<a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a>`).join(" · ");
 
@@ -560,6 +606,21 @@ window.addEventListener("load",()=>{
 
 /* ====== LIVE crypto (CoinGecko) ====== */
 function fmtP(p){ if(p>=1000) return "$"+Math.round(p).toLocaleString("en-US"); if(p>=1) return "$"+p.toFixed(2); return "$"+p.toFixed(4); }
+/* Smooth count-up/down between price updates (~500ms ease-out cubic) */
+function animNum(el, target, fmt, dur=500){
+  const prev = el.dataset.cur !== undefined ? parseFloat(el.dataset.cur) : target;
+  if(prev === target){ el.textContent = fmt(target); el.dataset.cur = target; return; }
+  const t0 = performance.now();
+  function step(now){
+    const t = Math.min(1, (now - t0) / dur);
+    const e = 1 - Math.pow(1 - t, 3);
+    const v = prev + (target - prev) * e;
+    el.textContent = fmt(v);
+    if(t < 1) requestAnimationFrame(step);
+    else { el.textContent = fmt(target); el.dataset.cur = target; }
+  }
+  requestAnimationFrame(step);
+}
 async function liveUpdate(){
   try{
     const r=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,ripple&vs_currencies=usd&include_24hr_change=true");
@@ -567,7 +628,7 @@ async function liveUpdate(){
     document.querySelectorAll(".row[data-cg]").forEach(row=>{
       const o=d[row.dataset.cg]; if(!o) return;
       const p=o.usd, ch=o.usd_24h_change||0, dir=ch>=0?"pos":"neg";
-      row.querySelector(".lvl").textContent=fmtP(p);
+      animNum(row.querySelector(".lvl"), p, fmtP);
       const dEl=row.querySelector(".delta"); dEl.textContent=(ch>=0?"+":"")+ch.toFixed(1)+"%"; dEl.className="delta "+dir;
       const bar=row.querySelector(".bar"); bar.className="bar "+dir; bar.style.width=Math.min(Math.abs(ch)*18,100)+"%";
     });

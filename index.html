@@ -89,12 +89,14 @@
   .hot-row .delta{font-size:12.5px;}
   .hot-why{font-size:11.5px; color:#555; margin-top:2px; line-height:1.4;}
   @media(max-width:600px){.hot-grid{grid-template-columns:1fr;}}
-  /* Journal Research — PDF only */
-  .jr-embed{display:flex; flex-direction:column; gap:10px;}
-  .jr-embed iframe{width:100%; height:85vh; min-height:600px; border:1px solid var(--line); border-radius:10px; background:#fff; box-shadow:0 6px 22px -18px rgba(0,0,0,.28);}
-  .jr-fallback{align-self:flex-start; color:var(--accent); font-weight:700; font-size:13px; text-decoration:none;}
-  .jr-fallback:hover{color:var(--navy); text-decoration:underline;}
-  @media(max-width:600px){.jr-embed iframe{height:75vh; min-height:480px;}}
+  /* Journal Research — clickable list */
+  .jr-list{display:flex; flex-direction:column; gap:12px;}
+  .jr-link{display:flex; align-items:center; gap:14px; background:var(--card); border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:10px; padding:18px 22px; text-decoration:none; color:inherit; transition:transform .2s ease, box-shadow .2s ease, border-left-color .2s ease; box-shadow:0 6px 22px -18px rgba(0,0,0,.28);}
+  .jr-link:hover{transform:translateY(-2px); border-left-color:var(--teal); box-shadow:0 12px 28px -18px rgba(0,0,0,.38);}
+  .jr-link-icon{font-size:22px; flex-shrink:0;}
+  .jr-link-title{flex:1; font-size:16px; font-weight:800; color:var(--navy); line-height:1.35;}
+  .jr-link-arrow{font-size:18px; font-weight:700; color:var(--accent); flex-shrink:0;}
+  .jr-link:hover .jr-link-arrow{transform:translateX(3px);}
   /* Sparkline rows (crypto): replace flat bar with a 7-day SVG mini-chart */
   .sparkrow .bartrack{height:22px; background:transparent; border-radius:0; overflow:visible;}
   .spark{display:block; width:100%; height:22px; opacity:0; animation:sparkIn .55s ease forwards;}
@@ -487,7 +489,7 @@ const DATA = {
     outlook:{bull:{prob:"~25%",text:"Add risk on $65k BTC clear + soft inflation prints: quality growth + crypto + Indonesia recovery (BBCA, CPIN); the rotation broadens."},base:{prob:"~50%",text:"Selective: barbell value/energy with quality growth; accumulate Indonesia (BBCA) on BI hike absorption; wait for BTC range resolution before crypto adds."},bear:{prob:"~25%",text:"De-risk: raise cash, lean defensive + gold; wait for $65k decision and inflation clarity."}}
   },
   journal:[
-    { title:"Analysis 01", pdf:"journal/Analysis-01.pdf" }
+    { title:"Bitcoin — Rabu, 24 Juni 2026", pdf:"https://drive.google.com/file/d/1g8qElvdKqmasi_w2Dl2-3hJD8k5_y8ZN/view?usp=drive_link" }
   ],
   sources:[
     ["TheStreet — US market","https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-may-26-2026"],
@@ -530,12 +532,13 @@ if(DATA.hotToday && $("hotToday")){
   }).join("")+"</div>";
 }
 if(DATA.journal && $("journalList")){
-  $("journalList").innerHTML=DATA.journal.map(j=>`
-    <div class="jr-embed">
-      <iframe src="${j.pdf}" title="${j.title||'Journal Research'}" loading="lazy"></iframe>
-      <a class="jr-fallback" href="${j.pdf}" target="_blank" rel="noopener">📄 Open PDF in new tab</a>
-    </div>
-  `).join("");
+  $("journalList").innerHTML="<div class='jr-list'>"+DATA.journal.map(j=>`
+    <a class="jr-link" href="${j.pdf}" target="_blank" rel="noopener">
+      <span class="jr-link-icon">📄</span>
+      <span class="jr-link-title">${j.title}</span>
+      <span class="jr-link-arrow">→</span>
+    </a>
+  `).join("")+"</div>";
 }
 $("sources").innerHTML="Sources: "+DATA.sources.map(s=>`<a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a>`).join(" · ");
 

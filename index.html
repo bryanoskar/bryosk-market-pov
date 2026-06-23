@@ -89,28 +89,12 @@
   .hot-row .delta{font-size:12.5px;}
   .hot-why{font-size:11.5px; color:#555; margin-top:2px; line-height:1.4;}
   @media(max-width:600px){.hot-grid{grid-template-columns:1fr;}}
-  /* Journal Research entry cards */
-  .jr-card{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:10px; padding:18px 22px; margin-bottom:18px; box-shadow:0 6px 22px -18px rgba(0,0,0,.28);}
-  .jr-head{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:8px 18px; margin-bottom:6px;}
-  .jr-title{font-size:18px; font-weight:800; color:var(--navy); line-height:1.3;}
-  .jr-meta{font-size:12px; color:var(--muted); letter-spacing:.04em;}
-  .jr-tldr{font-size:13.5px; color:#444; line-height:1.55; padding:10px 14px; background:#f4f7fb; border-left:3px solid var(--teal); border-radius:6px; margin:8px 0 14px;}
-  .jr-section{margin-top:14px;}
-  .jr-section h4{font-size:11.5px; letter-spacing:.10em; text-transform:uppercase; color:var(--accent); font-weight:800; margin-bottom:8px;}
-  .jr-signals{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:10px;}
-  .jr-signal{background:#fafbfd; border:1px solid var(--line); border-radius:8px; padding:10px 12px;}
-  .jr-signal .num{font-size:14px; font-weight:800; color:var(--accent); margin-bottom:4px;}
-  .jr-signal .lab{font-size:11.5px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin-bottom:4px;}
-  .jr-signal .val{font-size:13px; color:#222; line-height:1.45;}
-  @media(max-width:600px){.jr-signals{grid-template-columns:1fr;}}
-  .jr-body{font-size:14px; color:#333; line-height:1.65;}
-  .jr-body p{margin-bottom:10px;}
-  .jr-levels{display:flex; flex-wrap:wrap; gap:10px; margin:10px 0;}
-  .jr-level{background:#fff; border:1px solid var(--line); border-radius:8px; padding:8px 14px; font-size:13px;}
-  .jr-level b{color:var(--accent);}
-  .jr-action{display:inline-block; background:var(--accent); color:#fff; padding:9px 18px; border-radius:8px; font-weight:700; font-size:13px; text-decoration:none; margin-top:12px;}
-  .jr-action:hover{background:var(--navy);}
-  .jr-disclaimer{margin-top:14px; padding:10px 14px; background:#fffaf0; border-left:3px solid #d4a017; border-radius:6px; font-size:12px; color:#666; line-height:1.5;}
+  /* Journal Research — PDF only */
+  .jr-embed{display:flex; flex-direction:column; gap:10px;}
+  .jr-embed iframe{width:100%; height:85vh; min-height:600px; border:1px solid var(--line); border-radius:10px; background:#fff; box-shadow:0 6px 22px -18px rgba(0,0,0,.28);}
+  .jr-fallback{align-self:flex-start; color:var(--accent); font-weight:700; font-size:13px; text-decoration:none;}
+  .jr-fallback:hover{color:var(--navy); text-decoration:underline;}
+  @media(max-width:600px){.jr-embed iframe{height:75vh; min-height:480px;}}
   /* Sparkline rows (crypto): replace flat bar with a 7-day SVG mini-chart */
   .sparkrow .bartrack{height:22px; background:transparent; border-radius:0; overflow:visible;}
   .spark{display:block; width:100%; height:22px; opacity:0; animation:sparkIn .55s ease forwards;}
@@ -314,11 +298,7 @@
 
   <!-- MY JOURNAL RESEARCH -->
   <div class="tabpanel">
-    <section>
-      <h2>📓 My Journal Research · personal PoV deep-dive</h2>
-      <div class="posnote"><strong>Personal market research, not financial advice.</strong> These are my own working notes — the longer-form thinking behind the positions and convictions on this site. Updated when I publish a new piece.</div>
-      <div id="journalList"></div>
-    </section>
+    <div id="journalList"></div>
   </div>
 
   <div class="foot">
@@ -507,32 +487,7 @@ const DATA = {
     outlook:{bull:{prob:"~25%",text:"Add risk on $65k BTC clear + soft inflation prints: quality growth + crypto + Indonesia recovery (BBCA, CPIN); the rotation broadens."},base:{prob:"~50%",text:"Selective: barbell value/energy with quality growth; accumulate Indonesia (BBCA) on BI hike absorption; wait for BTC range resolution before crypto adds."},bear:{prob:"~25%",text:"De-risk: raise cash, lean defensive + gold; wait for $65k decision and inflation clarity."}}
   },
   journal:[
-    {
-      title:"Bitcoin Bottom-Building Thesis · 3 sinyal struktural",
-      date:"24 June 2026",
-      tags:"Crypto · Macro · On-Chain",
-      tldr:"Bitcoin bertahan di atas $63.000 selama 3 minggu setelah menyentuh low 2026 di sekitar $59.000 — pola yang secara historis sering mendahului fase pembalikan tren. Tiga sinyal struktural (deleveraging derivatives, ETF outflow melambat, LTH tidak capitulate) memperkuat narasi bottom-building, meski momentum naik belum terkonfirmasi.",
-      signals:[
-        {num:"−19.5%", lab:"Open Interest", val:"OI futures BTC turun dari $25.96B → $20.89B; funding rate cooled 0.1% → 0.02% — deleveraging yang sehat, bukan panik."},
-        {num:"$540M", lab:"ETF Outflow / 2 minggu", val:"Outflow ETF Mei 15–Jun 11 sebesar $5.5B; 2 minggu terakhir hanya $540M (~90% perlambatan) — tekanan jual institusional mendekati exhaustion."},
-        {num:"1,256 hari", lab:"LTH Sales Pressure Inactive", val:"Long-term holder realized supply 12.42M BTC; sales pressure metric tidak aktif selama 1,256 hari berturut-turut — rekor terpanjang sepanjang sejarah Bitcoin."}
-      ],
-      body:[
-        "<strong>01) Deleveraging Derivatives yang Sehat</strong> — OI: $25.96B → $20.89B | Funding Rate: 0.1% → 0.02%. Open interest futures Bitcoin turun 19,5% dari puncaknya — penurunan yang justru melampaui koreksi harga BTC sendiri sebesar 11,4% dalam periode yang sama. Ini bukan tanda kepanikan massal, melainkan pembersihan leverage berlebih yang menyehatkan struktur pasar.",
-        "<strong>02) ETF Outflow Melambat Tajam</strong> — Dari $5,5 miliar outflow di spot Bitcoin ETF antara 15 Mei–11 Juni, dua minggu terakhir hanya mencatatkan $540 juta keluar — perlambatan sekitar 90% yang sangat signifikan. Ini mengindikasikan tekanan jual dari sisi institusional sudah mendekati exhaustion, bukan eskalasi distribusi baru.",
-        "<strong>03) Long-Term Holder Tidak Capitulate</strong> — Realized supply dari long-term holder mencapai 12,42 juta BTC — level yang diasosiasikan dengan supply maturation dan perpindahan koin ke tangan yang lebih kuat (strong hands). Ketika LTH tidak menjual di tengah tekanan, ini adalah sinyal struktural bullish jangka menengah.",
-        "<strong>Price Action — Weekly Timeframe</strong> — Harga Bitcoin sedang mengalami downtrend karena bergerak di bawah EMA8 dan EMA21. Namun stochastic mulai membentuk golden cross, memberikan potensi kenaikan dalam jangka waktu tertentu. Apabila harga ditutup dan diperdagangkan di atas range area $61,203 sebagai support, ada potensi rally ke range area $68,394. Tetap antisipasi potensi downside movement dan jaga money &amp; risk management."
-      ],
-      levels:[
-        {lab:"Support", val:"$61,203"},
-        {lab:"Target", val:"$68,394"},
-        {lab:"2026 Low", val:"~$59,000"},
-        {lab:"OI peak → now", val:"$25.96B → $20.89B"}
-      ],
-      pdf:"journal/Analysis-01.pdf",
-      pdfLabel:"📄 Download full PDF (with charts)",
-      disclaimer:"Research ini BUKAN financial advice, serta BUKAN merupakan sebuah ajakan membeli sebuah aset, melainkan bertujuan untuk sharing informasi dan edukasi terhadap apa yang saat ini sedang terjadi di market. Tetap prioritaskan Money dan Risk Management yang baik di dalam kondisi market apapun, dan jangan lupa selalu untuk Do Your Own Research. — Bryan Oskar, S.M., M.M."
-    }
+    { title:"Analysis 01", pdf:"journal/Analysis-01.pdf" }
   ],
   sources:[
     ["TheStreet — US market","https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-may-26-2026"],
@@ -576,30 +531,9 @@ if(DATA.hotToday && $("hotToday")){
 }
 if(DATA.journal && $("journalList")){
   $("journalList").innerHTML=DATA.journal.map(j=>`
-    <div class="jr-card">
-      <div class="jr-head">
-        <div class="jr-title">${j.title}</div>
-        <div class="jr-meta">${j.date} · ${j.tags}</div>
-      </div>
-      <div class="jr-tldr"><strong>TL;DR — </strong>${j.tldr}</div>
-      ${j.signals && j.signals.length ? `
-      <div class="jr-section">
-        <h4>3 Sinyal Utama</h4>
-        <div class="jr-signals">${j.signals.map(s=>`
-          <div class="jr-signal"><div class="num">${s.num}</div><div class="lab">${s.lab}</div><div class="val">${s.val}</div></div>
-        `).join("")}</div>
-      </div>` : ""}
-      <div class="jr-section">
-        <h4>Analisis Lengkap</h4>
-        <div class="jr-body">${j.body.map(p=>`<p>${p}</p>`).join("")}</div>
-      </div>
-      ${j.levels && j.levels.length ? `
-      <div class="jr-section">
-        <h4>Key Levels</h4>
-        <div class="jr-levels">${j.levels.map(l=>`<div class="jr-level"><b>${l.lab}:</b> ${l.val}</div>`).join("")}</div>
-      </div>` : ""}
-      ${j.pdf ? `<a class="jr-action" href="${j.pdf}" target="_blank" rel="noopener">${j.pdfLabel||"Download PDF"}</a>` : ""}
-      ${j.disclaimer ? `<div class="jr-disclaimer"><strong>DISCLAIMER · </strong>${j.disclaimer}</div>` : ""}
+    <div class="jr-embed">
+      <iframe src="${j.pdf}" title="${j.title||'Journal Research'}" loading="lazy"></iframe>
+      <a class="jr-fallback" href="${j.pdf}" target="_blank" rel="noopener">📄 Open PDF in new tab</a>
     </div>
   `).join("");
 }

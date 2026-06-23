@@ -326,7 +326,7 @@ const DATA = {
   ],
   positions:[
     /* CRYPTO */
-    {sym:"BTC", name:"Bitcoin", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Med", horizon:"1–3m", thesis:"Range mode below $65k follow-through — bounce from the $63k reclaim has stalled for ~a week. Needs sustained break above $65k for next leg, or rejection to $61k for a higher-conviction entry. Cautious adds on dips, not chases.", risk:"Loses $63k → opens $61k retest; failure to hold $61k → $58k zone. Hot May PCE late June would extend the chop or break it lower."},
+    {sym:"BTC", name:"Bitcoin", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Med", horizon:"1–3m", thesis:"Range mode below $65k follow-through — bounce from the $63k reclaim has stalled for ~a week. Needs sustained break above $65k for next leg, or rejection to $61k for a higher-conviction entry. Cautious adds on dips, not chases.", risk:"Loses $63k → opens $61k retest; failure to hold $61k → $58k zone. Hot inflation prints would extend the chop or break it lower."},
     {sym:"ETH", name:"Ethereum", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Low–Med", horizon:"1–3m", thesis:"Bounce from $1,504 low to $1,727 has paused — relative weakness vs BTC starting to mend but no trend repair. Needs $1,800 reclaim + hold for continuation. Sideways without a catalyst.", risk:"Loses $1,650 → tests $1,500. BTC rejection back below $63k drags."},
     /* US */
     {sym:"NVDA", name:"Nvidia", market:"US", cap:"Mega cap", position:"BUY", conviction:"High", horizon:"6–12m", thesis:"AI mega-cap leadership intact through the chop (+2.8% today amid the range-mode crypto backdrop). Structural AI / data-center spend is load-bearing for the broader rotation thesis. Add on quality-growth dips.", risk:"AI-capex pause, China export-rule tightening, or sentiment unwind off rich multiples."},
@@ -341,9 +341,9 @@ const DATA = {
     {sym:"Sungrow (300274)", name:"Sungrow Power Supply", market:"China", cap:"Mid cap", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"Renewables + AI-data-center power: inverter/storage leader. Anti-involution policy may stabilise solar margins while AI compute build drives power-supply gear demand. Today's AI-capex strength supports.", risk:"Solar oversupply still real near-term; US tariff risk on Chinese clean-tech; A-share sentiment soft."},
     {sym:"LONGi (601012)", name:"LONGi Green Energy", market:"China", cap:"Mid cap", position:"AVOID", conviction:"Med", horizon:"3–6m", thesis:"Largest solar module maker caught in the price-war / oversupply cycle. Anti-involution policy may help eventually but timing uncertain, and US tariffs add downside. Stay sidelined.", risk:"Faster-than-expected policy shift restoring pricing power; trade-deal news that lifts solar broadly."},
     /* INDONESIA */
-    {sym:"BBCA", name:"Bank Central Asia", market:"Indonesia", cap:"Large cap", position:"BUY", conviction:"Med–High", horizon:"6–12m", thesis:"MSCI passive-flow cliff cleared 23 days ago. <strong>BI +25bp hike today</strong> (75bp cumulative since May) defends IDR + supports IDX recovery — BBCA +3.7% on the print. Dominant banking franchise, structurally profitable, cheap valuation. Accumulate the recovery.", risk:"Rupiah weakness if BI hike doesn't take hold; broader EM derisking; net-interest-margin pressure if rates pause."},
-    {sym:"CPIN", name:"Charoen Pokphand Indonesia", market:"Indonesia", cap:"Mid cap", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"Post-MSCI flow has stabilised; CPIN +1.5% today on defensive consumer bid. Dominant poultry producer; resilient domestic demand even through rupiah stress. Quiet compounder for the Indonesia recovery.", risk:"Feed-cost (corn/soy) volatility; rupiah-driven import-cost pressure if BI hike fails."},
-    {sym:"BREN", name:"Barito Renewables Energy", market:"Indonesia", cap:"Mid cap (post-MSCI)", position:"AVOID", conviction:"Low–Med", horizon:"1–3m", thesis:"23 days post-MSCI deletion — forced passive selling completed, peak pressure past, but free-float / concentration overhang remains. Watch for capitulation low + corporate moves improving free float as the catalyst. Not a buy yet, but the deletion-trade is past peak.", risk:"Faster-than-expected snapback once positioning fully cleans; corporate moves boosting free float; broader IDX recovery momentum."}
+    {sym:"BBCA", name:"Bank Central Asia", market:"Indonesia", cap:"Large cap", position:"BUY", conviction:"Med–High", horizon:"6–12m", thesis:"Passive-flow pressure has fully cleared. <strong>BI +25bp hike today</strong> (75bp cumulative since May) defends IDR + supports IDX recovery — BBCA +3.7% on the print. Dominant banking franchise, structurally profitable, cheap valuation. Accumulate the recovery.", risk:"Rupiah weakness if BI hike doesn't take hold; broader EM derisking; net-interest-margin pressure if rates pause."},
+    {sym:"CPIN", name:"Charoen Pokphand Indonesia", market:"Indonesia", cap:"Mid cap", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"CPIN +1.5% today on defensive consumer bid as passive-flow pressure has cleared. Dominant poultry producer; resilient domestic demand even through rupiah stress. Quiet compounder for the Indonesia recovery.", risk:"Feed-cost (corn/soy) volatility; rupiah-driven import-cost pressure if BI hike fails."},
+    {sym:"BREN", name:"Barito Renewables Energy", market:"Indonesia", cap:"Mid cap", position:"AVOID", conviction:"Low–Med", horizon:"1–3m", thesis:"Forced passive selling from earlier index deletion has completed — peak pressure past, but free-float / concentration overhang remains. Watch for capitulation low + corporate moves improving free float as the catalyst. Not a buy yet, but the deletion-trade is past peak.", risk:"Faster-than-expected snapback once positioning fully cleans; corporate moves boosting free float; broader IDX recovery momentum."}
   ],
   derivFlow:[
     "<strong>BTC perp OI range mode</strong> — week of $63–65k chop has reset positioning. No fresh long pile-up; shorts long-since unwound from the early-June cascade.",
@@ -370,7 +370,7 @@ const DATA = {
     "<strong>Shanghai</strong> — capped near recent highs; profit-take taking the lead. Semis the swing factor.",
     "<strong>CSI 300</strong> — range; needs semis stabilisation + risk-on regime.",
     "<strong>Hang Seng</strong> — HSTECH snapped its 2-session rally today (−1.4%); profit-take depth = the watch.",
-    "<strong>IHSG</strong> — post-MSCI cliff cleared 23 days ago; recovery starting on BI +25bp hike. BBCA-led bid the bellwether."
+    "<strong>IHSG</strong> — passive-flow pressure has cleared; recovery starting on BI +25bp hike. BBCA-led bid the bellwether."
   ],
   techMacro:[
     "<strong>Gold ~$4,500</strong> — support $4,440 / resistance $4,538; stabilising as crypto chops not crashes.",
@@ -386,9 +386,9 @@ const DATA = {
         {sym:"MU", chg:"+8.5%", dir:"pos", why:"AI memory leadership; HBM demand intact post-$1T parabolic.", lt:"Structural HBM tailwind; risk = memory cyclicality."},
         {sym:"IBM / CRM", chg:"−5.4 / −2.7%", dir:"neg", why:"Tech-rotation casualties; software pullback on rotation.", lt:"Cyclically sensitive; AI-platform monetisation still in progress."}],
       caps:{large:"NVDA, Microsoft, MU (AI mega-caps lead through the chop)", mid:"S&P MidCap 400 / MDY — cyclical &amp; industrial tilt", small:"Russell 2000 / IWM — rate-sensitive, broadens IF yields fall"} },
-    id:{ topic:"<strong>Bank Indonesia +25bp rate hike today</strong> (75bp cumulative since May) supports IDR + IDX recovery. Post-MSCI cliff cleared 23 days ago. BBCA +3.7%, CPIN +1.5% — defensive consumer + bank-led bid returning.",
+    id:{ topic:"<strong>Bank Indonesia +25bp rate hike today</strong> (75bp cumulative since May) supports IDR + IDX recovery. Passive-flow pressure has fully cleared. BBCA +3.7%, CPIN +1.5% — defensive consumer + bank-led bid returning.",
       movers:[
-        {sym:"BBCA", chg:"+3.7%", dir:"pos", why:"BI +25bp hike supportive; large-cap bank bid post-MSCI absorption.", lt:"Structural franchise; cheap valuation; conviction trending up."},
+        {sym:"BBCA", chg:"+3.7%", dir:"pos", why:"BI +25bp hike supportive; large-cap bank bid as passive-flow absorbs.", lt:"Structural franchise; cheap valuation; conviction trending up."},
         {sym:"MDKA", chg:"+7.3%", dir:"pos", why:"Merdeka Copper Gold; commodity bid.", lt:"Cyclical exposure; commodity-price sensitive."},
         {sym:"TLKM / ELSA", chg:"−7.8 / −5.7%", dir:"neg", why:"TLKM notable laggard on sector-specific pressure; ELSA caught in energy-services sell-off.", lt:"TLKM yield-sensitive; ELSA cyclical."}],
       caps:{large:"BBCA, BBRI, BMRI, TLKM, ASII (index heavyweights)", mid:"Domestic-consumption &amp; property mid-caps", small:"IDX SmallCap — illiquid, recovery-leveraged"} },
@@ -412,7 +412,7 @@ const DATA = {
       {sym:"MDKA", chg:"+7.3%", dir:"pos", why:"Merdeka Copper Gold; commodity bid"},
       {sym:"BBCA", chg:"+3.7%", dir:"pos", why:"Large-cap bank recovery; BI hike supportive"},
       {sym:"SCMA", chg:"+2.0%", dir:"pos", why:"Surya Citra Media; defensive media bid"},
-      {sym:"CPIN", chg:"+1.5%", dir:"pos", why:"Defensive consumer; post-MSCI flow stabilising"},
+      {sym:"CPIN", chg:"+1.5%", dir:"pos", why:"Defensive consumer; passive-flow has stabilised"},
       {sym:"TLKM", chg:"−7.8%", dir:"neg", why:"Notable laggard; selling pressure"},
       {sym:"ELSA", chg:"−5.7%", dir:"neg", why:"Elnusa; energy-services sell-off"}
     ],
@@ -435,19 +435,19 @@ const DATA = {
     "<strong>China/HK profit-take</strong> intact: HSTECH snapped 2-session rally; broad sell across mainland-tied tech. Tencent's relative resilience the bellwether for re-engagement."
   ],
   news:[
-    "<strong>Bank Indonesia +25bp rate hike (today):</strong> 75bp cumulative since May to defend IDR. Supports IDX recovery — BBCA <strong>+3.7%</strong> on the print; large-cap bank bid returning post-MSCI cliff.",
+    "<strong>Bank Indonesia +25bp rate hike (today):</strong> 75bp cumulative since May to defend IDR. Supports IDX recovery — BBCA <strong>+3.7%</strong> on the print; large-cap bank bid returning as passive-flow pressure clears.",
     "<strong>INTC +10.6% on Trump/Apple chip-repatriation:</strong> Intel to produce chips for Apple in US. Idiosyncratic semis spike; AI mega-cap leadership (NVDA, MU) remains the broader theme.",
     "<strong>Crypto range mode below $65k:</strong> week since the $63k reclaim trigger fired — no follow-through. BTC $63,804 (+1.2%), ETH $1,727 (+1.4%). Needs $65k breakout or $61k breakdown for the next move.",
-    "<strong>HSTECH snapped 2-session rally:</strong> profit-take across China/HK (Lenovo −4.4%, Xiaomi −3.3%; Tencent held best at −1.2%). Post-rally digestion + selective MSCI rebalance flow.",
-    "<strong>On deck:</strong> May PCE inflation print (late June) + Fed June meeting tone — primary upcoming catalysts."
+    "<strong>HSTECH snapped 2-session rally:</strong> profit-take across China/HK (Lenovo −4.4%, Xiaomi −3.3%; Tencent held best at −1.2%). Post-rally digestion + selective flow rotation.",
+    "<strong>On deck:</strong> Fed June meeting tone + late-June inflation prints — primary upcoming catalysts."
   ],
   rotation:[
     "<strong>Where money is going:</strong> Value/energy/industrials/staples YTD leaders intact. AI mega-cap (NVDA, MU) maintained leadership through the chop. Today's range-mode environment keeps rotation thesis alive but waiting for a catalyst. <span class='conf'>Confidence: Medium</span>",
-    "<strong>If May PCE soft:</strong> quality growth + crypto + small-caps + EM (incl. Indonesia recovery) catch a sharp bid.",
-    "<strong>If May PCE hot:</strong> defensives lead, crypto rejects $65k → $61k, EM softens."
+    "<strong>If inflation prints soft:</strong> quality growth + crypto + small-caps + EM (incl. Indonesia recovery) catch a sharp bid.",
+    "<strong>If inflation prints hot:</strong> defensives lead, crypto rejects $65k → $61k, EM softens."
   ],
   corp:[
-    "<strong>Late June — May PCE inflation print:</strong> swing factor for Fed June meeting tone + rate-path repricing.",
+    "<strong>Late June inflation calendar:</strong> May PCE print is the next major US data swing factor for Fed June meeting tone + rate-path repricing.",
     "<strong>Fed June meeting:</strong> hold likely at 3.50–3.75%, but tone is the watch — confirms or breaks the falling-yield setup.",
     "<strong>US:</strong> Q2 earnings cycle approaching; AI mega-cap (NVDA, MSFT, MU) + bank Q2 reports the focus.",
     "<strong>Indonesia:</strong> BI rate hike absorbed (75bp cumulative); next BI meeting + IDR stability the watchpoint."
@@ -456,7 +456,7 @@ const DATA = {
     "<strong>BTC $65k follow-through</strong> — single most-important crypto signal. Break opens $67–70k; rejection opens $61k retest then $58k.",
     "<strong>BI rate hike absorption</strong> — does IDR firm post-hike? IDX recovery (BBCA-led) extension confirms or rejects the Indonesia constructive case.",
     "<strong>China/HK profit-take depth</strong> — does HSTECH find low and re-engage? Tencent's relative resilience is the bellwether.",
-    "<strong>May PCE late June</strong> — softer = rotation broadens; hotter = chop continues / breaks lower."
+    "<strong>Inflation prints late June</strong> — softer = rotation broadens; hotter = chop continues / breaks lower."
   ],
   assetsWatch:[
     {asset:"BTC", trigger:"Sustained break above $65k", why:"$63k reclaim fired June 12; week of range-mode below $65k. Sustained break = next leg ($67–70k); rejection = $61k retest then $58k."},
@@ -468,11 +468,11 @@ const DATA = {
   ],
   tilt:"<b>Range mode below $65k</b> — bounce from $63k reclaim has stalled for ~a week; needs either $65k follow-through OR rejection to $61k for next move. <b>Bank Indonesia +25bp hike today</b> supports IDX recovery (BBCA +3.7%). AI mega-cap leadership intact through the chop. <b>Cautious adds on dips</b>, not chases: wait for $65k break or $61k retest for cleaner crypto entry; accumulate Indonesia (BBCA / CPIN) on BI hike absorption. <span class='conf'>Med Conviction</span><br><span style='color:#6b7280;font-size:13.5px;'>Thesis confirms on BTC over $65k + IDR firming. Breaks on rejection to $61k + hot May PCE late June. Personal research, not advice.</span>",
   scenarios:{
-    overview:{bull:{prob:"~25%",text:"BTC breaks $65k cleanly + soft May PCE late June → rotation broadens; quality growth + crypto + Indonesia recovery accelerate together."},base:{prob:"~50%",text:"Range mode holds: BTC chops $61–65k; equities near records on AI mega-cap leadership; Indonesia recovers gradually on BI hike absorption; China/HK profit-take digests."},bear:{prob:"~25%",text:"Hot May PCE + BTC rejected to $61k → risk-off broadens; AI mega-cap unwind drags indices; EM + China sell harder."}},
+    overview:{bull:{prob:"~25%",text:"BTC breaks $65k cleanly + soft late-June inflation prints → rotation broadens; quality growth + crypto + Indonesia recovery accelerate together."},base:{prob:"~50%",text:"Range mode holds: BTC chops $61–65k; equities near records on AI mega-cap leadership; Indonesia recovers gradually on BI hike absorption; China/HK profit-take digests."},bear:{prob:"~25%",text:"Hot inflation prints + BTC rejected to $61k → risk-off broadens; AI mega-cap unwind drags indices; EM + China sell harder."}},
     crypto:{bull:{prob:"~25%",text:"BTC reclaims $65k with volume → next leg targets $67–70k. Range-resolution upside. Alts catch up."},base:{prob:"~50%",text:"BTC chops $61–65k — bounce from $63k stalls without follow-through. Positioning resets; accumulation regime, not trend."},bear:{prob:"~25%",text:"$63k breaks → rejection to $61k → cascade to $58k. ETH below $1,650 opens the $1,500s."}},
-    stocks:{bull:{prob:"~30%",text:"Falling yields + soft May PCE → small/mid-caps and cyclicals broaden the rally; IWM catches up; AI mega-caps maintain leadership."},base:{prob:"~50%",text:"Records held by AI mega-cap leadership (NVDA, MU); value/energy/industrials under surface; IDX recovers on BI hike absorption."},bear:{prob:"~20%",text:"Hot PCE / AI wobble drags mega-caps + indices; defensives outperform; China/HK profit-take deepens."}},
-    macro:{bull:{prob:"~25%",text:"Disinflation confirmed (soft May PCE) → 10Y under 4.4%, DXY softens, EM relief continues; BI hike absorbed cleanly."},base:{prob:"~50%",text:"10Y holds 4.45–4.65%, DXY range-bound; China soft / HK firm; IDX recovers; BI hike works."},bear:{prob:"~25%",text:"Sticky PCE → yields + USD up; BI hike struggles to hold IDR; EM + China sell harder."}},
-    outlook:{bull:{prob:"~25%",text:"Add risk on $65k BTC clear + soft May PCE: quality growth + crypto + Indonesia recovery (BBCA, CPIN); the rotation broadens."},base:{prob:"~50%",text:"Selective: barbell value/energy with quality growth; accumulate Indonesia (BBCA) on BI hike absorption; wait for BTC range resolution before crypto adds."},bear:{prob:"~25%",text:"De-risk: raise cash, lean defensive + gold; wait for $65k decision and May PCE clarity."}}
+    stocks:{bull:{prob:"~30%",text:"Falling yields + soft inflation prints → small/mid-caps and cyclicals broaden the rally; IWM catches up; AI mega-caps maintain leadership."},base:{prob:"~50%",text:"Records held by AI mega-cap leadership (NVDA, MU); value/energy/industrials under surface; IDX recovers on BI hike absorption."},bear:{prob:"~20%",text:"Hot inflation / AI wobble drags mega-caps + indices; defensives outperform; China/HK profit-take deepens."}},
+    macro:{bull:{prob:"~25%",text:"Disinflation confirmed → 10Y under 4.4%, DXY softens, EM relief continues; BI hike absorbed cleanly."},base:{prob:"~50%",text:"10Y holds 4.45–4.65%, DXY range-bound; China soft / HK firm; IDX recovers; BI hike works."},bear:{prob:"~25%",text:"Sticky inflation → yields + USD up; BI hike struggles to hold IDR; EM + China sell harder."}},
+    outlook:{bull:{prob:"~25%",text:"Add risk on $65k BTC clear + soft inflation prints: quality growth + crypto + Indonesia recovery (BBCA, CPIN); the rotation broadens."},base:{prob:"~50%",text:"Selective: barbell value/energy with quality growth; accumulate Indonesia (BBCA) on BI hike absorption; wait for BTC range resolution before crypto adds."},bear:{prob:"~25%",text:"De-risk: raise cash, lean defensive + gold; wait for $65k decision and inflation clarity."}}
   },
   sources:[
     ["TheStreet — US market","https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-may-26-2026"],

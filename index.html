@@ -89,6 +89,28 @@
   .hot-row .delta{font-size:12.5px;}
   .hot-why{font-size:11.5px; color:#555; margin-top:2px; line-height:1.4;}
   @media(max-width:600px){.hot-grid{grid-template-columns:1fr;}}
+  /* Journal Research entry cards */
+  .jr-card{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:10px; padding:18px 22px; margin-bottom:18px; box-shadow:0 6px 22px -18px rgba(0,0,0,.28);}
+  .jr-head{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:8px 18px; margin-bottom:6px;}
+  .jr-title{font-size:18px; font-weight:800; color:var(--navy); line-height:1.3;}
+  .jr-meta{font-size:12px; color:var(--muted); letter-spacing:.04em;}
+  .jr-tldr{font-size:13.5px; color:#444; line-height:1.55; padding:10px 14px; background:#f4f7fb; border-left:3px solid var(--teal); border-radius:6px; margin:8px 0 14px;}
+  .jr-section{margin-top:14px;}
+  .jr-section h4{font-size:11.5px; letter-spacing:.10em; text-transform:uppercase; color:var(--accent); font-weight:800; margin-bottom:8px;}
+  .jr-signals{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:10px;}
+  .jr-signal{background:#fafbfd; border:1px solid var(--line); border-radius:8px; padding:10px 12px;}
+  .jr-signal .num{font-size:14px; font-weight:800; color:var(--accent); margin-bottom:4px;}
+  .jr-signal .lab{font-size:11.5px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin-bottom:4px;}
+  .jr-signal .val{font-size:13px; color:#222; line-height:1.45;}
+  @media(max-width:600px){.jr-signals{grid-template-columns:1fr;}}
+  .jr-body{font-size:14px; color:#333; line-height:1.65;}
+  .jr-body p{margin-bottom:10px;}
+  .jr-levels{display:flex; flex-wrap:wrap; gap:10px; margin:10px 0;}
+  .jr-level{background:#fff; border:1px solid var(--line); border-radius:8px; padding:8px 14px; font-size:13px;}
+  .jr-level b{color:var(--accent);}
+  .jr-action{display:inline-block; background:var(--accent); color:#fff; padding:9px 18px; border-radius:8px; font-weight:700; font-size:13px; text-decoration:none; margin-top:12px;}
+  .jr-action:hover{background:var(--navy);}
+  .jr-disclaimer{margin-top:14px; padding:10px 14px; background:#fffaf0; border-left:3px solid #d4a017; border-radius:6px; font-size:12px; color:#666; line-height:1.5;}
   /* Sparkline rows (crypto): replace flat bar with a 7-day SVG mini-chart */
   .sparkrow .bartrack{height:22px; background:transparent; border-radius:0; overflow:visible;}
   .spark{display:block; width:100%; height:22px; opacity:0; animation:sparkIn .55s ease forwards;}
@@ -207,6 +229,7 @@
     <button class="tab">Stocks</button>
     <button class="tab">Macro &amp; Global</button>
     <button class="tab">Outlook</button>
+    <button class="tab">📓 My Journal Research</button>
     <div class="tabind" id="tabind"></div>
   </div>
 
@@ -289,6 +312,15 @@
     <section><h2>Bull · Base · Bear · strategy</h2><div class="scen" id="scenOutlook"></div></section>
   </div>
 
+  <!-- MY JOURNAL RESEARCH -->
+  <div class="tabpanel">
+    <section>
+      <h2>📓 My Journal Research · personal PoV deep-dive</h2>
+      <div class="posnote"><strong>Personal market research, not financial advice.</strong> These are my own working notes — the longer-form thinking behind the positions and convictions on this site. Updated when I publish a new piece.</div>
+      <div id="journalList"></div>
+    </section>
+  </div>
+
   <div class="foot">
     <div style="margin-bottom:14px; padding:12px 16px; background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal); border-radius:8px; font-size:13.5px; display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px;">
       <a href="archive/" style="color:var(--accent); font-weight:800; text-decoration:none;">📊 Track Record →</a>
@@ -304,10 +336,10 @@
 <script>
 /* ====== DATA — the daily run replaces ONLY this object ====== */
 const DATA = {
-  dateLong:"Sunday, 21 June 2026",
-  feedTime:"2026-06-20 18:13 UTC",
-  riskScore:42, riskLabel:"Neutral · range-bound bounce stalling below $65k; BI hike + Iran the macro shifts",
-  bottomLine:"<strong>Range mode.</strong> A week since the $63k reclaim, crypto is <em>stalling below $65k follow-through</em>: BTC $63,804 (+1.2%), ETH $1,727 (+1.4%), sideways consolidation rather than trend repair. Notable shifts: <strong>Bank Indonesia hiked +25bp (75bp cumulative since May)</strong> to defend the rupiah — supports IDX recovery; <strong>INTC +10.6%</strong> on Trump announcing Intel will produce Apple chips in US (chip-repatriation narrative); HSTECH snapped its 2-session rally on profit-taking. 10Y holds 4.55%, Fed funds 3.50–3.75% unchanged. <strong>Needs a catalyst</strong> — either BTC over $65k cleanly OR rejection back to $61k. Sideways week without conviction.",
+  dateLong:"Wednesday, 24 June 2026",
+  feedTime:"2026-06-24 10:30 UTC",
+  riskScore:45, riskLabel:"Neutral · bottom-building thesis strengthening; structural signals improving below $65k",
+  bottomLine:"<strong>Bottom-building thesis strengthening.</strong> BTC has now held above $63k for <strong>3 weeks running</strong> after touching the 2026 low near $59k — a pattern that historically precedes trend reversals. Three structural signals support this read (full deep-dive in the new <strong>My Journal Research</strong> tab): <strong>(1)</strong> Open interest down −19.5% from peak ($25.96B → $20.89B) with funding rate cooled to 0.02% — healthy deleveraging, not panic; <strong>(2)</strong> ETF outflows have decelerated ~90% (last 2 weeks only $540M vs $5.5B during May 15–Jun 11) — institutional selling near exhaustion; <strong>(3)</strong> LTH sales pressure inactive for <strong>1,256 days</strong> — record longest in BTC history. Still no momentum confirmation: weekly chart below EMA8/EMA21, but stochastic forming a golden cross. Support $61,203; target zone $68,394 if BTC clears EMAs. Indonesia constructive — BI hike absorbed cleanly, BBCA-led IDX recovery extending. AI mega-cap leadership intact. <strong>Phase: 'holding breath'</strong> — accumulation regime, not trend.",
   snapshot:[
     {a:"BTC",cg:"bitcoin",lvl:"$63,804",d:"+1.2%",dir:"pos",mag:20,drv:"Range-bound; $65k follow-through still pending",url:"https://www.tradingview.com/symbols/BTCUSD/"},
     {a:"ETH",cg:"ethereum",lvl:"$1,727",d:"+1.4%",dir:"pos",mag:22,drv:"Drifting higher; capped near $1,750",url:"https://www.tradingview.com/symbols/ETHUSD/"},
@@ -326,7 +358,7 @@ const DATA = {
   ],
   positions:[
     /* CRYPTO */
-    {sym:"BTC", name:"Bitcoin", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Med", horizon:"1–3m", thesis:"Range mode below $65k follow-through — bounce from the $63k reclaim has stalled for ~a week. Needs sustained break above $65k for next leg, or rejection to $61k for a higher-conviction entry. Cautious adds on dips, not chases.", risk:"Loses $63k → opens $61k retest; failure to hold $61k → $58k zone. Hot inflation prints would extend the chop or break it lower."},
+    {sym:"BTC", name:"Bitcoin", market:"Crypto", cap:"Mega cap", position:"HOLD → BUY-on-dips", conviction:"Med", horizon:"1–3m", thesis:"<strong>Bottom-building thesis strengthening</strong> — 3 weeks above $63k after the $59k low; OI down −19.5%, funding cooled to 0.02%, ETF outflows decelerated 90%, LTH sales pressure inactive for 1,256 days (record). Accumulation regime, not trend yet. Support $61,203; target zone $68,394 on weekly EMA reclaim. See <em>My Journal Research</em> tab for full deep-dive.", risk:"Loses $61,203 → opens $58k zone; weekly EMA8/EMA21 still overhead. Hot inflation prints would extend the chop or break it lower."},
     {sym:"ETH", name:"Ethereum", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Low–Med", horizon:"1–3m", thesis:"Bounce from $1,504 low to $1,727 has paused — relative weakness vs BTC starting to mend but no trend repair. Needs $1,800 reclaim + hold for continuation. Sideways without a catalyst.", risk:"Loses $1,650 → tests $1,500. BTC rejection back below $63k drags."},
     /* US */
     {sym:"NVDA", name:"Nvidia", market:"US", cap:"Mega cap", position:"BUY", conviction:"High", horizon:"6–12m", thesis:"AI mega-cap leadership intact through the chop (+2.8% today amid the range-mode crypto backdrop). Structural AI / data-center spend is load-bearing for the broader rotation thesis. Add on quality-growth dips.", risk:"AI-capex pause, China export-rule tightening, or sentiment unwind off rich multiples."},
@@ -474,6 +506,34 @@ const DATA = {
     macro:{bull:{prob:"~25%",text:"Disinflation confirmed → 10Y under 4.4%, DXY softens, EM relief continues; BI hike absorbed cleanly."},base:{prob:"~50%",text:"10Y holds 4.45–4.65%, DXY range-bound; China soft / HK firm; IDX recovers; BI hike works."},bear:{prob:"~25%",text:"Sticky inflation → yields + USD up; BI hike struggles to hold IDR; EM + China sell harder."}},
     outlook:{bull:{prob:"~25%",text:"Add risk on $65k BTC clear + soft inflation prints: quality growth + crypto + Indonesia recovery (BBCA, CPIN); the rotation broadens."},base:{prob:"~50%",text:"Selective: barbell value/energy with quality growth; accumulate Indonesia (BBCA) on BI hike absorption; wait for BTC range resolution before crypto adds."},bear:{prob:"~25%",text:"De-risk: raise cash, lean defensive + gold; wait for $65k decision and inflation clarity."}}
   },
+  journal:[
+    {
+      title:"Bitcoin Bottom-Building Thesis · 3 sinyal struktural",
+      date:"24 June 2026",
+      tags:"Crypto · Macro · On-Chain",
+      tldr:"Bitcoin bertahan di atas $63.000 selama 3 minggu setelah menyentuh low 2026 di sekitar $59.000 — pola yang secara historis sering mendahului fase pembalikan tren. Tiga sinyal struktural (deleveraging derivatives, ETF outflow melambat, LTH tidak capitulate) memperkuat narasi bottom-building, meski momentum naik belum terkonfirmasi.",
+      signals:[
+        {num:"−19.5%", lab:"Open Interest", val:"OI futures BTC turun dari $25.96B → $20.89B; funding rate cooled 0.1% → 0.02% — deleveraging yang sehat, bukan panik."},
+        {num:"$540M", lab:"ETF Outflow / 2 minggu", val:"Outflow ETF Mei 15–Jun 11 sebesar $5.5B; 2 minggu terakhir hanya $540M (~90% perlambatan) — tekanan jual institusional mendekati exhaustion."},
+        {num:"1,256 hari", lab:"LTH Sales Pressure Inactive", val:"Long-term holder realized supply 12.42M BTC; sales pressure metric tidak aktif selama 1,256 hari berturut-turut — rekor terpanjang sepanjang sejarah Bitcoin."}
+      ],
+      body:[
+        "<strong>01) Deleveraging Derivatives yang Sehat</strong> — OI: $25.96B → $20.89B | Funding Rate: 0.1% → 0.02%. Open interest futures Bitcoin turun 19,5% dari puncaknya — penurunan yang justru melampaui koreksi harga BTC sendiri sebesar 11,4% dalam periode yang sama. Ini bukan tanda kepanikan massal, melainkan pembersihan leverage berlebih yang menyehatkan struktur pasar.",
+        "<strong>02) ETF Outflow Melambat Tajam</strong> — Dari $5,5 miliar outflow di spot Bitcoin ETF antara 15 Mei–11 Juni, dua minggu terakhir hanya mencatatkan $540 juta keluar — perlambatan sekitar 90% yang sangat signifikan. Ini mengindikasikan tekanan jual dari sisi institusional sudah mendekati exhaustion, bukan eskalasi distribusi baru.",
+        "<strong>03) Long-Term Holder Tidak Capitulate</strong> — Realized supply dari long-term holder mencapai 12,42 juta BTC — level yang diasosiasikan dengan supply maturation dan perpindahan koin ke tangan yang lebih kuat (strong hands). Ketika LTH tidak menjual di tengah tekanan, ini adalah sinyal struktural bullish jangka menengah.",
+        "<strong>Price Action — Weekly Timeframe</strong> — Harga Bitcoin sedang mengalami downtrend karena bergerak di bawah EMA8 dan EMA21. Namun stochastic mulai membentuk golden cross, memberikan potensi kenaikan dalam jangka waktu tertentu. Apabila harga ditutup dan diperdagangkan di atas range area $61,203 sebagai support, ada potensi rally ke range area $68,394. Tetap antisipasi potensi downside movement dan jaga money &amp; risk management."
+      ],
+      levels:[
+        {lab:"Support", val:"$61,203"},
+        {lab:"Target", val:"$68,394"},
+        {lab:"2026 Low", val:"~$59,000"},
+        {lab:"OI peak → now", val:"$25.96B → $20.89B"}
+      ],
+      pdf:"journal/Analysis-01.pdf",
+      pdfLabel:"📄 Download full PDF (with charts)",
+      disclaimer:"Research ini BUKAN financial advice, serta BUKAN merupakan sebuah ajakan membeli sebuah aset, melainkan bertujuan untuk sharing informasi dan edukasi terhadap apa yang saat ini sedang terjadi di market. Tetap prioritaskan Money dan Risk Management yang baik di dalam kondisi market apapun, dan jangan lupa selalu untuk Do Your Own Research. — Bryan Oskar, S.M., M.M."
+    }
+  ],
   sources:[
     ["TheStreet — US market","https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-may-26-2026"],
     ["Federal Reserve — Warsh oath","https://www.federalreserve.gov/newsevents/pressreleases/other20260522a.htm"],
@@ -513,6 +573,35 @@ if(DATA.hotToday && $("hotToday")){
       items.map(r=>`<div class="hot-row"><span class="hot-sym">${r.sym}</span><span class="delta ${r.dir}">${r.chg}</span><div class="hot-why">${r.why}</div></div>`).join("")
     +`</div>`;
   }).join("")+"</div>";
+}
+if(DATA.journal && $("journalList")){
+  $("journalList").innerHTML=DATA.journal.map(j=>`
+    <div class="jr-card">
+      <div class="jr-head">
+        <div class="jr-title">${j.title}</div>
+        <div class="jr-meta">${j.date} · ${j.tags}</div>
+      </div>
+      <div class="jr-tldr"><strong>TL;DR — </strong>${j.tldr}</div>
+      ${j.signals && j.signals.length ? `
+      <div class="jr-section">
+        <h4>3 Sinyal Utama</h4>
+        <div class="jr-signals">${j.signals.map(s=>`
+          <div class="jr-signal"><div class="num">${s.num}</div><div class="lab">${s.lab}</div><div class="val">${s.val}</div></div>
+        `).join("")}</div>
+      </div>` : ""}
+      <div class="jr-section">
+        <h4>Analisis Lengkap</h4>
+        <div class="jr-body">${j.body.map(p=>`<p>${p}</p>`).join("")}</div>
+      </div>
+      ${j.levels && j.levels.length ? `
+      <div class="jr-section">
+        <h4>Key Levels</h4>
+        <div class="jr-levels">${j.levels.map(l=>`<div class="jr-level"><b>${l.lab}:</b> ${l.val}</div>`).join("")}</div>
+      </div>` : ""}
+      ${j.pdf ? `<a class="jr-action" href="${j.pdf}" target="_blank" rel="noopener">${j.pdfLabel||"Download PDF"}</a>` : ""}
+      ${j.disclaimer ? `<div class="jr-disclaimer"><strong>DISCLAIMER · </strong>${j.disclaimer}</div>` : ""}
+    </div>
+  `).join("");
 }
 $("sources").innerHTML="Sources: "+DATA.sources.map(s=>`<a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a>`).join(" · ");
 

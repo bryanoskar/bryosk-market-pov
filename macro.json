@@ -1,0 +1,70 @@
+{
+  "_comment": "Single source of truth for macro indicators (Plan A Tier 1). NOT YET wired into index.html render — see PLAN-macro-json.md for remaining steps. Each value carries a 'source' = the FRED / Trading Economics series ID it will auto-fetch from in Tier 2.",
+  "asOf": "2026-06-27",
+  "lastUpdated": "2026-06-27 09:45 UTC",
+  "values": {
+    "us10y": {
+      "label": "US 10Y Treasury",
+      "value": "4.52%",
+      "delta": "−3bps",
+      "note": "easing slightly; rate-path repricing into the Fed meeting",
+      "source": { "provider": "FRED", "series": "DGS10" }
+    },
+    "fedFunds": {
+      "label": "Fed Funds Rate",
+      "value": "3.50–3.75%",
+      "delta": "unchanged",
+      "note": "held 3 meetings; tone the watch at the June meeting",
+      "source": { "provider": "FRED", "series": "FEDFUNDS" }
+    },
+    "usCPI": {
+      "label": "US CPI (YoY)",
+      "value": "4.2%",
+      "delta": "May print",
+      "note": "3-year high on energy; PCE the next swing data",
+      "source": { "provider": "FRED", "series": "CPIAUCSL" }
+    },
+    "usPCE": {
+      "label": "US PCE (YoY)",
+      "value": "pending",
+      "delta": "late-June print",
+      "note": "next major US inflation swing factor for Fed tone",
+      "source": { "provider": "FRED", "series": "PCEPI" }
+    },
+    "dxy": {
+      "label": "Dollar Index (DXY)",
+      "value": "~99.5",
+      "delta": "range-bound",
+      "note": "sub-98.5 break would broaden EM relief",
+      "source": { "provider": "FRED", "series": "DTWEXBGS", "caveat": "DXY proper is ICE; DTWEXBGS is FRED's broad trade-weighted USD index — close proxy, label accordingly" }
+    },
+    "biRate": {
+      "label": "Bank Indonesia Rate",
+      "value": "+75bp cumulative since May",
+      "delta": "latest +25bp",
+      "note": "defending the rupiah; hike is holding, IDX recovering",
+      "source": { "provider": "TradingEconomics", "series": "indonesia/interest-rate" }
+    },
+    "usdidr": {
+      "label": "USD/IDR",
+      "value": "firming",
+      "delta": "BI hike holds",
+      "note": "rupiah firming as the +25bp hike takes hold; sub-17,400 = stress easing",
+      "source": { "provider": "TradingEconomics", "series": "indonesia/currency" }
+    },
+    "gold": {
+      "label": "Gold (XAU)",
+      "value": "~$4,485",
+      "delta": "+1.5%",
+      "note": "recovery extending; steady haven bid",
+      "source": { "provider": "TradingView", "series": "TVC:GOLD", "caveat": "no free FRED/TE daily series; keep manual or use a market-data API in a later tier" }
+    },
+    "wti": {
+      "label": "WTI Crude",
+      "value": "~$92",
+      "delta": "flat",
+      "note": "capped near $92; Hormuz reopening keeping a lid on",
+      "source": { "provider": "FRED", "series": "DCOILWTICO" }
+    }
+  }
+}

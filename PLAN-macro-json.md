@@ -2,7 +2,11 @@
 
 **Goal:** stop hard-typing macro values in 15+ places across `index.html`. Keep them in ONE file (`macro.json`), render from there. Eliminates the recurring staleness/contradiction bugs (e.g. the 27 Jun WTI "$97 vs $92" contradiction).
 
-**Status:** Step 1 + 2 DONE (2026-06-27). Steps 3–4 remain — do them in a focused daytime session.
+**Status:** Steps 1–4 DONE (Step 1+2 on 2026-06-27, Step 3+4 on 2026-06-28). Macro Dashboard now renders live from macro.json on the Macro tab, browser-verified (9 cards from fetch, 0 console errors, all tabs intact). Daily macro refresh = edit macro.json only.
+
+**Implementation note (what was actually built):** Rather than surgically replacing scattered values inside the techMacro/snapshot prose (higher risk), Step 3 added a NEW "Macro Dashboard" section at the top of the Macro tab. It fetches macro.json and renders all 9 indicators as cards with an "as of" stamp. A JS inline fallback (MACRO_FALLBACK) keeps it rendering on local file:// preview or if the fetch ever fails — so the site can never break. This is the authoritative, freshness-stamped macro source.
+
+**Optional polish remaining (low priority, NOT blocking):** the raw values still ALSO appear in techMacro[] prose + snapshot[] rows (narrative context with support/resistance). They don't auto-sync to macro.json yet. To fully eliminate any divergence risk, a later step could template those to read from the MACRO object too. For now, the Dashboard is the canonical "current value" source; treat the prose as slower-moving technical narrative.
 
 ---
 

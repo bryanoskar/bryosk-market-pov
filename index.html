@@ -97,6 +97,15 @@
   .jr-link-title{flex:1; font-size:16px; font-weight:800; color:var(--navy); line-height:1.35;}
   .jr-link-arrow{font-size:18px; font-weight:700; color:var(--accent); flex-shrink:0;}
   .jr-link:hover .jr-link-arrow{transform:translateX(3px);}
+  /* Macro Dashboard (Plan A Tier 1 — rendered from macro.json) */
+  .mb-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+  .mb-card{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal); border-radius:10px; padding:12px 14px;}
+  .mb-lab{font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); font-weight:700; margin-bottom:4px;}
+  .mb-val{font-size:18px; font-weight:800; color:var(--navy); line-height:1.2;}
+  .mb-delta{font-size:11.5px; color:var(--accent); font-weight:600; margin:2px 0 5px;}
+  .mb-note{font-size:11.5px; color:#555; line-height:1.4;}
+  .mb-stamp{margin-top:11px; font-size:11.5px; color:var(--muted); font-style:italic;}
+  @media(max-width:600px){.mb-grid{grid-template-columns:1fr 1fr;}}
   /* Sparkline rows (crypto): replace flat bar with a 7-day SVG mini-chart */
   .sparkrow .bartrack{height:22px; background:transparent; border-radius:0; overflow:visible;}
   .spark{display:block; width:100%; height:22px; opacity:0; animation:sparkIn .55s ease forwards;}
@@ -282,6 +291,7 @@
 
   <!-- MACRO & GLOBAL -->
   <div class="tabpanel">
+    <section><h2>Macro Dashboard · key indicators · single source</h2><div id="macroBoard"></div></section>
     <section><h2>China &amp; Hong Kong</h2><ul id="chinaHK"></ul></section>
     <section><h2>What's Driving It</h2><ul id="drivers"></ul></section>
     <section><h2>Current News</h2><ul id="news"></ul></section>
@@ -318,24 +328,24 @@
 <script>
 /* ====== DATA — the daily run replaces ONLY this object ====== */
 const DATA = {
-  dateLong:"Saturday, 27 June 2026",
-  feedTime:"2026-06-27 09:45 UTC",
-  riskScore:47, riskLabel:"Neutral-constructive · BTC testing the $65k breakout; IDX recovery extending into a 3rd week",
-  bottomLine:"<strong>The $65k decision is live.</strong> After three weeks of grinding above $63k, BTC has pushed up to the <strong>$65k level the whole watch-list has been built around</strong> — a clean breakout here is the trigger toward the $68,394 target zone; rejection sends it back to retest $61,203. This is the moment the bottom-building thesis either confirms or stalls. The structural backdrop remains supportive (full deep-dive in the <strong>My Journal Research</strong> tab): OI down −19.5% from peak with funding neutral, ETF outflows decelerated ~90%, LTH sales pressure inactive for a record 1,256 days. Weekly chart still below EMA8/EMA21 but stochastic golden cross developing — a confirmed weekly close above the EMAs would flip the technical picture. <strong>Indonesia is the quiet outperformer</strong>: IHSG into a 3rd straight weekly gain as the BI rate hike holds and the rupiah firms — the bank-led recovery is broadening beyond BBCA. AI mega-cap leadership intact at fresh US record highs. <strong>Phase: breakout-watch</strong> — accumulation regime, decision pending.",
+  dateLong:"Sunday, 28 June 2026",
+  feedTime:"2026-06-28 12:30 UTC",
+  riskScore:48, riskLabel:"Neutral-constructive · BTC edged above $65k on thin weekend volume — weekly close the confirmation",
+  bottomLine:"<strong>BTC has poked above $65k — but the confirmation isn't in yet.</strong> Over the weekend BTC edged up through the <strong>$65k level the whole watch-list is built around</strong> to ~$65,250 — the breakout the bottom-building thesis needs. The catch: this is <em>thin Sunday volume</em>, so it's a breakout <em>attempt</em>, not a confirmed move. The real tell is a <strong>weekly close above $65k + the EMA8/EMA21</strong> — until then, treat it as progress, not proof. Structural backdrop still supportive (full deep-dive in the <strong>My Journal Research</strong> tab): OI down −19.5% from peak with funding neutral, ETF outflows decelerated ~90%, LTH sales pressure inactive for a record 1,256 days. <strong>Equities are closed for the weekend</strong> — US/ID/CN reopen Monday; stock readings below reflect Friday's close. <strong>Indonesia remains the quiet outperformer</strong>: IHSG closed a 3rd straight weekly gain as the BI rate hike holds and the rupiah firms. AI mega-cap leadership intact at fresh US record highs. <strong>Phase: breakout-watch</strong> — accumulation regime, confirmation pending Monday.",
   snapshot:[
-    {a:"BTC",cg:"bitcoin",lvl:"$64,950",d:"+1.8%",dir:"pos",mag:24,drv:"Testing the $65k breakout — the level the whole watch-list is built around",url:"https://www.tradingview.com/symbols/BTCUSD/"},
-    {a:"ETH",cg:"ethereum",lvl:"$1,772",d:"+2.6%",dir:"pos",mag:26,drv:"Mending vs BTC; approaching the $1,800 reclaim level",url:"https://www.tradingview.com/symbols/ETHUSD/"},
-    {a:"SOL",cg:"solana",lvl:"~$88",d:"+3.2%",dir:"pos",mag:28,drv:"Leading the majors; squeeze setup still building",url:"https://www.tradingview.com/symbols/SOLUSD/"},
-    {a:"XRP",cg:"ripple",lvl:"~$1.24",d:"+1.6%",dir:"pos",mag:14,drv:"Grinding higher with the majors",url:"https://www.tradingview.com/symbols/XRPUSD/"},
-    {a:"Gold",tv:"TVC:GOLD",lvl:"~$4,485",d:"+1.5%",dir:"pos",mag:16,drv:"Recovery extending; steady haven bid",url:"https://www.tradingview.com/symbols/XAUUSD/"},
-    {a:"S&P 500",tv:"FOREXCOM:SPXUSD",lvl:"~7,545",d:"+0.3%",dir:"pos",mag:6,drv:"Fresh record high; AI mega-cap leadership intact",url:"https://www.tradingview.com/symbols/SPX/"},
-    {a:"Nasdaq",tv:"FOREXCOM:NSXUSD",lvl:"~26,820",d:"+0.3%",dir:"pos",mag:8,drv:"Fresh record high; AI/semis carrying breadth",url:"https://www.tradingview.com/symbols/IXIC/"},
-    {a:"10Y UST",lvl:"4.52%",d:"−3bps",dir:"pos",mag:12,drv:"Easing slightly; rate-path repricing into the Fed meeting",url:"https://www.tradingview.com/symbols/TVC-US10Y/"},
-    {a:"Shanghai",tv:"SSE:000001",lvl:"~4,110",d:"+0.4%",dir:"pos",mag:8,drv:"Stabilising; semis drag easing",url:"https://www.tradingview.com/symbols/SSE-000001/"},
-    {a:"CSI 300",tv:"SSE:000300",lvl:"~4,935",d:"+0.3%",dir:"pos",mag:6,drv:"Firming with mainland breadth",url:"https://www.tradingview.com/symbols/SSE-000300/"},
-    {a:"Hang Seng",tv:"HSI:HSI",lvl:"~25,780",d:"+0.7%",dir:"pos",mag:12,drv:"HS Tech recovering after the profit-take",url:"https://www.tradingview.com/symbols/HSI-HSI/"},
-    {a:"WTI",tv:"TVC:USOIL",lvl:"~$92",d:"flat",dir:"flat",mag:8,drv:"Capped near $92; Hormuz reopening keeping a lid on",url:"https://www.tradingview.com/symbols/WTI/"},
-    {a:"IHSG",tv:"IDX:COMPOSITE",lvl:"~6,240",d:"+1% wk",dir:"pos",mag:26,drv:"3rd straight weekly gain; BI-hike-led recovery broadening",url:"https://www.tradingview.com/symbols/IDX-COMPOSITE/"},
+    {a:"BTC",cg:"bitcoin",lvl:"$65,250",d:"+0.5%",dir:"pos",mag:18,drv:"Edged above $65k on thin weekend volume — breakout attempt, weekly close the confirmation",url:"https://www.tradingview.com/symbols/BTCUSD/"},
+    {a:"ETH",cg:"ethereum",lvl:"$1,795",d:"+1.3%",dir:"pos",mag:20,drv:"Approaching the $1,800 reclaim as BTC firms",url:"https://www.tradingview.com/symbols/ETHUSD/"},
+    {a:"SOL",cg:"solana",lvl:"~$90",d:"+2.3%",dir:"pos",mag:24,drv:"Leading the majors; squeeze setup still building",url:"https://www.tradingview.com/symbols/SOLUSD/"},
+    {a:"XRP",cg:"ripple",lvl:"~$1.25",d:"+0.8%",dir:"pos",mag:10,drv:"Grinding higher with the majors",url:"https://www.tradingview.com/symbols/XRPUSD/"},
+    {a:"Gold",tv:"TVC:GOLD",lvl:"~$4,485",d:"Fri close",dir:"flat",mag:14,drv:"Recovery extending; steady haven bid (markets closed wknd)",url:"https://www.tradingview.com/symbols/XAUUSD/"},
+    {a:"S&P 500",tv:"FOREXCOM:SPXUSD",lvl:"~7,545",d:"Fri close",dir:"pos",mag:6,drv:"Fresh record high Friday; AI mega-cap leadership intact",url:"https://www.tradingview.com/symbols/SPX/"},
+    {a:"Nasdaq",tv:"FOREXCOM:NSXUSD",lvl:"~26,820",d:"Fri close",dir:"pos",mag:8,drv:"Fresh record high Friday; AI/semis carrying breadth",url:"https://www.tradingview.com/symbols/IXIC/"},
+    {a:"10Y UST",lvl:"4.52%",d:"Fri close",dir:"pos",mag:12,drv:"Easing into the Fed meeting; rate-path repricing",url:"https://www.tradingview.com/symbols/TVC-US10Y/"},
+    {a:"Shanghai",tv:"SSE:000001",lvl:"~4,110",d:"Fri close",dir:"pos",mag:8,drv:"Stabilising; semis drag easing",url:"https://www.tradingview.com/symbols/SSE-000001/"},
+    {a:"CSI 300",tv:"SSE:000300",lvl:"~4,935",d:"Fri close",dir:"pos",mag:6,drv:"Firming with mainland breadth",url:"https://www.tradingview.com/symbols/SSE-000300/"},
+    {a:"Hang Seng",tv:"HSI:HSI",lvl:"~25,780",d:"Fri close",dir:"pos",mag:12,drv:"HS Tech recovering after the profit-take",url:"https://www.tradingview.com/symbols/HSI-HSI/"},
+    {a:"WTI",tv:"TVC:USOIL",lvl:"~$92",d:"Fri close",dir:"flat",mag:8,drv:"Capped near $92; Hormuz reopening keeping a lid on",url:"https://www.tradingview.com/symbols/WTI/"},
+    {a:"IHSG",tv:"IDX:COMPOSITE",lvl:"~6,240",d:"+1% wk",dir:"pos",mag:26,drv:"Closed a 3rd straight weekly gain; BI-hike-led recovery broadening",url:"https://www.tradingview.com/symbols/IDX-COMPOSITE/"},
     {a:"USD/IDR",tv:"FX_IDC:USDIDR",lvl:"firming",d:"BI hike holds",dir:"pos",mag:22,drv:"Rupiah firming as the +25bp hike (75bp cumulative) takes hold",url:"https://www.tradingview.com/symbols/USDIDR/"}
   ],
   positions:[
@@ -372,7 +382,7 @@ const DATA = {
     "<em>Proxy note:</em> basis (perp vs index) + OI from the feed as of the timestamp above — funding-pressure proxy, not a third-party aggregated funding index."
   ],
   techCrypto:[
-    "<strong>BTC ~$64.95k</strong> — testing the $65k breakout. Support: $63k → $61,203 → $58k. Resistance: $65k → $67–70k → $68,394 target. Needs a clean weekly close above $65k (next leg) or $61k rejection (deeper buy zone).",
+    "<strong>BTC ~$65.25k</strong> — edged above $65k on thin weekend volume (breakout attempt). Support: $65k → $63k → $61,203. Resistance: $67–70k → $68,394 target. Needs a clean weekly close above $65k to confirm; failure back below = $61k retest.",
     "<strong>ETH ~$1,772</strong> — mended off the $1,504 low. Support: $1,650 → $1,500. Resistance: $1,800 → $1,950. Relative weakness vs BTC repairing.",
     "<strong>SOL</strong> — range mode after the positioning reset. Asymmetric squeeze setup intact if BTC clears $65k.",
     "<strong>XRP</strong> — range mode in sync with majors; no idiosyncratic break.",
@@ -449,7 +459,7 @@ const DATA = {
     "<strong>China/HK re-engaging</strong>: HK tech recovering off the profit-take, Tencent + Alibaba leading the bid back. Mainland breadth stabilising as the semis drag eases."
   ],
   news:[
-    "<strong>BTC testing the $65k breakout:</strong> after 3 weeks grinding above $63k, BTC has pushed up to the $65k decision level. BTC ~$64,950 (+1.8%), ETH ~$1,772 (+2.6%). A clean weekly break = the $68k target; rejection = $61k retest.",
+    "<strong>BTC edged above $65k (weekend):</strong> after 3 weeks grinding above $63k, BTC poked through the $65k decision level to ~$65,250 on thin Sunday volume. ETH ~$1,795 approaching $1,800. Breakout attempt — a weekly close above $65k confirms toward the $68k target; failure = $61k retest.",
     "<strong>Indonesia the quiet outperformer:</strong> IHSG into a 3rd straight weekly gain as the BI rate hike holds + rupiah firms. Bank-led recovery broadening beyond BBCA (BBRI +4.1%).",
     "<strong>HK tech re-engaging:</strong> Tencent (+2.6%) + Alibaba (+2.2%) leading the recovery off the profit-take on AI/LLM + cloud re-rating. Consumer-discretionary still the laggard.",
     "<strong>US records on AI strength:</strong> S&amp;P + Nasdaq fresh highs, AVGO/MSFT/GOOGL leading; software (ORCL, ADBE) the rotation laggard.",
@@ -473,14 +483,14 @@ const DATA = {
     "<strong>Inflation prints late June</strong> — softer = rotation broadens; hotter = crypto retests $61k / EM relief stalls."
   ],
   assetsWatch:[
-    {asset:"BTC", trigger:"Clean weekly break above $65k", why:"3 weeks above $63k; now testing the $65k breakout. Sustained break = next leg toward $68,394; rejection = $61,203 retest then $58k."},
+    {asset:"BTC", trigger:"Clean weekly CLOSE above $65k", why:"Edged above $65k on thin weekend volume — needs a confirmed weekly close to validate. Holds = next leg toward $68,394; failure back below = $61,203 retest then $58k."},
     {asset:"ETH", trigger:"$1,800 reclaim / hold $1,650", why:"Mended to ~$1,772; needs $1,800 reclaim for continuation. Loss of $1,650 opens the $1,500s."},
     {asset:"BBCA / BBRI", trigger:"Recovery broadening across banks", why:"BI hike holding; bank-led IDX recovery extending into a 3rd week. Broadening = Indonesia constructive case confirmed."},
     {asset:"HSTECH", trigger:"Hold the recovery / reclaim recent high", why:"Re-engaging off the profit-take (Tencent + Alibaba leading). Follow-through = HK risk-on confirmation."},
     {asset:"USD/IDR", trigger:"Sub-17,400 (firming)", why:"BI defending; the +25bp hike (75bp cumulative) is taking hold. Firming = IDR stress easing, supportive of all Indonesia positions."},
     {asset:"NVDA / AVGO (AI bellwethers)", trigger:"Hold leadership at records", why:"AI mega-cap = market load-bearing. Weakness here = broader AI sentiment unwind risk."}
   ],
-  tilt:"<b>The $65k decision is live</b> — BTC testing the breakout level the whole watch-list is built around; clean weekly break = $68k target, rejection = $61,203 retest. <b>Indonesia is the quiet outperformer</b>: BI hike holding, IHSG into a 3rd weekly gain, bank-led recovery broadening. AI mega-cap leadership at fresh US records; HK tech re-engaging. <b>Accumulate the confirmation</b>: add crypto on a clean $65k break (not before), keep accumulating Indonesia (BBCA / BBRI / CPIN) on the recovery. <span class='conf'>Med Conviction</span><br><span style='color:#6b7280;font-size:13.5px;'>Thesis confirms on BTC weekly close over $65k + IDR firming. Breaks on rejection to $61,203 + hot late-June inflation prints. Personal research, not advice.</span>",
+  tilt:"<b>BTC edged above $65k — confirmation pending.</b> The breakout the whole watch-list is built around is being attempted, but on thin weekend volume; a clean weekly close above $65k confirms toward the $68k target, failure back below = $61,203 retest. <b>Indonesia is the quiet outperformer</b>: BI hike holding, IHSG into a 3rd weekly gain, bank-led recovery broadening. AI mega-cap leadership at fresh US records; HK tech re-engaging. <b>Accumulate the confirmation</b>: add crypto on a clean $65k break (not before), keep accumulating Indonesia (BBCA / BBRI / CPIN) on the recovery. <span class='conf'>Med Conviction</span><br><span style='color:#6b7280;font-size:13.5px;'>Thesis confirms on BTC weekly close over $65k + IDR firming. Breaks on rejection to $61,203 + hot late-June inflation prints. Personal research, not advice.</span>",
   scenarios:{
     overview:{bull:{prob:"~25%",text:"BTC breaks $65k cleanly + soft late-June inflation prints → rotation broadens; quality growth + crypto + Indonesia recovery accelerate together."},base:{prob:"~50%",text:"BTC chops $61–65k at the breakout level; equities near records on AI mega-cap leadership; Indonesia recovery extends on BI hike traction; China/HK recovery holds gradually."},bear:{prob:"~25%",text:"Hot inflation prints + BTC rejected to $61k → risk-off broadens; AI mega-cap unwind drags indices; EM + China relief stalls."}},
     crypto:{bull:{prob:"~25%",text:"BTC reclaims $65k with volume → next leg targets $67–70k. Range-resolution upside. Alts catch up."},base:{prob:"~50%",text:"BTC chops $61–65k — bounce from $63k stalls without follow-through. Positioning resets; accumulation regime, not trend."},bear:{prob:"~25%",text:"$63k breaks → rejection to $61k → cascade to $58k. ETH below $1,650 opens the $1,500s."}},
@@ -508,6 +518,31 @@ $("gval").textContent="Risk score "+DATA.riskScore+"/100 — "+DATA.riskLabel;
 $("tilt").innerHTML=DATA.tilt;
 const li=arr=>arr.map(x=>"<li>"+x+"</li>").join("");
 ["derivFlow","funding","techCrypto","techEquity","techMacro","chinaHK","drivers","news","rotation","corp","watch"].forEach(k=>$(k).innerHTML=li(DATA[k]));
+/* ====== Macro Dashboard — Plan A Tier 1: render from macro.json (single source) ====== */
+/* Inline fallback so the board still renders on local file:// preview or if the fetch fails.
+   On GitHub Pages (https) the fetch succeeds and macro.json is the live source of truth. */
+const MACRO_FALLBACK={asOf:"2026-06-28",lastUpdated:"2026-06-28 12:30 UTC",values:{
+  us10y:{label:"US 10Y Treasury",value:"4.52%",delta:"−3bps",note:"easing into the Fed meeting"},
+  fedFunds:{label:"Fed Funds Rate",value:"3.50–3.75%",delta:"unchanged",note:"held 3 meetings; tone the watch"},
+  usCPI:{label:"US CPI (YoY)",value:"4.2%",delta:"May print",note:"3-yr high on energy; PCE next"},
+  usPCE:{label:"US PCE (YoY)",value:"pending",delta:"late-June",note:"next major US inflation swing"},
+  dxy:{label:"Dollar Index (DXY)",value:"~99.5",delta:"range-bound",note:"sub-98.5 break broadens EM relief"},
+  biRate:{label:"Bank Indonesia Rate",value:"+75bp since May",delta:"latest +25bp",note:"defending IDR; hike holding"},
+  usdidr:{label:"USD/IDR",value:"firming",delta:"BI hike holds",note:"sub-17,400 = stress easing"},
+  gold:{label:"Gold (XAU)",value:"~$4,485",delta:"+1.5% wk",note:"recovery extending; haven bid"},
+  wti:{label:"WTI Crude",value:"~$92",delta:"flat",note:"capped; Hormuz reopening"}
+}};
+function renderMacro(d){
+  if(!$("macroBoard")) return;
+  if(!d||!d.values){ d=MACRO_FALLBACK; }
+  const v=d.values, order=["us10y","fedFunds","usCPI","usPCE","dxy","biRate","usdidr","gold","wti"];
+  const cards=order.filter(k=>v[k]).map(k=>{const x=v[k];
+    return `<div class="mb-card"><div class="mb-lab">${x.label}</div><div class="mb-val">${x.value}</div>`+
+      (x.delta?`<div class="mb-delta">${x.delta}</div>`:"")+(x.note?`<div class="mb-note">${x.note}</div>`:"")+`</div>`;}).join("");
+  const stamp=`<div class="mb-stamp">Macro values as of ${d.asOf||"—"}${d.lastUpdated?" · "+d.lastUpdated:""} · single source: macro.json (FRED / Trading Economics auto-feed planned)</div>`;
+  $("macroBoard").innerHTML=`<div class="mb-grid">${cards}</div>${stamp}`;
+}
+fetch("macro.json").then(r=>r.ok?r.json():Promise.reject()).then(renderMacro).catch(()=>renderMacro(MACRO_FALLBACK));
 $("rows").innerHTML=DATA.snapshot.map(r=>
   `<a class="row${r.cg?' sparkrow':''}${r.tv?' tvrow':''}" href="${r.url}" target="_blank" rel="noopener" ${r.cg?`data-cg="${r.cg}" `:""}${r.tv?`data-tv="${r.tv}"`:""}>
      <span class="asset">${r.a}${r.cg?'<span class="livetag">● LIVE</span>':''}</span>

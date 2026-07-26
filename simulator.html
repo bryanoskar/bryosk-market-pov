@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulator Proyeksi Investasi · BryOsk Market PoV</title>
+<meta name="description" content="Susun portofoliomu per instrumen — saham IDX & US, Bitcoin/Ethereum, obligasi INDON 34, deposito, earn, properti — lalu lihat proyeksi baseline plus rentang skenario (P10–P90), pajak & biaya Indonesia, dan nilai riil.">
+<meta name="theme-color" content="#00447c">
+<style>
+  :root{
+    --ink:#212121; --muted:#6b7280; --line:#e4e3dd; --bg:#f2f3f4; --card:#ffffff;
+    --pos:#16a36a; --neg:#e0453e; --accent:#00447c; --teal:#0b7b9e; --sand2:#c6c3b6; --navy:#002756; --amber:#c98a1a;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth; scrollbar-width:thin; scrollbar-color:var(--sand2) transparent;}
+  body{background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif; line-height:1.6; font-size:16px; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:840px; margin:0 auto; padding:0 22px 90px;}
+  ::selection{background:rgba(11,123,158,.22);}
+
+  .hero{position:relative; overflow:hidden; border-radius:0 0 22px 22px; background:linear-gradient(135deg,var(--navy) 0%,var(--accent) 58%,var(--teal) 120%); color:#fff; padding:40px 30px 28px; margin:0 -22px 20px; box-shadow:0 18px 50px -24px rgba(0,39,86,.6);}
+  .hero::after{content:""; position:absolute; inset:0; background:radial-gradient(800px 300px at 80% -10%,rgba(120,190,220,.28),transparent 60%); animation:drift 14s ease-in-out infinite alternate;}
+  @keyframes drift{from{transform:translateX(-30px)} to{transform:translateX(30px)}}
+  .hero::before{content:""; position:absolute; top:0; left:-60%; width:40%; height:100%; background:linear-gradient(100deg,transparent,rgba(255,255,255,.14),transparent); transform:skewX(-18deg); animation:heroShine 7s ease-in-out 1s infinite;}
+  @keyframes heroShine{0%{left:-60%}22%,100%{left:130%}}
+  .back{display:inline-block; font-size:12px; letter-spacing:.06em; color:#fff; opacity:.82; text-decoration:none; margin-bottom:14px; position:relative; z-index:1;}
+  .back:hover{opacity:1;}
+  .brand{font-size:12px; letter-spacing:.28em; text-transform:uppercase; opacity:.78; font-weight:600; position:relative; z-index:1;}
+  .hero h1{font-size:29px; font-weight:800; letter-spacing:-.02em; margin:8px 0 6px; position:relative; z-index:1;}
+  .hero p{font-size:13.5px; opacity:.82; position:relative; z-index:1; max-width:64ch;}
+
+  h2{font-size:11.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:28px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line); position:relative;}
+  h2::after{content:""; position:absolute; left:0; bottom:-1px; width:44px; height:3px; border-radius:3px; background:linear-gradient(90deg,var(--accent),var(--teal));}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:12px; box-shadow:0 6px 20px -16px rgba(0,0,0,.25);}
+  .panel{padding:18px 18px 20px;}
+
+  .seg{display:flex; gap:6px; background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:4px; margin-bottom:16px;}
+  .seg button{flex:1; border:0; background:transparent; padding:9px 10px; border-radius:7px; font:inherit; font-size:13.5px; font-weight:700; color:var(--muted); cursor:pointer; transition:all .15s ease;}
+  .seg button.on{background:var(--accent); color:#fff; box-shadow:0 6px 16px -10px rgba(0,68,124,.7);}
+
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:14px 16px;}
+  @media(max-width:560px){.grid{grid-template-columns:1fr;}}
+  .field{display:flex; flex-direction:column; gap:5px;}
+  .field.full{grid-column:1/-1;}
+  .field label{font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); font-weight:700;}
+  .field .hint{font-size:11px; color:var(--muted); font-weight:400; text-transform:none; letter-spacing:0;}
+  input[type=number], input[type=text], select{width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:9px; font:inherit; font-size:15px; background:#fff; color:var(--ink); font-variant-numeric:tabular-nums;}
+  input:focus, select:focus{outline:none; border-color:var(--teal); box-shadow:0 0 0 3px rgba(11,123,158,.14);}
+  .prefix{position:relative;}
+  .prefix input{padding-left:34px;}
+  .prefix .cur{position:absolute; left:11px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:13px; font-weight:700; pointer-events:none;}
+
+  /* holdings builder */
+  .holdhead{display:flex; align-items:center; justify-content:space-between; gap:10px; margin:4px 0 10px;}
+  .holdhead .t{font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); font-weight:700;}
+  .holds{display:flex; flex-direction:column; gap:10px;}
+  .holding{display:grid; grid-template-columns:1fr 128px 78px 30px; gap:8px; align-items:center;}
+  @media(max-width:560px){.holding{grid-template-columns:1fr 1fr; grid-auto-rows:auto;} .holding .hret{grid-column:1;} .holding .hdel,.holding .hdel-sp{grid-column:2; justify-self:end;}}
+  .hname{min-width:0;}
+  .hname.fixed{display:flex; align-items:center; gap:8px; padding:10px 12px; border:1px solid var(--line); border-radius:9px; background:var(--bg); font-weight:800; font-size:14px; color:var(--navy);}
+  .hname.fixed .tick{font-size:10px; font-weight:700; letter-spacing:.05em; color:#fff; background:var(--teal); padding:2px 7px; border-radius:20px;}
+  .hret{position:relative;}
+  .hret input{padding-right:22px; text-align:right;}
+  .hret span{position:absolute; right:9px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:12px; pointer-events:none;}
+  .hdel{border:1px solid var(--line); background:#fff; color:var(--neg); border-radius:8px; width:30px; height:38px; cursor:pointer; font-size:13px; transition:all .15s ease;}
+  .hdel:hover{background:rgba(224,69,62,.08); border-color:var(--neg);}
+  .hhelp{grid-column:1/-1; font-size:11.5px; color:var(--muted); margin-top:-4px; padding-left:2px; font-variant-numeric:tabular-nums;}
+  .addbtn{margin-top:12px; border:1px dashed var(--sand2); background:var(--bg); color:var(--accent); border-radius:9px; padding:9px 14px; font:inherit; font-size:13px; font-weight:700; cursor:pointer; transition:all .15s ease;}
+  .addbtn:hover{border-color:var(--teal); background:#fff;}
+  .allocbar{display:flex; height:8px; border-radius:6px; overflow:hidden; margin-top:12px; background:var(--bg); border:1px solid var(--line);}
+  .allocbar i{display:block; height:100%;}
+  .assetnote{font-size:12px; color:var(--muted); margin-top:12px; line-height:1.5; background:var(--bg); border-left:3px solid var(--sand2); border-radius:0 8px 8px 0; padding:8px 12px;}
+  .live{font-size:11.5px; color:var(--muted); margin-top:8px;}
+  .live b{color:var(--navy); font-variant-numeric:tabular-nums;}
+  .live .dot{display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--pos); margin-right:5px; vertical-align:middle;}
+
+  .autobox{display:flex; align-items:center; gap:9px; font-size:13.5px; font-weight:700; color:var(--navy); cursor:pointer; background:linear-gradient(135deg,rgba(0,68,124,.06),rgba(11,123,158,.07)); border:1px solid var(--line); border-radius:10px; padding:11px 14px; margin-bottom:10px;}
+  .autobox input{width:17px; height:17px; accent-color:var(--accent);}
+  .autobox .tag{font-size:9.5px; font-weight:800; letter-spacing:.05em; color:#fff; background:var(--teal); padding:2px 8px; border-radius:20px; margin-left:auto; white-space:nowrap;}
+  .autometa{font-size:11.5px; color:var(--muted); line-height:1.55; margin:-2px 2px 12px;}
+  .autometa b{color:var(--amber);}
+  input.locked{background:var(--bg); color:var(--muted); cursor:not-allowed; border-style:dashed;}
+  .toggles{display:flex; flex-wrap:wrap; gap:10px 18px; margin-top:16px; padding-top:14px; border-top:1px dashed var(--line);}
+  .chk{display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:#444; cursor:pointer;}
+  .chk input{width:16px; height:16px; accent-color:var(--accent);}
+
+  details.adv{margin-top:14px; border-top:1px dashed var(--line); padding-top:12px;}
+  details.adv summary{cursor:pointer; font-size:12px; font-weight:800; letter-spacing:.04em; color:var(--accent); list-style:none;}
+  details.adv summary::-webkit-details-marker{display:none;}
+  details.adv summary::before{content:"▸ ";}
+  details.adv[open] summary::before{content:"▾ ";}
+  details.adv .grid{margin-top:14px;}
+
+  .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:8px 0 4px;}
+  @media(max-width:560px){.stats{grid-template-columns:1fr 1fr;}}
+  .stat{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal); border-radius:12px; padding:13px 15px; transition:transform .18s ease, box-shadow .18s ease;}
+  .stat:hover{transform:translateY(-2px); box-shadow:0 12px 28px -16px rgba(0,68,124,.32);}
+  .stat.hl{border-left-color:var(--accent);}
+  .stat .n{font-size:21px; font-weight:800; color:var(--navy); line-height:1.15; font-variant-numeric:tabular-nums; word-break:break-word;}
+  .stat.hl .n{color:var(--accent);}
+  .stat .n.pos{color:var(--pos);} .stat .n.neg{color:var(--neg);}
+  .stat .l{font-size:10px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); font-weight:700; margin-top:5px;}
+  .stat .sub{font-size:11px; color:var(--muted); margin-top:3px; font-variant-numeric:tabular-nums;}
+
+  .chartcard .cap{font-size:11.5px; color:var(--muted); margin-top:8px; line-height:1.5;}
+  .legend{display:flex; flex-wrap:wrap; gap:6px 16px; font-size:11.5px; color:#444; margin-top:4px;}
+  .legend span{display:inline-flex; align-items:center; gap:6px; font-weight:600;}
+  .swatch{width:14px; height:10px; border-radius:2px; display:inline-block;}
+  .swatch.band{background:rgba(11,123,158,.20);}
+  .swatch.base{background:var(--accent); height:3px;}
+  .swatch.p50{background:var(--teal); height:3px;}
+  .swatch.basis{background:var(--sand2); height:0; border-top:3px dashed var(--sand2); width:16px;}
+  svg .grid{stroke:var(--line); stroke-width:1;}
+  svg .axis{fill:var(--muted); font-size:10px;}
+  svg .band{fill:var(--teal); opacity:.14;}
+  svg .pbase{fill:none; stroke:var(--accent); stroke-width:2.6; stroke-linejoin:round; stroke-linecap:round;}
+  svg .pmed{fill:none; stroke:var(--teal); stroke-width:1.8;}
+  svg .pbasis{fill:none; stroke:var(--sand2); stroke-width:2; stroke-dasharray:5 4;}
+  svg .mk{fill:#fff; stroke:var(--accent); stroke-width:2; cursor:pointer;} svg .mk:hover{r:5.5;}
+
+  table{width:100%; border-collapse:collapse; font-size:13px; font-variant-numeric:tabular-nums;}
+  .tblwrap{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+  th,td{padding:9px 12px; text-align:right; white-space:nowrap; border-bottom:1px solid var(--line);}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); font-weight:700;}
+  tbody tr:hover{background:rgba(11,123,158,.04);}
+  tbody tr:last-child td{border-bottom:0; font-weight:800; color:var(--navy);}
+
+  .disc{margin-top:22px; font-size:12px; color:var(--muted); line-height:1.65; background:var(--card); border:1px solid var(--line); border-left:3px solid var(--amber); border-radius:0 10px 10px 0; padding:14px 16px;}
+  .disc strong{color:#444;}
+  .foot{margin-top:26px; text-align:center; font-size:12px; color:var(--muted); line-height:1.7;}
+  .foot a{color:var(--accent); font-weight:700; text-decoration:none;}
+  @media(prefers-reduced-motion:reduce){*{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}}
+</style>
+</head>
+<body>
+  <div class="hero">
+    <a class="back" href="index.html">← Kembali ke read hari ini</a>
+    <div class="brand">BryOsk Market PoV</div>
+    <h1>Simulator Proyeksi Investasi</h1>
+    <p>Susun portofoliomu per instrumen — saham IDX &amp; US, Bitcoin/Ethereum, obligasi INDON 34, deposito, earn, properti — lalu lihat ke mana ia bisa tumbuh. Lump sum atau nabung rutin, lengkap dengan rentang skenario jujur (P10–P90), pajak &amp; biaya Indonesia, dan nilai riil setelah inflasi. Riset/edukasi, bukan nasihat keuangan.</p>
+  </div>
+
+  <div class="wrap">
+    <section>
+      <h2>1 · Cara &amp; Jangka Investasi</h2>
+      <div class="card panel">
+        <div class="seg" id="modeSeg">
+          <button data-mode="lump" class="on">💰 Lump Sum</button>
+          <button data-mode="dca">📆 Nabung Rutin (DCA)</button>
+        </div>
+        <div class="grid">
+          <div class="field" id="fFreq" style="display:none;">
+            <label>Frekuensi setoran</label>
+            <select id="freq"><option value="12">Bulanan</option><option value="52">Mingguan</option></select>
+          </div>
+          <div class="field">
+            <label>Jangka waktu <span class="hint">(tahun)</span></label>
+            <input type="number" id="years" min="1" max="50" step="1" value="10">
+          </div>
+          <div class="field full">
+            <label>Kelas aset</label>
+            <select id="asset">
+              <option value="saham_id" selected>Saham IDX (Bursa Efek Indonesia)</option>
+              <option value="saham_us">Saham US (S&amp;P 500)</option>
+              <option value="crypto">Cryptocurrency (BTC &amp; ETH)</option>
+              <option value="obligasi">Obligasi (benchmark INDON 34)</option>
+              <option value="deposito">Deposito (IDR)</option>
+              <option value="earn">Earn / Staking</option>
+              <option value="properti">Properti (Indonesia)</option>
+            </select>
+          </div>
+        </div>
+        <div class="assetnote" id="assetNote"></div>
+        <div class="live" id="liveNote" style="display:none;"></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2 · Alokasi Portofolio <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);font-size:11px;">— pilih instrumen &amp; nominalnya</span></h2>
+      <div class="card panel">
+        <label class="autobox" for="auto"><input type="checkbox" id="auto" checked> 🔒 Kunci ke performa 5 tahun terakhir <span class="tag">OTOMATIS</span></label>
+        <div class="autometa" id="autoMeta"></div>
+        <div class="holdhead">
+          <span class="t" id="holdColHint">Instrumen · Nominal · Ekspektasi return</span>
+        </div>
+        <div class="holds" id="holds"></div>
+        <button class="addbtn" id="addBtn">+ Tambah instrumen</button>
+        <div class="allocbar" id="allocBar" style="display:none;"></div>
+
+        <div class="toggles">
+          <label class="chk"><input type="checkbox" id="showNet" checked> Nilai bersih (potong pajak &amp; biaya)</label>
+          <label class="chk"><input type="checkbox" id="showReal"> Nilai riil (sesuaikan inflasi)</label>
+          <label class="chk" id="fxWrap" style="display:none;"><input type="checkbox" id="useFx"> Sertakan pelemahan Rupiah</label>
+        </div>
+
+        <details class="adv">
+          <summary>Asumsi lanjutan — di-seed dari data, bisa kamu ubah</summary>
+          <div class="grid">
+            <div class="field">
+              <label>Volatilitas kelas <span class="hint">(% / tahun)</span></label>
+              <input type="number" id="vol" min="0" step="1" value="19">
+            </div>
+            <div class="field">
+              <label>Korelasi antar-instrumen <span class="hint">(%)</span></label>
+              <input type="number" id="rho" min="0" max="98" step="5" value="55">
+            </div>
+            <div class="field">
+              <label id="taxLabel">Pajak keluar <span class="hint">(%)</span></label>
+              <input type="number" id="tax" min="0" step="0.1" value="0.1">
+            </div>
+            <div class="field">
+              <label>Biaya masuk / transaksi <span class="hint">(%)</span></label>
+              <input type="number" id="fee" min="0" step="0.1" value="0.1">
+            </div>
+            <div class="field">
+              <label>Inflasi <span class="hint">(% / tahun)</span></label>
+              <input type="number" id="infl" min="0" step="0.5" value="3">
+            </div>
+            <div class="field" id="fFx" style="display:none;">
+              <label>Pelemahan Rupiah vs USD <span class="hint">(% / tahun)</span></label>
+              <input type="number" id="fxDrift" step="0.5" value="2">
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section>
+      <h2>3 · Hasil Proyeksi</h2>
+      <div class="stats" id="stats"></div>
+    </section>
+
+    <section>
+      <h2>Kurva Pertumbuhan · baseline + rentang skenario</h2>
+      <div class="card panel chartcard">
+        <div id="chart"></div>
+        <div class="legend">
+          <span><i class="swatch band"></i> Rentang P10–P90</span>
+          <span><i class="swatch base"></i> Baseline (ekspektasi)</span>
+          <span><i class="swatch p50"></i> Median (P50)</span>
+          <span><i class="swatch basis"></i> Total disetor</span>
+        </div>
+        <div class="cap" id="chartCap"></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Rincian per Tahun</h2>
+      <div class="card panel"><div class="tblwrap"><table id="tbl"></table></div></div>
+    </section>
+
+    <div class="disc">
+      <strong>Riset / edukasi, bukan nasihat keuangan.</strong> Proyeksi ini <em>estimasi berbasis asumsi</em>, bukan janji hasil. Kinerja masa lalu tidak menjamin kinerja masa depan; hasil nyata bisa jauh di luar rentang yang ditampilkan, terutama untuk aset volatil seperti crypto &amp; saham. Rentang P10–P90 memakai simulasi Monte Carlo (model lognormal) dengan asumsi return, volatilitas, dan korelasi antar-instrumen yang bisa kamu ubah. Return default per-instrumen mengikuti asumsi kelasnya — bukan ramalan per-saham. Harga BTC/ETH ditarik live dari CoinGecko hanya untuk konversi unit. Pajak &amp; biaya disederhanakan mengikuti aturan umum Indonesia dan bisa berbeda dengan kondisimu. Pertimbangkan konsultasi dengan penasihat berizin OJK.
+    </div>
+
+    <div class="foot">
+      <a href="index.html">← Read hari ini</a> · <a href="track-record.html">📊 Track Record</a> · <a href="about/">📖 About &amp; Methodology</a>
+    </div>
+  </div>
+
+  <datalist id="idxlist"></datalist>
+  <datalist id="uslist"></datalist>
+
+<script>
+const $=id=>document.getElementById(id);
+
+// ===== Universe data (ditarik dari sumber terkini saat dibangun) =====
+const IDX_RAW="ACES|Aspirasi Hidup Indonesia;ADMR|Adaro Minerals Indonesia;ADRO|Alamtri Resources Indonesia;AKRA|AKR Corporindo;AMMN|Amman Mineral Internasional;AMRT|Sumber Alfaria Trijaya;ANTM|Aneka Tambang;ARTO|Bank Jago;ASII|Astra International;BBCA|Bank Central Asia;BBNI|Bank Negara Indonesia;BBRI|Bank Rakyat Indonesia;BBTN|Bank Tabungan Negara;BMRI|Bank Mandiri;BRIS|Bank Syariah Indonesia;BRPT|Barito Pacific;CPIN|Charoen Pokphand Indonesia;CTRA|Ciputra Development;ESSA|ESSA Industries Indonesia;EXCL|XL Axiata;GOTO|GoTo Gojek Tokopedia;ICBP|Indofood CBP Sukses Makmur;INCO|Vale Indonesia;INDF|Indofood Sukses Makmur;INKP|Indah Kiat Pulp & Paper;ISAT|Indosat;ITMG|Indo Tambangraya Megah;JPFA|Japfa Comfeed Indonesia;JSMR|Jasa Marga;KLBF|Kalbe Farma;MAPA|MAP Aktif Adiperkasa;MAPI|Mitra Adiperkasa;MBMA|Merdeka Battery Materials;MDKA|Merdeka Copper Gold;MEDC|Medco Energi Internasional;PGAS|Perusahaan Gas Negara;PGEO|Pertamina Geothermal Energy;PTBA|Bukit Asam;SIDO|Sido Muncul;SMGR|Semen Indonesia;SMRA|Summarecon Agung;TLKM|Telkom Indonesia;TOWR|Sarana Menara Nusantara;UNTR|United Tractors;UNVR|Unilever Indonesia";
+const US_RAW="MMM|3M;AOS|A. O. Smith;ABT|Abbott;ABBV|AbbVie;ACN|Accenture;ADBE|Adobe;AMD|Advanced Micro Devices;AES|AES;AFL|Aflac;A|Agilent;APD|Air Products;ABNB|Airbnb;AKAM|Akamai;ALB|Albemarle;ARE|Alexandria RE;ALGN|Align Technology;ALLE|Allegion;LNT|Alliant Energy;ALL|Allstate;GOOGL|Alphabet A;GOOG|Alphabet C;MO|Altria;AMZN|Amazon;AMCR|Amcor;AEE|Ameren;AEP|American Electric Power;AXP|American Express;AIG|American Intl Group;AMT|American Tower;AWK|American Water Works;AMP|Ameriprise;AME|Ametek;AMGN|Amgen;APH|Amphenol;ADI|Analog Devices;AON|Aon;APA|APA;APO|Apollo Global;AAPL|Apple;AMAT|Applied Materials;APP|AppLovin;APTV|Aptiv;ACGL|Arch Capital;ADM|Archer Daniels Midland;ARES|Ares Management;ANET|Arista Networks;AJG|Arthur J. Gallagher;AIZ|Assurant;T|AT&T;ATO|Atmos Energy;ADSK|Autodesk;ADP|ADP;AZO|AutoZone;AVB|AvalonBay;AVY|Avery Dennison;AXON|Axon Enterprise;BKR|Baker Hughes;BALL|Ball;BAC|Bank of America;BAX|Baxter;BDX|Becton Dickinson;BRK.B|Berkshire Hathaway;BBY|Best Buy;TECH|Bio-Techne;BIIB|Biogen;BLK|BlackRock;BX|Blackstone;XYZ|Block;BNY|BNY Mellon;BA|Boeing;BKNG|Booking Holdings;BSX|Boston Scientific;BMY|Bristol Myers Squibb;AVGO|Broadcom;BR|Broadridge;BRO|Brown & Brown;BF.B|Brown-Forman;BLDR|Builders FirstSource;BG|Bunge Global;BXP|BXP;CHRW|C.H. Robinson;CDNS|Cadence;CPT|Camden Property;COF|Capital One;CAH|Cardinal Health;CCL|Carnival;CARR|Carrier Global;CVNA|Carvana;CASY|Casey's;CAT|Caterpillar;CBOE|Cboe Global Markets;CBRE|CBRE Group;CDW|CDW;COR|Cencora;CNC|Centene;CNP|CenterPoint Energy;CF|CF Industries;CRL|Charles River Labs;SCHW|Charles Schwab;CHTR|Charter Communications;CVX|Chevron;CMG|Chipotle;CB|Chubb;CHD|Church & Dwight;CIEN|Ciena;CI|Cigna;CINF|Cincinnati Financial;CTAS|Cintas;CSCO|Cisco;C|Citigroup;CFG|Citizens Financial;CLX|Clorox;CME|CME Group;CMS|CMS Energy;KO|Coca-Cola;CTSH|Cognizant;COHR|Coherent;COIN|Coinbase;CL|Colgate-Palmolive;CMCSA|Comcast;FIX|Comfort Systems;COP|ConocoPhillips;ED|Consolidated Edison;STZ|Constellation Brands;CEG|Constellation Energy;COO|Cooper Companies;CPRT|Copart;GLW|Corning;CPAY|Corpay;CTVA|Corteva;CSGP|CoStar Group;COST|Costco;CRH|CRH;CRWD|CrowdStrike;CCI|Crown Castle;CSX|CSX;CMI|Cummins;CVS|CVS Health;DHR|Danaher;DRI|Darden Restaurants;DDOG|Datadog;DVA|DaVita;DECK|Deckers Brands;DE|Deere;DELL|Dell Technologies;DAL|Delta Air Lines;DVN|Devon Energy;DXCM|Dexcom;FANG|Diamondback Energy;DLR|Digital Realty;DG|Dollar General;DLTR|Dollar Tree;D|Dominion Energy;DPZ|Domino's;DASH|DoorDash;DOV|Dover;DOW|Dow;DHI|D.R. Horton;DTE|DTE Energy;DUK|Duke Energy;DD|DuPont;ETN|Eaton;EBAY|eBay;ECHO|EchoStar;ECL|Ecolab;EIX|Edison International;EW|Edwards Lifesciences;EA|Electronic Arts;ELV|Elevance Health;EME|Emcor;EMR|Emerson Electric;ETR|Entergy;EOG|EOG Resources;EQT|EQT;EFX|Equifax;EQIX|Equinix;EQR|Equity Residential;ERIE|Erie Indemnity;ESS|Essex Property;EL|Estee Lauder;EG|Everest Group;EVRG|Evergy;ES|Eversource Energy;EXC|Exelon;EXE|Expand Energy;EXPE|Expedia;EXPD|Expeditors;EXR|Extra Space Storage;XOM|ExxonMobil;FFIV|F5;FDS|FactSet;FICO|Fair Isaac;FAST|Fastenal;FRT|Federal Realty;FDX|FedEx;FIS|Fidelity Natl Info;FITB|Fifth Third Bancorp;FSLR|First Solar;FE|FirstEnergy;FI|Fiserv;FLEX|Flex;F|Ford;FTNT|Fortinet;FTV|Fortive;FOXA|Fox A;FOX|Fox B;BEN|Franklin Resources;FCX|Freeport-McMoRan;GRMN|Garmin;IT|Gartner;GE|GE Aerospace;GEHC|GE HealthCare;GEV|GE Vernova;GEN|Gen Digital;GNRC|Generac;GD|General Dynamics;GIS|General Mills;GM|General Motors;GPC|Genuine Parts;GILD|Gilead Sciences;GPN|Global Payments;GL|Globe Life;GDDY|GoDaddy;GS|Goldman Sachs;HAL|Halliburton;HIG|Hartford;HAS|Hasbro;HCA|HCA Healthcare;DOC|Healthpeak;HSIC|Henry Schein;HSY|Hershey;HPE|HP Enterprise;HLT|Hilton;HD|Home Depot;HON|Honeywell;HRL|Hormel;HST|Host Hotels;HWM|Howmet Aerospace;HPQ|HP;HUBB|Hubbell;HUM|Humana;HBAN|Huntington Bancshares;HII|Huntington Ingalls;IBM|IBM;IEX|IDEX;IDXX|Idexx;ITW|Illinois Tool Works;INCY|Incyte;IR|Ingersoll Rand;PODD|Insulet;INTC|Intel;IBKR|Interactive Brokers;ICE|Intercontinental Exchange;IFF|Intl Flavors;IP|Intl Paper;INTU|Intuit;ISRG|Intuitive Surgical;IVZ|Invesco;INVH|Invitation Homes;IQV|IQVIA;IRM|Iron Mountain;JBHT|J.B. Hunt;JBL|Jabil;JKHY|Jack Henry;J|Jacobs Solutions;JNJ|Johnson & Johnson;JCI|Johnson Controls;JPM|JPMorgan Chase;KVUE|Kenvue;KDP|Keurig Dr Pepper;KEY|KeyCorp;KEYS|Keysight;KMB|Kimberly-Clark;KIM|Kimco Realty;KMI|Kinder Morgan;KKR|KKR;KLAC|KLA;KHC|Kraft Heinz;KR|Kroger;LHX|L3Harris;LH|Labcorp;LRCX|Lam Research;LVS|Las Vegas Sands;LDOS|Leidos;LEN|Lennar;LII|Lennox;LLY|Eli Lilly;LIN|Linde;LYV|Live Nation;LMT|Lockheed Martin;L|Loews;LOW|Lowe's;LULU|Lululemon;LITE|Lumentum;LYB|LyondellBasell;MTB|M&T Bank;MPC|Marathon Petroleum;MAR|Marriott;MRSH|Marsh McLennan;MLM|Martin Marietta;MRVL|Marvell;MAS|Masco;MA|Mastercard;MKC|McCormick;MCD|McDonald's;MCK|McKesson;MDT|Medtronic;MRK|Merck;META|Meta Platforms;MET|MetLife;MTD|Mettler Toledo;MGM|MGM Resorts;MCHP|Microchip;MU|Micron;MSFT|Microsoft;MAA|Mid-America Apt;MRNA|Moderna;TAP|Molson Coors;MDLZ|Mondelez;MPWR|Monolithic Power;MNST|Monster Beverage;MCO|Moody's;MS|Morgan Stanley;MOS|Mosaic;MSI|Motorola Solutions;MSCI|MSCI;NDAQ|Nasdaq;NTAP|NetApp;NFLX|Netflix;NEM|Newmont;NWSA|News Corp A;NWS|News Corp B;NEE|NextEra Energy;NKE|Nike;NI|NiSource;NDSN|Nordson;NSC|Norfolk Southern;NTRS|Northern Trust;NOC|Northrop Grumman;NCLH|Norwegian Cruise;NRG|NRG Energy;NUE|Nucor;NVDA|Nvidia;NVR|NVR;NXPI|NXP Semiconductors;ORLY|O'Reilly Auto;OXY|Occidental;ODFL|Old Dominion;OMC|Omnicom;ON|ON Semiconductor;OKE|Oneok;ORCL|Oracle;OTIS|Otis Worldwide;PCAR|Paccar;PKG|Packaging Corp;PLTR|Palantir;PANW|Palo Alto Networks;PSKY|Paramount Skydance;PH|Parker Hannifin;PAYX|Paychex;PYPL|PayPal;PNR|Pentair;PEP|PepsiCo;PFE|Pfizer;PCG|PG&E;PM|Philip Morris Intl;PSX|Phillips 66;PNW|Pinnacle West;PNC|PNC Financial;PPG|PPG Industries;PPL|PPL;PFG|Principal Financial;PG|Procter & Gamble;PGR|Progressive;PLD|Prologis;PRU|Prudential Financial;PEG|Public Service Enterprise;PTC|PTC;PSA|Public Storage;PHM|PulteGroup;PWR|Quanta Services;QCOM|Qualcomm;DGX|Quest Diagnostics;Q|Qnity Electronics;RL|Ralph Lauren;RJF|Raymond James;RTX|RTX;O|Realty Income;REG|Regency Centers;REGN|Regeneron;RF|Regions Financial;RSG|Republic Services;RMD|ResMed;RVTY|Revvity;HOOD|Robinhood;ROK|Rockwell Automation;ROL|Rollins;ROP|Roper Technologies;ROST|Ross Stores;RCL|Royal Caribbean;SPGI|S&P Global;CRM|Salesforce;SNDK|Sandisk;SBAC|SBA Communications;SLB|Schlumberger;STX|Seagate;SRE|Sempra;NOW|ServiceNow;SHW|Sherwin-Williams;SPG|Simon Property;SWKS|Skyworks;SJM|J.M. Smucker;SW|Smurfit Westrock;SNA|Snap-on;SOLV|Solventum;SO|Southern;LUV|Southwest Airlines;SWK|Stanley Black & Decker;SBUX|Starbucks;STT|State Street;STLD|Steel Dynamics;STE|Steris;SYK|Stryker;SMCI|Supermicro;SYF|Synchrony;SNPS|Synopsys;SYY|Sysco;TMUS|T-Mobile US;TROW|T. Rowe Price;TTWO|Take-Two;TPR|Tapestry;TRGP|Targa Resources;TGT|Target;TEL|TE Connectivity;TDY|Teledyne;TER|Teradyne;TSLA|Tesla;TXN|Texas Instruments;TPL|Texas Pacific Land;TXT|Textron;TMO|Thermo Fisher;TJX|TJX;TKO|TKO Group;TTD|Trade Desk;TSCO|Tractor Supply;TT|Trane Technologies;TDG|TransDigm;TRV|Travelers;TRMB|Trimble;TFC|Truist Financial;TYL|Tyler Technologies;TSN|Tyson Foods;USB|U.S. Bancorp;UBER|Uber;UDR|UDR;ULTA|Ulta Beauty;UNP|Union Pacific;UAL|United Airlines;UPS|UPS;URI|United Rentals;UNH|UnitedHealth;UHS|Universal Health;VLO|Valero Energy;VEEV|Veeva Systems;VTR|Ventas;VLTO|Veralto;VRSN|Verisign;VRSK|Verisk;VZ|Verizon;VRTX|Vertex Pharma;VRT|Vertiv;VTRS|Viatris;VICI|Vici Properties;V|Visa;VST|Vistra;VMC|Vulcan Materials;WRB|W.R. Berkley;GWW|W.W. Grainger;WAB|Wabtec;WMT|Walmart;DIS|Walt Disney;WBD|Warner Bros Discovery;WM|Waste Management;WAT|Waters;WEC|WEC Energy;WFC|Wells Fargo;WELL|Welltower;WST|West Pharmaceutical;WDC|Western Digital;WY|Weyerhaeuser;WSM|Williams-Sonoma;WMB|Williams Companies;WTW|Willis Towers Watson;WDAY|Workday;WYNN|Wynn Resorts;XEL|Xcel Energy;XYL|Xylem;YUM|Yum! Brands;ZBRA|Zebra;ZBH|Zimmer Biomet;ZTS|Zoetis";
+
+// ===== Konfigurasi kelas aset (asumsi di-seed, semua editable) =====
+const ASSETS={
+  saham_id:{label:"Saham IDX", cur:"Rp", fx:false, ret:11, vol:19, rho:55, tax:0.1, taxMode:"value", taxLabel:"Pajak jual (%)", fee:0.1,
+    list:"idxlist", ph:"Ketik ticker / nama (mis. BBCA)", addable:true,
+    seeds:[{name:"BBCA",amount:5000000},{name:"BBRI",amount:3000000},{name:"TLKM",amount:2000000}],
+    note:"Total return sudah termasuk dividen (~3–4%). Penjualan saham kena PPh final 0,1% dari nilai transaksi. Daftar saran = LQ45 (per data terkini); kamu tetap bisa ketik ticker IDX lain."},
+  saham_us:{label:"Saham US", cur:"$", fx:true, ret:9, vol:15, rho:50, tax:0.1, taxMode:"value", taxLabel:"Pajak/biaya keluar (%)", fee:0.05,
+    list:"uslist", ph:"Ketik ticker / nama (mis. AAPL)", addable:true,
+    seeds:[{name:"AAPL",amount:1000},{name:"MSFT",amount:1000},{name:"NVDA",amount:1000}],
+    note:"Denominasi USD. Bagi investor Rupiah, aktifkan 'Sertakan pelemahan Rupiah'. Daftar saran = konstituen S&P 500 (per data terkini); ketik ticker US lain kapan pun."},
+  crypto:{label:"Crypto", cur:"$", fx:true, ret:20, vol:70, rho:75, tax:0.11, taxMode:"value", taxLabel:"PPN keluar (%)", fee:0.21,
+    list:null, addable:false, fixed:true,
+    seeds:[{name:"Bitcoin",tick:"BTC",coin:"bitcoin",amount:500,ret:22},{name:"Ethereum",tick:"ETH",coin:"ethereum",amount:500,ret:25}],
+    note:"Hanya Bitcoin & Ethereum. Sangat volatil — rentang skenarionya sengaja lebar. Transaksi di exchange lokal kena 0,1% PPh + 0,11% PPN. Harga live dipakai untuk konversi ke unit."},
+  obligasi:{label:"Obligasi", cur:"$", fx:true, ret:5.05, vol:5, rho:60, tax:10, taxMode:"profit", taxLabel:"PPh kupon (%)", fee:0,
+    list:null, ph:"Nama obligasi", addable:true,
+    seeds:[{name:"INDON 34 (RI USD, jt 2034)",amount:1000}],
+    note:"Benchmark INDON 34 — SUN global USD, kupon 4,7%, YTM ~5,05% (per data terkini), rating BBB. Bila dipegang sampai jatuh tempo, return ≈ YTM. USD-denominated → aktifkan faktor kurs untuk investor Rupiah."},
+  deposito:{label:"Deposito", cur:"Rp", fx:false, ret:5.5, vol:0.3, rho:0, tax:20, taxMode:"profit", taxLabel:"PPh bunga (%)", fee:0,
+    list:null, ph:"Nama / bank deposito", addable:true,
+    seeds:[{name:"Deposito 12 bulan",amount:10000000}],
+    note:"Bunga deposito kena PPh final 20%. Nyaris tanpa volatilitas — proyeksinya hampir pasti."},
+  earn:{label:"Earn / Staking", cur:"$", fx:true, ret:7, vol:5, rho:30, tax:0.11, taxMode:"value", taxLabel:"Pajak/biaya keluar (%)", fee:0,
+    list:null, ph:"Nama produk earn", addable:true,
+    seeds:[{name:"USDT Earn / Flexible",amount:1000}],
+    note:"APY bunga-berbunga. Risiko pokok tergantung underlying: stablecoin (volatilitas rendah) vs staking token (naikkan volatilitas kelas)."},
+  properti:{label:"Properti", cur:"Rp", fx:false, ret:8, vol:6, rho:40, tax:2.5, taxMode:"value", taxLabel:"PPh final jual (%)", fee:5,
+    list:null, ph:"Nama / lokasi properti", addable:true,
+    seeds:[{name:"Rumah / apartemen",amount:500000000}],
+    note:"Apresiasi harga + yield sewa, dikurangi biaya. Penjualan kena PPh final 2,5%; biaya masuk (BPHTB, notaris) ~5%. Aset illikuid."}
+};
+
+// ===== Snapshot performa 5 tahun (dihitung dari harga bulanan nyata; refresh berkala) =====
+const PERF5Y={
+  asOf:"Jul 2026", window:"Jul 2021–Jul 2026",
+  sp500:{ret:12.0, vol:15.8, priceCagr:10.6, div:1.4},   // total return = harga + est. dividen
+  ihsg:{ret:4.0,  vol:15.5, priceCagr:0.2,  div:3.8},
+  btc:{ret:6.4,   vol:53.5},                              // CAGR harga 5Y
+  eth:{ret:-11.4, vol:71.1}
+};
+function autoSpec(key){
+  const P=PERF5Y;
+  switch(key){
+    case "saham_us": return {mode:"uniform", ret:P.sp500.ret, vol:P.sp500.vol, label:`S&P 500 · total return 5Y <b style="color:var(--navy)">${P.sp500.ret}%</b>/th, volatilitas ${P.sp500.vol}% (harga ${P.sp500.priceCagr}% + est. dividen ${P.sp500.div}%)`};
+    case "saham_id": return {mode:"uniform", ret:P.ihsg.ret, vol:P.ihsg.vol, label:`IHSG · total return 5Y <b style="color:var(--navy)">${P.ihsg.ret}%</b>/th, volatilitas ${P.ihsg.vol}% (harga ${P.ihsg.priceCagr}% + est. dividen ${P.ihsg.div}%)`};
+    case "crypto": return {mode:"perCoin", map:{bitcoin:{ret:P.btc.ret,vol:P.btc.vol}, ethereum:{ret:P.eth.ret,vol:P.eth.vol}}, label:`CAGR harga 5Y — <b style="color:var(--navy)">BTC ${P.btc.ret}%</b>/vol ${P.btc.vol}% · <b style="color:var(--navy)">ETH ${P.eth.ret}%</b>/vol ${P.eth.vol}%`};
+    case "obligasi": return {mode:"uniform", ret:5.05, vol:5, label:`YTM benchmark INDON 34 ~<b style="color:var(--navy)">5,05%</b> (bila dipegang s.d. jatuh tempo)`};
+    case "deposito": return {mode:"uniform", ret:5.5, vol:0.3, label:`Suku bunga deposito berjalan ~<b style="color:var(--navy)">5,5%</b>`};
+    case "earn": return {mode:"uniform", ret:7, vol:5, label:`APY earn berjalan ~<b style="color:var(--navy)">7%</b>`};
+    case "properti": return {mode:"uniform", ret:8, vol:6, label:`Asumsi jangka panjang ~<b style="color:var(--navy)">8%</b> (bukan seri pasar 5Y)`};
+  }
+}
+function applyAutoUI(key){
+  const spec=autoSpec(key); if(!spec)return;
+  document.querySelectorAll("#holds .holding").forEach(r=>{
+    const ri=r.querySelector(".hret-in");
+    if(spec.mode==="perCoin"){ const s=spec.map[r.dataset.coin]; if(s){ ri.value=s.ret; r.dataset.vol=s.vol; } }
+    else { ri.value=spec.ret; delete r.dataset.vol; }
+    ri.readOnly=true; ri.classList.add("locked");
+  });
+  const v=$("vol");
+  if(spec.mode==="perCoin"){ v.value=""; v.placeholder="per-koin"; } else { v.value=spec.vol; v.placeholder=""; }
+  v.readOnly=true; v.classList.add("locked");
+  $("autoMeta").innerHTML=`📅 Per ${PERF5Y.asOf} (${PERF5Y.window}) · ${spec.label}. <b>Kinerja lalu ≠ jaminan masa depan.</b> Hilangkan centang untuk override manual.`;
+}
+function clearAutoUI(){
+  document.querySelectorAll("#holds .hret-in").forEach(ri=>{ri.readOnly=false; ri.classList.remove("locked");});
+  document.querySelectorAll("#holds .holding").forEach(r=>{delete r.dataset.vol;});
+  const v=$("vol"); v.readOnly=false; v.classList.remove("locked"); v.placeholder="";
+  $("autoMeta").innerHTML=`Mode manual — atur sendiri ekspektasi return per instrumen &amp; volatilitas kelas di bawah.`;
+}
+
+let MODE="lump";
+let PRICES={bitcoin:{usd:64335,idr:1152983800},ethereum:{usd:1873.52,idr:33576402}}; // fallback; di-refresh live
+const ALLOC_COLORS=["#00447c","#0b7b9e","#16a36a","#c98a1a","#6b7280","#8e44ad","#c0392b","#16856b"];
+
+// ===== util numerik =====
+let spare=null;
+function gauss(){ if(spare!==null){const s=spare;spare=null;return s;} let u,v,s; do{u=Math.random()*2-1;v=Math.random()*2-1;s=u*u+v*v;}while(s>=1||s===0); const m=Math.sqrt(-2*Math.log(s)/s); spare=v*m; return u*m; }
+function pct(a,p){ if(a.length===1)return a[0]; const idx=(p/100)*(a.length-1),lo=Math.floor(idx),hi=Math.ceil(idx); return lo===hi?a[lo]:a[lo]+(a[hi]-a[lo])*(idx-lo); }
+function num(id,def){ const v=parseFloat($(id).value); return isFinite(v)?v:def; }
+function fmt(v,cur){ if(!isFinite(v))v=0; const abs=Math.abs(v);
+  if(cur==="Rp"){ if(abs>=1e9)return "Rp "+(v/1e9).toLocaleString("id-ID",{maximumFractionDigits:2})+" M"; if(abs>=1e6)return "Rp "+(v/1e6).toLocaleString("id-ID",{maximumFractionDigits:1})+" jt"; return "Rp "+Math.round(v).toLocaleString("id-ID"); }
+  if(abs>=1e6)return "$"+(v/1e6).toLocaleString("en-US",{maximumFractionDigits:2})+"M"; if(abs>=1e3)return "$"+(v/1e3).toLocaleString("en-US",{maximumFractionDigits:1})+"K"; return "$"+Math.round(v).toLocaleString("en-US"); }
+function fmtFull(v,cur){ return (cur==="Rp"?"Rp ":"$")+Math.round(v||0).toLocaleString(cur==="Rp"?"id-ID":"en-US"); }
+function pctStr(x){ return (x>=0?"+":"")+(x*100).toFixed(1)+"%"; }
+
+// ===== inti proyeksi (multi-holding + korelasi) =====
+function project(P){
+  const f=P.freq, N=Math.max(1,Math.round(P.years*f)), dt=1/f, dca=P.mode==="dca";
+  const H=P.holds, nH=H.length;
+  const rho=Math.min(0.98,Math.max(0,P.rho/100));
+  const aC=Math.sqrt(rho), bC=Math.sqrt(1-rho), fxAdd=P.useFx?P.fxDrift/100:0;
+  const mu=H.map(h=>Math.log(1+Math.max(-0.99,(isFinite(h.ret)?h.ret:P.retDef)/100+fxAdd)));
+  const sigA=H.map(h=>Math.max(0,(isFinite(h.vol)?h.vol:P.vol))/100);   // volatilitas per-holding (fallback ke vol kelas)
+  const vstepA=sigA.map(s=>s*Math.sqrt(dt)), anyVol=sigA.some(s=>s>1e-6);
+  const feeMul=1-P.fee/100;
+  const nSamp=Math.min(N,120), st=Math.max(1,Math.floor(N/nSamp));
+  const sIdx=[]; for(let k=st-1;k<N;k+=st) sIdx.push(k); if(!sIdx.length||sIdx[sIdx.length-1]!==N-1) sIdx.push(N-1);
+  const times=sIdx.map(k=>(k+1)*dt);
+
+  // baseline = jalur rata-rata (mean), tumbuh exp(mu*dt)
+  const gMean=mu.map(m=>Math.exp(m*dt));
+  const base=[]; { const Vh=new Float64Array(nH); let si=0;
+    for(let k=0;k<N;k++){ const add=(k===0)||dca; for(let h=0;h<nH;h++){ if(add)Vh[h]+=H[h].amount*feeMul; Vh[h]*=gMean[h]; }
+      if(si<sIdx.length&&k===sIdx[si]){ let s=0; for(let h=0;h<nH;h++)s+=Vh[h]; base.push(s); si++; } } }
+  const basis=sIdx.map(k=>{ let s=0; const mult=dca?(k+1):1; for(let h=0;h<nH;h++)s+=H[h].amount*mult; return s; });
+  let totalGross=0; for(let h=0;h<nH;h++) totalGross+=H[h].amount*(dca?N:1);
+
+  // Monte Carlo (koreksi Itô -sig^2/2 supaya mean = baseline)
+  const paths= !anyVol?1: Math.min(1500,Math.max(400,Math.round(1.5e6/(N*Math.max(1,nH)))));
+  const drift=mu.map((m,h)=>(m-sigA[h]*sigA[h]/2)*dt);
+  const store=sIdx.map(()=>new Float64Array(paths));
+  for(let p=0;p<paths;p++){ const Vh=new Float64Array(nH); let si=0;
+    for(let k=0;k<N;k++){ const add=(k===0)||dca; const mZ=paths===1?0:gauss();
+      for(let h=0;h<nH;h++){ if(add)Vh[h]+=H[h].amount*feeMul; const z=paths===1?0:(aC*mZ+bC*gauss()); Vh[h]*=Math.exp(drift[h]+vstepA[h]*z); }
+      if(si<sIdx.length&&k===sIdx[si]){ let s=0; for(let h=0;h<nH;h++)s+=Vh[h]; store[si][p]=s; si++; } } }
+  const p10=[],p50=[],p90=[];
+  for(let i=0;i<sIdx.length;i++){ const arr=Array.from(store[i]).sort((x,y)=>x-y); p10.push(pct(arr,10)); p50.push(pct(arr,50)); p90.push(pct(arr,90)); }
+  return {times,p10,p50,p90,base,basis,totalGross};
+}
+function applyTax(P,v,inv){ if(!P.showNet)return v; if(P.taxMode==="profit"){const pr=v-inv;return v-(pr>0?pr*P.tax/100:0);} return v*(1-P.tax/100); }
+function realize(P,v,t){ return P.showReal? v/Math.pow(1+P.infl/100,t):v; }
+function irr(P,finalValue,fb){
+  const f=P.freq,N=Math.max(1,Math.round(P.years*f)),dca=P.mode==="dca"; let per=0; for(const h of P.holds)per+=h.amount;
+  const c=k=> dca?per:(k===0?per:0);
+  const npv=r=>{const b=1+r; let s=finalValue/Math.pow(b,P.years); for(let k=0;k<N;k++){const cf=c(k); if(cf)s-=cf/Math.pow(b,k/f);} return s;};
+  let lo=-0.9899,hi=1e6,flo=npv(lo),fhi=npv(hi);
+  if(!(isFinite(flo)&&isFinite(fhi))||flo*fhi>0) return Math.pow(Math.max(1e-9,finalValue)/Math.max(1,fb),1/P.years)-1;
+  for(let i=0;i<200;i++){ const mid=(lo+hi)/2,fm=npv(mid); if(Math.abs(fm)<1||hi-lo<1e-9)return mid; if(flo*fm<0){hi=mid;}else{lo=mid;flo=fm;} }
+  return (lo+hi)/2;
+}
+
+// ===== holdings builder =====
+function getHolds(){
+  return [...document.querySelectorAll("#holds .holding")].map(r=>({
+    name:(r.querySelector(".hname")?.value||r.querySelector(".hname")?.dataset.name||"").trim(),
+    coin:r.dataset.coin||null,
+    amount:Math.max(0,parseFloat(r.querySelector(".hamt-in").value)||0),
+    ret:parseFloat(r.querySelector(".hret-in").value),
+    vol:(r.dataset.vol!=null&&r.dataset.vol!=="")?parseFloat(r.dataset.vol):undefined
+  }));
+}
+function rowHTML(a,seed){
+  const fixed=a.fixed;
+  const nameCell=fixed
+    ? `<div class="hname fixed" data-name="${seed.name}"><span class="tick">${seed.tick}</span>${seed.name}</div>`
+    : `<input class="hname" type="text" ${a.list?`list="${a.list}"`:""} placeholder="${a.ph}" value="${seed?seed.name:""}">`;
+  const delCell=fixed?`<span class="hdel-sp"></span>`:`<button class="hdel" title="Hapus">✕</button>`;
+  const step=a.cur==="$"?100:1000000;
+  return `${nameCell}
+    <div class="prefix"><span class="cur">${a.cur}</span><input class="hamt-in" type="number" min="0" step="${step}" value="${seed?seed.amount:0}"></div>
+    <div class="hret"><input class="hret-in" type="number" step="0.5" value="${seed&&seed.ret!=null?seed.ret:a.ret}"><span>%</span></div>
+    ${delCell}`;
+}
+function addRow(a,seed){
+  const row=document.createElement("div"); row.className="holding";
+  if(seed&&seed.coin) row.dataset.coin=seed.coin;
+  row.innerHTML=rowHTML(a,seed);
+  if(seed&&seed.coin){ const help=document.createElement("div"); help.className="hhelp"; row.appendChild(help); }
+  $("holds").appendChild(row);
+}
+function buildHolds(key){
+  const a=ASSETS[key]; const holds=$("holds"); holds.innerHTML="";
+  a.seeds.forEach(s=>addRow(a,s));
+  $("addBtn").style.display=a.addable?"inline-block":"none";
+}
+
+// ===== interaksi kelas =====
+let lastCur=null;
+function seedAsset(){
+  const a=ASSETS[$("asset").value];
+  $("vol").value=a.vol; $("rho").value=a.rho; $("tax").value=a.tax; $("fee").value=a.fee;
+  $("taxLabel").innerHTML=a.taxLabel.replace("(%)",'<span class="hint">(%)</span>');
+  $("assetNote").textContent=a.note;
+  $("fxWrap").style.display=a.fx?"flex":"none";
+  $("fFx").style.display=(a.fx&&$("useFx").checked)?"flex":"none";
+  if(!a.fx)$("useFx").checked=false;
+  $("liveNote").style.display=a.fixed?"block":"none";
+  buildHolds($("asset").value);
+  lastCur=a.cur;
+  updateLive();
+}
+function setMode(m){
+  MODE=m;
+  document.querySelectorAll("#modeSeg button").forEach(b=>b.classList.toggle("on",b.dataset.mode===m));
+  const dca=m==="dca"; $("fFreq").style.display=dca?"flex":"none";
+  $("holdColHint").textContent = dca? "Instrumen · Nominal / periode · Return" : "Instrumen · Nominal (sekali) · Return";
+}
+function updateLive(){
+  const a=ASSETS[$("asset").value];
+  if(!a.fixed){ return; }
+  $("liveNote").innerHTML=`<span class="dot"></span>Harga live: <b>BTC ${fmtFull(PRICES.bitcoin.usd,"$")}</b> · <b>ETH ${fmtFull(PRICES.ethereum.usd,"$")}</b> <span style="opacity:.7">(CoinGecko)</span>`;
+  document.querySelectorAll("#holds .holding").forEach(r=>{
+    const coin=r.dataset.coin; if(!coin)return; const help=r.querySelector(".hhelp"); if(!help)return;
+    const amt=parseFloat(r.querySelector(".hamt-in").value)||0; const px=PRICES[coin]?.usd||0;
+    help.textContent = px? `≈ ${(amt/px).toLocaleString("en-US",{maximumFractionDigits:6})} ${coin==="bitcoin"?"BTC":"ETH"} @ ${fmtFull(px,"$")}` : "";
+  });
+}
+
+// ===== render utama =====
+function render(){
+  const a=ASSETS[$("asset").value];
+  if($("auto").checked) applyAutoUI($("asset").value); else clearAutoUI();
+  const holdsAll=getHolds();
+  const holds=holdsAll.filter(h=>h.amount>0);
+  updateLive();
+  if(!holds.length){ $("stats").innerHTML=`<div class="stat" style="grid-column:1/-1"><div class="l">Isi minimal satu instrumen dengan nominal &gt; 0 untuk melihat proyeksi.</div></div>`; $("chart").innerHTML=""; $("tbl").innerHTML=""; $("allocBar").style.display="none"; return; }
+
+  const P={ mode:MODE, freq:MODE==="lump"?12:parseInt($("freq").value,10),
+    years:Math.min(50,Math.max(1,num("years",10))),
+    vol:num("vol",a.vol), rho:num("rho",a.rho), tax:num("tax",a.tax), taxMode:a.taxMode,
+    fee:num("fee",a.fee), infl:num("infl",3), retDef:a.ret,
+    showNet:$("showNet").checked, showReal:$("showReal").checked,
+    useFx:a.fx&&$("useFx").checked, fxDrift:num("fxDrift",2), cur:a.cur, holds };
+
+  const R=project(P), T=P.years;
+  const disp=arr=>arr.map((v,i)=>realize(P,applyTax(P,v,R.basis[i]),R.times[i]));
+  const dBase=disp(R.base),dP10=disp(R.p10),dP50=disp(R.p50),dP90=disp(R.p90);
+  const dBasis=R.basis.map((v,i)=>realize(P,v,R.times[i]));
+  const invested=R.totalGross;
+  const finBaseNet=applyTax(P,R.base[R.base.length-1],invested);
+  const finDisp=dBase[dBase.length-1], finP10=dP10[dP10.length-1], finP90=dP90[dP90.length-1];
+  const profit=finBaseNet-invested, eff=irr(P,finBaseNet,invested), finReal=realize(P,finBaseNet,T);
+
+  $("stats").innerHTML=[
+    {l:"Proyeksi nilai akhir"+(P.showReal?" (riil)":""), n:fmt(finDisp,P.cur), sub:fmtFull(finDisp,P.cur), hl:true},
+    {l:"Rentang skenario (P10–P90)", n:fmt(finP10,P.cur)+" – "+fmt(finP90,P.cur), sub:"80% kemungkinan mendarat di sini"},
+    {l:"Total disetor", n:fmt(invested,P.cur), sub:fmtFull(invested,P.cur)},
+    {l:"Estimasi profit"+(P.showNet?" (bersih)":""), n:fmt(profit,P.cur), sub:pctStr(invested>0?profit/invested:0)+" dari modal", cls:profit>=0?"pos":"neg"},
+    {l:"Return efektif / tahun", n:pctStr(eff), sub:"money-weighted (IRR)", cls:eff>=0?"pos":"neg"},
+    {l:P.showReal?"Setara daya beli kini":"Nilai riil (stlh inflasi)", n:fmt(finReal,P.cur), sub:"inflasi "+P.infl+"%/th"}
+  ].map(c=>`<div class="stat ${c.hl?"hl":""}"><div class="n ${c.cls||""}">${c.n}</div><div class="l">${c.l}</div><div class="sub">${c.sub||""}</div></div>`).join("");
+
+  // allocation bar
+  const totNow=holds.reduce((s,h)=>s+h.amount,0);
+  $("allocBar").style.display="flex";
+  $("allocBar").innerHTML=holds.map((h,i)=>`<i style="width:${(h.amount/totNow*100).toFixed(2)}%;background:${ALLOC_COLORS[i%ALLOC_COLORS.length]}" title="${h.name||"?"}: ${(h.amount/totNow*100).toFixed(1)}%"></i>`).join("");
+
+  drawChart(R.times,dBasis,dP10,dP50,dP90,dBase,P);
+  const spread=finDisp>0?(finP90-finP10)/finDisp:0;
+  $("chartCap").innerHTML = P.vol<=0.5
+    ? `Volatilitas mendekati nol → proyeksi hampir pasti mengikuti garis baseline.`
+    : `Area teduh = tempat ~80% simulasi mendarat (±${Math.round(spread*50)}% seputar baseline). ${holds.length>1?`Korelasi antar-instrumen ${P.rho}% — makin rendah, makin besar manfaat diversifikasi (area menyempit). `:""}Arahkan kursor ke titik untuk nilai per periode.`;
+
+  // tabel
+  const pick=y=>{let bi=0,bd=1e9; R.times.forEach((t,i)=>{const d=Math.abs(t-y);if(d<bd){bd=d;bi=i;}});return bi;};
+  const yrs=[]; for(let y=1;y<=T;y++)yrs.push(y); if(yrs[yrs.length-1]!==T)yrs.push(T);
+  let html=`<thead><tr><th>Tahun</th><th>Total disetor</th><th>Pesimis (P10)</th><th>Baseline</th><th>Optimis (P90)</th></tr></thead><tbody>`;
+  yrs.forEach(y=>{const i=pick(y); html+=`<tr><td>Tahun ${y}</td><td>${fmtFull(dBasis[i],P.cur)}</td><td>${fmtFull(dP10[i],P.cur)}</td><td>${fmtFull(dBase[i],P.cur)}</td><td>${fmtFull(dP90[i],P.cur)}</td></tr>`;});
+  $("tbl").innerHTML=html+"</tbody>";
+}
+
+function drawChart(times,basis,p10,p50,p90,base,P){
+  const W=760,H=300,padL=64,padR=16,padT=14,padB=28,n=times.length;
+  let ymax=0; p90.forEach(v=>ymax=Math.max(ymax,v)); base.forEach(v=>ymax=Math.max(ymax,v)); basis.forEach(v=>ymax=Math.max(ymax,v));
+  ymax=ymax<=0?1:ymax; const mag=Math.pow(10,Math.floor(Math.log10(ymax))); ymax=Math.ceil(ymax/mag*2)/2*mag;
+  const x=i=>n===1?(padL+(W-padL-padR)/2):padL+i*(W-padL-padR)/(n-1);
+  const y=v=>padT+(1-v/ymax)*(H-padT-padB);
+  let grid="",yl=""; for(let g=0;g<=4;g++){const v=ymax*g/4,yy=y(v); grid+=`<line class="grid" x1="${padL}" y1="${yy}" x2="${W-padR}" y2="${yy}"/>`; yl+=`<text class="axis" x="${padL-6}" y="${yy+3}" text-anchor="end">${fmt(v,P.cur)}</text>`;}
+  let xl=""; [0,0.25,0.5,0.75,1].map(fr=>fr*(n-1)|0).filter((v,i,arr)=>arr.indexOf(v)===i).forEach(i=>{xl+=`<text class="axis" x="${x(i)}" y="${H-8}" text-anchor="middle">${times[i]>=1?Math.round(times[i])+"th":times[i].toFixed(1)+"th"}</text>`;});
+  const path=arr=>arr.map((v,i)=>(i?"L":"M")+x(i).toFixed(1)+" "+y(v).toFixed(1)).join(" ");
+  let band="M"+p90.map((v,i)=>x(i).toFixed(1)+" "+y(v).toFixed(1)).join(" L")+" L"+p10.slice().reverse().map((v,i)=>{const idx=n-1-i;return x(idx).toFixed(1)+" "+y(v).toFixed(1);}).join(" L")+" Z";
+  const marks=base.map((v,i)=>(i%Math.ceil(n/10)===0||i===n-1)?`<circle class="mk" cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="3.2"><title>${times[i]>=1?Math.round(times[i])+" tahun":(times[i]*12).toFixed(0)+" bln"}\nBaseline ${fmtFull(v,P.cur)}\nP10 ${fmtFull(p10[i],P.cur)} · P90 ${fmtFull(p90[i],P.cur)}</title></circle>`:"").join("");
+  $("chart").innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Proyeksi pertumbuhan portofolio">${grid}<path class="band" d="${band}"/><path class="pbasis" d="${path(basis)}"/><path class="pmed" d="${path(p50)}"/><path class="pbase" d="${path(base)}"/>${marks}${yl}${xl}</svg>`;
+}
+
+// ===== init =====
+function fillDatalist(id,raw){ const dl=$(id); dl.innerHTML=raw.split(";").map(s=>{const p=s.split("|");return `<option value="${p[0]}">${p[0]} — ${p[1]}</option>`;}).join(""); }
+fillDatalist("idxlist",IDX_RAW); fillDatalist("uslist",US_RAW);
+
+document.querySelectorAll("#modeSeg button").forEach(b=>b.addEventListener("click",()=>{setMode(b.dataset.mode);render();}));
+$("asset").addEventListener("change",()=>{seedAsset();render();});
+$("freq").addEventListener("change",render);
+$("useFx").addEventListener("change",()=>{seedAsset();render();});
+$("addBtn").addEventListener("click",()=>{addRow(ASSETS[$("asset").value]);render();});
+$("auto").addEventListener("change",render);
+$("holds").addEventListener("input",render);
+$("holds").addEventListener("click",e=>{ if(e.target.classList.contains("hdel")){ e.target.closest(".holding").remove(); render(); } });
+["years","vol","rho","tax","fee","infl","fxDrift"].forEach(id=>$(id).addEventListener("input",render));
+["showNet","showReal"].forEach(id=>$(id).addEventListener("change",render));
+
+// harga crypto live (fallback tetap jalan bila gagal)
+fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd,idr")
+  .then(r=>r.json()).then(d=>{ if(d&&d.bitcoin&&d.ethereum){ PRICES=d; updateLive(); } }).catch(()=>{});
+
+seedAsset(); setMode("lump"); render();
+</script>
+</body>
+</html>

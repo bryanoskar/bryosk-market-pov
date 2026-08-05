@@ -1,41 +1,41 @@
 {
   "_comment": "Single source of truth for macro indicators (Plan A Tier 1). NOT YET wired into index.html render — see PLAN-macro-json.md for remaining steps. Each value carries a 'source' = the FRED / Trading Economics series ID it will auto-fetch from in Tier 2.",
-  "asOf": "2026-07-19",
-  "lastUpdated": "2026-07-19 11:15 UTC",
+  "asOf": "2026-08-06",
+  "lastUpdated": "2026-08-06 10:30 UTC",
   "values": {
     "us10y": {
       "label": "US 10Y Treasury",
-      "value": "4.42%",
-      "delta": "eased post-Fed",
-      "note": "sub-4.35% opens 4.25%; supportive of duration + growth",
+      "value": "4.35%",
+      "delta": "easing bias",
+      "note": "Jackson Hole (late Aug) the next signal for the path; supportive of duration",
       "source": { "provider": "FRED", "series": "DGS10" }
     },
     "fedFunds": {
       "label": "Fed Funds Rate",
       "value": "3.50–3.75%",
       "delta": "held; dovish tone",
-      "note": "easing-path tone firming; next meeting the watch",
+      "note": "market leaning to a Sept cut; Jackson Hole the tell",
       "source": { "provider": "FRED", "series": "FEDFUNDS" }
     },
     "usCPI": {
       "label": "US CPI (YoY)",
-      "value": "~4.0%",
-      "delta": "June print, cooling",
-      "note": "edged down from May's 4.2%; disinflation resuming",
+      "value": "~3.9%",
+      "delta": "cooling",
+      "note": "disinflation resuming off May's 4.2%; supports easing",
       "source": { "provider": "FRED", "series": "CPIAUCSL" }
     },
     "usPCE": {
       "label": "US PCE (YoY)",
-      "value": "~3.6%",
-      "delta": "May print in",
+      "value": "~3.5%",
+      "delta": "cooled",
       "note": "cooled vs prior; supports the easing-path tone",
       "source": { "provider": "FRED", "series": "PCEPI" }
     },
     "dxy": {
       "label": "Dollar Index (DXY)",
-      "value": "~98.8",
-      "delta": "softening",
-      "note": "sub-98.5 break would broaden EM relief further",
+      "value": "~98.4",
+      "delta": "softer",
+      "note": "sub-98 break would broaden EM relief further",
       "source": { "provider": "FRED", "series": "DTWEXBGS", "caveat": "DXY proper is ICE; DTWEXBGS is FRED's broad trade-weighted USD index — close proxy, label accordingly" }
     },
     "biRate": {

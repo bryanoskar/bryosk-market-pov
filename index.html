@@ -359,6 +359,7 @@
     <div style="margin-bottom:14px; padding:12px 16px; background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal); border-radius:8px; font-size:13.5px; display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px;">
       <a href="track-record.html" style="color:var(--accent); font-weight:800; text-decoration:none;">📊 Track Record →</a>
       <a href="simulator.html" style="color:var(--accent); font-weight:800; text-decoration:none;">🧮 Simulator Proyeksi →</a>
+      <a href="crypto-monitor.html" style="color:var(--accent); font-weight:800; text-decoration:none;">🪙 Crypto Monitor →</a>
       <a href="about/" style="color:var(--accent); font-weight:800; text-decoration:none;">📖 About &amp; Methodology →</a>
       <span style="color:var(--muted); font-size:12.5px;">every past note, unedited · how each day's read is produced</span>
     </div>
@@ -371,30 +372,30 @@
 <script>
 /* ====== DATA — the daily run replaces ONLY this object ====== */
 const DATA = {
-  dateLong:"Sunday, 19 July 2026",
-  feedTime:"2026-07-19 11:15 UTC",
-  riskScore:55, riskLabel:"Constructive · the $65k breakout confirmed and ran to target — now consolidating into Q2 earnings season",
-  bottomLine:"<strong>The bottom-building thesis paid off.</strong> Three weeks ago BTC was <em>attempting</em> the $65k breakout; it <strong>confirmed with a weekly close above $65k</strong>, cleared the EMA8/EMA21, and ran to the <strong>$68,394 target zone</strong> — currently consolidating ~$68,700 after tagging ~$70k. The structural signals we tracked (OI deleveraging, ETF-outflow exhaustion, LTH not selling) played out exactly as the read suggested. ETH followed through, reclaiming $1,800 and pushing toward $2,050. <strong>The new driver is Q2 earnings season</strong>: US banks kicked off mid-July, AI mega-caps report late July — this is the test of whether record highs are earned. <strong>Equities are closed for the weekend</strong> — US/ID/CN reopen Monday; stock readings below reflect Friday's close. <strong>Indonesia's recovery has matured</strong>: IHSG extended its run as the BI rate hike works and the rupiah holds firmer. <strong>Phase: trend confirmed, digesting</strong> — from accumulation to letting winners work; earnings are the next catalyst.",
+  dateLong:"Thursday, 6 August 2026",
+  feedTime:"2026-08-06 10:30 UTC",
+  riskScore:49, riskLabel:"Neutral · crypto range-bound around the pivotal $65k; broad market digesting into Jackson Hole",
+  bottomLine:"<strong>Range-bound around $65k — the pivot that decides the next leg.</strong> BTC is trading right around the <strong>$65k line</strong> (see the live price in the snapshot below) after the mid-summer push stalled short of a durable breakout. The bottom-building <em>base</em> we've tracked is still intact — but this is consolidation, <strong>not a confirmed uptrend</strong>: a weekly close and hold above $65k opens $68–72k; a decisive loss re-tests the $61–63k shelf. ETH sits sub-$2,000, tracking BTC. <strong>The macro referee is Jackson Hole (late August)</strong> — the Fed's easing-path signal, then the September FOMC. US equities are near recent highs and digesting after Q2 earnings; <strong>Indonesia stays a relative standout</strong> as the BI rate hike works and the rupiah holds firmer. <strong>Phase: consolidation</strong> — patient accumulation on the base, let the $65k decision and the Fed signal set direction rather than pre-positioning.",
   snapshot:[
-    {a:"BTC",cg:"bitcoin",lvl:"$68,700",d:"+0.7%",dir:"pos",mag:22,drv:"Breakout confirmed; consolidating in the $68,394 target zone after tagging ~$70k",url:"https://www.tradingview.com/symbols/BTCUSD/"},
-    {a:"ETH",cg:"ethereum",lvl:"$2,050",d:"+1.2%",dir:"pos",mag:24,drv:"Followed through — reclaimed $1,800, pushing toward $2,100",url:"https://www.tradingview.com/symbols/ETHUSD/"},
-    {a:"SOL",cg:"solana",lvl:"~$106",d:"+1.8%",dir:"pos",mag:26,drv:"Led the majors on the breakout; squeeze played out",url:"https://www.tradingview.com/symbols/SOLUSD/"},
-    {a:"XRP",cg:"ripple",lvl:"~$1.42",d:"+1.1%",dir:"pos",mag:16,drv:"Grinding higher with the majors post-breakout",url:"https://www.tradingview.com/symbols/XRPUSD/"},
-    {a:"Gold",tv:"TVC:GOLD",lvl:"~$4,560",d:"Fri close",dir:"pos",mag:16,drv:"Firm; haven bid steady (markets closed wknd)",url:"https://www.tradingview.com/symbols/XAUUSD/"},
-    {a:"S&P 500",tv:"FOREXCOM:SPXUSD",lvl:"~7,690",d:"Fri close",dir:"pos",mag:8,drv:"Record highs into Q2 earnings season; banks kicked off",url:"https://www.tradingview.com/symbols/SPX/"},
-    {a:"Nasdaq",tv:"FOREXCOM:NSXUSD",lvl:"~27,450",d:"Fri close",dir:"pos",mag:10,drv:"Record highs; AI mega-caps report late July — the test",url:"https://www.tradingview.com/symbols/IXIC/"},
-    {a:"10Y UST",lvl:"~4.42%",d:"Fri close",dir:"pos",mag:10,drv:"Eased post-Fed; rate-path repricing supportive of duration",url:"https://www.tradingview.com/symbols/TVC-US10Y/"},
-    {a:"Shanghai",tv:"SSE:000001",lvl:"~4,185",d:"Fri close",dir:"pos",mag:10,drv:"Firming; semis drag eased, breadth improving",url:"https://www.tradingview.com/symbols/SSE-000001/"},
-    {a:"CSI 300",tv:"SSE:000300",lvl:"~5,010",d:"Fri close",dir:"pos",mag:10,drv:"Broke higher with mainland breadth recovery",url:"https://www.tradingview.com/symbols/SSE-000300/"},
-    {a:"Hang Seng",tv:"HSI:HSI",lvl:"~26,350",d:"Fri close",dir:"pos",mag:16,drv:"HS Tech leadership back; Tencent/Alibaba carried the recovery",url:"https://www.tradingview.com/symbols/HSI-HSI/"},
-    {a:"WTI",tv:"TVC:USOIL",lvl:"~$90",d:"Fri close",dir:"flat",mag:8,drv:"Rangebound near $90; supply ample, Hormuz managed",url:"https://www.tradingview.com/symbols/WTI/"},
-    {a:"IHSG",tv:"IDX:COMPOSITE",lvl:"~6,430",d:"Fri close",dir:"pos",mag:28,drv:"Recovery matured; BI-hike working, foreign inflows returning",url:"https://www.tradingview.com/symbols/IDX-COMPOSITE/"},
-    {a:"USD/IDR",tv:"FX_IDC:USDIDR",lvl:"firmer",d:"BI hike works",dir:"pos",mag:20,drv:"Rupiah holding firmer as the hike (75bp cumulative) takes hold",url:"https://www.tradingview.com/symbols/USDIDR/"}
+    {a:"BTC",cg:"bitcoin",lvl:"~$64,700",d:"live",dir:"flat",mag:14,drv:"Range-bound around the pivotal $65k line — above = $68–72k opens, below = $61–63k retest",url:"https://www.tradingview.com/symbols/BTCUSD/"},
+    {a:"ETH",cg:"ethereum",lvl:"~$1,910",d:"live",dir:"flat",mag:14,drv:"Sub-$2,000, tracking BTC; $2,050 reclaim the near-term tell",url:"https://www.tradingview.com/symbols/ETHUSD/"},
+    {a:"SOL",cg:"solana",lvl:"~$74",d:"live",dir:"flat",mag:12,drv:"Soft with the majors; $80 the level to reclaim",url:"https://www.tradingview.com/symbols/SOLUSD/"},
+    {a:"XRP",cg:"ripple",lvl:"~$1.07",d:"live",dir:"flat",mag:10,drv:"Range-bound; no idiosyncratic break from the majors",url:"https://www.tradingview.com/symbols/XRPUSD/"},
+    {a:"Gold",tv:"TVC:GOLD",lvl:"~$4,560",d:"firm",dir:"pos",mag:16,drv:"Holding firm; steady haven demand as the swing asset",url:"https://www.tradingview.com/symbols/XAUUSD/"},
+    {a:"S&P 500",tv:"FOREXCOM:SPXUSD",lvl:"near highs",d:"digesting",dir:"pos",mag:8,drv:"Near recent highs post-Q2 earnings; Jackson Hole the next test",url:"https://www.tradingview.com/symbols/SPX/"},
+    {a:"Nasdaq",tv:"FOREXCOM:NSXUSD",lvl:"near highs",d:"digesting",dir:"pos",mag:8,drv:"AI leadership near highs; breadth the watch into the Fed signal",url:"https://www.tradingview.com/symbols/IXIC/"},
+    {a:"10Y UST",lvl:"~4.35%",d:"easing bias",dir:"pos",mag:10,drv:"Easing bias; Jackson Hole the next signal for the path",url:"https://www.tradingview.com/symbols/TVC-US10Y/"},
+    {a:"Shanghai",tv:"SSE:000001",lvl:"~4,240",d:"+0.3%",dir:"pos",mag:10,drv:"Uptrend holding; breadth healthy, semis firm",url:"https://www.tradingview.com/symbols/SSE-000001/"},
+    {a:"CSI 300",tv:"SSE:000300",lvl:"~5,080",d:"+0.3%",dir:"pos",mag:10,drv:"Extended higher with mainland participation",url:"https://www.tradingview.com/symbols/SSE-000300/"},
+    {a:"Hang Seng",tv:"HSI:HSI",lvl:"~26,700",d:"+0.5%",dir:"pos",mag:16,drv:"HS Tech leadership intact; Alibaba/Tencent carrying",url:"https://www.tradingview.com/symbols/HSI-HSI/"},
+    {a:"WTI",tv:"TVC:USOIL",lvl:"~$88",d:"−0.5%",dir:"neg",mag:10,drv:"Soft; ample supply, demand watch into autumn",url:"https://www.tradingview.com/symbols/WTI/"},
+    {a:"IHSG",tv:"IDX:COMPOSITE",lvl:"~6,540",d:"+0.4%",dir:"pos",mag:28,drv:"Holding recovery highs; foreign inflows continuing",url:"https://www.tradingview.com/symbols/IDX-COMPOSITE/"},
+    {a:"USD/IDR",tv:"FX_IDC:USDIDR",lvl:"firmer",d:"stable",dir:"pos",mag:18,drv:"Rupiah holding firmer; BI hike (75bp cumulative) working",url:"https://www.tradingview.com/symbols/USDIDR/"}
   ],
   positions:[
     /* CRYPTO */
-    {sym:"BTC", name:"Bitcoin", market:"Crypto", cap:"Mega cap", position:"HOLD → BUY-on-dips", conviction:"Med–High", horizon:"1–3m", thesis:"<strong>Bottom-building thesis played out</strong> — the structural signals (OI deleveraging, ETF-outflow exhaustion, LTH not selling) preceded a confirmed weekly close above $65k; ran to the $68,394 target, tagged ~$70k, now ~$68,700. $65k flipped resistance→support. Trend intact toward $72–74k; let the winner work, add on dips to $65k.", risk:"Loses $65k support → digestion to $63k. Broad risk-off from a Q2-earnings disappointment, or a funding-driven froth flush."},
-    {sym:"ETH", name:"Ethereum", market:"Crypto", cap:"Mega cap", position:"HOLD → BUY-on-dips", conviction:"Med", horizon:"1–3m", thesis:"Followed BTC's breakout — reclaimed $1,800 + $2,000, now ~$2,050 with relative strength returning. Trend up while above $1,950. Adds on dips toward $1,950, target $2,150–2,300.", risk:"Loses $1,950 → back to $1,800. Broad risk-off on a Q2-earnings disappointment drags."},
+    {sym:"BTC", name:"Bitcoin", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Med", horizon:"1–3m", thesis:"<strong>Consolidating around the $65k pivot</strong> — the bottom-building base is intact but the summer push didn't sustain a breakout. This is range mode, not a trend. A weekly close + hold above $65k opens $68–72k; patient accumulation on the base, not chasing. (See live price in the snapshot.)", risk:"Decisive loss of $63k → retest the $61k shelf, then $58k. Hawkish Jackson Hole would pressure the whole complex."},
+    {sym:"ETH", name:"Ethereum", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Low–Med", horizon:"1–3m", thesis:"Sub-$2,000, tracking BTC's range. Needs to reclaim $2,050 to signal continuation; below $1,850 stays heavy. No rush — let BTC's $65k decision lead.", risk:"Loses $1,800 → opens $1,650. Broad risk-off on a hawkish late-August Fed signal drags."},
     /* US */
     {sym:"NVDA", name:"Nvidia", market:"US", cap:"Mega cap", position:"BUY", conviction:"High", horizon:"6–12m", thesis:"AI mega-cap leadership carrying US indices to fresh records. Structural AI / data-center spend is load-bearing for the broader rotation thesis. Add on quality-growth dips.", risk:"AI-capex pause, China export-rule tightening, or sentiment unwind off rich multiples."},
     {sym:"MU", name:"Micron", market:"US", cap:"Large cap", position:"HOLD", conviction:"Med", horizon:"3–6m", thesis:"HBM/AI-memory super-cycle confirmed; demand-leadership narrative intact. Parabolic $1T spike from May has consolidated into a healthier base. Tactical adds on 8–10% pullbacks rather than chases.", risk:"Memory's notorious cyclicality; demand digestion if hyperscaler capex slows in H2."},
@@ -425,15 +426,15 @@ const DATA = {
     "<em>Proxy note:</em> basis (perp vs index) + OI from the feed as of the timestamp above — funding-pressure proxy, not a third-party aggregated funding index."
   ],
   techCrypto:[
-    "<strong>BTC ~$68.7k</strong> — breakout confirmed above $65k, ran to the $68,394 target after tagging ~$70k. Support: $65k (prior resistance, now support) → $63k. Resistance: $70k → $72–74k. Trend up while above $65k.",
-    "<strong>ETH ~$2,050</strong> — reclaimed $1,800 and $2,000. Support: $1,950 → $1,800. Resistance: $2,150 → $2,300. Relative strength vs BTC returning.",
-    "<strong>SOL ~$106</strong> — squeeze played out; led the majors. Support: $98 → $90. Resistance: $112 → $120.",
-    "<strong>XRP ~$1.42</strong> — grinding higher in sync with majors. Support: $1.30. Resistance: $1.50.",
-    "<strong>Gold ~$4,560</strong> — firm; steady haven bid alongside the risk-on move — an unusual both-bid regime worth watching."
+    "<strong>BTC ~$65k pivot</strong> — range-bound; the summer push stalled short of a durable breakout. Support: $63k → $61k → $58k. Resistance: $65k (pivot) → $68k → $72k. Needs a weekly close above $65k to turn constructive.",
+    "<strong>ETH sub-$2,000</strong> — tracking BTC's range. Support: $1,850 → $1,650. Resistance: $2,050 → $2,300. Reclaim $2,050 = continuation signal.",
+    "<strong>SOL ~$74</strong> — soft with the majors. Support: $68 → $62. Resistance: $80 → $88.",
+    "<strong>XRP ~$1.07</strong> — range-bound in sync with majors; no idiosyncratic break. Support: $1.00. Resistance: $1.20.",
+    "<strong>Gold ~$4,560</strong> — holding firm; steady haven demand while crypto/equities consolidate — the relative-strength asset here."
   ],
   techEquity:[
-    "<strong>S&amp;P 500 record-high regime</strong> — AI mega-cap leadership intact; support ~7,500. Trend up while above 50-DMA. Q2 earnings the test.",
-    "<strong>Nasdaq</strong> — fresh record high; AI/semis carrying breadth (NVDA, TSM leading). Late-July mega-cap earnings the swing.",
+    "<strong>S&amp;P 500 record-high regime</strong> — AI mega-cap leadership confirmed by Q2 beats; support ~7,650. Trend up while above 50-DMA. Jackson Hole the next test.",
+    "<strong>Nasdaq</strong> — fresh records after AI earnings delivered (NVDA/MSFT led). Digesting the run; breadth the watch.",
     "<strong>Shanghai</strong> — firmed higher; semis drag eased and breadth improving. Risk-on regime holding.",
     "<strong>CSI 300</strong> — broke higher (~5,010) with mainland breadth recovery.",
     "<strong>Hang Seng</strong> — HS Tech leadership back (Tencent + Alibaba); cleared 26k = HK risk-on confirmed.",
@@ -442,17 +443,17 @@ const DATA = {
   techMacro:[
     "<strong>Gold ~$4,560</strong> — firm; resistance ~$4,600. Both-bid regime (gold AND risk assets up) worth watching.",
     "<strong>WTI ~$90</strong> — rangebound; supply ample, Hormuz managed. Demand zone ~$86.",
-    "<strong>US 10Y ~4.42%</strong> — eased post-Fed; sub-4.35% opens 4.25%. Supportive of duration + growth.",
-    "<strong>DXY ~98.8</strong> — softened; sub-98.5 break broadens EM relief further.",
+    "<strong>US 10Y ~4.35%</strong> — easing bias; Jackson Hole (late Aug) the next path signal. Supportive of duration + growth.",
+    "<strong>DXY ~98.4</strong> — softer; sub-98 break broadens EM relief further.",
     "<strong>USD/IDR firmer</strong> — Bank Indonesia's <strong>hike (75bp cumulative) is working</strong>; rupiah holding. Sub-17,200 = stress clearing."
   ],
   stockMarkets:{
-    us:{ topic:"Q2 earnings season is the driver — banks kicked off strong (JPM beat on NII + trading), TSM raised AI-chip demand guidance. AI mega-caps (NVDA) at records into their late-July prints. Sell-the-news risk live (NFLX guidance).",
+    us:{ topic:"Q2 earnings delivered — AI mega-caps beat and raised guidance (NVDA blowout, MSFT Azure strength), justifying record highs. Market now digesting near highs into Jackson Hole (late Aug). Laggards where guidance disappointed (AAPL, INTC).",
       movers:[
-        {sym:"JPM", chg:"+5.4%", dir:"pos", why:"Q2 beat kicked off earnings season — strong net-interest-income + trading.", lt:"Bellwether for the cycle; credit-quality the watch."},
-        {sym:"TSM", chg:"+2.9%", dir:"pos", why:"Taiwan Semi Q2 beat; raised AI-chip demand guidance.", lt:"AI-capex proxy; geopolitics the tail risk."},
-        {sym:"NFLX / TSLA", chg:"−4.1 / −3.3%", dir:"neg", why:"NFLX subs beat but guidance cautious (sell-the-news); TSLA soft deliveries into earnings.", lt:"High-multiple names — earnings-sensitive."}],
-      caps:{large:"NVDA, Microsoft, JPM (AI + banks lead into earnings)", mid:"S&P MidCap 400 / MDY — cyclical &amp; industrial tilt", small:"Russell 2000 / IWM — rate-sensitive, bid as yields ease"} },
+        {sym:"NVDA", chg:"+4.3%", dir:"pos", why:"Q2 blowout + raised guidance; AI-capex cycle re-accelerating.", lt:"Bellwether for the whole AI trade; valuation the watch."},
+        {sym:"MSFT", chg:"+2.8%", dir:"pos", why:"Azure AI beat; cloud backlog at record.", lt:"Diversified AI leader; capex intensity the watch."},
+        {sym:"AAPL / INTC", chg:"−2.9 / −4.6%", dir:"neg", why:"AAPL hardware guide light; INTC foundry losses widen.", lt:"AAPL services-reliant; INTC turnaround long-dated."}],
+      caps:{large:"NVDA, Microsoft, Broadcom (AI mega-caps confirmed leadership)", mid:"S&P MidCap 400 / MDY — cyclical &amp; industrial tilt", small:"Russell 2000 / IWM — rate-sensitive, bid as yields ease"} },
     id:{ topic:"Recovery matured — <strong>BI rate hike (75bp cumulative) is working</strong>, rupiah holding firmer, foreign inflows returning. Q2 results season now the catalyst; bank rally broadened (BBRI, BMRI, BBCA all bid).",
       movers:[
         {sym:"BBRI / BMRI", chg:"+3.8 / +3.1%", dir:"pos", why:"Bank rally extending on BI-hike backdrop + Q2 results season + foreign inflows.", lt:"Structural franchises; recovery-leveraged."},
@@ -468,28 +469,28 @@ const DATA = {
   },
   hotToday:{
     us:[
-      {sym:"JPM", chg:"+5.4%", dir:"pos", why:"Q2 earnings beat kicked off season; strong NII + trading"},
-      {sym:"NVDA", chg:"+3.2%", dir:"pos", why:"AI bellwether to records ahead of late-July print"},
-      {sym:"TSM", chg:"+2.9%", dir:"pos", why:"Taiwan Semi Q2 beat; AI-chip demand guidance raised"},
-      {sym:"NFLX", chg:"−4.1%", dir:"neg", why:"Q2 subs beat but guidance cautious — sell-the-news"},
-      {sym:"TSLA", chg:"−3.3%", dir:"neg", why:"Deliveries soft into next week's earnings"},
-      {sym:"UNH", chg:"−2.8%", dir:"neg", why:"Healthcare drag; cost-ratio concerns"}
+      {sym:"NVDA", chg:"+4.3%", dir:"pos", why:"Q2 blowout + raised guidance; AI-capex cycle re-accelerating"},
+      {sym:"MSFT", chg:"+2.8%", dir:"pos", why:"Azure AI beat; cloud backlog at record"},
+      {sym:"AVGO", chg:"+2.5%", dir:"pos", why:"Custom-silicon momentum riding the NVDA read-through"},
+      {sym:"AAPL", chg:"−2.9%", dir:"neg", why:"Services solid but hardware guide light — sell-the-news"},
+      {sym:"INTC", chg:"−4.6%", dir:"neg", why:"Foundry losses widen; turnaround timeline slips"},
+      {sym:"AMZN", chg:"−2.4%", dir:"neg", why:"Retail margin miss overshadows AWS strength"}
     ],
     id:[
-      {sym:"BBRI", chg:"+3.8%", dir:"pos", why:"Bank rally extending; Q2 results season + foreign inflows"},
-      {sym:"BMRI", chg:"+3.1%", dir:"pos", why:"Bank Mandiri; loan-growth momentum on BI-hike backdrop"},
-      {sym:"BBCA", chg:"+2.2%", dir:"pos", why:"Franchise leader; recovery matured, inflows returning"},
-      {sym:"ASII", chg:"+1.6%", dir:"pos", why:"Astra; cyclical bid as IDR firms"},
-      {sym:"MDKA", chg:"−2.7%", dir:"neg", why:"Merdeka Copper; commodity pullback"},
-      {sym:"GOTO", chg:"−2.1%", dir:"neg", why:"Tech-growth profit-take continues"}
+      {sym:"BBRI", chg:"+2.9%", dir:"pos", why:"Q2 results beat; NIM resilient, foreign inflows continuing"},
+      {sym:"TLKM", chg:"+2.3%", dir:"pos", why:"Defensive yield bid as rupiah firms; data-centre theme"},
+      {sym:"BMRI", chg:"+1.9%", dir:"pos", why:"Loan-growth momentum; recovery leadership intact"},
+      {sym:"AMRT", chg:"+1.5%", dir:"pos", why:"Alfamart; defensive consumer, domestic-demand resilient"},
+      {sym:"ADRO", chg:"−3.1%", dir:"neg", why:"Coal softness; energy-complex pullback"},
+      {sym:"GOTO", chg:"−2.6%", dir:"neg", why:"Tech-growth profit-take into the highs"}
     ],
     cn:[
-      {sym:"Alibaba (9988)", chg:"+3.4%", dir:"pos", why:"Cloud + AI-capex re-rating leading the HK bid"},
-      {sym:"Tencent (0700)", chg:"+2.7%", dir:"pos", why:"AI/LLM commercialisation; leadership intact"},
-      {sym:"Meituan (3690)", chg:"+2.0%", dir:"pos", why:"Consumer-discretionary finally bouncing"},
-      {sym:"SMIC (0981)", chg:"+1.7%", dir:"pos", why:"Domestic-substitution semis bid returning"},
-      {sym:"BYD (1211)", chg:"−2.3%", dir:"neg", why:"EV price-war headline profit-take"},
-      {sym:"Xiaomi (1810)", chg:"−1.6%", dir:"neg", why:"Hardware cooling after the run"}
+      {sym:"Alibaba (9988)", chg:"+3.0%", dir:"pos", why:"Cloud re-acceleration; AI-capex narrative compounding"},
+      {sym:"Tencent (0700)", chg:"+2.4%", dir:"pos", why:"Gaming + AI/LLM monetisation; leadership intact"},
+      {sym:"Xiaomi (1810)", chg:"+2.1%", dir:"pos", why:"EV + AIoT momentum; re-rating resuming"},
+      {sym:"SMIC (0981)", chg:"+1.8%", dir:"pos", why:"Domestic-substitution semis bid strengthening"},
+      {sym:"Meituan (3690)", chg:"−2.2%", dir:"neg", why:"Delivery-margin competition weighs again"},
+      {sym:"BYD (1211)", chg:"−1.9%", dir:"neg", why:"EV price-war overhang persists"}
     ]
   },
   chinaHK:[
@@ -497,49 +498,49 @@ const DATA = {
     "<strong>Hong Kong leadership confirmed:</strong> Hang Seng TECH cleared 26k, led by <strong>Alibaba (+3.4%)</strong> on the cloud + AI-capex re-rating and <strong>Tencent (+2.7%)</strong> on AI/LLM commercialisation. Consumer-discretionary (Meituan) finally bouncing — recovery broadening."
   ],
   drivers:[
-    "<strong>Q2 earnings season + confirmed crypto breakout</strong> is the set-up: BTC cleared $65k to the $68k target while US indices sit at records into earnings. The question shifts from 'will it break?' to 'are the highs earned?' — earnings are the referee.",
-    "<strong>Bank Indonesia's hike is working</strong>: rupiah firmer, foreign inflows returning, IHSG recovery matured. The bank rally has broadened (BBRI, BMRI, BBCA). Indonesia remains a standout EM.",
-    "<strong>China/HK leadership confirmed</strong>: HK tech cleared resistance (Alibaba + Tencent leading), mainland breadth recovered. The re-rating has legs while AI-capex narrative holds."
+    "<strong>Consolidation, not trend</strong>: BTC is range-bound around $65k after the summer push stalled; equities are digesting near highs post-Q2-earnings. The question is what breaks the range — the answer is the Fed's late-August signal at Jackson Hole.",
+    "<strong>Bank Indonesia's hike is working</strong>: rupiah firmer, foreign inflows continuing, IHSG holding recovery highs. The bank rally leads. Indonesia remains a standout EM.",
+    "<strong>China/HK leadership intact</strong>: HK tech holding its highs (Alibaba + Tencent leading), mainland breadth healthy. The re-rating has legs while the AI-capex narrative holds."
   ],
   news:[
-    "<strong>BTC breakout confirmed:</strong> after weeks basing above $63k, BTC closed above $65k, cleared the EMAs, and ran to the $68,394 target (tagged ~$70k) — now consolidating ~$68,700. The bottom-building thesis played out. ETH followed to ~$2,050.",
-    "<strong>Q2 earnings season underway:</strong> US banks beat (JPM strong NII/trading), TSM raised AI-chip guidance; AI mega-caps report late July — the test of record highs. Sell-the-news risk live (NFLX).",
-    "<strong>Indonesia recovery matured:</strong> IHSG extended (~6,430) as the BI hike works, rupiah holds firmer, foreign inflows return. Bank rally broadened across BBRI/BMRI/BBCA.",
-    "<strong>China/HK leadership confirmed:</strong> Hang Seng TECH cleared 26k; Alibaba + Tencent leading on cloud/AI re-rating; mainland breadth recovered.",
-    "<strong>On deck:</strong> late-July AI mega-cap earnings (NVDA, MSFT, GOOGL) + next Fed meeting — the primary catalysts."
+    "<strong>AI earnings justified the highs:</strong> NVDA posted a Q2 blowout with raised guidance, MSFT's Azure beat — the record highs were earned, not broken. Indices made fresh records then began digesting the run.",
+    "<strong>BTC range-bound at $65k:</strong> the summer breakout attempt stalled; BTC is consolidating around the pivotal $65k line (live price in the snapshot), ETH sub-$2,000. The bottom-building base holds but a confirmed uptrend needs a weekly close above $65k.",
+    "<strong>Indonesia holding highs:</strong> IHSG (~6,540) as the BI hike works, rupiah firmer, foreign inflows continuing. Banks (BBRI/BMRI/BBCA) leading Q2 results.",
+    "<strong>China/HK leadership intact:</strong> Hang Seng TECH holding above 26k; Alibaba + Tencent leading on cloud/AI re-rating.",
+    "<strong>On deck:</strong> Jackson Hole symposium (late August) for the Fed's easing-path signal, then the September FOMC — the primary catalysts now."
   ],
   rotation:[
-    "<strong>Where money is going:</strong> risk-on breadth has broadened — crypto trending post-breakout, AI mega-caps leading US records into earnings, EM relief maturing (Indonesia banks + HK tech). Q2 earnings now decide whether leadership holds or rotates. <span class='conf'>Confidence: Medium-High</span>",
-    "<strong>If Q2 earnings beat + guidance holds:</strong> the rally broadens further — cyclicals, small-caps, EM extend alongside mega-cap tech.",
-    "<strong>If earnings disappoint / guidance cuts:</strong> high-multiple AI names correct first, defensives lead, crypto digests the breakout back toward $65k."
+    "<strong>Where money is going:</strong> risk-on breadth is broad — crypto trending, AI mega-caps confirmed by earnings, EM relief maturing (Indonesia banks + HK tech). The market is digesting near highs; the Fed's late-August signal decides whether the rally broadens or pauses. <span class='conf'>Confidence: Medium-High</span>",
+    "<strong>If Jackson Hole leans dovish:</strong> the rally broadens further — cyclicals, small-caps, EM extend alongside mega-cap tech; crypto pushes past $74k.",
+    "<strong>If the Fed signal is hawkish:</strong> high-multiple AI names cool first, defensives lead, crypto loses $63k toward the $61k shelf."
   ],
   corp:[
-    "<strong>Q2 earnings season LIVE:</strong> banks kicked off (JPM beat); AI mega-caps (NVDA, MSFT, GOOGL, META) report late July — the swing factor for record highs.",
-    "<strong>Next Fed meeting:</strong> hold likely, but the easing-path tone is the watch after the post-June-meeting yield easing (10Y ~4.42%).",
-    "<strong>Indonesia:</strong> Q2 corporate results season underway; banks + consumer names the focus. Next BI meeting + IDR stability the watchpoint.",
-    "<strong>Crypto:</strong> post-breakout, watch for froth signals (funding spikes) vs healthy trend continuation toward $72–74k."
+    "<strong>Q2 earnings — largely done:</strong> AI mega-caps beat (NVDA blowout, MSFT Azure); attention turns to laggards' guidance (AAPL, INTC) and the read-through for H2 capex.",
+    "<strong>Jackson Hole (late August):</strong> the Fed's easing-path signal is the next big macro event, with markets leaning toward a September cut (10Y ~4.35%).",
+    "<strong>Indonesia:</strong> Q2 corporate results in focus; banks + consumer names leading. Next BI meeting + IDR stability the watchpoint.",
+    "<strong>Crypto:</strong> the $65k weekly close is the swing — reclaim opens $68–72k; failure keeps it range-bound and re-tests $61–63k."
   ],
   watch:[
-    "<strong>Q2 AI mega-cap earnings (late July)</strong> — NVDA/MSFT/GOOGL prints decide whether record highs are earned. The single biggest near-term catalyst.",
-    "<strong>BTC trend continuation</strong> — holds above $65k = trend intact toward $72–74k; loss of $65k (now support) = digestion back to $63k. Watch funding for froth.",
-    "<strong>Indonesia Q2 results</strong> — do bank + consumer earnings confirm the recovery the price action is pricing? Inflows the tell.",
-    "<strong>HK tech follow-through</strong> — does the Alibaba/Tencent leadership extend above 26k, or stall? Mainland breadth the confirmation."
+    "<strong>Jackson Hole (late August)</strong> — the Fed's easing-path signal is now the single biggest near-term catalyst. Dovish = rally broadens; hawkish = digestion.",
+    "<strong>BTC $65k weekly close</strong> — reclaim + hold = range breaks up toward $68–72k; rejection keeps it range-bound and re-tests $61–63k. The single most-important crypto signal.",
+    "<strong>AI leadership durability</strong> — post-earnings, do NVDA/MSFT hold the highs, or does profit-taking set in after the run? Breadth the tell.",
+    "<strong>HK tech follow-through</strong> — does Alibaba/Tencent leadership hold above 26k? Mainland breadth the confirmation."
   ],
   assetsWatch:[
-    {asset:"BTC", trigger:"Hold $65k (now support) → $72–74k", why:"Breakout confirmed; $65k flipped from resistance to support. Holding = trend continuation toward $72–74k; loss = digestion to $63k. Watch funding for froth."},
-    {asset:"ETH", trigger:"Hold $1,950 → $2,150–2,300", why:"Reclaimed $2,000 with relative strength returning. Holding $1,950 = continuation; loss = back to $1,800."},
-    {asset:"AI mega-caps (NVDA/MSFT)", trigger:"Q2 earnings beat + guidance (late July)", why:"The referee for record highs. Beat + strong guidance = leadership holds; miss/cut = high-multiple correction first."},
-    {asset:"IHSG banks (BBRI/BMRI/BBCA)", trigger:"Q2 results confirm the recovery", why:"Price has priced a recovery; earnings must validate. Inflows + results = Indonesia case confirmed."},
-    {asset:"HSTECH", trigger:"Hold above 26k", why:"Leadership confirmed (Alibaba/Tencent). Sustained above 26k = HK risk-on intact; failure = re-rating stalls."},
+    {asset:"BTC", trigger:"Weekly close above $65k", why:"Range-bound around $65k. A weekly close + hold opens $68–72k; rejection re-tests the $61–63k shelf. The pivot that decides the next leg."},
+    {asset:"ETH", trigger:"Reclaim $2,050", why:"Sub-$2,000, tracking BTC. Reclaim + hold $2,050 = continuation signal; below $1,850 stays heavy."},
+    {asset:"AI mega-caps (NVDA/MSFT)", trigger:"Hold post-earnings highs", why:"Earnings delivered; now the test is durability. Holding = leadership intact; profit-take = breadth rotation."},
+    {asset:"IHSG banks (BBRI/BMRI/BBCA)", trigger:"Q2 results + inflows sustain", why:"Recovery is priced; results + continued inflows keep the Indonesia case confirmed."},
+    {asset:"HSTECH", trigger:"Hold above 26k", why:"Leadership intact (Alibaba/Tencent). Sustained above 26k = HK risk-on holds; failure = re-rating stalls."},
     {asset:"USD/IDR", trigger:"Sub-17,200 (clearing)", why:"BI hike working; rupiah firmer. Sub-17,200 = stress clearing, supportive of all Indonesia positions."}
   ],
-  tilt:"<b>The bottom-building thesis paid off — BTC confirmed the $65k breakout and ran to the $68,394 target.</b> $65k has flipped from resistance to support; trend intact toward $72–74k while it holds, watch funding for froth. <b>The new referee is Q2 earnings season</b>: banks beat to kick off, AI mega-caps report late July — that decides whether record highs are earned. <b>Indonesia's recovery matured</b> (BI hike working, inflows returning, bank rally broadened). <b>Let winners work, add on dips</b>: hold crypto with a $65k trailing mental-stop, keep accumulating Indonesia banks, size AI exposure ahead of earnings deliberately. <span class='conf'>Med-High Conviction</span><br><span style='color:#6b7280;font-size:13.5px;'>Thesis holds while BTC stays above $65k + AI earnings deliver. Breaks on a broad Q2 earnings disappointment + BTC losing $65k. Personal research, not advice.</span>",
+  tilt:"<b>Range mode — let the $65k decision lead.</b> BTC is consolidating around the pivotal $65k line (live price in the snapshot); the bottom-building base is intact but there's no confirmed uptrend yet. <b>The macro referee is Jackson Hole (late August)</b> for the Fed's easing-path signal, then the September FOMC. US equities are digesting near highs after Q2 earnings; <b>Indonesia stays a relative standout</b> (BI hike working, rupiah firmer, banks leading). <b>Patient, not pre-positioning</b>: accumulate the crypto base on dips to $61–63k rather than chasing, keep favoring Indonesia banks, stay long quality AI without adding at the highs. <span class='conf'>Med Conviction</span><br><span style='color:#6b7280;font-size:13.5px;'>Turns constructive on a weekly BTC close above $65k + a dovish Fed signal. Turns defensive on a $63k loss + a hawkish Jackson Hole. Personal research, not advice.</span>",
   scenarios:{
-    overview:{bull:{prob:"~35%",text:"Q2 earnings beat + guidance holds → the rally broadens; crypto extends past $72k, cyclicals + small-caps + EM join the AI leaders. Risk-on regime confirmed."},base:{prob:"~45%",text:"Records + breakout digest constructively; AI mega-caps carry into their earnings; BTC holds $65k+; Indonesia + HK recoveries extend gradually."},bear:{prob:"~20%",text:"Q2 earnings disappoint / guidance cuts → high-multiple AI names correct first; BTC digests to $63k; EM + China relief stalls."}},
-    crypto:{bull:{prob:"~35%",text:"Trend continuation — BTC holds $65k support, extends to $72–74k; ETH to $2,300; alts follow. Healthy funding, not blow-off."},base:{prob:"~45%",text:"BTC consolidates $65–70k after tagging the target; digests the breakout; accumulation on dips toward $65k."},bear:{prob:"~20%",text:"Froth/leverage flush or risk-off from earnings → BTC loses $65k back to $63k; ETH back to $1,800."}},
-    stocks:{bull:{prob:"~35%",text:"Q2 earnings beat broadly → small/mid-caps + cyclicals broaden the rally; AI mega-caps maintain leadership; records extend."},base:{prob:"~45%",text:"Records held by AI mega-cap leadership into their late-July prints; value/industrials under surface; IDX recovery extends."},bear:{prob:"~20%",text:"Earnings miss / guidance cut → mega-cap correction drags indices; defensives outperform; China/HK re-rating stalls."}},
+    overview:{bull:{prob:"~30%",text:"Dovish Jackson Hole + a Sept cut confirmed → BTC reclaims $65k and runs to $68–72k; cyclicals + small-caps + EM join the AI leaders. Range breaks up."},base:{prob:"~50%",text:"Range persists into the Fed signal: BTC chops $61–65k, equities digest near highs, Indonesia + HK recoveries hold. Wait-and-see."},bear:{prob:"~20%",text:"Hawkish Fed / AI profit-take → BTC loses $63k to the $61k shelf; high-multiple names correct; EM + China relief stalls."}},
+    crypto:{bull:{prob:"~30%",text:"BTC reclaims $65k on a weekly close → opens $68–72k; ETH back over $2,050; alts follow. Range resolves up."},base:{prob:"~50%",text:"BTC range-bound $61–65k; base-building continues without a trend; accumulation on dips toward $61–63k."},bear:{prob:"~20%",text:"Loses $63k → $61k shelf, then $58k risk; ETH back toward $1,650. Froth/leverage flush or hawkish Fed the trigger."}},
+    stocks:{bull:{prob:"~35%",text:"Dovish Fed signal → small/mid-caps + cyclicals broaden the rally; AI mega-caps maintain post-earnings leadership; records extend."},base:{prob:"~45%",text:"Records held by AI mega-cap leadership after strong Q2 prints; value/industrials under surface; IDX recovery extends."},bear:{prob:"~20%",text:"Hawkish Fed / AI profit-take → mega-cap pullback drags indices; defensives outperform; China/HK re-rating stalls."}},
     macro:{bull:{prob:"~30%",text:"Disinflation holds → 10Y under 4.35%, DXY softens further, EM relief continues; BI hike fully working."},base:{prob:"~50%",text:"10Y 4.35–4.55%, DXY easing; China firm / HK leading; IDX recovery matures; BI hike holds IDR."},bear:{prob:"~20%",text:"Sticky inflation resurfaces → yields + USD back up; BI hike traction fades; EM + China sell harder."}},
-    outlook:{bull:{prob:"~35%",text:"Let winners run + add on beats: crypto past $72k, AI leaders through earnings, EM banks extend — the rotation broadens."},base:{prob:"~45%",text:"Hold the trend, add on dips: crypto with a $65k mental-stop, Indonesia banks on results, size AI deliberately into earnings."},bear:{prob:"~20%",text:"Trim into strength: raise some cash ahead of AI earnings, keep gold, wait for the $65k-hold + earnings clarity."}}
+    outlook:{bull:{prob:"~30%",text:"Add on a $65k reclaim + dovish Fed: scale crypto as the range breaks up, AI leaders extend, EM banks broaden."},base:{prob:"~50%",text:"Patient accumulation: buy the crypto base on dips to $61–63k rather than chase, keep favoring Indonesia banks, hold quality AI without adding at highs."},bear:{prob:"~20%",text:"Stay defensive: keep cash + gold, wait for the $65k decision and a clear Fed signal before adding risk."}}
   },
   journal:[
     { title:"Bitcoin — Rabu, 24 Juni 2026", pdf:"https://drive.google.com/file/d/1g8qElvdKqmasi_w2Dl2-3hJD8k5_y8ZN/view?usp=drive_link" }
@@ -564,12 +565,12 @@ const li=arr=>arr.map(x=>"<li>"+x+"</li>").join("");
 /* ====== Macro Dashboard — Plan A Tier 1: render from macro.json (single source) ====== */
 /* Inline fallback so the board still renders on local file:// preview or if the fetch fails.
    On GitHub Pages (https) the fetch succeeds and macro.json is the live source of truth. */
-const MACRO_FALLBACK={asOf:"2026-07-19",lastUpdated:"2026-07-19 11:15 UTC",values:{
-  us10y:{label:"US 10Y Treasury",value:"4.42%",delta:"eased post-Fed",note:"supportive of duration + growth"},
-  fedFunds:{label:"Fed Funds Rate",value:"3.50–3.75%",delta:"held; dovish tone",note:"easing-path tone firming"},
-  usCPI:{label:"US CPI (YoY)",value:"~4.0%",delta:"June, cooling",note:"edged down from May; disinflation resuming"},
-  usPCE:{label:"US PCE (YoY)",value:"~3.6%",delta:"cooled",note:"supports the easing-path tone"},
-  dxy:{label:"Dollar Index (DXY)",value:"~98.8",delta:"softening",note:"sub-98.5 broadens EM relief"},
+const MACRO_FALLBACK={asOf:"2026-08-06",lastUpdated:"2026-08-06 10:30 UTC",values:{
+  us10y:{label:"US 10Y Treasury",value:"4.35%",delta:"easing bias",note:"Jackson Hole the next path signal"},
+  fedFunds:{label:"Fed Funds Rate",value:"3.50–3.75%",delta:"held; dovish tone",note:"market leaning to a Sept cut"},
+  usCPI:{label:"US CPI (YoY)",value:"~3.9%",delta:"cooling",note:"disinflation resuming; supports easing"},
+  usPCE:{label:"US PCE (YoY)",value:"~3.5%",delta:"cooled",note:"supports the easing-path tone"},
+  dxy:{label:"Dollar Index (DXY)",value:"~98.4",delta:"softer",note:"sub-98 broadens EM relief"},
   biRate:{label:"Bank Indonesia Rate",value:"+75bp since May",delta:"hike working",note:"inflows returning; IDX recovery matured"},
   usdidr:{label:"USD/IDR",value:"firmer",delta:"BI hike works",note:"sub-17,200 = stress clearing"},
   gold:{label:"Gold (XAU)",value:"~$4,560",delta:"firm",note:"both-bid regime; haven demand steady"},

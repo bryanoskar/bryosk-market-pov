@@ -359,7 +359,7 @@
     <div style="margin-bottom:14px; padding:12px 16px; background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal); border-radius:8px; font-size:13.5px; display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px;">
       <a href="track-record.html" style="color:var(--accent); font-weight:800; text-decoration:none;">📊 Track Record →</a>
       <a href="simulator.html" style="color:var(--accent); font-weight:800; text-decoration:none;">🧮 Simulator Proyeksi →</a>
-      <a href="crypto-monitor.html" style="color:var(--accent); font-weight:800; text-decoration:none;">🪙 Crypto Monitor →</a>
+      <!-- crypto-monitor.html exists locally but isn't pushed yet (Bryan keeps push control on this file) — link hidden until it's live, see ROADMAP-JOURNAL.md -->
       <a href="about/" style="color:var(--accent); font-weight:800; text-decoration:none;">📖 About &amp; Methodology →</a>
       <span style="color:var(--muted); font-size:12.5px;">every past note, unedited · how each day's read is produced</span>
     </div>
@@ -388,7 +388,7 @@ const DATA = {
     {a:"Shanghai",tv:"SSE:000001",lvl:"~4,240",d:"+0.3%",dir:"pos",mag:10,drv:"Uptrend holding; breadth healthy, semis firm",url:"https://www.tradingview.com/symbols/SSE-000001/"},
     {a:"CSI 300",tv:"SSE:000300",lvl:"~5,080",d:"+0.3%",dir:"pos",mag:10,drv:"Extended higher with mainland participation",url:"https://www.tradingview.com/symbols/SSE-000300/"},
     {a:"Hang Seng",tv:"HSI:HSI",lvl:"~26,700",d:"+0.5%",dir:"pos",mag:16,drv:"HS Tech leadership intact; Alibaba/Tencent carrying",url:"https://www.tradingview.com/symbols/HSI-HSI/"},
-    {a:"WTI",tv:"TVC:USOIL",lvl:"~$88",d:"−0.5%",dir:"neg",mag:10,drv:"Soft; ample supply, demand watch into autumn",url:"https://www.tradingview.com/symbols/WTI/"},
+    {a:"WTI",tv:"TVC:USOIL",lvl:"~$90",d:"rangebound",dir:"flat",mag:10,drv:"Rangebound; ample supply, Hormuz managed",url:"https://www.tradingview.com/symbols/WTI/"},
     {a:"IHSG",tv:"IDX:COMPOSITE",lvl:"~6,540",d:"+0.4%",dir:"pos",mag:28,drv:"Holding recovery highs; foreign inflows continuing",url:"https://www.tradingview.com/symbols/IDX-COMPOSITE/"},
     {a:"USD/IDR",tv:"FX_IDC:USDIDR",lvl:"firmer",d:"stable",dir:"pos",mag:18,drv:"Rupiah holding firmer; BI hike (75bp cumulative) working",url:"https://www.tradingview.com/symbols/USDIDR/"}
   ],
@@ -399,7 +399,7 @@ const DATA = {
     /* US */
     {sym:"NVDA", name:"Nvidia", market:"US", cap:"Mega cap", position:"BUY", conviction:"High", horizon:"6–12m", thesis:"AI mega-cap leadership carrying US indices to fresh records. Structural AI / data-center spend is load-bearing for the broader rotation thesis. Add on quality-growth dips.", risk:"AI-capex pause, China export-rule tightening, or sentiment unwind off rich multiples."},
     {sym:"MU", name:"Micron", market:"US", cap:"Large cap", position:"HOLD", conviction:"Med", horizon:"3–6m", thesis:"HBM/AI-memory super-cycle confirmed; demand-leadership narrative intact. Parabolic $1T spike from May has consolidated into a healthier base. Tactical adds on 8–10% pullbacks rather than chases.", risk:"Memory's notorious cyclicality; demand digestion if hyperscaler capex slows in H2."},
-    {sym:"XLE", name:"Energy Select Sector ETF", market:"US", cap:"Large-cap ETF", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"YTD sector leader on capex discipline + cyclical rotation. Oil capped near $93 with Hormuz reopening managed. Rotation thesis intact while range-mode regime persists.", risk:"Real Iran deal would sustain oil weakness. Hedge: pair with quality growth."},
+    {sym:"XLE", name:"Energy Select Sector ETF", market:"US", cap:"Large-cap ETF", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"YTD sector leader on capex discipline + cyclical rotation. Oil rangebound near $90 with Hormuz reopening managed. Rotation thesis intact while range-mode regime persists.", risk:"Real Iran deal would sustain oil weakness. Hedge: pair with quality growth."},
     {sym:"VRT", name:"Vertiv", market:"US", cap:"Mid cap", position:"BUY", conviction:"High", horizon:"6–12m", thesis:"AI-infrastructure picks-and-shovels: liquid cooling, power &amp; thermal gear for hyperscale + AI data centers. Benefits regardless of which model wins. Today's AI mega-cap strength (NVDA, MU) confirms capex bid intact.", risk:"Hyperscaler capex pause; valuation already extended after the AI run."},
     {sym:"NET", name:"Cloudflare", market:"US", cap:"Mid cap", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"CDN → security + AI inference platform transition (Workers AI &amp; Zero Trust). Enterprise large-deal momentum is the near-term catalyst. AI-platform thesis alive in today's market.", risk:"Competitive intensity (Akamai, Fastly, hyperscalers); broader AI sentiment unwind."},
     /* HONG KONG */

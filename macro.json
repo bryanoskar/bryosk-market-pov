@@ -1,7 +1,7 @@
 {
   "_comment": "Single source of truth for macro indicators (Plan A Tier 1). NOT YET wired into index.html render — see PLAN-macro-json.md for remaining steps. Each value carries a 'source' = the FRED / Trading Economics series ID it will auto-fetch from in Tier 2.",
-  "asOf": "2026-08-06",
-  "lastUpdated": "2026-08-06 10:30 UTC",
+  "asOf": "2026-08-07",
+  "lastUpdated": "2026-08-07 13:00 UTC",
   "values": {
     "us10y": {
       "label": "US 10Y Treasury",
@@ -14,7 +14,7 @@
       "label": "Fed Funds Rate",
       "value": "3.50–3.75%",
       "delta": "held; dovish tone",
-      "note": "market leaning to a Sept cut; Jackson Hole the tell",
+      "note": "July NFP +22K (vs +75K exp.), unemployment 4.3% (highest since Oct 2021) — weak print firms up Sept-cut odds ahead of Jackson Hole",
       "source": { "provider": "FRED", "series": "FEDFUNDS" }
     },
     "usCPI": {
@@ -61,9 +61,9 @@
     },
     "wti": {
       "label": "WTI Crude",
-      "value": "~$90",
-      "delta": "rangebound",
-      "note": "supply ample, Hormuz managed; demand zone ~$86",
+      "value": "~$77",
+      "delta": "sharply lower",
+      "note": "Iran–Oman Hormuz shipping deal eased supply risk; down from the $90s, bounced off a 3-day slide to ~$75",
       "source": { "provider": "FRED", "series": "DCOILWTICO" }
     }
   }

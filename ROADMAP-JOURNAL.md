@@ -12,6 +12,30 @@
 
 ---
 
+## 2026-08-07 (Jumat) — Automasi harian (jalan otomatis pagi)
+
+### ✅ Dikerjakan
+- **Health check**: pull dari GitHub bersih. Situs (`dateLong`) masih tanggal 6 Agustus (Kamis) — cuma selisih 1 hari dari hari ini, tidak parah stale. `archive/metadata.json` sehat (entry terakhir 6 Agustus).
+- **Perbaikan data akurasi — harga minyak WTI (bug nyata, bukan cuma stale):** situs menulis WTI "~$90" di 5 tempat (snapshot, tesis XLE, Macro Technicals, `macro.json`, fallback JS). Saya cek data riil via web search (sumber: TradingEconomics, FXDailyReport, Forbes Advisor) — harga minyak sebenarnya sudah **jatuh tajam ke ~$77** (dari $90-an) setelah Iran & Oman sepakat soal jalur pelayaran Selat Hormuz, yang meredakan risiko pasokan. Ini gap ~15%, kelas bug yang sama dengan insiden WTI bulan lalu. **Fix:** semua 5 tempat disamakan ke ~$77 + narasi disesuaikan (bukan lagi "rangebound $90", tapi "turun tajam dari $90-an akibat kesepakatan Hormuz"). Tesis XLE (BUY) saya update fakta harganya saja — **rating BUY tidak saya ubah**, tapi saya tandai risikonya sudah mulai kejadian, biar Bryan bisa review sendiri kalau mau downgrade.
+- **Tambah data baru yang tervalidasi:** laporan tenaga kerja AS Juli (NFP) keluar pagi ini — hanya +22K (ekspektasi +75K), pengangguran naik ke 4.3% (tertinggi sejak Okt 2021). Saya tambahkan sebagai item faktual di News + Drivers (mendukung ekspektasi rate cut September), tanpa mengubah opini/skenario probabilitas yang sudah ada.
+- **Update tanggal**: `dateLong`/`feedTime`/macro "as of" dimajukan ke Jumat, 7 Agustus 2026 — karena kali ini benar-benar ada update data riil (bukan cuma ganti tanggal kosong). BTC snapshot disesuaikan ke ~$64,400 (tervalidasi via web search, real-time CoinGecko tidak terjangkau dari sini) — masih konsisten dengan narasi "pivot $65k" yang sudah ada, tidak diubah.
+- **Task ke-2 (accessibility polish):** tab navigasi (Overview/Positions/Crypto/dst) belum punya atribut ARIA sama sekali — buruk untuk pembaca screen-reader/keyboard. Ditambahkan `role="tablist"/"tab"/"tabpanel"`, `aria-selected`, `aria-controls`, dan navigasi keyboard (arrow kiri/kanan, Home/End) di JS `activate()`. Fungsional sama seperti sebelumnya, cuma lebih accessible.
+- **Verifikasi**: server lokal + Claude Browser — 0 error console, dateline tampil "Friday, 7 August 2026", macro board fetch dari `macro.json` menunjukkan $77 + "as of 2026-08-07", klik tab Macro & Global berfungsi + `aria-selected` update dengan benar, tidak ada sisa "$90" yang kontradiktif (6 sisa mention semuanya sengaja bilang "dari $90-an" sebagai konteks historis).
+
+### 🐛 Error & Fix
+1. **Harga WTI stale ~15% (lihat detail di atas)** — ditemukan lewat web search (bukan cuma nebak), diperbaiki di 5 lokasi sekaligus + `macro.json`.
+2. Tidak ada error teknis lain ditemukan saat verifikasi browser.
+
+### ⏸ Butuh Bryan
+- **Tesis XLE (Energy ETF, posisi BUY)**: sekarang harga minyak sudah turun sesuai skenario risiko yang kita tulis sendiri ("Real Iran deal would sustain oil weakness"). Saya cuma perbaiki fakta harganya, TIDAK saya downgrade rating-nya — itu keputusan discretionary Bryan. Worth dilihat kalau ada waktu.
+- Item lama masih menunggu: aktifkan link Crypto Monitor (kapan Bryan bilang go), Plan A Tier 2 (API key FRED/TE), Premium platform/Trakteer (KYC + rekening).
+
+### ➡️ Berikutnya
+- Kalau Bryan setuju, lanjut turunkan konviksi/posisi XLE sesuai data minyak baru.
+- Lanjut roadmap pure-code: Simulator Phase 2 (worst/base/bull), Track Record enhancements, mobile/dark-mode polish.
+
+---
+
 ## 2026-08-06 (Kamis) — Automasi harian (jalan otomatis pagi)
 
 ### ✅ Dikerjakan

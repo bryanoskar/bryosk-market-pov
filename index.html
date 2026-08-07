@@ -258,20 +258,20 @@
   </div>
   <div class="livebar"><span class="dot" id="livedot"></span><span id="livestamp">Connecting live prices…</span></div>
 
-  <div class="tabbar" id="tabbar">
-    <button class="tab active">Overview</button>
-    <button class="tab">Positions</button>
-    <button class="tab">Crypto</button>
-    <button class="tab">Stocks</button>
-    <button class="tab">Macro &amp; Global</button>
-    <button class="tab">Outlook</button>
+  <div class="tabbar" id="tabbar" role="tablist" aria-label="Market view sections">
+    <button class="tab active" role="tab" id="tab-0" aria-controls="panel-0" aria-selected="true" tabindex="0">Overview</button>
+    <button class="tab" role="tab" id="tab-1" aria-controls="panel-1" aria-selected="false" tabindex="-1">Positions</button>
+    <button class="tab" role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1">Crypto</button>
+    <button class="tab" role="tab" id="tab-3" aria-controls="panel-3" aria-selected="false" tabindex="-1">Stocks</button>
+    <button class="tab" role="tab" id="tab-4" aria-controls="panel-4" aria-selected="false" tabindex="-1">Macro &amp; Global</button>
+    <button class="tab" role="tab" id="tab-5" aria-controls="panel-5" aria-selected="false" tabindex="-1">Outlook</button>
     <!-- JOURNAL TAB HIDDEN (Bryan's request 2026-07-19 — re-enable by removing style="display:none" here AND on the panel below) -->
-    <button class="tab" style="display:none">📓 My Journal Research</button>
+    <button class="tab" role="tab" id="tab-6" aria-controls="panel-6" aria-selected="false" tabindex="-1" style="display:none">📓 My Journal Research</button>
     <div class="tabind" id="tabind"></div>
   </div>
 
   <!-- OVERVIEW -->
-  <div class="tabpanel active">
+  <div class="tabpanel active" role="tabpanel" id="panel-0" aria-labelledby="tab-0" tabindex="0">
     <section><h2>Bottom Line</h2><div class="bottomline" id="bottomline"></div></section>
     <section><h2>Cross-Asset Snapshot · crypto live · tap a row for chart</h2><div class="rows" id="rows"></div></section>
     <section><h2>Bull · Base · Bear · whole market</h2><div class="scen" id="scenOverview"></div></section>
@@ -279,7 +279,7 @@
   </div>
 
   <!-- POSITIONS -->
-  <div class="tabpanel">
+  <div class="tabpanel" role="tabpanel" id="panel-1" aria-labelledby="tab-1" tabindex="0">
     <section>
       <h2>Positions · Buy / Hold / Sell · focus list</h2>
       <div class="posnote"><strong>Research / education, not financial advice.</strong> Each rating reflects a personal PoV with stated <strong>conviction</strong> and <strong>time horizon</strong>; size & risk-management are yours. Small-cap exposure uses ETFs / indices as a defensible proxy.</div>
@@ -289,7 +289,7 @@
   </div>
 
   <!-- CRYPTO -->
-  <div class="tabpanel">
+  <div class="tabpanel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" tabindex="0">
     <section><h2>Crypto Leaderboard · LIVE</h2>
       <div class="lbstamp" id="lbstamp">Loading live data…</div>
       <div class="lbgrid">
@@ -312,7 +312,7 @@
   </div>
 
   <!-- STOCKS -->
-  <div class="tabpanel">
+  <div class="tabpanel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" tabindex="0">
     <section><h2>Stock Movers · LIVE</h2>
       <div class="seg" id="stkSeg">
         <button class="segbtn active" data-market="us">US</button>
@@ -332,7 +332,7 @@
   </div>
 
   <!-- MACRO & GLOBAL -->
-  <div class="tabpanel">
+  <div class="tabpanel" role="tabpanel" id="panel-4" aria-labelledby="tab-4" tabindex="0">
     <section><h2>Macro Dashboard · key indicators · single source</h2><div id="macroBoard"></div></section>
     <section><h2>China &amp; Hong Kong</h2><ul id="chinaHK"></ul></section>
     <section><h2>What's Driving It</h2><ul id="drivers"></ul></section>
@@ -342,7 +342,7 @@
   </div>
 
   <!-- OUTLOOK -->
-  <div class="tabpanel">
+  <div class="tabpanel" role="tabpanel" id="panel-5" aria-labelledby="tab-5" tabindex="0">
     <section><h2>Capital Rotation &amp; Flow Forecast</h2><ul id="rotation"></ul></section>
     <section><h2>Corporate Actions Watch</h2><ul id="corp"></ul></section>
     <section><h2>What We're Watching · 24–48h</h2><ul id="watch"></ul></section>
@@ -351,7 +351,7 @@
   </div>
 
   <!-- MY JOURNAL RESEARCH — HIDDEN (Bryan's request 2026-07-19; re-enable by removing style="display:none" on the button above; this panel stays inert while hidden) -->
-  <div class="tabpanel">
+  <div class="tabpanel" role="tabpanel" id="panel-6" aria-labelledby="tab-6" tabindex="0">
     <div id="journalList"></div>
   </div>
 
@@ -372,12 +372,12 @@
 <script>
 /* ====== DATA — the daily run replaces ONLY this object ====== */
 const DATA = {
-  dateLong:"Thursday, 6 August 2026",
-  feedTime:"2026-08-06 10:30 UTC",
+  dateLong:"Friday, 7 August 2026",
+  feedTime:"2026-08-07 13:00 UTC",
   riskScore:49, riskLabel:"Neutral · crypto range-bound around the pivotal $65k; broad market digesting into Jackson Hole",
   bottomLine:"<strong>Range-bound around $65k — the pivot that decides the next leg.</strong> BTC is trading right around the <strong>$65k line</strong> (see the live price in the snapshot below) after the mid-summer push stalled short of a durable breakout. The bottom-building <em>base</em> we've tracked is still intact — but this is consolidation, <strong>not a confirmed uptrend</strong>: a weekly close and hold above $65k opens $68–72k; a decisive loss re-tests the $61–63k shelf. ETH sits sub-$2,000, tracking BTC. <strong>The macro referee is Jackson Hole (late August)</strong> — the Fed's easing-path signal, then the September FOMC. US equities are near recent highs and digesting after Q2 earnings; <strong>Indonesia stays a relative standout</strong> as the BI rate hike works and the rupiah holds firmer. <strong>Phase: consolidation</strong> — patient accumulation on the base, let the $65k decision and the Fed signal set direction rather than pre-positioning.",
   snapshot:[
-    {a:"BTC",cg:"bitcoin",lvl:"~$64,700",d:"live",dir:"flat",mag:14,drv:"Range-bound around the pivotal $65k line — above = $68–72k opens, below = $61–63k retest",url:"https://www.tradingview.com/symbols/BTCUSD/"},
+    {a:"BTC",cg:"bitcoin",lvl:"~$64,400",d:"live",dir:"flat",mag:14,drv:"Holding just under the pivotal $65k line — above = $68–72k opens, below = $61–63k retest",url:"https://www.tradingview.com/symbols/BTCUSD/"},
     {a:"ETH",cg:"ethereum",lvl:"~$1,910",d:"live",dir:"flat",mag:14,drv:"Sub-$2,000, tracking BTC; $2,050 reclaim the near-term tell",url:"https://www.tradingview.com/symbols/ETHUSD/"},
     {a:"SOL",cg:"solana",lvl:"~$74",d:"live",dir:"flat",mag:12,drv:"Soft with the majors; $80 the level to reclaim",url:"https://www.tradingview.com/symbols/SOLUSD/"},
     {a:"XRP",cg:"ripple",lvl:"~$1.07",d:"live",dir:"flat",mag:10,drv:"Range-bound; no idiosyncratic break from the majors",url:"https://www.tradingview.com/symbols/XRPUSD/"},
@@ -388,7 +388,7 @@ const DATA = {
     {a:"Shanghai",tv:"SSE:000001",lvl:"~4,240",d:"+0.3%",dir:"pos",mag:10,drv:"Uptrend holding; breadth healthy, semis firm",url:"https://www.tradingview.com/symbols/SSE-000001/"},
     {a:"CSI 300",tv:"SSE:000300",lvl:"~5,080",d:"+0.3%",dir:"pos",mag:10,drv:"Extended higher with mainland participation",url:"https://www.tradingview.com/symbols/SSE-000300/"},
     {a:"Hang Seng",tv:"HSI:HSI",lvl:"~26,700",d:"+0.5%",dir:"pos",mag:16,drv:"HS Tech leadership intact; Alibaba/Tencent carrying",url:"https://www.tradingview.com/symbols/HSI-HSI/"},
-    {a:"WTI",tv:"TVC:USOIL",lvl:"~$90",d:"rangebound",dir:"flat",mag:10,drv:"Rangebound; ample supply, Hormuz managed",url:"https://www.tradingview.com/symbols/WTI/"},
+    {a:"WTI",tv:"TVC:USOIL",lvl:"~$77",d:"−14% fm $90s",dir:"neg",mag:16,drv:"Fell sharply as the Iran–Oman Hormuz shipping deal eased supply risk; bounced off a 3-day slide to ~$75",url:"https://www.tradingview.com/symbols/WTI/"},
     {a:"IHSG",tv:"IDX:COMPOSITE",lvl:"~6,540",d:"+0.4%",dir:"pos",mag:28,drv:"Holding recovery highs; foreign inflows continuing",url:"https://www.tradingview.com/symbols/IDX-COMPOSITE/"},
     {a:"USD/IDR",tv:"FX_IDC:USDIDR",lvl:"firmer",d:"stable",dir:"pos",mag:18,drv:"Rupiah holding firmer; BI hike (75bp cumulative) working",url:"https://www.tradingview.com/symbols/USDIDR/"}
   ],
@@ -399,7 +399,7 @@ const DATA = {
     /* US */
     {sym:"NVDA", name:"Nvidia", market:"US", cap:"Mega cap", position:"BUY", conviction:"High", horizon:"6–12m", thesis:"AI mega-cap leadership carrying US indices to fresh records. Structural AI / data-center spend is load-bearing for the broader rotation thesis. Add on quality-growth dips.", risk:"AI-capex pause, China export-rule tightening, or sentiment unwind off rich multiples."},
     {sym:"MU", name:"Micron", market:"US", cap:"Large cap", position:"HOLD", conviction:"Med", horizon:"3–6m", thesis:"HBM/AI-memory super-cycle confirmed; demand-leadership narrative intact. Parabolic $1T spike from May has consolidated into a healthier base. Tactical adds on 8–10% pullbacks rather than chases.", risk:"Memory's notorious cyclicality; demand digestion if hyperscaler capex slows in H2."},
-    {sym:"XLE", name:"Energy Select Sector ETF", market:"US", cap:"Large-cap ETF", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"YTD sector leader on capex discipline + cyclical rotation. Oil rangebound near $90 with Hormuz reopening managed. Rotation thesis intact while range-mode regime persists.", risk:"Real Iran deal would sustain oil weakness. Hedge: pair with quality growth."},
+    {sym:"XLE", name:"Energy Select Sector ETF", market:"US", cap:"Large-cap ETF", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"YTD sector leader on capex discipline + cyclical rotation, but oil has dropped sharply to ~$77 (from the $90s) as an Iran–Oman Hormuz shipping deal eased supply risk. The risk case below is now live — watch closely rather than adding at these levels.", risk:"The Iran–Oman Hormuz deal is sustaining oil weakness (the scenario we flagged) — a break below ~$74 would pressure the whole complex further. Hedge: pair with quality growth."},
     {sym:"VRT", name:"Vertiv", market:"US", cap:"Mid cap", position:"BUY", conviction:"High", horizon:"6–12m", thesis:"AI-infrastructure picks-and-shovels: liquid cooling, power &amp; thermal gear for hyperscale + AI data centers. Benefits regardless of which model wins. Today's AI mega-cap strength (NVDA, MU) confirms capex bid intact.", risk:"Hyperscaler capex pause; valuation already extended after the AI run."},
     {sym:"NET", name:"Cloudflare", market:"US", cap:"Mid cap", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"CDN → security + AI inference platform transition (Workers AI &amp; Zero Trust). Enterprise large-deal momentum is the near-term catalyst. AI-platform thesis alive in today's market.", risk:"Competitive intensity (Akamai, Fastly, hyperscalers); broader AI sentiment unwind."},
     /* HONG KONG */
@@ -442,7 +442,7 @@ const DATA = {
   ],
   techMacro:[
     "<strong>Gold ~$4,560</strong> — firm; resistance ~$4,600. Both-bid regime (gold AND risk assets up) worth watching.",
-    "<strong>WTI ~$90</strong> — rangebound; supply ample, Hormuz managed. Demand zone ~$86.",
+    "<strong>WTI ~$77</strong> — dropped sharply from the $90s as the Iran–Oman Hormuz shipping-route deal eased supply risk; bounced off a 3-day slide to ~$75. Support ~$74; resistance ~$82.",
     "<strong>US 10Y ~4.35%</strong> — easing bias; Jackson Hole (late Aug) the next path signal. Supportive of duration + growth.",
     "<strong>DXY ~98.4</strong> — softer; sub-98 break broadens EM relief further.",
     "<strong>USD/IDR firmer</strong> — Bank Indonesia's <strong>hike (75bp cumulative) is working</strong>; rupiah holding. Sub-17,200 = stress clearing."
@@ -498,11 +498,15 @@ const DATA = {
     "<strong>Hong Kong leadership confirmed:</strong> Hang Seng TECH cleared 26k, led by <strong>Alibaba (+3.4%)</strong> on the cloud + AI-capex re-rating and <strong>Tencent (+2.7%)</strong> on AI/LLM commercialisation. Consumer-discretionary (Meituan) finally bouncing — recovery broadening."
   ],
   drivers:[
+    "<strong>Weak July jobs report</strong>: nonfarm payrolls +22K (vs +75K expected), unemployment 4.3% — the highest since Oct 2021. Reinforces the dovish Fed lean heading into Jackson Hole and the September FOMC.",
+    "<strong>Oil's supply-risk premium is unwinding</strong>: the Iran–Oman Hormuz shipping deal dropped WTI from the $90s to ~$77 — a real geopolitical de-escalation, not a demand story. Watch XLE / energy positioning closely.",
     "<strong>Consolidation, not trend</strong>: BTC is range-bound around $65k after the summer push stalled; equities are digesting near highs post-Q2-earnings. The question is what breaks the range — the answer is the Fed's late-August signal at Jackson Hole.",
     "<strong>Bank Indonesia's hike is working</strong>: rupiah firmer, foreign inflows continuing, IHSG holding recovery highs. The bank rally leads. Indonesia remains a standout EM.",
     "<strong>China/HK leadership intact</strong>: HK tech holding its highs (Alibaba + Tencent leading), mainland breadth healthy. The re-rating has legs while the AI-capex narrative holds."
   ],
   news:[
+    "<strong>July jobs report came in weak:</strong> nonfarm payrolls +22K vs +75K expected, unemployment rate ticked up to 4.3% — the highest since October 2021. Firms up the case for a September Fed cut ahead of Jackson Hole.",
+    "<strong>Oil dropped sharply:</strong> WTI fell from the $90s to the mid-$70s (~$77) after Iran and Oman reached a Hormuz shipping-route agreement, easing supply-risk premium — a real de-escalation, not just noise.",
     "<strong>AI earnings justified the highs:</strong> NVDA posted a Q2 blowout with raised guidance, MSFT's Azure beat — the record highs were earned, not broken. Indices made fresh records then began digesting the run.",
     "<strong>BTC range-bound at $65k:</strong> the summer breakout attempt stalled; BTC is consolidating around the pivotal $65k line (live price in the snapshot), ETH sub-$2,000. The bottom-building base holds but a confirmed uptrend needs a weekly close above $65k.",
     "<strong>Indonesia holding highs:</strong> IHSG (~6,540) as the BI hike works, rupiah firmer, foreign inflows continuing. Banks (BBRI/BMRI/BBCA) leading Q2 results.",
@@ -565,16 +569,16 @@ const li=arr=>arr.map(x=>"<li>"+x+"</li>").join("");
 /* ====== Macro Dashboard — Plan A Tier 1: render from macro.json (single source) ====== */
 /* Inline fallback so the board still renders on local file:// preview or if the fetch fails.
    On GitHub Pages (https) the fetch succeeds and macro.json is the live source of truth. */
-const MACRO_FALLBACK={asOf:"2026-08-06",lastUpdated:"2026-08-06 10:30 UTC",values:{
+const MACRO_FALLBACK={asOf:"2026-08-07",lastUpdated:"2026-08-07 13:00 UTC",values:{
   us10y:{label:"US 10Y Treasury",value:"4.35%",delta:"easing bias",note:"Jackson Hole the next path signal"},
-  fedFunds:{label:"Fed Funds Rate",value:"3.50–3.75%",delta:"held; dovish tone",note:"market leaning to a Sept cut"},
+  fedFunds:{label:"Fed Funds Rate",value:"3.50–3.75%",delta:"held; dovish tone",note:"July NFP +22K vs +75K exp., unemployment 4.3% — firms up Sept-cut odds"},
   usCPI:{label:"US CPI (YoY)",value:"~3.9%",delta:"cooling",note:"disinflation resuming; supports easing"},
   usPCE:{label:"US PCE (YoY)",value:"~3.5%",delta:"cooled",note:"supports the easing-path tone"},
   dxy:{label:"Dollar Index (DXY)",value:"~98.4",delta:"softer",note:"sub-98 broadens EM relief"},
   biRate:{label:"Bank Indonesia Rate",value:"+75bp since May",delta:"hike working",note:"inflows returning; IDX recovery matured"},
   usdidr:{label:"USD/IDR",value:"firmer",delta:"BI hike works",note:"sub-17,200 = stress clearing"},
   gold:{label:"Gold (XAU)",value:"~$4,560",delta:"firm",note:"both-bid regime; haven demand steady"},
-  wti:{label:"WTI Crude",value:"~$90",delta:"rangebound",note:"supply ample; Hormuz managed"}
+  wti:{label:"WTI Crude",value:"~$77",delta:"sharply lower",note:"Iran–Oman Hormuz shipping deal eased supply risk; down from the $90s, bounced off a 3-day slide"}
 }};
 function renderMacro(d){
   if(!$("macroBoard")) return;
@@ -670,15 +674,27 @@ const ind=$("tabind");
 function initWidget(box){ if(!box||box.dataset.done) return; const s=document.createElement("script"); s.type="text/javascript"; s.async=true; s.src=box.dataset.src; s.text=box.dataset.cfg; box.querySelector(".tradingview-widget-container").appendChild(s); box.dataset.done="1"; }
 function moveInd(i){ const t=tabs[i]; ind.style.left=t.offsetLeft+"px"; ind.style.width=t.offsetWidth+"px"; }
 const STOCKS_TAB_INDEX=3;
-function activate(i){
-  tabs.forEach((t,j)=>t.classList.toggle("active",j===i));
+function activate(i,{focus}={}){
+  tabs.forEach((t,j)=>{const on=j===i; t.classList.toggle("active",on); t.setAttribute("aria-selected",on?"true":"false"); t.tabIndex=on?0:-1;});
   panels.forEach((p,j)=>p.classList.toggle("active",j===i));
   moveInd(i);
   if(i===STOCKS_TAB_INDEX) renderStk(curMkt);
   panels[i].querySelectorAll(".bar").forEach(b=>{b.style.width="0";requestAnimationFrame(()=>requestAnimationFrame(()=>b.style.width=b.dataset.mag+"%"));});
   $("tabbar").scrollIntoView({block:"start"});
+  if(focus) tabs[i].focus();
 }
 tabs.forEach((t,i)=>t.addEventListener("click",()=>activate(i)));
+$("tabbar").addEventListener("keydown",e=>{
+  const visible=tabs.map((t,i)=>({t,i})).filter(x=>x.t.style.display!=="none");
+  const cur=visible.findIndex(x=>x.t===document.activeElement);
+  if(cur<0) return;
+  let next=null;
+  if(e.key==="ArrowRight") next=visible[(cur+1)%visible.length].i;
+  else if(e.key==="ArrowLeft") next=visible[(cur-1+visible.length)%visible.length].i;
+  else if(e.key==="Home") next=visible[0].i;
+  else if(e.key==="End") next=visible[visible.length-1].i;
+  if(next!==null){ e.preventDefault(); activate(next,{focus:true}); }
+});
 window.addEventListener("resize",()=>{const a=tabs.findIndex(t=>t.classList.contains("active"));if(a>=0)moveInd(a);});
 
 /* ====== STOCKS segmented control ====== */

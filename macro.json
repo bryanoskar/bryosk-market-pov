@@ -5,7 +5,7 @@
   "values": {
     "us10y": {
       "label": "US 10Y Treasury",
-      "value": "4.35%",
+      "value": "~4.35%",
       "delta": "easing bias",
       "note": "Jackson Hole (late Aug) the next signal for the path; supportive of duration",
       "source": { "provider": "FRED", "series": "DGS10" }

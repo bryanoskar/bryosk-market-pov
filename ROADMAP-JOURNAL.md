@@ -12,6 +12,26 @@
 
 ---
 
+## 2026-08-08 (Sabtu) — Automasi harian (jalan otomatis pagi)
+
+### ✅ Dikerjakan
+- **Health check**: pull dari GitHub bersih (auto-archive tanggal 7 Agustus sudah jalan sehat). Situs (`dateLong`) masih tanggal 7 Agustus (Jumat), selisih 1 hari — wajar untuk Sabtu pagi.
+- **Update tanggal + cek fakta pakai web search** (bukan tebak-tebakan): karena hari ini akhir pekan (bursa saham AS/Indonesia tutup), saya cek dulu apakah narasi yang sudah ada masih akurat sebelum majukan tanggal. Hasil cek: **konsisten dengan yang sudah ditulis** — S&P 500 malah tutup di rekor tertinggi $7,757.64 Jumat kemarin (+3.6% seminggu), Nasdaq +1.3%, minyak WTI turun >7% minggu ini menembus $78 gara-gara isu kesepakatan Iran-Oman soal Selat Hormuz (persis tema yang sudah kita tulis), BTC $64,718 (persis di sekitar level $65k yang sudah dinarasikan). **Karena semuanya cocok, saya TIDAK mengubah opini/skenario** — cuma majukan tanggal ke Sabtu, 8 Agustus 2026, dan sedikit refresh angka BTC snapshot (~$64,400 → ~$64,700, sesuai data riil) sebagai angka fallback (harga live sebenarnya tetap ditampilkan oleh feed CoinGecko real-time di situs).
+- **Task ke-2 (perbaikan struktural, bukan cuma refresh harian): sinkronisasi angka macro di teks narasi.** Ini nyambung ke bug yang berulang 2 hari beruntun minggu ini (harga WTI beda-beda di beberapa tempat). Sekarang 4 angka paling rawan kontradiksi — **Gold, WTI, US 10Y, DXY** — di semua tempat mereka disebut (baris snapshot, panel Macro Technicals, tab Crypto untuk Gold, dan tesis saham XLE) **otomatis ambil angka dari `macro.json`** lewat fungsi baru `syncMacroProse()`. Jadi ke depannya, refresh 1 angka di `macro.json` = semua tempat ikut berubah bareng, tidak mungkin lagi ada 2 angka WTI yang beda di 1 halaman.
+- **Verifikasi ekstra (bukan cuma tampilan sama)**: saya sengaja ubah sementara angka WTI di `macro.json` jadi teks dummy, reload situs, dan konfirmasi ke-3 tempat WTI disebut (snapshot, tesis XLE, Macro Technicals) **berubah bareng** — baru setelah terbukti jalan, saya kembalikan ke angka asli ($77). Ini pembuktian nyata mekanismenya jalan, bukan cuma asumsi.
+
+### 🐛 Error & Fix
+- Tidak ada error teknis baru. 0 error console (selain CORS CoinGecko yang memang cuma muncul di server lokal, bukan di situs live).
+
+### ⏸ Butuh Bryan
+- Item lama masih menunggu: aktifkan link Crypto Monitor (kapan Bryan bilang go), Plan A Tier 2 (API key FRED/TE), Premium platform/Trakteer (KYC + rekening).
+
+### ➡️ Berikutnya
+- Perluas sinkronisasi macro ke angka lain kalau muncul (lihat catatan di `PLAN-macro-json.md`).
+- Lanjut roadmap: Simulator Phase 2 (worst/base/bull), Track Record enhancements, mobile/dark-mode polish. **Catatan untuk sesi nanti:** saya sempat scoping dark-mode — ternyata warna `--accent`/`--navy` dipakai ganda (sebagai warna teks DAN warna latar) di ~20 tempat, jadi butuh 2 set token warna terpisah supaya teks tetap terbaca di background gelap. Bukan tugas 1 sesi singkat, sengaja tidak saya kerjakan asal-asalan.
+
+---
+
 ## 2026-08-07 (Jumat) — Automasi harian (jalan otomatis pagi)
 
 ### ✅ Dikerjakan
@@ -85,7 +105,7 @@
 | Workstream | Status | Catatan |
 |---|---|---|
 | **Main site — daily read** | 🟢 Live | 7 tab (Journal disembunyikan sementara atas permintaan Bryan). Refresh harian via automation. |
-| **Macro Dashboard (Plan A Tier 1)** | 🟢 Live | `macro.json` single-source + panel di tab Macro. |
+| **Macro Dashboard (Plan A Tier 1)** | 🟢 Live | `macro.json` single-source + panel di tab Macro. Angka Gold/WTI/10Y/DXY di teks narasi lain (snapshot, techMacro, tesis XLE) sekarang ikut auto-sync dari `macro.json` (2026-08-08) — kelas bug kontradiksi harga (WTI $88/$90/$93/$77) tidak bisa terulang lagi untuk 4 angka ini. |
 | Plan A Tier 2 (auto-feed FRED/TE) | 🔵 Nunggu Bryan | Perlu API key (gratis). |
 | **Track Record dashboard** | 🟢 Live | `track-record.html` — timeline risk-score + call log. |
 | **Investment Simulator** | 🟢 Live (Phase 0) | `simulator.html`. Next: Phase 2 worst/base/bull. Refresh 5Y otomatis bulanan. |

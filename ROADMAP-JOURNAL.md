@@ -12,6 +12,27 @@
 
 ---
 
+## 2026-08-09 (Minggu) — Automasi harian (jalan otomatis pagi)
+
+### ✅ Dikerjakan
+- **Health check**: pull dari GitHub bersih (auto-archive kemarin sehat, commit `87139eb` sudah live). Situs (`dateLong`) masih tanggal 8 Agustus (Sabtu), selisih 1 hari — wajar untuk Minggu pagi (bursa saham tutup akhir pekan).
+- **Cek fakta pakai web search dulu sebelum ubah apa pun** (sesuai prinsip data akurat = trust): karena akhir pekan, saya cek apakah narasi yang sudah ada (BTC ~$65k range-bound, WTI ~$77 pasca kesepakatan Hormuz, S&P 500 rekor $7,757.64 +3.6% minggu ini) masih cocok dengan data riil. Hasil: **semua cocok** — BTC $64,895 (persis di kisaran $65k yang sudah ditulis), WTI $78.18 di hari perdagangan terakhir (dalam toleransi "~$77" yang sudah ada), S&P 500 dan Nasdaq tidak ada data baru (bursa AS/Indonesia libur akhir pekan, closing Jumat tetap berlaku). **Karena tidak ada kontradiksi, saya TIDAK mengubah opini/skenario** — cuma majukan tanggal ke Minggu, 9 Agustus 2026, dan refresh angka BTC snapshot fallback (~$64,700 → ~$64,900, sesuai harga live yang dikonfirmasi).
+- **Task ke-2 (fitur baru, bukan cuma refresh): sparkline mini-chart di kartu Posisi (poscard) untuk BTC & ETH.** Ini bagian dari item roadmap "position-card sparklines" yang sudah lama di backlog. Sebelumnya sparkline 7-hari cuma ada di baris Snapshot (Cross-Asset), sekarang ditambahkan juga di kartu Posisi BTC & ETH di tab Positions — **memakai data live CoinGecko yang SAMA yang sudah di-fetch** untuk Snapshot (`liveMarkets()`), jadi tidak ada panggilan API baru/tambahan. **Kenapa cuma BTC & ETH dulu, tidak semua posisi:** untuk saham (NVDA, BBCA, dst.) belum ada sumber data harga historis gratis & bebas-CORS dari lingkungan ini (masalah yang sama persis yang ditemukan di riset Simulator — lihat `simulator-roadmap`) — jadi saya TIDAK memaksakan/mengarang data harga saham. Jujur diselesaikan sebagian (crypto dulu), sisanya (saham) menunggu proxy/backend data seperti direncanakan di Simulator Phase 1.
+- **Verifikasi**: server lokal + Claude Browser — 0 error console, tanggal tampil "Sunday, 9 August 2026", 7 tab & panel utuh, 14 kartu posisi render, 9 kartu macro board render dari `macro.json`, live BTC snapshot menunjukkan $64,997 (dekat dengan fallback $64,900 yang saya set — konsisten), DAN kedua sparkline poscard (BTC & ETH) berhasil terisi SVG dari data live 7-hari yang sama.
+
+### 🐛 Error & Fix
+- Tidak ada error teknis baru. 0 error console.
+
+### ⏸ Butuh Bryan
+- Item lama masih menunggu: aktifkan link Crypto Monitor (kapan Bryan bilang go), Plan A Tier 2 (API key FRED/TE), Premium platform/Trakteer (KYC + rekening).
+- Sparkline untuk posisi SAHAM (non-crypto) butuh sumber data historis — perlu proxy/backend (sama seperti kebutuhan Simulator Phase 1), bukan sesuatu yang bisa saya selesaikan sendiri dari sini.
+
+### ➡️ Berikutnya
+- Kalau ada waktu: lanjutkan sparkline ke instrumen lain begitu ada sumber data (nyambung ke Simulator Phase 1 — live data layer/proxy).
+- Lanjut roadmap: Simulator Phase 2 (worst/base/bull), Track Record enhancements, dark-mode (sudah di-scope, butuh sesi khusus — lihat catatan 8 Agustus).
+
+---
+
 ## 2026-08-08 (Sabtu) — Automasi harian (jalan otomatis pagi)
 
 ### ✅ Dikerjakan
@@ -104,7 +125,7 @@
 
 | Workstream | Status | Catatan |
 |---|---|---|
-| **Main site — daily read** | 🟢 Live | 7 tab (Journal disembunyikan sementara atas permintaan Bryan). Refresh harian via automation. |
+| **Main site — daily read** | 🟢 Live | 7 tab (Journal disembunyikan sementara atas permintaan Bryan). Refresh harian via automation. Kartu Posisi BTC/ETH sekarang punya mini-sparkline 7D live (2026-08-09); saham menunggu sumber data. |
 | **Macro Dashboard (Plan A Tier 1)** | 🟢 Live | `macro.json` single-source + panel di tab Macro. Angka Gold/WTI/10Y/DXY di teks narasi lain (snapshot, techMacro, tesis XLE) sekarang ikut auto-sync dari `macro.json` (2026-08-08) — kelas bug kontradiksi harga (WTI $88/$90/$93/$77) tidak bisa terulang lagi untuk 4 angka ini. |
 | Plan A Tier 2 (auto-feed FRED/TE) | 🔵 Nunggu Bryan | Perlu API key (gratis). |
 | **Track Record dashboard** | 🟢 Live | `track-record.html` — timeline risk-score + call log. |

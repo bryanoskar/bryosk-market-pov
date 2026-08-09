@@ -216,6 +216,9 @@
   .poscard .thesis{font-size:12.5px; color:#333; margin-bottom:3px; line-height:1.5;}
   .poscard .thesis strong, .poscard .risk strong{color:var(--accent);}
   .poscard .risk{font-size:12px; color:#555; line-height:1.5;}
+  .poscard-spark{display:flex; align-items:center; gap:6px; margin-bottom:6px;}
+  .poscard-spark .spark-lbl{font-size:9.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; font-weight:700;}
+  .poscard-spark svg.spark{width:84px; height:20px;}
 
   .share{position:fixed; right:18px; bottom:18px; z-index:30; background:var(--accent); color:#fff; border:none; border-radius:30px; padding:13px 20px; font-size:14px; font-weight:700; cursor:pointer; box-shadow:0 10px 30px -8px rgba(0,68,124,.6); transition:transform .15s;}
   .share:hover{transform:scale(1.05);}
@@ -372,12 +375,12 @@
 <script>
 /* ====== DATA — the daily run replaces ONLY this object ====== */
 const DATA = {
-  dateLong:"Saturday, 8 August 2026",
-  feedTime:"2026-08-08 09:00 UTC",
+  dateLong:"Sunday, 9 August 2026",
+  feedTime:"2026-08-09 09:00 UTC",
   riskScore:49, riskLabel:"Neutral · crypto range-bound around the pivotal $65k; broad market digesting into Jackson Hole",
   bottomLine:"<strong>Range-bound around $65k — the pivot that decides the next leg.</strong> BTC is trading right around the <strong>$65k line</strong> (see the live price in the snapshot below) after the mid-summer push stalled short of a durable breakout. The bottom-building <em>base</em> we've tracked is still intact — but this is consolidation, <strong>not a confirmed uptrend</strong>: a weekly close and hold above $65k opens $68–72k; a decisive loss re-tests the $61–63k shelf. ETH sits sub-$2,000, tracking BTC. <strong>The macro referee is Jackson Hole (late August)</strong> — the Fed's easing-path signal, then the September FOMC. US equities are near recent highs and digesting after Q2 earnings; <strong>Indonesia stays a relative standout</strong> as the BI rate hike works and the rupiah holds firmer. <strong>Phase: consolidation</strong> — patient accumulation on the base, let the $65k decision and the Fed signal set direction rather than pre-positioning.",
   snapshot:[
-    {a:"BTC",cg:"bitcoin",lvl:"~$64,700",d:"live",dir:"flat",mag:14,drv:"Holding just under the pivotal $65k line — above = $68–72k opens, below = $61–63k retest",url:"https://www.tradingview.com/symbols/BTCUSD/"},
+    {a:"BTC",cg:"bitcoin",lvl:"~$64,900",d:"live",dir:"flat",mag:14,drv:"Holding just under the pivotal $65k line — above = $68–72k opens, below = $61–63k retest",url:"https://www.tradingview.com/symbols/BTCUSD/"},
     {a:"ETH",cg:"ethereum",lvl:"~$1,910",d:"live",dir:"flat",mag:14,drv:"Sub-$2,000, tracking BTC; $2,050 reclaim the near-term tell",url:"https://www.tradingview.com/symbols/ETHUSD/"},
     {a:"SOL",cg:"solana",lvl:"~$74",d:"live",dir:"flat",mag:12,drv:"Soft with the majors; $80 the level to reclaim",url:"https://www.tradingview.com/symbols/SOLUSD/"},
     {a:"XRP",cg:"ripple",lvl:"~$1.07",d:"live",dir:"flat",mag:10,drv:"Range-bound; no idiosyncratic break from the majors",url:"https://www.tradingview.com/symbols/XRPUSD/"},
@@ -394,8 +397,8 @@ const DATA = {
   ],
   positions:[
     /* CRYPTO */
-    {sym:"BTC", name:"Bitcoin", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Med", horizon:"1–3m", thesis:"<strong>Consolidating around the $65k pivot</strong> — the bottom-building base is intact but the summer push didn't sustain a breakout. This is range mode, not a trend. A weekly close + hold above $65k opens $68–72k; patient accumulation on the base, not chasing. (See live price in the snapshot.)", risk:"Decisive loss of $63k → retest the $61k shelf, then $58k. Hawkish Jackson Hole would pressure the whole complex."},
-    {sym:"ETH", name:"Ethereum", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Low–Med", horizon:"1–3m", thesis:"Sub-$2,000, tracking BTC's range. Needs to reclaim $2,050 to signal continuation; below $1,850 stays heavy. No rush — let BTC's $65k decision lead.", risk:"Loses $1,800 → opens $1,650. Broad risk-off on a hawkish late-August Fed signal drags."},
+    {sym:"BTC", name:"Bitcoin", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Med", horizon:"1–3m", cg:"bitcoin", thesis:"<strong>Consolidating around the $65k pivot</strong> — the bottom-building base is intact but the summer push didn't sustain a breakout. This is range mode, not a trend. A weekly close + hold above $65k opens $68–72k; patient accumulation on the base, not chasing. (See live price in the snapshot.)", risk:"Decisive loss of $63k → retest the $61k shelf, then $58k. Hawkish Jackson Hole would pressure the whole complex."},
+    {sym:"ETH", name:"Ethereum", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Low–Med", horizon:"1–3m", cg:"ethereum", thesis:"Sub-$2,000, tracking BTC's range. Needs to reclaim $2,050 to signal continuation; below $1,850 stays heavy. No rush — let BTC's $65k decision lead.", risk:"Loses $1,800 → opens $1,650. Broad risk-off on a hawkish late-August Fed signal drags."},
     /* US */
     {sym:"NVDA", name:"Nvidia", market:"US", cap:"Mega cap", position:"BUY", conviction:"High", horizon:"6–12m", thesis:"AI mega-cap leadership carrying US indices to fresh records. Structural AI / data-center spend is load-bearing for the broader rotation thesis. Add on quality-growth dips.", risk:"AI-capex pause, China export-rule tightening, or sentiment unwind off rich multiples."},
     {sym:"MU", name:"Micron", market:"US", cap:"Large cap", position:"HOLD", conviction:"Med", horizon:"3–6m", thesis:"HBM/AI-memory super-cycle confirmed; demand-leadership narrative intact. Parabolic $1T spike from May has consolidated into a healthier base. Tactical adds on 8–10% pullbacks rather than chases.", risk:"Memory's notorious cyclicality; demand digestion if hyperscaler capex slows in H2."},
@@ -650,6 +653,7 @@ $("sources").innerHTML="Sources: "+DATA.sources.map(s=>`<a href="${s[1]}" target
       html+=`<div class="poscard ${cls}">
         <div class="topline"><span class="sym">${p.sym}<small>${p.name?" · "+p.name:""}</small></span><span class="badge ${cls}">${p.position}</span></div>
         <div class="meta">${p.cap} · ${p.horizon} · ${p.conviction} conviction</div>
+        ${p.cg?`<div class="poscard-spark" data-cg="${p.cg}"><span class="spark-lbl">7D</span></div>`:""}
         <div class="thesis"><strong>Thesis:</strong> ${p.thesis}</div>
         <div class="risk"><strong>Key risk:</strong> ${p.risk}</div>
       </div>`;
@@ -808,6 +812,11 @@ async function liveMarkets(){
       const prices=sparkMap[row.dataset.cg]; if(!prices) return;
       const track=row.querySelector(".bartrack"); if(!track) return;
       track.innerHTML=sparkSVG(prices);
+    });
+    // Position-card sparklines (crypto only — live 7D data; no free keyless equity source yet)
+    document.querySelectorAll(".poscard-spark[data-cg]").forEach(el=>{
+      const prices=sparkMap[el.dataset.cg]; if(!prices) return;
+      el.innerHTML=`<span class="spark-lbl">7D</span>`+sparkSVG(prices,84,20);
     });
   }catch(e){ $("lbstamp").textContent="Live data temporarily unavailable (CoinGecko rate-limited) — retrying…"; }
 }

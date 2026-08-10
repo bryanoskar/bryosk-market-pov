@@ -12,6 +12,37 @@
 
 ---
 
+## 2026-08-10 (Senin) — Automasi harian (jalan otomatis pagi)
+
+### ✅ Dikerjakan
+- **Health check nemu bug pipeline yang cukup serius (bukan cuma stale tanggal):** `archive/metadata.json` mandek di tanggal 7 Agustus padahal commit harian tetap jalan sampai 9 Agustus — artinya sistem auto-archive (GitHub Action) **diam-diam berhenti 2 hari**. **Akar masalahnya:** GitHub Action auto-archive jalan di jam tetap (00:10 UTC = 07:10 WIB) dan skrip-nya (`scripts/daily-archive.py`) punya aturan "cuma archive kalau tanggal di halaman = tanggal hari ini (UTC)". Ternyata jam saya (automasi harian ini) jalan makin larut tiap hari (01:07 WIB tgl 6 Agu → 09:28 WIB tgl 7 → **23:33 WIB tgl 8** → **20:34 WIB tgl 9**) — begitu saya update tanggal SETELAH jam 07:10 WIB, jam archive keburu jalan duluan lihat tanggal "kemarin", skip, dan pola ini **terus berulang selamanya** karena kedua jadwal (automasi saya vs archive cron) tidak akan pernah balik sinkron sendiri.
+- **Fix struktural (bukan tambal sementara):** saya ubah logika `scripts/daily-archive.py` — sekarang archive disimpan berdasarkan **tanggal yang tertulis DI konten halaman itu sendiri** (bukan dibandingkan ke jam UTC saat cron jalan), dan cek "sudah pernah diarsipkan belum" juga berdasarkan tanggal itu, bukan "hari ini". Ini tetap mencegah bug asli yang pernah kejadian 31 Mei (konten basi tersimpan dengan nama file yang salah/lebih baru), tapi TIDAK lagi butuh 2 jadwal berbeda selalu pas bareng. Saya tes langsung: jalankan skrip yang sudah diperbaiki terhadap `index.html` hari ini (9 Agustus saat itu) — berhasil archive dengan benar.
+- **Backfill 2 hari yang hilang:** ambil isi asli commit tanggal 8 Agustus dari git history, arsipkan sebagai `archive/2026-08-08.html` + entry metadata (risk 49/100), dan arsipkan juga 9 Agustus dari isi terbaru. Sekarang metadata lengkap lagi berurutan (10, 9, 8, 7, 6, 19 Jul, ...) tanpa lompatan.
+- **Task ke-2: perbaikan data akurasi macro (bukan cuma refresh tanggal).** Saya cek lewat web search 4 angka macro yang sudah di-auto-sync (`Gold`, `DXY`, `US 10Y`, `WTI`) — 3 dari 4 ternyata SALAH/basi cukup jauh dari harga riil:
+  - **Gold**: tertulis ~$4,560, harga riil ~$4,345 (Jumat naik 2%+ ke level tertinggi sejak pertengahan Juni, +~7% seminggu, dipicu data lapangan kerja lemah yang mendorong ekspektasi pemotongan suku bunga Fed) — beda ~5%.
+  - **DXY (Dollar Index)**: tertulis ~98.4 dengan narasi "softer, sub-98 break", padahal riil ~99.6–99.7 — **arahnya kebalik**, dolar masih di atas 98 bukan menembus ke bawah.
+  - **US 10Y Treasury**: tertulis ~4.35%, riil ~4.60% (turun 7bp hari Jumat tapi levelnya tetap lebih tinggi dari yang tertulis) — beda 25bp.
+  - **WTI**: tertulis ~$77, riil ~$78 — beda tipis, masih dalam toleransi, tapi saya samakan juga sekalian karena sedang membenahi file yang sama.
+  - Semua 4 angka + catatan kualitatifnya saya update di `macro.json` (satu sumber kebenaran) — otomatis menyebar ke semua tempat yang pakai `data-mref` (baris snapshot, panel Macro Technicals, tesis saham XLE) lewat mekanisme `syncMacroProse()` yang sudah dibangun sebelumnya. Saya juga update fallback JS (`MACRO_FALLBACK`) dan 1 sisa mention manual (`10Y ~4.35%` di kartu Corporate/Jackson Hole) yang tidak ke-cover oleh mekanisme auto-sync.
+  - **Kenapa ini penting:** persis prinsip #1 Bryan (data akurat = trust) — pembaca yang cek Gold/DXY/10Y hari ini akan lihat angka yang jauh dari kenyataan kalau tidak diperbaiki.
+- **Update tanggal**: `dateLong`/`feedTime` dimajukan ke Senin, 10 Agustus 2026. BTC snapshot fallback (~$64,900) sudah cocok dengan harga riil ($64,895.75) — tidak perlu diubah.
+- **Verifikasi**: server lokal + Claude Browser — 0 error console (selain 429 CoinGecko yang memang cuma muncul di server lokal karena rate limit, bukan bug), dateline tampil "Monday, 10 August 2026", 7 tab, 16 kartu posisi, dan semua 4 `data-mref` (gold/us10y/wti/dxy) terbukti terisi angka baru yang benar langsung dari `macro.json` (bukan angka lama).
+
+### 🐛 Error & Fix
+1. **Auto-archive GitHub Action diam-diam berhenti 2 hari (8 & 9 Agustus)** — lihat detail akar masalah di atas. Diperbaiki secara struktural + 2 hari yang hilang di-backfill dari git history.
+2. **3 angka macro (Gold, DXY, US 10Y) basi/salah cukup jauh dari harga riil** — ditemukan lewat web search, diperbaiki di `macro.json` + fallback + 1 mention manual yang tidak ke-cover auto-sync.
+
+### ⏸ Butuh Bryan
+- **❓ Perlu direview:** ambang skenario Macro di tab Outlook (`scenarios.macro`) masih menulis "bull = 10Y di bawah 4.35%" dan "base = 10Y 4.35–4.55%" — sekarang 10Y riil sudah di ~4.60%, di ATAS kedua ambang itu, padahal alasannya dovish (bukan "sticky inflation" seperti skenario bear). Saya **tidak mengubah probabilitas/ambang skenario ini sendiri** karena itu keputusan discretionary Bryan (sama seperti kasus XLE bulan lalu) — hanya menandai di sini biar Bryan bisa lihat & putuskan apakah ambangnya perlu di-refresh.
+- Item lama masih menunggu: aktifkan link Crypto Monitor (kapan Bryan bilang go), Plan A Tier 2 (API key FRED/TE), Premium platform/Trakteer (KYC + rekening).
+- **Catatan jadwal:** jam automasi harian ini sendiri makin larut & tidak konsisten (pernah jam 1 pagi, pernah jam 11 malam) — di luar kendali saya dari sisi kode, tapi kalau Bryan punya kontrol atas jadwal cron automasi-nya, menstabilkan jamnya (misal selalu sebelum jam 7 pagi WIB) akan bikin situs ter-refresh lebih pagi & konsisten setiap hari.
+
+### ➡️ Berikutnya
+- Kalau Bryan setuju, refresh ambang skenario Macro (Outlook tab) supaya konsisten dengan level 10Y riil saat ini.
+- Lanjut roadmap: Simulator Phase 2 (worst/base/bull), Track Record enhancements, dark-mode (sudah di-scope minggu lalu, butuh sesi khusus).
+
+---
+
 ## 2026-08-09 (Minggu) — Automasi harian (jalan otomatis pagi)
 
 ### ✅ Dikerjakan
@@ -132,6 +163,6 @@
 | **Investment Simulator** | 🟢 Live (Phase 0) | `simulator.html`. Next: Phase 2 worst/base/bull. Refresh 5Y otomatis bulanan. |
 | **Crypto Monitor** | 🟡 Siap, nunggu publish | `crypto-monitor.html` sudah jadi & terverifikasi, tapi belum pernah di-push (Bryan pegang kendali). Link nav disembunyikan sementara biar tidak 404 di situs live — aktifkan begitu Bryan bilang go. |
 | Premium platform (paywall) | 🔵 Nunggu Bryan | Trakteer dulu → Vercel+Midtrans nanti. KYC. |
-| **Auto daily progress + journal** | 🟢 Aktif hari ini | Scheduled task harian + file ini. |
+| **Auto daily progress + journal** | 🟢 Aktif hari ini | Scheduled task harian + file ini. GitHub Action auto-archive dibetulkan (2026-08-10) — sebelumnya diam-diam berhenti 2 hari karena bug timing, sekarang tidak lagi tergantung 2 jadwal harus sinkron. |
 
 **Legenda:** 🟢 live/jalan · 🟡 sedang dikerjakan · 🔵 nunggu aksi Bryan · ⚪ ide/belum mulai

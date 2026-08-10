@@ -216,9 +216,6 @@
   .poscard .thesis{font-size:12.5px; color:#333; margin-bottom:3px; line-height:1.5;}
   .poscard .thesis strong, .poscard .risk strong{color:var(--accent);}
   .poscard .risk{font-size:12px; color:#555; line-height:1.5;}
-  .poscard-spark{display:flex; align-items:center; gap:6px; margin-bottom:6px;}
-  .poscard-spark .spark-lbl{font-size:9.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; font-weight:700;}
-  .poscard-spark svg.spark{width:84px; height:20px;}
 
   .share{position:fixed; right:18px; bottom:18px; z-index:30; background:var(--accent); color:#fff; border:none; border-radius:30px; padding:13px 20px; font-size:14px; font-weight:700; cursor:pointer; box-shadow:0 10px 30px -8px rgba(0,68,124,.6); transition:transform .15s;}
   .share:hover{transform:scale(1.05);}
@@ -375,30 +372,30 @@
 <script>
 /* ====== DATA — the daily run replaces ONLY this object ====== */
 const DATA = {
-  dateLong:"Monday, 10 August 2026",
-  feedTime:"2026-08-10 09:00 UTC",
+  dateLong:"Saturday, 8 August 2026",
+  feedTime:"2026-08-08 09:00 UTC",
   riskScore:49, riskLabel:"Neutral · crypto range-bound around the pivotal $65k; broad market digesting into Jackson Hole",
   bottomLine:"<strong>Range-bound around $65k — the pivot that decides the next leg.</strong> BTC is trading right around the <strong>$65k line</strong> (see the live price in the snapshot below) after the mid-summer push stalled short of a durable breakout. The bottom-building <em>base</em> we've tracked is still intact — but this is consolidation, <strong>not a confirmed uptrend</strong>: a weekly close and hold above $65k opens $68–72k; a decisive loss re-tests the $61–63k shelf. ETH sits sub-$2,000, tracking BTC. <strong>The macro referee is Jackson Hole (late August)</strong> — the Fed's easing-path signal, then the September FOMC. US equities are near recent highs and digesting after Q2 earnings; <strong>Indonesia stays a relative standout</strong> as the BI rate hike works and the rupiah holds firmer. <strong>Phase: consolidation</strong> — patient accumulation on the base, let the $65k decision and the Fed signal set direction rather than pre-positioning.",
   snapshot:[
-    {a:"BTC",cg:"bitcoin",lvl:"~$64,900",d:"live",dir:"flat",mag:14,drv:"Holding just under the pivotal $65k line — above = $68–72k opens, below = $61–63k retest",url:"https://www.tradingview.com/symbols/BTCUSD/"},
+    {a:"BTC",cg:"bitcoin",lvl:"~$64,700",d:"live",dir:"flat",mag:14,drv:"Holding just under the pivotal $65k line — above = $68–72k opens, below = $61–63k retest",url:"https://www.tradingview.com/symbols/BTCUSD/"},
     {a:"ETH",cg:"ethereum",lvl:"~$1,910",d:"live",dir:"flat",mag:14,drv:"Sub-$2,000, tracking BTC; $2,050 reclaim the near-term tell",url:"https://www.tradingview.com/symbols/ETHUSD/"},
     {a:"SOL",cg:"solana",lvl:"~$74",d:"live",dir:"flat",mag:12,drv:"Soft with the majors; $80 the level to reclaim",url:"https://www.tradingview.com/symbols/SOLUSD/"},
     {a:"XRP",cg:"ripple",lvl:"~$1.07",d:"live",dir:"flat",mag:10,drv:"Range-bound; no idiosyncratic break from the majors",url:"https://www.tradingview.com/symbols/XRPUSD/"},
-    {a:"Gold",tv:"TVC:GOLD",lvl:"<span data-mref=\"gold\">~$4,345</span>",d:"+7% wk",dir:"pos",mag:16,drv:"Surged on the soft jobs print pulling forward Fed cut bets; the swing asset here",url:"https://www.tradingview.com/symbols/XAUUSD/"},
+    {a:"Gold",tv:"TVC:GOLD",lvl:"<span data-mref=\"gold\">~$4,560</span>",d:"firm",dir:"pos",mag:16,drv:"Holding firm; steady haven demand as the swing asset",url:"https://www.tradingview.com/symbols/XAUUSD/"},
     {a:"S&P 500",tv:"FOREXCOM:SPXUSD",lvl:"near highs",d:"digesting",dir:"pos",mag:8,drv:"Near recent highs post-Q2 earnings; Jackson Hole the next test",url:"https://www.tradingview.com/symbols/SPX/"},
     {a:"Nasdaq",tv:"FOREXCOM:NSXUSD",lvl:"near highs",d:"digesting",dir:"pos",mag:8,drv:"AI leadership near highs; breadth the watch into the Fed signal",url:"https://www.tradingview.com/symbols/IXIC/"},
-    {a:"10Y UST",lvl:"<span data-mref=\"us10y\">~4.60%</span>",d:"fell 7bp Fri",dir:"pos",mag:10,drv:"Fell on a soft jobs read; Jackson Hole the next signal for the path",url:"https://www.tradingview.com/symbols/TVC-US10Y/"},
+    {a:"10Y UST",lvl:"<span data-mref=\"us10y\">~4.35%</span>",d:"easing bias",dir:"pos",mag:10,drv:"Easing bias; Jackson Hole the next signal for the path",url:"https://www.tradingview.com/symbols/TVC-US10Y/"},
     {a:"Shanghai",tv:"SSE:000001",lvl:"~4,240",d:"+0.3%",dir:"pos",mag:10,drv:"Uptrend holding; breadth healthy, semis firm",url:"https://www.tradingview.com/symbols/SSE-000001/"},
     {a:"CSI 300",tv:"SSE:000300",lvl:"~5,080",d:"+0.3%",dir:"pos",mag:10,drv:"Extended higher with mainland participation",url:"https://www.tradingview.com/symbols/SSE-000300/"},
     {a:"Hang Seng",tv:"HSI:HSI",lvl:"~26,700",d:"+0.5%",dir:"pos",mag:16,drv:"HS Tech leadership intact; Alibaba/Tencent carrying",url:"https://www.tradingview.com/symbols/HSI-HSI/"},
-    {a:"WTI",tv:"TVC:USOIL",lvl:"<span data-mref=\"wti\">~$78</span>",d:"−13% fm $90s",dir:"neg",mag:16,drv:"Steadied near $78 after the Iran–Oman Hormuz shipping deal eased supply risk; still down over 7% this week",url:"https://www.tradingview.com/symbols/WTI/"},
+    {a:"WTI",tv:"TVC:USOIL",lvl:"<span data-mref=\"wti\">~$77</span>",d:"−14% fm $90s",dir:"neg",mag:16,drv:"Fell sharply as the Iran–Oman Hormuz shipping deal eased supply risk; bounced off a 3-day slide to ~$75",url:"https://www.tradingview.com/symbols/WTI/"},
     {a:"IHSG",tv:"IDX:COMPOSITE",lvl:"~6,540",d:"+0.4%",dir:"pos",mag:28,drv:"Holding recovery highs; foreign inflows continuing",url:"https://www.tradingview.com/symbols/IDX-COMPOSITE/"},
     {a:"USD/IDR",tv:"FX_IDC:USDIDR",lvl:"firmer",d:"stable",dir:"pos",mag:18,drv:"Rupiah holding firmer; BI hike (75bp cumulative) working",url:"https://www.tradingview.com/symbols/USDIDR/"}
   ],
   positions:[
     /* CRYPTO */
-    {sym:"BTC", name:"Bitcoin", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Med", horizon:"1–3m", cg:"bitcoin", thesis:"<strong>Consolidating around the $65k pivot</strong> — the bottom-building base is intact but the summer push didn't sustain a breakout. This is range mode, not a trend. A weekly close + hold above $65k opens $68–72k; patient accumulation on the base, not chasing. (See live price in the snapshot.)", risk:"Decisive loss of $63k → retest the $61k shelf, then $58k. Hawkish Jackson Hole would pressure the whole complex."},
-    {sym:"ETH", name:"Ethereum", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Low–Med", horizon:"1–3m", cg:"ethereum", thesis:"Sub-$2,000, tracking BTC's range. Needs to reclaim $2,050 to signal continuation; below $1,850 stays heavy. No rush — let BTC's $65k decision lead.", risk:"Loses $1,800 → opens $1,650. Broad risk-off on a hawkish late-August Fed signal drags."},
+    {sym:"BTC", name:"Bitcoin", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Med", horizon:"1–3m", thesis:"<strong>Consolidating around the $65k pivot</strong> — the bottom-building base is intact but the summer push didn't sustain a breakout. This is range mode, not a trend. A weekly close + hold above $65k opens $68–72k; patient accumulation on the base, not chasing. (See live price in the snapshot.)", risk:"Decisive loss of $63k → retest the $61k shelf, then $58k. Hawkish Jackson Hole would pressure the whole complex."},
+    {sym:"ETH", name:"Ethereum", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Low–Med", horizon:"1–3m", thesis:"Sub-$2,000, tracking BTC's range. Needs to reclaim $2,050 to signal continuation; below $1,850 stays heavy. No rush — let BTC's $65k decision lead.", risk:"Loses $1,800 → opens $1,650. Broad risk-off on a hawkish late-August Fed signal drags."},
     /* US */
     {sym:"NVDA", name:"Nvidia", market:"US", cap:"Mega cap", position:"BUY", conviction:"High", horizon:"6–12m", thesis:"AI mega-cap leadership carrying US indices to fresh records. Structural AI / data-center spend is load-bearing for the broader rotation thesis. Add on quality-growth dips.", risk:"AI-capex pause, China export-rule tightening, or sentiment unwind off rich multiples."},
     {sym:"MU", name:"Micron", market:"US", cap:"Large cap", position:"HOLD", conviction:"Med", horizon:"3–6m", thesis:"HBM/AI-memory super-cycle confirmed; demand-leadership narrative intact. Parabolic $1T spike from May has consolidated into a healthier base. Tactical adds on 8–10% pullbacks rather than chases.", risk:"Memory's notorious cyclicality; demand digestion if hyperscaler capex slows in H2."},
@@ -433,7 +430,7 @@ const DATA = {
     "<strong>ETH sub-$2,000</strong> — tracking BTC's range. Support: $1,850 → $1,650. Resistance: $2,050 → $2,300. Reclaim $2,050 = continuation signal.",
     "<strong>SOL ~$74</strong> — soft with the majors. Support: $68 → $62. Resistance: $80 → $88.",
     "<strong>XRP ~$1.07</strong> — range-bound in sync with majors; no idiosyncratic break. Support: $1.00. Resistance: $1.20.",
-    "<strong>Gold <span data-mref=\"gold\">~$4,345</span></strong> — surged +7% this week on the soft jobs print pulling forward Fed cut bets; the relative-strength asset here while crypto/equities consolidate."
+    "<strong>Gold <span data-mref=\"gold\">~$4,560</span></strong> — holding firm; steady haven demand while crypto/equities consolidate — the relative-strength asset here."
   ],
   techEquity:[
     "<strong>S&amp;P 500 record-high regime</strong> — AI mega-cap leadership confirmed by Q2 beats; support ~7,650. Trend up while above 50-DMA. Jackson Hole the next test.",
@@ -444,10 +441,10 @@ const DATA = {
     "<strong>IHSG</strong> — recovery matured (~6,430); BI-hike working, foreign inflows returning. EM-relief bellwether."
   ],
   techMacro:[
-    "<strong>Gold <span data-mref=\"gold\">~$4,345</span></strong> — surged over 2% Friday to a 2-month high, +~7% on the week, as the soft jobs print pulled forward Fed cut bets. Resistance ~$4,400–4,450.",
-    "<strong>WTI <span data-mref=\"wti\">~$78</span></strong> — steadied near $78 after dropping from the $90s as the Iran–Oman Hormuz shipping-route deal eased supply risk; still down over 7% this week. Support ~$74; resistance ~$82.",
-    "<strong>US 10Y <span data-mref=\"us10y\">~4.60%</span></strong> — fell 7bp Friday on a soft jobs read; Jackson Hole (late Aug) the next path signal.",
-    "<strong>DXY <span data-mref=\"dxy\">~99.6</span></strong> — holding firmer near 99.6–99.9, resisting the soft-dollar case despite falling yields; a break back below 98 is what would broaden EM relief further.",
+    "<strong>Gold <span data-mref=\"gold\">~$4,560</span></strong> — firm; resistance ~$4,600. Both-bid regime (gold AND risk assets up) worth watching.",
+    "<strong>WTI <span data-mref=\"wti\">~$77</span></strong> — dropped sharply from the $90s as the Iran–Oman Hormuz shipping-route deal eased supply risk; bounced off a 3-day slide to ~$75. Support ~$74; resistance ~$82.",
+    "<strong>US 10Y <span data-mref=\"us10y\">~4.35%</span></strong> — easing bias; Jackson Hole (late Aug) the next path signal. Supportive of duration + growth.",
+    "<strong>DXY <span data-mref=\"dxy\">~98.4</span></strong> — softer; sub-98 break broadens EM relief further.",
     "<strong>USD/IDR firmer</strong> — Bank Indonesia's <strong>hike (75bp cumulative) is working</strong>; rupiah holding. Sub-17,200 = stress clearing."
   ],
   stockMarkets:{
@@ -523,7 +520,7 @@ const DATA = {
   ],
   corp:[
     "<strong>Q2 earnings — largely done:</strong> AI mega-caps beat (NVDA blowout, MSFT Azure); attention turns to laggards' guidance (AAPL, INTC) and the read-through for H2 capex.",
-    "<strong>Jackson Hole (late August):</strong> the Fed's easing-path signal is the next big macro event, with markets leaning toward a September cut (10Y ~4.60%).",
+    "<strong>Jackson Hole (late August):</strong> the Fed's easing-path signal is the next big macro event, with markets leaning toward a September cut (10Y ~4.35%).",
     "<strong>Indonesia:</strong> Q2 corporate results in focus; banks + consumer names leading. Next BI meeting + IDR stability the watchpoint.",
     "<strong>Crypto:</strong> the $65k weekly close is the swing — reclaim opens $68–72k; failure keeps it range-bound and re-tests $61–63k."
   ],
@@ -572,16 +569,16 @@ const li=arr=>arr.map(x=>"<li>"+x+"</li>").join("");
 /* ====== Macro Dashboard — Plan A Tier 1: render from macro.json (single source) ====== */
 /* Inline fallback so the board still renders on local file:// preview or if the fetch fails.
    On GitHub Pages (https) the fetch succeeds and macro.json is the live source of truth. */
-const MACRO_FALLBACK={asOf:"2026-08-10",lastUpdated:"2026-08-10 09:00 UTC",values:{
-  us10y:{label:"US 10Y Treasury",value:"~4.60%",delta:"fell 7bp Fri",note:"soft jobs read firmed up Sept-cut bets; Jackson Hole the next path signal"},
+const MACRO_FALLBACK={asOf:"2026-08-07",lastUpdated:"2026-08-07 13:00 UTC",values:{
+  us10y:{label:"US 10Y Treasury",value:"~4.35%",delta:"easing bias",note:"Jackson Hole the next path signal"},
   fedFunds:{label:"Fed Funds Rate",value:"3.50–3.75%",delta:"held; dovish tone",note:"July NFP +22K vs +75K exp., unemployment 4.3% — firms up Sept-cut odds"},
   usCPI:{label:"US CPI (YoY)",value:"~3.9%",delta:"cooling",note:"disinflation resuming; supports easing"},
   usPCE:{label:"US PCE (YoY)",value:"~3.5%",delta:"cooled",note:"supports the easing-path tone"},
-  dxy:{label:"Dollar Index (DXY)",value:"~99.6",delta:"firmer than the softening case",note:"holding near 99.6–99.9; a break back below 98 would broaden EM relief"},
+  dxy:{label:"Dollar Index (DXY)",value:"~98.4",delta:"softer",note:"sub-98 broadens EM relief"},
   biRate:{label:"Bank Indonesia Rate",value:"+75bp since May",delta:"hike working",note:"inflows returning; IDX recovery matured"},
   usdidr:{label:"USD/IDR",value:"firmer",delta:"BI hike works",note:"sub-17,200 = stress clearing"},
-  gold:{label:"Gold (XAU)",value:"~$4,345",delta:"surged, +7% wk",note:"jumped on the same soft jobs print pulling forward Fed cut bets"},
-  wti:{label:"WTI Crude",value:"~$78",delta:"steadied, still down on the wk",note:"Iran–Oman Hormuz shipping deal eased supply risk; bounced ~1% Fri but still down over 7% this week"}
+  gold:{label:"Gold (XAU)",value:"~$4,560",delta:"firm",note:"both-bid regime; haven demand steady"},
+  wti:{label:"WTI Crude",value:"~$77",delta:"sharply lower",note:"Iran–Oman Hormuz shipping deal eased supply risk; down from the $90s, bounced off a 3-day slide"}
 }};
 function renderMacro(d){
   if(!$("macroBoard")) return;
@@ -653,7 +650,6 @@ $("sources").innerHTML="Sources: "+DATA.sources.map(s=>`<a href="${s[1]}" target
       html+=`<div class="poscard ${cls}">
         <div class="topline"><span class="sym">${p.sym}<small>${p.name?" · "+p.name:""}</small></span><span class="badge ${cls}">${p.position}</span></div>
         <div class="meta">${p.cap} · ${p.horizon} · ${p.conviction} conviction</div>
-        ${p.cg?`<div class="poscard-spark" data-cg="${p.cg}"><span class="spark-lbl">7D</span></div>`:""}
         <div class="thesis"><strong>Thesis:</strong> ${p.thesis}</div>
         <div class="risk"><strong>Key risk:</strong> ${p.risk}</div>
       </div>`;
@@ -812,11 +808,6 @@ async function liveMarkets(){
       const prices=sparkMap[row.dataset.cg]; if(!prices) return;
       const track=row.querySelector(".bartrack"); if(!track) return;
       track.innerHTML=sparkSVG(prices);
-    });
-    // Position-card sparklines (crypto only — live 7D data; no free keyless equity source yet)
-    document.querySelectorAll(".poscard-spark[data-cg]").forEach(el=>{
-      const prices=sparkMap[el.dataset.cg]; if(!prices) return;
-      el.innerHTML=`<span class="spark-lbl">7D</span>`+sparkSVG(prices,84,20);
     });
   }catch(e){ $("lbstamp").textContent="Live data temporarily unavailable (CoinGecko rate-limited) — retrying…"; }
 }

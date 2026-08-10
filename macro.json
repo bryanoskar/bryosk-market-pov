@@ -1,13 +1,13 @@
 {
   "_comment": "Single source of truth for macro indicators (Plan A Tier 1). NOT YET wired into index.html render — see PLAN-macro-json.md for remaining steps. Each value carries a 'source' = the FRED / Trading Economics series ID it will auto-fetch from in Tier 2.",
-  "asOf": "2026-08-07",
-  "lastUpdated": "2026-08-07 13:00 UTC",
+  "asOf": "2026-08-10",
+  "lastUpdated": "2026-08-10 09:00 UTC",
   "values": {
     "us10y": {
       "label": "US 10Y Treasury",
-      "value": "~4.35%",
-      "delta": "easing bias",
-      "note": "Jackson Hole (late Aug) the next signal for the path; supportive of duration",
+      "value": "~4.60%",
+      "delta": "fell 7bp Fri",
+      "note": "dropped to ~4.60% Friday after another soft jobs read firmed up Sept-cut bets; Jackson Hole (late Aug) is still the next big signal",
       "source": { "provider": "FRED", "series": "DGS10" }
     },
     "fedFunds": {
@@ -33,9 +33,9 @@
     },
     "dxy": {
       "label": "Dollar Index (DXY)",
-      "value": "~98.4",
-      "delta": "softer",
-      "note": "sub-98 break would broaden EM relief further",
+      "value": "~99.6",
+      "delta": "firmer than the softening case",
+      "note": "holding near 99.6–99.9, firmer than the soft-dollar case despite falling yields; a break back below 98 is what would broaden EM/commodity relief",
       "source": { "provider": "FRED", "series": "DTWEXBGS", "caveat": "DXY proper is ICE; DTWEXBGS is FRED's broad trade-weighted USD index — close proxy, label accordingly" }
     },
     "biRate": {
@@ -54,16 +54,16 @@
     },
     "gold": {
       "label": "Gold (XAU)",
-      "value": "~$4,560",
-      "delta": "firm",
-      "note": "both-bid regime — gold AND risk assets up; steady haven demand",
+      "value": "~$4,345",
+      "delta": "surged, +7% wk",
+      "note": "jumped over 2% Friday to $4,340–4,370 (highest since mid-June), +~7% on the week — the same soft jobs print pulling forward Fed rate-cut bets is driving the haven bid",
       "source": { "provider": "TradingView", "series": "TVC:GOLD", "caveat": "no free FRED/TE daily series; keep manual or use a market-data API in a later tier" }
     },
     "wti": {
       "label": "WTI Crude",
-      "value": "~$77",
-      "delta": "sharply lower",
-      "note": "Iran–Oman Hormuz shipping deal eased supply risk; down from the $90s, bounced off a 3-day slide to ~$75",
+      "value": "~$78",
+      "delta": "steadied, still down on the wk",
+      "note": "bounced ~1% Friday to $78 but still down over 7% this week after the Iran–Oman Hormuz shipping deal eased supply risk",
       "source": { "provider": "FRED", "series": "DCOILWTICO" }
     }
   }

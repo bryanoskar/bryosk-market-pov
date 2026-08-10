@@ -5,12 +5,27 @@ Daily archive job for BryOsk Market PoV.
 Runs in GitHub Actions on a daily cron schedule. Its job:
   1. Read the current index.html and extract the DATA fields
      (dateLong, riskScore, riskLabel, bottomLine).
-  2. Check archive/metadata.json — if today's date is already archived, no-op.
+  2. Check archive/metadata.json — if that content's own date is already
+     archived, no-op.
   3. Otherwise:
-       - Copy index.html → archive/YYYY-MM-DD.html
-       - Prepend a new entry to archive/metadata.json
-       - Update lastUpdated.
+       - Copy index.html → archive/YYYY-MM-DD.html (named after the date
+         found IN the content, not wall-clock "today")
+       - Insert a new entry into archive/metadata.json, keep entries sorted
+         newest-first, update lastUpdated.
   4. GitHub Actions commits and pushes any changes.
+
+Deliberately does NOT require the content's date to equal wall-clock
+"today" (UTC). The archive cron runs on a fixed schedule (00:10 UTC), but
+the daily content-refresh automation runs on a separate, less predictable
+schedule that can land before or after that fixed time. Requiring exact
+equality created a silent permanent-skip failure mode: once the refresh
+landed even once after the archive cron's fixed time, dateLong would
+forever read as "yesterday" relative to whenever the cron fires, and the
+guard would mismatch every single day after that (this happened for real
+on 2026-08-08 and 2026-08-09). Filing each snapshot under its own claimed
+date and deduping against archived dates (see the 2026-05-31 incident this
+guard was originally added for) gets the same anti-mislabeling protection
+without depending on the two schedules staying in lockstep.
 
 Side effects: writes to archive/{today}.html and archive/metadata.json.
 """
@@ -74,52 +89,51 @@ def main() -> int:
     risk_label = find_string("riskLabel", html) or ""
     bottom_line = find_string("bottomLine", html) or ""
 
-    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    archive_file = ARCHIVE_DIR / f"{today}.html"
-
-    # Guard: skip archiving if the page hasn't been refreshed for today yet.
-    # Without this check, the cron would preserve yesterday's content under
-    # today's filename (which happened on 2026-05-31 before this fix).
+    # Guard: the entry is filed under the date the CONTENT itself claims
+    # (dateLong), not wall-clock "today". This is what actually prevents
+    # mislabeling (stale content can never be saved under a fresher
+    # filename than it claims), without requiring the archive cron and the
+    # content-refresh automation to run in the same UTC calendar day.
     in_file_date = parse_date_long(date_long)
-    if in_file_date and in_file_date != today:
-        print(
-            f"Skipping: page dateLong is {date_long!r} (= {in_file_date}), "
-            f"not today ({today}). index.html hasn't been refreshed for today yet."
-        )
-        return 0
+    if not in_file_date:
+        print(f"ERROR: could not parse dateLong {date_long!r} into a date.", file=sys.stderr)
+        return 1
+
+    archive_file = ARCHIVE_DIR / f"{in_file_date}.html"
 
     meta = json.loads(METADATA_JSON.read_text(encoding="utf-8"))
-    existing_dates = {e.get("date") for e in meta.get("entries", [])}
+    entries = meta.setdefault("entries", [])
+    existing_dates = {e.get("date") for e in entries}
 
-    if today in existing_dates:
-        print(f"Already archived for {today}; no-op.")
+    if in_file_date in existing_dates:
+        print(f"Already archived for {in_file_date}; no-op.")
         return 0
 
-    # Snapshot today's main page
+    # Snapshot the page under its own claimed date
     shutil.copy(INDEX_HTML, archive_file)
 
     excerpt = strip_tags(bottom_line)
     new_entry = {
-        "date": today,
-        "dateLong": date_long or today,
+        "date": in_file_date,
+        "dateLong": date_long or in_file_date,
         "riskScore": risk_score,
         "riskLabel": risk_label,
         "bottomLineExcerpt": excerpt[:500],
-        "file": f"{today}.html",
+        "file": f"{in_file_date}.html",
     }
 
-    # Newest first
-    meta.setdefault("entries", []).insert(0, new_entry)
-    meta["lastUpdated"] = today
-    if "since" not in meta and meta["entries"]:
-        meta["since"] = meta["entries"][-1].get("date", today)
+    entries.append(new_entry)
+    entries.sort(key=lambda e: e.get("date", ""), reverse=True)
+    meta["lastUpdated"] = entries[0]["date"]
+    if "since" not in meta and entries:
+        meta["since"] = entries[-1].get("date", in_file_date)
 
     METADATA_JSON.write_text(
         json.dumps(meta, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
 
-    print(f"Archived {today}: risk {risk_score}/100 — {date_long}")
+    print(f"Archived {in_file_date}: risk {risk_score}/100 — {date_long}")
     return 0
 
 

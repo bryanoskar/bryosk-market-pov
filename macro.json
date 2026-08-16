@@ -1,13 +1,13 @@
 {
   "_comment": "Single source of truth for macro indicators (Plan A Tier 1). NOT YET wired into index.html render — see PLAN-macro-json.md for remaining steps. Each value carries a 'source' = the FRED / Trading Economics series ID it will auto-fetch from in Tier 2.",
-  "asOf": "2026-08-10",
-  "lastUpdated": "2026-08-10 09:00 UTC",
+  "asOf": "2026-08-16",
+  "lastUpdated": "2026-08-16 07:00 UTC",
   "values": {
     "us10y": {
       "label": "US 10Y Treasury",
-      "value": "~4.60%",
-      "delta": "fell 7bp Fri",
-      "note": "dropped to ~4.60% Friday after another soft jobs read firmed up Sept-cut bets; Jackson Hole (late Aug) is still the next big signal",
+      "value": "~4.68%",
+      "delta": "up from 4.60%, touched 4.75% mid-week",
+      "note": "ticked back up this week (briefly a 19-month high near 4.75%) as some of the Sept-cut certainty faded; Jackson Hole (late Aug) is still the next big signal",
       "source": { "provider": "FRED", "series": "DGS10" }
     },
     "fedFunds": {
@@ -35,35 +35,35 @@
       "label": "Dollar Index (DXY)",
       "value": "~99.6",
       "delta": "firmer than the softening case",
-      "note": "holding near 99.6–99.9, firmer than the soft-dollar case despite falling yields; a break back below 98 is what would broaden EM/commodity relief",
+      "note": "holding near 99.6–99.8, firmer than the soft-dollar case despite the yield backdrop; a break back below 98 is what would broaden EM/commodity relief",
       "source": { "provider": "FRED", "series": "DTWEXBGS", "caveat": "DXY proper is ICE; DTWEXBGS is FRED's broad trade-weighted USD index — close proxy, label accordingly" }
     },
     "biRate": {
       "label": "Bank Indonesia Rate",
       "value": "+75bp cumulative since May",
-      "delta": "hike working",
-      "note": "rupiah holding firmer, foreign inflows returning, IDX recovery matured",
+      "delta": "hike working, new headwind emerging",
+      "note": "rupiah still firmer vs. the spring lows, but MSCI's August review trimmed Indonesia's index weight (11 removals, effective after 31 Aug) — a fresh headwind against the 'recovery matured' read",
       "source": { "provider": "TradingEconomics", "series": "indonesia/interest-rate" }
     },
     "usdidr": {
       "label": "USD/IDR",
       "value": "firmer",
-      "delta": "BI hike works",
-      "note": "rupiah holding firmer as the hike takes hold; sub-17,200 = stress clearing",
+      "delta": "BI hike works, MSCI outflow risk",
+      "note": "rupiah holding firmer as the hike takes hold, but the MSCI August rebalancing (11 IDX removals, effective after 31 Aug) is a new passive-outflow risk to watch",
       "source": { "provider": "TradingEconomics", "series": "indonesia/currency" }
     },
     "gold": {
       "label": "Gold (XAU)",
-      "value": "~$4,345",
-      "delta": "surged, +7% wk",
-      "note": "jumped over 2% Friday to $4,340–4,370 (highest since mid-June), +~7% on the week — the same soft jobs print pulling forward Fed rate-cut bets is driving the haven bid",
+      "value": "~$4,400",
+      "delta": "holding near record highs",
+      "note": "holding in the $4,370–4,440 band, near record levels reached two weeks ago — still the relative-strength/haven asset while crypto and oil realign",
       "source": { "provider": "TradingView", "series": "TVC:GOLD", "caveat": "no free FRED/TE daily series; keep manual or use a market-data API in a later tier" }
     },
     "wti": {
       "label": "WTI Crude",
-      "value": "~$78",
-      "delta": "steadied, still down on the wk",
-      "note": "bounced ~1% Friday to $78 but still down over 7% this week after the Iran–Oman Hormuz shipping deal eased supply risk",
+      "value": "~$82",
+      "delta": "surged, +5% wk — reversal",
+      "note": "reversed hard: the Iran–Oman Hormuz deal we'd flagged as de-escalation broke down into an active US naval blockade of Iran; WTI ripped back up to ~$82 (Brent ~$88.50) as real supply-risk premium returned",
       "source": { "provider": "FRED", "series": "DCOILWTICO" }
     }
   }

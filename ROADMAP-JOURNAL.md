@@ -12,6 +12,37 @@
 
 ---
 
+## 2026-08-16 (Minggu) — Automasi harian (jalan otomatis pagi)
+
+### ✅ Dikerjakan
+- **Health check nemu gap 6 hari:** commit terakhir yang mengubah konten (`d7084d2`, 10 Agustus) diikuti cuma oleh auto-archive (`f3a1552`, 11 Agustus) — automasi harian ini sendiri **tidak jalan/tidak nge-commit apa pun dari 11–15 Agustus**. Saya cek `mcp__scheduled-tasks__list_scheduled_tasks`: task `bryosk-daily-roadmap` masih **enabled** dan jadwalnya normal, `lastRunAt` cuma menunjukkan run hari ini — tidak ada log kegagalan yang bisa saya lihat dari sini untuk tahu PERSIS kenapa 5 hari kemarin kosong (kemungkinan: sesi run tapi tidak menemukan apa pun untuk dikerjakan, atau ada masalah infra di luar kendali saya). **Auto-archive tetap sehat** (`archive/metadata.json` konsisten sampai 10 Agustus, tidak ada lompatan tanggal). ❓ **Perlu Bryan cek:** kalau Bryan bisa lihat riwayat run scheduled task dari sisi platform, tolong konfirmasi apakah task ini benar-benar jalan tiap hari minggu ini — saya tidak punya visibilitas ke situ dari dalam sesi.
+- **Karena gap 6 hari itu, saya cross-check dulu via web search sebelum menyentuh narasi (bukan asal majukan tanggal)** — dan ternyata pasar bergerak signifikan, dengan 2 dari 3 skenario yang SUDAH kita tulis sendiri di tab Outlook ternyata yang kejadian, bukan skenario bull:
+  1. **BTC beneran kehilangan pivot $65k** — bukan naik ke $68–72k seperti skenario bull, tapi turun ke shelf $61–63k (persis skenario base/bear yang sudah kita tulis) akibat 2 hari beruntun outflow ETF spot + progres regulasi tokenisasi kripto yang mandek di Washington (sumber: CoinDesk, Fortune) — BUKAN karena Fed hawkish.
+  2. **Cerita minyak/Hormuz BALIK ARAH TOTAL** — minggu lalu kita tulis "kesepakatan Iran-Oman meredakan risiko pasokan, WTI turun ke ~$77". Ternyata kesepakatan itu **bubar**, AS sekarang mengancam blokade laut Iran **tanpa batas waktu** (ada halaman Wikipedia sendiri: "2026 Strait of Hormuz crisis" / "2026 United States naval blockade of Iran"), dan WTI justru **naik lagi ke ~$82** (Brent ~$88.50) — kebalikan 180° dari yang kita tulis sebelumnya. Ini kelas bug yang sama pentingnya dengan insiden WTI bulan lalu, cuma kali ini arahnya terbalik.
+  3. **US 10Y naik lagi** ke ~4.68% (sempat 19-bulan tertinggi ~4.75% di tengah minggu), bukan makin turun seperti narasi lama.
+  4. **Indonesia**: IHSG masih di kisaran ~6.400 (relatif stabil), TAPI review MSCI bulan Agustus mengeluarkan 11 saham IDX dari indeks utama (efektif setelah 31 Agustus) — headwind baru yang belum ada di narasi "recovery matured" kita. Saya TIDAK downgrade rating BBCA/tesis Indonesia — cuma tambahkan sebagai watch-item baru yang sudah tervalidasi, sesuai prinsip "jangan ubah opini sendiri, cukup perbaiki fakta + tandai."
+  - Refresh MENYELURUH hari ini (bukan cuma 1-2 angka): `bottomLine`, snapshot BTC/ETH/Gold/10Y/WTI/IHSG, posisi BTC/ETH/XLE/BBCA, `techCrypto`/`techEquity`/`techMacro`, `drivers`/`news`/`rotation`/`corp`/`watch`/`assetsWatch`, `tilt`, dan ke-5 skenario (`overview/crypto/stocks/macro/outlook` — probabilitas base/bear digeser naik sedikit mengikuti apa yang benar-benar terjadi, BUKAN ditambah spekulasi baru), plus `macro.json` (single source untuk Gold/WTI/US10Y/DXY — otomatis menyebar ke semua tempat via `syncMacroProse()`).
+  - **Tesis XLE (Energy ETF, posisi BUY) saya tandai ❓ untuk Bryan** — sebelumnya risk case-nya adalah "harga minyak makin turun", sekarang minyak justru MELONJAK karena krisis geopolitik yang sama. Ini bikin thesis XLE jadi dua-sisi (bisa untung dari harga minyak naik, tapi juga risiko demand-destruction/risk-off kalau krisis makin parah) — saya cuma perbaiki fakta, TIDAK saya upgrade/downgrade rating-nya sendiri.
+  - **Tanggal**: `dateLong`/`feedTime` dimajukan ke Minggu, 16 Agustus 2026, dengan framing jujur "Jumat 14 Agustus" sebagai hari perdagangan terakhir (bursa tutup akhir pekan) — sama seperti pola sesi-sesi Minggu sebelumnya.
+
+### 🐛 Error & Fix
+1. **Narasi minyak/Hormuz jadi kontradiksi besar dengan realita** (lihat detail #2 di atas) — arah ceritanya terbalik total, bukan cuma angka basi. Diperbaiki di 6+ lokasi (snapshot, posisi XLE, techMacro, drivers, news, assetsWatch, macro.json, MACRO_FALLBACK) sekaligus, semua bersumber dari web search (Yahoo Finance, CNN, TradingEconomics-adjacent).
+2. **BTC/ETH fallback + narasi pivot basi 6 hari** — situs masih bilang "range-bound di $65k menunggu weekly close" padahal BTC sudah tembus turun ke shelf $61-63k. Diperbaiki di semua tempat (bottomLine, snapshot, posisi, techCrypto, drivers, news, tilt, scenarios, assetsWatch).
+3. **Gap automasi 5 hari (11-15 Agustus) belum diketahui akar masalahnya** — lihat catatan ❓ di atas, perlu bantuan Bryan untuk cek dari sisi platform.
+
+### ⏸ Butuh Bryan
+- **❓ Tolong cek riwayat run scheduled task `bryosk-daily-roadmap` 11-15 Agustus** (dari sisi platform/dashboard Anda) — saya tidak bisa lihat kenapa 5 hari itu tidak ada commit. Kalau ini keseringan terjadi, mungkin perlu penyesuaian jadwal/monitoring.
+- **❓ Tesis XLE (Energy ETF)** — minyak sekarang naik karena krisis Hormuz yang lebih serius (ancaman blokade tanpa batas waktu AS-Iran), bukan lagi turun karena "deal damai". Perlu Bryan putuskan: tetap BUY dengan alasan baru (leverage ke harga minyak naik), atau re-evaluasi risk/conviction-nya. Saya tidak mengubah rating sendiri.
+- **❓ Ambang skenario Macro (Outlook tab)** dari 10 Agustus masih menunggu review Bryan (10Y sekarang malah lebih tinggi lagi dari catatan sebelumnya, ~4.68% vs ambang lama 4.35-4.55%) — makin relevan untuk direfresh sekarang.
+- Item lama masih menunggu: aktifkan link Crypto Monitor (kapan Bryan bilang go), Plan A Tier 2 (API key FRED/TE), Premium platform/Trakteer (KYC + rekening).
+
+### ➡️ Berikutnya
+- Kalau Bryan setuju, putuskan sikap XLE + refresh ambang skenario Macro sekalian.
+- Karena hari ini fokus penuh ke refresh data-akurasi (skala besar, 6 hari gap), saya sengaja TIDAK menambah task kode kedua hari ini (prinsip "kualitas di atas kuantitas"). Lanjut roadmap besok: Simulator Phase 2 (worst/base/bull), Track Record enhancements, dark-mode (sudah di-scope, butuh sesi khusus).
+- Pantau apakah gap automasi 11-15 Agustus terulang — kalau ya, ini jadi prioritas untuk didiagnosis lebih lanjut.
+
+---
+
 ## 2026-08-10 (Senin) — Automasi harian (jalan otomatis pagi)
 
 ### ✅ Dikerjakan
@@ -163,6 +194,6 @@
 | **Investment Simulator** | 🟢 Live (Phase 0) | `simulator.html`. Next: Phase 2 worst/base/bull. Refresh 5Y otomatis bulanan. |
 | **Crypto Monitor** | 🟡 Siap, nunggu publish | `crypto-monitor.html` sudah jadi & terverifikasi, tapi belum pernah di-push (Bryan pegang kendali). Link nav disembunyikan sementara biar tidak 404 di situs live — aktifkan begitu Bryan bilang go. |
 | Premium platform (paywall) | 🔵 Nunggu Bryan | Trakteer dulu → Vercel+Midtrans nanti. KYC. |
-| **Auto daily progress + journal** | 🟢 Aktif hari ini | Scheduled task harian + file ini. GitHub Action auto-archive dibetulkan (2026-08-10) — sebelumnya diam-diam berhenti 2 hari karena bug timing, sekarang tidak lagi tergantung 2 jadwal harus sinkron. |
+| **Auto daily progress + journal** | 🟡 Aktif tapi ada gap | Scheduled task harian + file ini. GitHub Action auto-archive sehat. Task `bryosk-daily-roadmap` sendiri sempat tidak jalan/tidak commit 11-15 Agustus 2026 — penyebabnya belum diketahui dari sisi kode, lihat catatan ❓ 16 Agustus. |
 
 **Legenda:** 🟢 live/jalan · 🟡 sedang dikerjakan · 🔵 nunggu aksi Bryan · ⚪ ide/belum mulai

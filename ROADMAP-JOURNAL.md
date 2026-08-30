@@ -12,6 +12,39 @@
 
 ---
 
+## 2026-08-30 (Minggu) — Automasi harian (jalan otomatis pagi)
+
+### ✅ Dikerjakan
+- **Health check nemu gap OTOMASI 13 hari — lebih parah dari insiden 5 hari tanggal 16 Agustus.** Commit konten terakhir sebelum hari ini adalah `9197c17` (16 Agustus); sesudah itu cuma ada **satu** commit auto-archive (`e2d9e29`, 17 Agustus) lalu **kosong total 18–29 Agustus**. Saya cek `mcp__scheduled-tasks__list_scheduled_tasks`: task `bryosk-daily-roadmap` masih **enabled**, jadwal normal (`0 10 * * *`), tapi `lastRunAt` cuma menunjukkan run hari ini — dari dalam sesi saya tetap tidak bisa lihat riwayat run 13 hari kemarin (apakah run tapi gagal, run tapi tidak nemu kerjaan, atau memang tidak jalan). ❓ **Ini kedua kalinya kejadian pola yang sama** (pertama 11–15 Agustus, sekarang 18–29 Agustus) — kalau Bryan bisa cek riwayat run dari sisi platform, ini sekarang layak jadi prioritas, bukan cuma catatan sekali jalan.
+- **Karena gap 13 hari (bukan cuma "maju tanggal"), saya web-search ekstensif dulu sebelum sentuh narasi** — BTC/ETH, Fed/FOMC + Jackson Hole, WTI/Hormuz, Gold, S&P/Nasdaq, IHSG/rupiah/BBCA, MSCI, dan China/HK — baru refresh setelah semua angka tersumber silang. Hasilnya market bergerak BESAR, bukan cuma basi tanggal:
+  1. **Kripto BALIK ARAH TOTAL dari yang kita tulis 16 Agustus** — waktu itu BTC baru saja jebol turun ke shelf $61–63k (skenario bear/base). Ternyata sejak itu BTC justru **melonjak ke ~$78k** (+~25%), dipicu dorongan Trump untuk RUU Clarity Act di kripto + pengumuman buyback obligasi Treasury yang memicu short squeeze ~$2,7 miliar (19 Agustus) + inflow ETF spot $1,9 miliar+. ETH malah lebih kencang lagi (dari high-$1.800an ke ~$2.460+). Sentimen berbalik dari Fear ke Greed. **Catatan penting:** RUU Clarity Act-nya sendiri BELUM disahkan — voting Senat ditunda ke September — jadi katalisnya masih janji, bukan hukum.
+  2. **The Fed balik hawkish** — bertahan di 3,50–3,75% (24 Agustus), lalu pidato Jackson Hole Ketua Fed Warsh (27–28 Agustus) memunculkan lagi kekhawatiran inflasi: US 10Y naik ke ~4,73%, dan kemungkinan **kenaikan suku bunga** di FOMC 15–16 September (bukan cuma "tidak turun") jadi nyata — pembalikan dari narasi "menunggu pemotongan" 2 minggu lalu.
+  3. **Minyak (Hormuz) mendatar, bukan mereda ataupun makin parah** — WTI di ~$83, nyaris sama dengan ~$82 dua minggu lalu. Standoff blokade AS-Iran masih jalan tanpa kesepakatan (Iran tetap minta blokade dicabut dulu).
+  4. **Emas tembus tinggi baru** (~$4.400 → ~$4.600) dari permintaan haven + pembelian bank sentral yang berlanjut.
+  5. **Saham AS: rekor lalu koreksi kecil** — S&P 500 sempat rekor intraday 7.814 (12 Agustus), lalu 2 minggu bergejolak (efek minyak Hormuz + jebolnya kripto), baru pekan 24–28 Agustus positif lagi — tapi Jumat 28 Agustus turun lagi karena pidato hawkish Warsh menghantam saham semikonduktor (NVDA, Intel).
+  6. **China/HK JUSTRU MELEMAH** dari narasi "leadership confirmed" 16 Agustus — Hang Seng turun dari ~26.700 ke ~25.600 akibat kekhawatiran dilusi dari private placement Alibaba HK$80 miliar, ditambah ketegangan baru AS-China (ancaman tarif 7,5%, wacana sanksi ke bank China terkait transaksi minyak Iran). Tencent justru bertahan lebih baik dari indeksnya (+1,7% pada 28 Agustus). Mainland (Shanghai/CSI 300) juga turun 7–9% dalam 2 minggu.
+  7. **Indonesia tetap solid di tengah semua ini** — IHSG naik ke ~6.525 (dari ~6.400), BBCA dapat inflow asing berkelanjutan (Rp2,14 triliun sejak 1 Juli) + pengumuman dividen interim. Review MSCI Agustus (GOTO dikeluarkan, CPIN diturunkan ke indeks Small Cap) **berlaku efektif besok penutupan (31 Agustus)** — jadi ini sekarang isu yang sangat dekat, bukan lagi jauh di depan.
+  - **Cakupan refresh menyeluruh**: `bottomLine`, snapshot 14 baris, semua posisi terdampak (BTC, ETH, XLE, BBCA, CPIN, Tencent/HSCEI), `techCrypto`/`techEquity`/`techMacro`, `derivFlow`/`funding` (ketemu masih pakai narasi bear lama — ikut diperbaiki), `stockMarkets`/`hotToday` untuk 3 pasar, `chinaHK`/`drivers`/`news`/`rotation`/`corp`/`watch`/`assetsWatch`, `tilt`, dan ke-5 skenario (probabilitas & narasi disusun ulang untuk fase BERIKUTNYA — Clarity Act & FOMO September — bukan mengulang skenario yang sudah terjadi), plus `macro.json` + `MACRO_FALLBACK` (auto-sebar via `syncMacroProse()`).
+  - **Untuk mover per-saham individual** (hotToday/stockMarkets movers seperti BBRI/ASII/AAPL/Alibaba dll.) yang datanya tidak saya verifikasi ulang secara spesifik minggu ini, saya GANTI ke bahasa umum/tematik ("see live", "not independently re-verified") daripada biarkan angka % basi 2 minggu — sesuai prinsip lama "jangan biarkan % harian basi tanpa refresh". BBCA, Tencent, Alibaba, NVDA/INTC saya update dengan fakta yang benar-benar tersumber.
+  - **Tanggal**: `dateLong`/`feedTime` dimajukan ke Minggu, 30 Agustus 2026, dengan framing Jumat 28 Agustus sebagai hari perdagangan terakhir (bursa tutup akhir pekan) — konsisten pola sesi Minggu sebelumnya.
+- **Verifikasi menyeluruh**: server lokal `python -m http.server 8137` + Claude Browser — 0 error console di ke-6 tab (Overview/Positions/Crypto/Stocks/Macro/Outlook), 7 tab total (Journal tetap disembunyikan), 14 baris snapshot, 14 poscard, 15 kartu skenario (5×3), 9 kartu macro dari fetch live `macro.json`, 16 sumber. **Live feed CoinGecko ternyata BISA diakses dari lingkungan ini kali ini** (BTC live $78.795, XRP live $1,40) — sangat dekat dengan angka yang saya tulis dari web search ($78.100 / $1,45), jadi saling menguatkan akurasi.
+
+### 🐛 Error & Fix
+1. **Gap otomasi 13 hari (18–29 Agustus), kedua kalinya pola ini terjadi** — lihat detail ❓ di atas. Belum ada akar masalah yang bisa saya diagnosis dari dalam sesi; perlu bantuan Bryan cek dari sisi platform.
+2. **`derivFlow` dan `funding` (panel Crypto Technicals) masih pakai narasi bear 16 Agustus** ("pivot break lower", "SOL squeeze faded") padahal kripto sudah balik arah total — ketemu saat menyisir seluruh file untuk sisa narasi basi, langsung diperbaiki agar konsisten dengan snapshot/bottomLine yang sudah di-update.
+
+### ⏸ Butuh Bryan
+- **❓ PENTING — cek riwayat run scheduled task `bryosk-daily-roadmap` 18–29 Agustus** dari sisi platform/dashboard. Ini kedua kalinya gap panjang terjadi (5 hari lalu, sekarang 13 hari) — kalau pola ini terus berulang, mungkin perlu penyesuaian jadwal atau notifikasi kegagalan yang bisa saya lihat dari sesi berikutnya.
+- **❓ Tesis XLE (Energy ETF)** — masih dua sisi seperti dicatat 16 Agustus: minyak mendatar ~$83, standoff Hormuz belum selesai. Belum ada keputusan baru diperlukan, tapi masih menunggu review Bryan kalau mau ambil sikap lebih jelas.
+- Item lama masih menunggu: aktifkan link Crypto Monitor (kapan Bryan bilang go), Plan A Tier 2 (API key FRED/TE), Premium platform/Trakteer (KYC + rekening).
+
+### ➡️ Berikutnya
+- Karena skala refresh hari ini besar (gap 13 hari + pembalikan arah besar di kripto/Fed/China), saya sengaja TIDAK menambah task kode kedua hari ini (prinsip "kualitas di atas kuantitas", sama seperti sesi 16 Agustus).
+- Pantau ketat apakah gap otomasi 13 hari ini berulang lagi — kalau iya untuk ketiga kalinya, ini perlu jadi prioritas diagnosis serius, bukan cuma dicatat.
+- Lanjut roadmap besok kalau tidak ada gap lagi: Simulator Phase 2 (worst/base/bull), Track Record enhancements, dark-mode (sudah di-scope, butuh sesi khusus), atau content-consistency sweep lanjutan.
+
+---
+
 ## 2026-08-16 (Minggu) — Automasi harian (jalan otomatis pagi)
 
 ### ✅ Dikerjakan
@@ -194,6 +227,6 @@
 | **Investment Simulator** | 🟢 Live (Phase 0) | `simulator.html`. Next: Phase 2 worst/base/bull. Refresh 5Y otomatis bulanan. |
 | **Crypto Monitor** | 🟡 Siap, nunggu publish | `crypto-monitor.html` sudah jadi & terverifikasi, tapi belum pernah di-push (Bryan pegang kendali). Link nav disembunyikan sementara biar tidak 404 di situs live — aktifkan begitu Bryan bilang go. |
 | Premium platform (paywall) | 🔵 Nunggu Bryan | Trakteer dulu → Vercel+Midtrans nanti. KYC. |
-| **Auto daily progress + journal** | 🟡 Aktif tapi ada gap | Scheduled task harian + file ini. GitHub Action auto-archive sehat. Task `bryosk-daily-roadmap` sendiri sempat tidak jalan/tidak commit 11-15 Agustus 2026 — penyebabnya belum diketahui dari sisi kode, lihat catatan ❓ 16 Agustus. |
+| **Auto daily progress + journal** | 🟡 Aktif tapi ada gap berulang | Scheduled task harian + file ini. GitHub Action auto-archive sehat. Task `bryosk-daily-roadmap` sendiri sudah 2× tidak jalan/tidak commit berhari-hari (11-15 Agustus, lalu 18-29 Agustus 2026) — penyebabnya belum diketahui dari sisi kode, perlu Bryan cek riwayat run dari sisi platform, lihat catatan ❓ 30 Agustus. |
 
 **Legenda:** 🟢 live/jalan · 🟡 sedang dikerjakan · 🔵 nunggu aksi Bryan · ⚪ ide/belum mulai

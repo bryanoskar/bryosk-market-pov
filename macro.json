@@ -1,69 +1,69 @@
 {
   "_comment": "Single source of truth for macro indicators (Plan A Tier 1). NOT YET wired into index.html render — see PLAN-macro-json.md for remaining steps. Each value carries a 'source' = the FRED / Trading Economics series ID it will auto-fetch from in Tier 2.",
-  "asOf": "2026-08-16",
-  "lastUpdated": "2026-08-16 07:00 UTC",
+  "asOf": "2026-08-30",
+  "lastUpdated": "2026-08-30 07:00 UTC",
   "values": {
     "us10y": {
       "label": "US 10Y Treasury",
-      "value": "~4.68%",
-      "delta": "up from 4.60%, touched 4.75% mid-week",
-      "note": "ticked back up this week (briefly a 19-month high near 4.75%) as some of the Sept-cut certainty faded; Jackson Hole (late Aug) is still the next big signal",
+      "value": "~4.73%",
+      "delta": "up from 4.68%",
+      "note": "backed up further after Fed Chair Warsh's hawkish Jackson Hole remarks (27–28 Aug) revived inflation concern; a September hike is now genuinely in play for the 15–16 Sept FOMC",
       "source": { "provider": "FRED", "series": "DGS10" }
     },
     "fedFunds": {
       "label": "Fed Funds Rate",
       "value": "3.50–3.75%",
-      "delta": "held; dovish tone",
-      "note": "July NFP +22K (vs +75K exp.), unemployment 4.3% (highest since Oct 2021) — weak print firms up Sept-cut odds ahead of Jackson Hole",
+      "delta": "held 24 Aug; hawkish tone since",
+      "note": "the Fed held on 24 Aug citing solid growth + elevated inflation + geopolitical risk; Jackson Hole then revived inflation concern further",
       "source": { "provider": "FRED", "series": "FEDFUNDS" }
     },
     "usCPI": {
       "label": "US CPI (YoY)",
       "value": "~3.9%",
-      "delta": "cooling",
-      "note": "disinflation resuming off May's 4.2%; supports easing",
+      "delta": "watch the August print",
+      "note": "August CPI (due before the Sept FOMC) is the key swing input for whether the Fed holds or hikes",
       "source": { "provider": "FRED", "series": "CPIAUCSL" }
     },
     "usPCE": {
       "label": "US PCE (YoY)",
       "value": "~3.5%",
-      "delta": "cooled",
-      "note": "cooled vs prior; supports the easing-path tone",
+      "delta": "unchanged since last update",
+      "note": "not independently re-verified this cycle; watch alongside the CPI print",
       "source": { "provider": "FRED", "series": "PCEPI" }
     },
     "dxy": {
       "label": "Dollar Index (DXY)",
-      "value": "~99.6",
-      "delta": "firmer than the softening case",
-      "note": "holding near 99.6–99.8, firmer than the soft-dollar case despite the yield backdrop; a break back below 98 is what would broaden EM/commodity relief",
+      "value": "~99.7",
+      "delta": "round-tripped: dipped to ~98.55 (22 Aug), rebounded",
+      "note": "dipped on a dovish 9-3 Fed-split reading + a Treasury buyback, then rebounded as Jackson Hole's hawkish turn reasserted itself",
       "source": { "provider": "FRED", "series": "DTWEXBGS", "caveat": "DXY proper is ICE; DTWEXBGS is FRED's broad trade-weighted USD index — close proxy, label accordingly" }
     },
     "biRate": {
       "label": "Bank Indonesia Rate",
       "value": "+75bp cumulative since May",
-      "delta": "hike working, new headwind emerging",
-      "note": "rupiah still firmer vs. the spring lows, but MSCI's August review trimmed Indonesia's index weight (11 removals, effective after 31 Aug) — a fresh headwind against the 'recovery matured' read",
+      "delta": "hike working, foreign inflows continuing",
+      "note": "IHSG (~6,525) and BBCA (foreign inflows + a fresh dividend) kept extending on fundamentals even as MSCI's Indonesia deletion lands at tomorrow's close (31 Aug)",
       "source": { "provider": "TradingEconomics", "series": "indonesia/interest-rate" }
     },
     "usdidr": {
       "label": "USD/IDR",
-      "value": "firmer",
-      "delta": "BI hike works, MSCI outflow risk",
-      "note": "rupiah holding firmer as the hike takes hold, but the MSCI August rebalancing (11 IDX removals, effective after 31 Aug) is a new passive-outflow risk to watch",
+      "value": "~17,690",
+      "delta": "firmer",
+      "note": "rupiah holding firmer on the BI hike plus continued foreign equity inflows into Indonesian banks",
       "source": { "provider": "TradingEconomics", "series": "indonesia/currency" }
     },
     "gold": {
       "label": "Gold (XAU)",
-      "value": "~$4,400",
-      "delta": "holding near record highs",
-      "note": "holding in the $4,370–4,440 band, near record levels reached two weeks ago — still the relative-strength/haven asset while crypto and oil realign",
+      "value": "~$4,600",
+      "delta": "fresh multi-month highs",
+      "note": "pushed higher from ~$4,400 two weeks ago on continued central-bank buying + haven demand — still below January's ~$5,300–5,600 record",
       "source": { "provider": "TradingView", "series": "TVC:GOLD", "caveat": "no free FRED/TE daily series; keep manual or use a market-data API in a later tier" }
     },
     "wti": {
       "label": "WTI Crude",
-      "value": "~$82",
-      "delta": "surged, +5% wk — reversal",
-      "note": "reversed hard: the Iran–Oman Hormuz deal we'd flagged as de-escalation broke down into an active US naval blockade of Iran; WTI ripped back up to ~$82 (Brent ~$88.50) as real supply-risk premium returned",
+      "value": "~$83",
+      "delta": "plateaued vs ~$82 two weeks ago",
+      "note": "the Hormuz naval-blockade standoff drags on unresolved (Iran wants the blockade lifted first) but hasn't escalated further this fortnight",
       "source": { "provider": "FRED", "series": "DCOILWTICO" }
     }
   }

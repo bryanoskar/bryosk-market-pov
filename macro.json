@@ -1,20 +1,20 @@
 {
   "_comment": "Single source of truth for macro indicators (Plan A Tier 1). NOT YET wired into index.html render — see PLAN-macro-json.md for remaining steps. Each value carries a 'source' = the FRED / Trading Economics series ID it will auto-fetch from in Tier 2.",
-  "asOf": "2026-08-30",
-  "lastUpdated": "2026-08-30 07:00 UTC",
+  "asOf": "2026-09-02",
+  "lastUpdated": "2026-09-02 07:00 UTC",
   "values": {
     "us10y": {
       "label": "US 10Y Treasury",
-      "value": "~4.73%",
-      "delta": "up from 4.68%",
-      "note": "backed up further after Fed Chair Warsh's hawkish Jackson Hole remarks (27–28 Aug) revived inflation concern; a September hike is now genuinely in play for the 15–16 Sept FOMC",
+      "value": "~4.80%",
+      "delta": "highest since Jan 2025",
+      "note": "backed up further on the oil spike + Hormuz war risk (tanker strikes 31 Aug, US retaliatory strikes 1 Sept); Sept hike odds jumped to ~68% (from ~40% a week earlier) into the 15–16 Sept FOMC",
       "source": { "provider": "FRED", "series": "DGS10" }
     },
     "fedFunds": {
       "label": "Fed Funds Rate",
       "value": "3.50–3.75%",
-      "delta": "held 24 Aug; hawkish tone since",
-      "note": "the Fed held on 24 Aug citing solid growth + elevated inflation + geopolitical risk; Jackson Hole then revived inflation concern further",
+      "delta": "held 24 Aug; hike odds rising",
+      "note": "the Fed held on 24 Aug; Jackson Hole plus the Hormuz oil spike have pushed market-implied Sept hike odds to ~68%",
       "source": { "provider": "FRED", "series": "FEDFUNDS" }
     },
     "usCPI": {
@@ -33,37 +33,37 @@
     },
     "dxy": {
       "label": "Dollar Index (DXY)",
-      "value": "~99.7",
-      "delta": "round-tripped: dipped to ~98.55 (22 Aug), rebounded",
-      "note": "dipped on a dovish 9-3 Fed-split reading + a Treasury buyback, then rebounded as Jackson Hole's hawkish turn reasserted itself",
+      "value": "~99.5",
+      "delta": "firm, near recent range",
+      "note": "safe-haven dollar demand holding firm against the same Hormuz war-risk backdrop pushing gold and oil higher",
       "source": { "provider": "FRED", "series": "DTWEXBGS", "caveat": "DXY proper is ICE; DTWEXBGS is FRED's broad trade-weighted USD index — close proxy, label accordingly" }
     },
     "biRate": {
       "label": "Bank Indonesia Rate",
       "value": "+75bp cumulative since May",
       "delta": "hike working, foreign inflows continuing",
-      "note": "IHSG (~6,525) and BBCA (foreign inflows + a fresh dividend) kept extending on fundamentals even as MSCI's Indonesia deletion lands at tomorrow's close (31 Aug)",
+      "note": "IHSG (~6,600) and BBCA (~Rp6,550) kept extending straight through the MSCI Indonesia deletion (effective Monday's close) and Tuesday's global Hormuz-driven risk-off",
       "source": { "provider": "TradingEconomics", "series": "indonesia/interest-rate" }
     },
     "usdidr": {
       "label": "USD/IDR",
-      "value": "~17,690",
+      "value": "~17,720",
       "delta": "firmer",
-      "note": "rupiah holding firmer on the BI hike plus continued foreign equity inflows into Indonesian banks",
+      "note": "rupiah holding firmer on the BI hike plus continued foreign equity inflows into Indonesian banks, even against a firmer DXY this week",
       "source": { "provider": "TradingEconomics", "series": "indonesia/currency" }
     },
     "gold": {
       "label": "Gold (XAU)",
       "value": "~$4,600",
       "delta": "fresh multi-month highs",
-      "note": "pushed higher from ~$4,400 two weeks ago on continued central-bank buying + haven demand — still below January's ~$5,300–5,600 record",
+      "note": "holding at fresh highs on continued central-bank buying + haven demand — still below January's ~$5,300–5,600 record; not independently re-verified this cycle",
       "source": { "provider": "TradingView", "series": "TVC:GOLD", "caveat": "no free FRED/TE daily series; keep manual or use a market-data API in a later tier" }
     },
     "wti": {
       "label": "WTI Crude",
-      "value": "~$83",
-      "delta": "plateaued vs ~$82 two weeks ago",
-      "note": "the Hormuz naval-blockade standoff drags on unresolved (Iran wants the blockade lifted first) but hasn't escalated further this fortnight",
+      "value": "~$92",
+      "delta": "spiked from ~$83",
+      "note": "tanker strikes in the Strait of Hormuz (31 Aug) and US retaliatory strikes on IRGC targets in Iran (1 Sept) turned the standoff into an active exchange of fire",
       "source": { "provider": "FRED", "series": "DCOILWTICO" }
     }
   }

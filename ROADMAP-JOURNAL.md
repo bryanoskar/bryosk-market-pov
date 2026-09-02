@@ -12,6 +12,36 @@
 
 ---
 
+## 2026-09-02 (Rabu) — Automasi harian (jalan otomatis pagi)
+
+### ✅ Dikerjakan
+- **Health check: gap 3 hari (Minggu 30 Agustus → Rabu 2 September)** — normal, bukan gap panjang seperti 2 insiden sebelumnya (5 hari & 13 hari). `git pull` bersih, auto-archive GitHub Action tetap sehat (sudah archive sampai 31 Agustus). Tanda bagus, meski masih terlalu dini untuk bilang pola gap-panjang sudah pasti tidak akan terulang.
+- **Karena 3 hari cukup lama untuk kondisi geopolitik yang sedang panas (Selat Hormuz), saya web-search dulu sebelum sentuh narasi** — dan ternyata ada perkembangan BESAR yang harus diperbaiki, bukan cuma majukan tanggal:
+  1. **Standoff Hormuz PECAH jadi baku tembak sungguhan.** Senin malam (31 Agustus) dua kapal tanker minyak Saudi kena serangan proyektil tak dikenal saat melintasi Selat Hormuz. Iran membalas dengan percobaan penambangan laut (mine-laying) + serangan ke pangkalan AS. Selasa (1 September, ~16:00 GMT) AS membalas dengan menyerang target IRGC di beberapa lokasi Iran selatan (dekat Bandar Abbas, Konarak, Chabahar, Qeshm, Sirik). Ini persis skenario "eskalasi baru" yang sudah kita tandai ❓ dua minggu lalu di tesis XLE — sekarang beneran terjadi, bukan cuma ancaman.
+  2. **Minyak (WTI) melonjak ~$83 → ~$92** akibat langsung dari baku tembak ini (sumber: Washington Post, Washington Times, Al Jazeera-adjacent).
+  3. **US 10Y naik ke ~4,80%** — tertinggi sejak Januari 2025 — dan probabilitas kenaikan suku bunga Fed di FOMC 15-16 September yang diperdagangkan pasar melonjak ke **~68%** (dari ~40% seminggu lalu), di atas tumpukan nada hawkish Jackson Hole yang sudah ada.
+  4. **Saham AS jatuh Selasa**: S&P 500 -0,71% ke 7.631, Nasdaq -1,03% ke 26.100 (Dow -0,79%) — Alphabet, Nvidia, Caterpillar paling rugi; sektor energi/kesehatan/consumer staples justru naik (rotasi defensif klasik).
+  5. **Kripto justru lebih tahan banting dari saham** — BTC sempat turun ke ~$76.900 (31 Agustus) lalu pulih ke ~$78.700; ETH bertahan $2.450-2.470. Lebih resilient dibanding saham AS lewat tape risk-off yang sama.
+  6. **Indonesia tetap kuat menembus DUA headwind sekaligus** — MSCI Indonesia deletion (GOTO keluar, CPIN turun ke Small Cap) resmi berlaku Senin lalu, DAN gejolak risk-off global Selasa — tapi IHSG malah naik ke ~6.600 (+1,1%, mendekati level psikologis) dan BBCA ke ~Rp6.550 (Mandiri Sekuritas pertahankan BUY, target Rp7.300).
+  - **Cakupan refresh**: `bottomLine`, seluruh baris snapshot (WTI, 10Y, S&P, Nasdaq, IHSG, USD/IDR, BTC/ETH), tesis posisi (BTC, ETH, XLE — ❓ tetap dipertahankan untuk Bryan review, BBCA, CPIN), `techCrypto`/`techEquity`/`techMacro`, `stockMarkets` (US & ID topic+movers), `hotToday` (US & ID), `drivers`/`news`/`rotation`/`corp`/`watch`/`assetsWatch`, `tilt`, dan ke-5 skenario (probabilitas base/bear digeser naik — 2 dari 3 pemicu bear case macro sudah mulai kejadian: yield naik + oil spike; skenario dibangun ulang mengarah ke fase BERIKUTNYA — eskalasi lanjutan vs. de-eskalasi — bukan mengulang yang sudah lewat), plus `macro.json` + `MACRO_FALLBACK` (auto-sebar via `syncMacroProse()`). China/HK (Hang Seng, Shanghai, CSI 300) sengaja TIDAK diubah — tidak ada data baru yang saya temukan minggu ini, jadi saya biarkan dengan penanda eksplisit "no fresher data this cycle" daripada menebak.
+  - **Risk score digeser 56 → 47** ("Neutral, tilting cautious") — mencerminkan eskalasi perang sungguhan + Fed makin hawkish + yield 15-bulan tertinggi + saham AS turun, walau kripto & Indonesia masih tahan.
+  - **Tanggal**: `dateLong`/`feedTime` dimajukan ke Rabu, 2 September 2026.
+- **Verifikasi menyeluruh**: server lokal `python -m http.server 8137` + Claude Browser — 0 error console, 7 tab, 14 baris snapshot, 14 poscard, 9 kartu macro dari fetch live `macro.json`, 15 kartu skenario (5×3), 6 item assetsWatch, semua `data-mref` (WTI $92 ×3, 10Y 4,80% ×2, DXY 99,5) terbukti sinkron dari `macro.json`. Dicek juga tidak ada teks "undefined"/"NaN" bocor ke konten yang terlihat (hanya muncul wajar di dalam kode `<script>`).
+
+### 🐛 Error & Fix
+1. **Tesis CPIN masih pakai frasa "effective at tomorrow's close (31 Aug)"** yang sudah basi (tanggal itu sudah lewat) — ditemukan saat menyisir seluruh file untuk konsistensi, diperbaiki jadi "effective Monday's close (31 Aug)" (past tense).
+
+### ⏸ Butuh Bryan
+- **❓ Tesis XLE (Energy ETF) makin butuh keputusan** — risiko "eskalasi Hormuz" yang dulu cuma teoretis sekarang beneran kejadian (baku tembak AS-Iran sungguhan). Ini sisi bullish dari risk case XLE, tapi datang dari risiko perang nyata, bukan cerita supply yang bersih. Saya tetap pertahankan rating BUY + flag ❓, tidak saya putuskan sendiri.
+- Item lama masih menunggu: aktifkan link Crypto Monitor (kapan Bryan bilang go), Plan A Tier 2 (API key FRED/TE), Premium platform/Trakteer (KYC + rekening).
+
+### ➡️ Berikutnya
+- **Pantau apakah konflik AS-Iran mereda atau meluas** — ini sekarang faktor risiko nomor satu untuk minyak, yield, dan sentimen pasar secara umum. Kalau ada balasan Iran lanjutan atau sebaliknya sinyal gencatan senjata, itu prioritas refresh berikutnya, bukan cuma jadwal rutin.
+- Karena skala refresh hari ini besar (eskalasi geopolitik sungguhan + macro bergerak besar), saya sengaja TIDAK menambah task kode kedua hari ini (prinsip "kualitas di atas kuantitas").
+- Kalau kondisi tenang, lanjut roadmap: Simulator Phase 2 (worst/base/bull), Track Record enhancements, dark-mode (sudah di-scope), content-consistency sweep untuk China/HK yang datanya sudah agak lama.
+
+---
+
 ## 2026-08-30 (Minggu) — Automasi harian (jalan otomatis pagi)
 
 ### ✅ Dikerjakan
@@ -227,6 +257,6 @@
 | **Investment Simulator** | 🟢 Live (Phase 0) | `simulator.html`. Next: Phase 2 worst/base/bull. Refresh 5Y otomatis bulanan. |
 | **Crypto Monitor** | 🟡 Siap, nunggu publish | `crypto-monitor.html` sudah jadi & terverifikasi, tapi belum pernah di-push (Bryan pegang kendali). Link nav disembunyikan sementara biar tidak 404 di situs live — aktifkan begitu Bryan bilang go. |
 | Premium platform (paywall) | 🔵 Nunggu Bryan | Trakteer dulu → Vercel+Midtrans nanti. KYC. |
-| **Auto daily progress + journal** | 🟡 Aktif tapi ada gap berulang | Scheduled task harian + file ini. GitHub Action auto-archive sehat. Task `bryosk-daily-roadmap` sendiri sudah 2× tidak jalan/tidak commit berhari-hari (11-15 Agustus, lalu 18-29 Agustus 2026) — penyebabnya belum diketahui dari sisi kode, perlu Bryan cek riwayat run dari sisi platform, lihat catatan ❓ 30 Agustus. |
+| **Auto daily progress + journal** | 🟡 Aktif, gap terakhir normal (3 hari) | Scheduled task harian + file ini. GitHub Action auto-archive sehat. Task `bryosk-daily-roadmap` sudah 2× tidak jalan/tidak commit berhari-hari (11-15 Agustus, lalu 18-29 Agustus 2026) — run 2 September berjalan normal (gap cuma 3 hari, wajar), tapi masih terlalu dini untuk bilang akar masalahnya sudah hilang. Perlu Bryan cek riwayat run dari sisi platform kalau gap panjang terulang lagi. |
 
 **Legenda:** 🟢 live/jalan · 🟡 sedang dikerjakan · 🔵 nunggu aksi Bryan · ⚪ ide/belum mulai

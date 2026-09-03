@@ -1,13 +1,13 @@
 {
   "_comment": "Single source of truth for macro indicators (Plan A Tier 1). NOT YET wired into index.html render — see PLAN-macro-json.md for remaining steps. Each value carries a 'source' = the FRED / Trading Economics series ID it will auto-fetch from in Tier 2.",
-  "asOf": "2026-09-02",
-  "lastUpdated": "2026-09-02 07:00 UTC",
+  "asOf": "2026-09-03",
+  "lastUpdated": "2026-09-03 07:00 UTC",
   "values": {
     "us10y": {
       "label": "US 10Y Treasury",
-      "value": "~4.80%",
-      "delta": "highest since Jan 2025",
-      "note": "backed up further on the oil spike + Hormuz war risk (tanker strikes 31 Aug, US retaliatory strikes 1 Sept); Sept hike odds jumped to ~68% (from ~40% a week earlier) into the 15–16 Sept FOMC",
+      "value": "~4.79%",
+      "delta": "eased off a multi-year high",
+      "note": "rallied five straight sessions to ~4.81–4.82% (highest since late 2023) on the oil spike + Hormuz war risk, then paused back to 4.79% Wednesday as equities stabilized; Sept hike odds still elevated (~68%, from ~40% two weeks earlier) into the 15–16 Sept FOMC",
       "source": { "provider": "FRED", "series": "DGS10" }
     },
     "fedFunds": {
@@ -54,16 +54,16 @@
     },
     "gold": {
       "label": "Gold (XAU)",
-      "value": "~$4,600",
-      "delta": "fresh multi-month highs",
-      "note": "holding at fresh highs on continued central-bank buying + haven demand — still below January's ~$5,300–5,600 record; not independently re-verified this cycle",
+      "value": "~$4,335",
+      "delta": "slipped, not a haven bid this time",
+      "note": "corrected down from a stale ~$4,600 read — spot actually eased to ~$4,335 (from ~$4,350 the prior day) even as the Iran conflict escalated further, as dollar firmness + high hike odds outweighed haven demand this time; still well below January's ~$5,300–5,600 record",
       "source": { "provider": "TradingView", "series": "TVC:GOLD", "caveat": "no free FRED/TE daily series; keep manual or use a market-data API in a later tier" }
     },
     "wti": {
       "label": "WTI Crude",
       "value": "~$92",
-      "delta": "spiked from ~$83",
-      "note": "tanker strikes in the Strait of Hormuz (31 Aug) and US retaliatory strikes on IRGC targets in Iran (1 Sept) turned the standoff into an active exchange of fire",
+      "delta": "still climbing, not cooling",
+      "note": "kept grinding higher (intraday range ~$89–92) — highest in about three months — as the Hormuz standoff remains unresolved with no ceasefire signal yet",
       "source": { "provider": "FRED", "series": "DCOILWTICO" }
     }
   }

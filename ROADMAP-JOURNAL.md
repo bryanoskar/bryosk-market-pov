@@ -12,6 +12,38 @@
 
 ---
 
+## 2026-09-03 (Kamis) — Automasi harian (jalan otomatis pagi)
+
+### ✅ Dikerjakan
+- **Health check: bersih.** Gap 1 hari (Rabu 2 Sept → Kamis 3 Sept), wajar. Auto-archive GitHub Action tetap sehat — dicek langsung riwayat run-nya lewat GitHub API (`workflows/daily-archive.yml/runs`): sukses tiap hari, run terakhir sebelum sesi ini jam 04:21 UTC 2 September (sebelum konten Rabu di-publish jam 11:22 UTC), jadi belum ada archive baru untuk konten Rabu — ini NORMAL (bukan gap/bug), archive untuk hari ini biasanya jalan sekitar jam 04–07 UTC berikutnya.
+- **Karena topik Hormuz masih sangat panas, saya web-search dulu 8 topik sebelum sentuh narasi** (Hormuz/Iran, BTC/ETH, S&P/Nasdaq/WTI/10Y, Hang Seng/Shanghai/CSI300, IHSG/BBCA, harga emas, harga WTI spesifik hari ini, status ceasefire) — ternyata ceritanya BERBALIK dari yang ditulis kemarin, bukan cuma maju tanggal:
+  1. **Saham AS malah PULIH, bukan makin jatuh.** Setelah jatuh Selasa (1 Sept) akibat serangan AS-Iran, Dow naik ~300 poin Senin (yield mereda), lalu S&P 500 naik 0,46% ke 7.667 dan Nasdaq naik 0,45% ke 26.218 pada Rabu (2 Sept) — walau minyak terus naik dan yield sempat naik lagi intraday.
+  2. **Tapi kripto malah BALIK ARAH DAN JATUH** — setelah pulih ke ~$78.700 hari Selasa, BTC turun lagi ke ~$76.600 hari Rabu; ETH turun ~3% ke ~$2.374. Yahoo Finance sendiri menulis judul "crypto prices tumble as Iran war reignites" — jadi kripto yang kena pukulan spesifik hari ini, BUKAN saham seperti kemarin. Ini pembalikan total dari framing "kripto lebih tahan banting" yang saya tulis kemarin — hanya bertahan satu hari.
+  3. **🐛 KETEMU BUG AKURASI DATA YANG CUKUP BESAR: harga emas.** Situs menulis emas "~$4.600, fresh highs" — setelah dicek web search, harga riil emas Rabu (2 Sept) cuma **~$4.335** (malah turun dari ~$4.350 hari Selasa), meski perang Iran makin panas. Artinya angka $4.600 di situs sudah basi ~6% dan salah arah (menulis "naik" padahal riil "turun"). Ini persis kelas bug yang sama dengan insiden WTI lama — diperbaiki di SEMUA tempat sekaligus (snapshot, techCrypto, techMacro, bottomLine, macro.json, MACRO_FALLBACK) supaya tidak ada lagi angka $4.600 yang tersisa.
+  4. **US 10Y sebenarnya sempat naik ke ~4,81–4,82% (tertinggi sejak akhir 2023, bukan Januari 2025 seperti tertulis) lalu turun lagi ke ~4,79%** Rabu seiring saham stabil — diperhalus jadi lebih akurat.
+  5. **Hong Kong dapat pemicu yang lebih segar dan lebih masuk akal**: Hang Seng turun 0,9% ke ~25.330 hari Selasa — ternyata pemicunya BUKAN cuma cerita lama "dilusi placement Alibaba", tapi kekhawatiran inflasi/pengetatan akibat lonjakan minyak dari konflik Iran, ditambah pelemahan sektor properti. Shanghai ternyata juga LEBIH STABIL dari yang saya kira — datar di ~3.941 tapi naik ~3,5% dalam sebulan terakhir, bukan terus "-6,8% 2 minggu" seperti framing lama yang sudah basi.
+  6. **WTI tetap ~$92** (range intraday $89–92, 3 bulan tertinggi) — angka lama ternyata masih akurat, cuma catatan "masih naik terus, belum ada tanda ceasefire" yang diperbarui.
+  7. **Ceasefire/de-eskalasi Hormuz**: belum ada. Upaya diplomatik dilaporkan masih jalan tapi belum ada sinyal konkret.
+  - **Cakupan refresh**: `bottomLine`, seluruh baris snapshot, posisi BTC/ETH/Tencent/HSCEI, `techCrypto`/`techEquity`/`techMacro`, `stockMarkets` (US & China/HK topic+movers), `hotToday.us`, `chinaHK`, `drivers`/`news`/`rotation`/`corp`/`watch`/`assetsWatch` (tambah 1 item baru: Gold, karena sekarang jadi isu tersendiri), `tilt`, ke-5 skenario (teks diperhalus mengikuti temuan hari ini — kripto sekarang aset paling sensitif konflik, bukan saham; probabilitas base/bear/bull TIDAK diubah karena belum ada resolusi baru), plus `macro.json` + `MACRO_FALLBACK`.
+  - **Risk score 47 → 48** (nyaris flat) — saham membaik tapi kripto memburuk, saling menutupi; tetap "Neutral, tilting cautious" karena konflik Hormuz belum selesai.
+- **Verifikasi menyeluruh**: server lokal `python -m http.server 8137` + Claude Browser — 0 error console, dateline "Thursday, 3 September 2026", 7 tab, 14 baris snapshot, 14 poscard, 9 kartu macro dari fetch live `macro.json`, 15 kartu skenario, 7 item assetsWatch, semua `data-mref` (gold ×4, WTI ×2, 10Y ×2, DXY ×1) terbukti terisi angka baru yang benar dari `macro.json` langsung. Tidak ada teks "undefined"/"NaN" bocor ke konten.
+
+### 🐛 Error & Fix
+1. **Harga emas basi & salah arah (~$4.600 tertulis vs ~$4.335 riil, beda ~6%)** — ditemukan lewat web search khusus harga emas hari ini (sumber: CNBC, Fortune, Forbes Advisor, Yahoo). Diperbaiki di semua lokasi (snapshot, techCrypto, techMacro, bottomLine, drivers, news, corp, assetsWatch, macro.json, MACRO_FALLBACK) sekaligus, plus ditambahkan catatan eksplisit "koreksi dari angka basi" supaya jejaknya tercatat.
+2. **Framing Hang Seng & Shanghai sudah basi 2 minggu** ("no fresher data this cycle" yang sudah dicatat 2 sesi berturut-turut) — akhirnya ketemu data segar lewat web search: Hang Seng turun karena pemicu minyak/inflasi Iran (bukan cuma Alibaba), Shanghai ternyata stabil-naik bulanan (bukan terus turun). Diperbaiki di semua tempat yang menyebut kedua indeks ini termasuk posisi Tencent & HSCEI yang sempat terlewat pada scan pertama, ketemu di scan kedua (`grep` ulang untuk "26,700"/"25,600").
+3. **Framing "kripto lebih tahan banting dari saham" dari kemarin ternyata cuma bertahan 1 hari** — bukan bug, tapi perkembangan riil yang harus dibalik: hari ini saham yang pulih, kripto yang jatuh. Diperbaiki konsisten di semua narasi.
+
+### ⏸ Butuh Bryan
+- **❓ Tesis XLE (Energy ETF)** — tetap dua sisi seperti 2 sesi terakhir: minyak masih ~$92 dan terus naik, konflik belum ada tanda mereda. Rating BUY + flag ❓ dipertahankan, tidak saya putuskan sendiri.
+- Item lama masih menunggu: aktifkan link Crypto Monitor (kapan Bryan bilang go), Plan A Tier 2 (API key FRED/TE), Premium platform/Trakteer (KYC + rekening).
+
+### ➡️ Berikutnya
+- **Pantau apakah pembalikan kripto hari ini (turun sementara karena headline Iran) berlanjut jadi tren, atau cuma reaksi 1 hari** — ini sekarang pertanyaan paling penting untuk refresh besok, sesuai catatan `watch`/`assetsWatch` yang baru ditambahkan.
+- Karena refresh hari ini besar (pembalikan saham vs kripto + 1 bug akurasi data emas + 2 koreksi framing China/HK yang sudah lama basi), saya sengaja TIDAK menambah task kode kedua hari ini (prinsip "kualitas di atas kuantitas", sama seperti pola sesi-sesi refresh besar sebelumnya).
+- Kalau kondisi tenang & tidak ada kejutan data baru, lanjut roadmap: Simulator Phase 2 (worst/base/bull), Track Record enhancements, dark-mode (sudah di-scope), atau sweep akurasi data lanjutan untuk CSI 300 (satu-satunya angka yang masih belum saya dapat data segarnya).
+
+---
+
 ## 2026-09-02 (Rabu) — Automasi harian (jalan otomatis pagi)
 
 ### ✅ Dikerjakan
@@ -257,6 +289,6 @@
 | **Investment Simulator** | 🟢 Live (Phase 0) | `simulator.html`. Next: Phase 2 worst/base/bull. Refresh 5Y otomatis bulanan. |
 | **Crypto Monitor** | 🟡 Siap, nunggu publish | `crypto-monitor.html` sudah jadi & terverifikasi, tapi belum pernah di-push (Bryan pegang kendali). Link nav disembunyikan sementara biar tidak 404 di situs live — aktifkan begitu Bryan bilang go. |
 | Premium platform (paywall) | 🔵 Nunggu Bryan | Trakteer dulu → Vercel+Midtrans nanti. KYC. |
-| **Auto daily progress + journal** | 🟡 Aktif, gap terakhir normal (3 hari) | Scheduled task harian + file ini. GitHub Action auto-archive sehat. Task `bryosk-daily-roadmap` sudah 2× tidak jalan/tidak commit berhari-hari (11-15 Agustus, lalu 18-29 Agustus 2026) — run 2 September berjalan normal (gap cuma 3 hari, wajar), tapi masih terlalu dini untuk bilang akar masalahnya sudah hilang. Perlu Bryan cek riwayat run dari sisi platform kalau gap panjang terulang lagi. |
+| **Auto daily progress + journal** | 🟢 Sehat 2 hari berturut (2–3 Sept) | Scheduled task harian + file ini. GitHub Action auto-archive dicek langsung lewat GitHub API hari ini — sukses tiap run, tidak ada gap. Task `bryosk-daily-roadmap` sempat 2× tidak jalan/tidak commit berhari-hari (11-15 Agustus, lalu 18-29 Agustus 2026); 2 run terakhir (2 & 3 September) normal. Masih terlalu dini untuk bilang akar masalahnya sudah hilang total — perlu Bryan cek riwayat run dari sisi platform kalau gap panjang terulang lagi. |
 
 **Legenda:** 🟢 live/jalan · 🟡 sedang dikerjakan · 🔵 nunggu aksi Bryan · ⚪ ide/belum mulai

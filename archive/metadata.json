@@ -1,7 +1,15 @@
 {
-  "lastUpdated": "2026-09-02",
+  "lastUpdated": "2026-09-03",
   "since": "2026-05-27",
   "entries": [
+    {
+      "date": "2026-09-03",
+      "dateLong": "Thursday, 3 September 2026",
+      "riskScore": 48,
+      "riskLabel": "Neutral, tilting cautious · equities stabilized but crypto took the fresh hit as the Hormuz standoff grinds on unresolved",
+      "bottomLineExcerpt": "The picture flipped from Tuesday to Wednesday: equities steadied, crypto didn't. After Tuesday's (1 Sept) risk-off drop on the US–Iran exchange of fire, US equities actually stabilized — the Dow rose ~300pts Monday as yields cooled, then the S&amp;P 500 added 0.46% to 7,666.60 and the Nasdaq gained 0.45% to 26,217.83 on Wednesday (2 Sept), even as oil kept climbing and yields ticked up again intraday. The US 10Y rallied five straight sessions to a brief ~4.81–4.82% high (highest since late 2023)",
+      "file": "2026-09-03.html"
+    },
     {
       "date": "2026-09-02",
       "dateLong": "Wednesday, 2 September 2026",

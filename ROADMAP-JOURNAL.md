@@ -12,6 +12,38 @@
 
 ---
 
+## 2026-09-20 (Minggu) — Automasi harian (jalan otomatis pagi) — 🐛 bug otomasi 14 hari ditemukan + refresh besar setelah gap
+
+### 🐛 Error & Fix (BACA DULUAN — ini yang paling penting hari ini)
+- **Ditemukan: task otomatis harian "berhasil" 14 hari berturut-turut (6–19 September) tapi TIDAK ADA satupun perubahan konten yang benar-benar masuk ke situs.** Commit terakhir sebelum hari ini adalah 3 September — jadi situs sudah basi 17 hari padahal scheduler mencatat semua run sebagai "succeeded". Setelah dicek riwayat run satu-satu, polanya jelas: sesi otomatis menghabiskan waktu/kuota untuk riset (banyak pencarian web) tapi tidak pernah sampai ke tahap edit-file dan commit — jadi tercatat "sukses" secara teknis (sesi selesai tanpa error) padahal hasilnya nol.
+- **Ini persis bug yang sama dengan insiden 11-15 Agustus dan 18-29 Agustus yang pernah dicatat di tabel Status Roadmap** — jadi ini masalah berulang, bukan kejadian sekali. Ditandai 🔴 di tabel status supaya tidak lolos lagi.
+- **Perbaikan yang diterapkan hari ini:** instruksi task harian diubah urutannya — sekarang WAJIB melakukan refresh minimal (tanggal + riset singkat + fix kontradiksi jelas) dan **commit dulu sebagai checkpoint**, baru boleh lanjut ke task roadmap yang lebih dalam. Kalau kehabisan waktu, berhentinya setelah checkpoint sudah ter-commit, bukan sebelum. Efektivitas perbaikan ini baru bisa dipastikan setelah beberapa hari run berikutnya benar-benar menghasilkan commit — tolong Bryan cek lagi dalam beberapa hari.
+
+### ✅ Dikerjakan
+- **Refresh data besar-besaran** untuk menutup gap 17 hari (3→20 Sept) — bukan cuma ganti tanggal, tapi cek ulang semua angka penting lewat pencarian web (8 pencarian, sedikit di atas batas normal 6 karena skala perubahannya besar):
+  1. **The Fed akhirnya menaikkan suku bunga** — 16 September, +25bp ke 3.75–4.00%, kenaikan pertama dalam 3 tahun (bulat/unanimous), dan proyeksi The Fed sendiri menunjukkan masih ada 1x kenaikan lagi tahun ini. Pasar sempat kaget (Dow -631 poin/-1,21% di hari pengumuman) tapi pulih lagi Kamis-Jumat, S&P 500 ditutup naik +0,17% ke 7.650,50 di akhir minggu.
+  2. **US 10Y sempat menyentuh level tertinggi sejak 2007** (~5,02% intraday 15 Sept) sebelum turun lagi ke ~4,93–4,94% — situs sebelumnya masih menulis ~4,79% dan seolah kenaikan The Fed masih "kemungkinan", padahal sudah terjadi.
+  3. **Krisis minyak jauh lebih parah dari yang tercatat terakhir**: pipa minyak East-West ditutup 11 September + gangguan Selat Hormuz/Bab-al-Mandab berlanjut — disebut media sebagai salah satu gangguan pasokan minyak terbesar dalam sejarah. WTI naik ke ~$99-100 (sebelumnya tercatat ~$92). Ada juga sinyal de-eskalasi yang belum pasti: Iran-Oman dikabarkan sepakat rencana buka kembali Selat Hormuz (16 Sept), dan Trump bilang perang "hampir berakhir" (17 Sept) — tapi belum dikonfirmasi, jadi ditulis sebagai risiko dua arah, bukan sudah selesai.
+  4. **Emas melemah lagi** ke ~$4.275 (dari ~$4.335) — tetap tidak berfungsi sebagai lindung nilai meski yield naik tajam dan krisis minyak memburuk.
+  5. **China/Hong Kong berbalik jadi positif**: Shanghai Composite +0,94% ke 3.912, Hang Seng +0,60% ke 24.751 (keduanya 18 Sept), didorong saham teknologi menjelang KTT Trump-Xi 24 September (isu utama: akses chip AI). Ini pembalikan total dari narasi lemah akibat Iran yang tercatat 3 minggu lalu.
+  6. **Indonesia berubah lebih hati-hati**: riset lokal sekarang memproyeksikan IHSG September sideways-bearish (kisaran ~6.400–6.705), bukan lagi kenaikan lurus yang ditulis 3 minggu lalu. Rupiah dinilai stabil di kisaran Rp17.400-17.500.
+  7. **Kripto (BTC/ETH) sudah pulih jauh dari titik terendah awal September** (BTC ~$81.300 per 19 Sept) — karena BTC/ETH datanya live dari CoinGecko, angka lama di teks narasi (yang menyebut BTC $76.600) dihapus dan diganti dengan bahasa berbasis level/struktur (sesuai aturan akurasi data — tidak boleh menulis angka kripto spesifik di teks yang bisa bertentangan dengan harga live).
+- **Cakupan edit**: bottomLine, snapshot (semua baris), techCrypto/techEquity/techMacro, drivers/news/rotation/corp/watch/assetsWatch, tilt, kelima skenario (overview/crypto/stocks/macro/outlook), blok stockMarkets (US/ID/CN) + hotToday, posisi BTC/ETH/XLE, `macro.json`, dan `MACRO_FALLBACK` di index.html — semua span `data-mref` (gold/wti/us10y) dicek konsisten lewat browser.
+- **XLE (❓ untuk Bryan, tidak diubah rating-nya)**: tesis XLE diperbarui mengikuti fakta baru (minyak makin parah lalu ada sinyal de-eskalasi yang belum pasti) — risiko sekarang lebih ekstrem di kedua arah dibanding 3 minggu lalu, worth dicek ulang keyakinannya bareng Bryan.
+
+### ⏸ Butuh Bryan
+- Tidak ada task yang butuh signup/KYC/pembayaran hari ini.
+- **Minta tolong pantau**: apakah 2-3 hari run berikutnya benar-benar menghasilkan commit baru (bukan cuma "succeeded" di scheduler). Kalau masih kosong, bug otomasinya belum benar-benar teratasi dan perlu diagnosis lebih dalam dari sisi platform.
+- **XLE ❓**: konviksi BUY masih dipertahankan tapi situasi minyak sudah berubah drastis dua arah (naik ke $99+ lalu ada sinyal reda) — worth dicek ulang bareng.
+
+### ➡️ Berikutnya
+- Konfirmasi apakah checkpoint-first ordering di prompt task berhasil mencegah bug "succeeded tapi kosong" terulang.
+- Re-verifikasi angka BBCA/IHSG spesifik (harga saham, PT analis) — sesi ini hanya sempat memperbarui level index/rupiah secara umum, bukan angka per-saham Indonesia.
+- Re-verifikasi DXY dan CPI AS — dua angka ini di-carry-forward apa adanya (belum sempat dicek ulang) karena batas riset sesi ini sudah terpakai untuk topik Fed/oil/China yang skalanya lebih besar.
+- Lanjutkan roadmap backlog (Simulator Phase 2, Crypto Monitor, mobile UX) begitu data-accuracy sweep ini stabil beberapa hari.
+
+---
+
 ## 2026-09-03 (Kamis) — Automasi harian (jalan otomatis pagi)
 
 ### ✅ Dikerjakan
@@ -289,6 +321,6 @@
 | **Investment Simulator** | 🟢 Live (Phase 0) | `simulator.html`. Next: Phase 2 worst/base/bull. Refresh 5Y otomatis bulanan. |
 | **Crypto Monitor** | 🟡 Siap, nunggu publish | `crypto-monitor.html` sudah jadi & terverifikasi, tapi belum pernah di-push (Bryan pegang kendali). Link nav disembunyikan sementara biar tidak 404 di situs live — aktifkan begitu Bryan bilang go. |
 | Premium platform (paywall) | 🔵 Nunggu Bryan | Trakteer dulu → Vercel+Midtrans nanti. KYC. |
-| **Auto daily progress + journal** | 🟢 Sehat 2 hari berturut (2–3 Sept) | Scheduled task harian + file ini. GitHub Action auto-archive dicek langsung lewat GitHub API hari ini — sukses tiap run, tidak ada gap. Task `bryosk-daily-roadmap` sempat 2× tidak jalan/tidak commit berhari-hari (11-15 Agustus, lalu 18-29 Agustus 2026); 2 run terakhir (2 & 3 September) normal. Masih terlalu dini untuk bilang akar masalahnya sudah hilang total — perlu Bryan cek riwayat run dari sisi platform kalau gap panjang terulang lagi. |
+| **Auto daily progress + journal** | 🔴 Bug ditemukan (Sept 20) — perlu diawasi | **Root cause AKHIRNYA ketemu:** dari 6–19 September (14 hari), scheduler melaporkan tiap run "succeeded" tapi TIDAK ADA satupun commit baru masuk ke repo — run-nya diam-diam berhenti sebelum sampai ke tahap edit/commit (kemungkinan besar kehabisan waktu/turn budget di tahap riset). Pola persis sama dengan insiden 11-15 & 18-29 Agustus yang dicatat di baris ini sebelumnya — jadi ini bug yang berulang, bukan kejadian sekali. Sesi hari ini (20 Sept) menambahkan aturan "checkpoint dulu, riset dalam belakangan" ke prompt task supaya tidak terulang; efektivitasnya baru bisa dikonfirmasi setelah beberapa hari run berikutnya benar-benar menghasilkan commit. |
 
 **Legenda:** 🟢 live/jalan · 🟡 sedang dikerjakan · 🔵 nunggu aksi Bryan · ⚪ ide/belum mulai

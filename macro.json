@@ -1,69 +1,69 @@
 {
   "_comment": "Single source of truth for macro indicators (Plan A Tier 1). NOT YET wired into index.html render — see PLAN-macro-json.md for remaining steps. Each value carries a 'source' = the FRED / Trading Economics series ID it will auto-fetch from in Tier 2.",
-  "asOf": "2026-09-03",
-  "lastUpdated": "2026-09-03 07:00 UTC",
+  "asOf": "2026-09-20",
+  "lastUpdated": "2026-09-20 07:00 WIB",
   "values": {
     "us10y": {
       "label": "US 10Y Treasury",
-      "value": "~4.79%",
-      "delta": "eased off a multi-year high",
-      "note": "rallied five straight sessions to ~4.81–4.82% (highest since late 2023) on the oil spike + Hormuz war risk, then paused back to 4.79% Wednesday as equities stabilized; Sept hike odds still elevated (~68%, from ~40% two weeks earlier) into the 15–16 Sept FOMC",
+      "value": "~4.93%",
+      "delta": "off an 18-year high",
+      "note": "spiked to ~5.02% intraday 15 Sept (highest since 2007) on the confirmed Fed hike, then eased to ~4.93–4.94% by week's end as the initial shock faded",
       "source": { "provider": "FRED", "series": "DGS10" }
     },
     "fedFunds": {
       "label": "Fed Funds Rate",
-      "value": "3.50–3.75%",
-      "delta": "held 24 Aug; hike odds rising",
-      "note": "the Fed held on 24 Aug; Jackson Hole plus the Hormuz oil spike have pushed market-implied Sept hike odds to ~68%",
+      "value": "3.75–4.00%",
+      "delta": "hiked 25bp on 16 Sept",
+      "note": "first hike in 3 years, unanimous FOMC decision; the Fed's own Summary of Economic Projections points to at least one more hike before year-end",
       "source": { "provider": "FRED", "series": "FEDFUNDS" }
     },
     "usCPI": {
       "label": "US CPI (YoY)",
       "value": "~3.9%",
-      "delta": "watch the August print",
-      "note": "August CPI (due before the Sept FOMC) is the key swing input for whether the Fed holds or hikes",
+      "delta": "not independently re-verified this cycle",
+      "note": "carried forward from three weeks ago — flagged for next session's sweep",
       "source": { "provider": "FRED", "series": "CPIAUCSL" }
     },
     "usPCE": {
       "label": "US PCE (YoY)",
       "value": "~3.5%",
       "delta": "unchanged since last update",
-      "note": "not independently re-verified this cycle; watch alongside the CPI print",
+      "note": "not independently re-verified this cycle; watch alongside the next CPI print",
       "source": { "provider": "FRED", "series": "PCEPI" }
     },
     "dxy": {
       "label": "Dollar Index (DXY)",
       "value": "~99.5",
-      "delta": "firm, near recent range",
-      "note": "safe-haven dollar demand holding firm against the same Hormuz war-risk backdrop pushing gold and oil higher",
+      "delta": "not independently re-verified this cycle",
+      "note": "carried forward from three weeks ago; flagged for next session given the scale of the rate move since",
       "source": { "provider": "FRED", "series": "DTWEXBGS", "caveat": "DXY proper is ICE; DTWEXBGS is FRED's broad trade-weighted USD index — close proxy, label accordingly" }
     },
     "biRate": {
       "label": "Bank Indonesia Rate",
       "value": "+75bp cumulative since May",
-      "delta": "hike working, foreign inflows continuing",
-      "note": "IHSG (~6,600) and BBCA (~Rp6,550) kept extending straight through the MSCI Indonesia deletion (effective Monday's close) and Tuesday's global Hormuz-driven risk-off",
+      "delta": "not independently re-verified this cycle",
+      "note": "carried forward; local desks now frame September as sideways-to-bearish for IHSG rather than a straight-line extension — flagged for next session's IHSG/BBCA-specific re-check",
       "source": { "provider": "TradingEconomics", "series": "indonesia/interest-rate" }
     },
     "usdidr": {
       "label": "USD/IDR",
-      "value": "~17,720",
-      "delta": "firmer",
-      "note": "rupiah holding firmer on the BI hike plus continued foreign equity inflows into Indonesian banks, even against a firmer DXY this week",
+      "value": "~17,450",
+      "delta": "stable, slightly firmer",
+      "note": "assessed as stable, holding roughly Rp17,400–17,500 — a touch firmer than three weeks ago despite the confirmed Fed hike",
       "source": { "provider": "TradingEconomics", "series": "indonesia/currency" }
     },
     "gold": {
       "label": "Gold (XAU)",
-      "value": "~$4,335",
-      "delta": "slipped, not a haven bid this time",
-      "note": "corrected down from a stale ~$4,600 read — spot actually eased to ~$4,335 (from ~$4,350 the prior day) even as the Iran conflict escalated further, as dollar firmness + high hike odds outweighed haven demand this time; still well below January's ~$5,300–5,600 record",
+      "value": "~$4,275",
+      "delta": "slipped further, still no hedge bid",
+      "note": "eased to roughly $4,270-4,280 even as the 10Y hit an 18-year high and the oil crisis deepened — firm dollar + high real yields still outweighing haven demand; still well below January's ~$5,300–5,600 record",
       "source": { "provider": "TradingView", "series": "TVC:GOLD", "caveat": "no free FRED/TE daily series; keep manual or use a market-data API in a later tier" }
     },
     "wti": {
       "label": "WTI Crude",
-      "value": "~$92",
-      "delta": "still climbing, not cooling",
-      "note": "kept grinding higher (intraday range ~$89–92) — highest in about three months — as the Hormuz standoff remains unresolved with no ceasefire signal yet",
+      "value": "~$99",
+      "delta": "multi-month high on a real supply shock",
+      "note": "the 11 Sept East-West Crude Oil Pipeline shutdown plus renewed Hormuz/Bab-al-Mandab disruption pushed WTI to roughly $99-100 — reportedly among the largest supply disruptions on record. A 16-17 Sept Iran-Oman Strait-reopening plan plus Trump's 'nearing the end' comments are a genuine but unconfirmed de-escalation thread — treat as elevated and two-sided, not resolved",
       "source": { "provider": "FRED", "series": "DCOILWTICO" }
     }
   }

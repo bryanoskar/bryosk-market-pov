@@ -12,6 +12,34 @@
 
 ---
 
+## 2026-09-21 (Senin) — Automasi harian (jalan otomatis pagi) — koreksi harga emas & rupiah + kabar baik soal bug otomasi
+
+### ✅ Dikerjakan
+- **Health check: bersih.** Auto-archive GitHub Action sehat (`archive/metadata.json` sampai 20 Sept, sesuai). Gap cuma 1 hari (Minggu 20 → Senin 21), wajar.
+- **Kabar baik soal bug otomasi 14-hari yang dicatat kemarin**: dicek ulang riwayat run (`list_task_runs`) — run tanggal 18, 19, 20, dan hari ini (21 Sept) semuanya benar-benar menghasilkan commit, bukan cuma "succeeded" kosong seperti sebelumnya. Aturan "checkpoint dulu, riset belakangan" yang ditambahkan 20 Sept sepertinya berhasil. Belum saya tandai 🟢 penuh — mau lihat konsistensi beberapa hari lagi dulu.
+- **Riset tervalidasi (6 topik, sesuai batas) menemukan 2 angka yang butuh koreksi nyata** (bukan cuma ganti tanggal):
+  1. **Emas berbalik naik, bukan makin turun.** Situs kemarin menulis emas "melemah lagi ke ~$4.275". Data riil: emas justru **rebound ke ~$4.400** pada Jumat 19 Sept, didorong oil yang turun (meredakan kekhawatiran inflasi) yang juga menarik yield 10Y turun dari puncaknya. Ini pembalikan arah, bukan sekadar update angka — jadi bahasa narasinya juga diubah dari "gagal jadi hedge" ke "akhirnya bereaksi sebagai hedge lagi".
+  2. **🐛 Rupiah ternyata sudah lebih lemah dari yang tercatat, bukan "stabil".** Situs sejak beberapa hari lalu menulis rupiah "stabil, sedikit menguat" di kisaran Rp17.400-17.500 — tapi angka itu ternyata **dibawa terus tanpa dicek ulang** (sudah ditandai sebagai belum-terverifikasi di entri 20 Sept). Setelah dicek: kurs riil 18 Sept sudah **Rp17.813** — beda ~2% dan arahnya salah (situs bilang "menguat", realitanya melemah akibat tekanan kenaikan The Fed). Diperbaiki ke ~Rp17.800 di semua tempat.
+  3. **WTI (minyak) dicek ulang, angkanya masih akurat** — konfirmasi harga riil $100-102 pada 15-18 Sept (bahkan sempat $101,91 pada 17 Sept), jadi framing "~$99-100, masih tinggi" di situs TIDAK perlu diubah. Tambahan info baru: Arab Saudi sekarang juga mengalihkan sebagian pasokan minyak lewat kapal-ke-kapal di dekat Oman untuk memutar jalur Hormuz — ditambahkan sebagai detail baru di tesis XLE & techMacro, tanpa mengubah angka harga.
+  4. Saham AS (S&P/Nasdaq), China/HK, dan IHSG dicek — semua masih sesuai dengan framing yang sudah ditulis 20 Sept, tidak ada kontradiksi baru.
+- **Cakupan edit**: `macro.json` (single source, field gold + usdidr + asOf/lastUpdated) dan semua tempat di `index.html` yang menyebut emas/rupiah — bottomLine, kartu posisi Gold & USD/IDR, techCrypto, techMacro (2 baris), topic Indonesia, drivers (2 baris), assetsWatch Gold. Field USD/IDR yang sebelumnya teks polos sekarang juga dibungkus `<span data-mref="usdidr">` supaya ikut auto-sync dari `macro.json` seperti Gold/WTI/10Y/DXY — kecil tapi mengurangi risiko kontradiksi berulang untuk angka ini juga (bagian dari item roadmap "Plan A Tier 1 optional polish").
+- Verifikasi: `python -m http.server 8137` + Claude Browser — 0 error console, dateline "Monday, 21 September 2026", 7 tab, 14 baris snapshot, 9 kartu macro, semua span `data-mref` (gold ×4 → $4.400, usdidr ×2 → 17.800, wti ×3 → tetap $99) terbukti konsisten dari `macro.json`.
+
+### 🐛 Error & Fix
+- **Rupiah "stabil" ternyata angka basi yang tidak dicek ulang** (lihat poin 2 di atas) — koreksi ke ~Rp17.800 di 7 tempat + `macro.json`. Ini persis jenis bug yang jadi prinsip #1 situs ini: jangan biarkan angka yang "dibawa terus tanpa verifikasi" diam-diam jadi salah arah.
+
+### ⏸ Butuh Bryan
+- Tidak ada task signup/KYC/pembayaran hari ini.
+- DXY dan US CPI masih belum di-re-verify (dibawa terus dari sesi sebelumnya) — akan dicek sesi berikutnya kalau ada sisa kuota riset.
+- BBCA/IHSG angka spesifik saham Indonesia juga masih belum di-re-check — sama seperti dicatat kemarin.
+
+### ➡️ Berikutnya
+- Terus pantau apakah bug otomasi benar-benar tuntas (butuh beberapa hari commit berturut-turut lagi sebelum ditandai 🟢).
+- Re-verifikasi DXY, US CPI, dan angka BBCA/IHSG spesifik begitu ada kuota riset lebih.
+- Kalau data sudah stabil beberapa hari, lanjut roadmap: Simulator Phase 2 (worst/base/bull), Crypto Monitor, atau mobile UX/dark-mode.
+
+---
+
 ## 2026-09-20 (Minggu) — Automasi harian (jalan otomatis pagi) — 🐛 bug otomasi 14 hari ditemukan + refresh besar setelah gap
 
 ### 🐛 Error & Fix (BACA DULUAN — ini yang paling penting hari ini)
@@ -321,6 +349,6 @@
 | **Investment Simulator** | 🟢 Live (Phase 0) | `simulator.html`. Next: Phase 2 worst/base/bull. Refresh 5Y otomatis bulanan. |
 | **Crypto Monitor** | 🟡 Siap, nunggu publish | `crypto-monitor.html` sudah jadi & terverifikasi, tapi belum pernah di-push (Bryan pegang kendali). Link nav disembunyikan sementara biar tidak 404 di situs live — aktifkan begitu Bryan bilang go. |
 | Premium platform (paywall) | 🔵 Nunggu Bryan | Trakteer dulu → Vercel+Midtrans nanti. KYC. |
-| **Auto daily progress + journal** | 🔴 Bug ditemukan (Sept 20) — perlu diawasi | **Root cause AKHIRNYA ketemu:** dari 6–19 September (14 hari), scheduler melaporkan tiap run "succeeded" tapi TIDAK ADA satupun commit baru masuk ke repo — run-nya diam-diam berhenti sebelum sampai ke tahap edit/commit (kemungkinan besar kehabisan waktu/turn budget di tahap riset). Pola persis sama dengan insiden 11-15 & 18-29 Agustus yang dicatat di baris ini sebelumnya — jadi ini bug yang berulang, bukan kejadian sekali. Sesi hari ini (20 Sept) menambahkan aturan "checkpoint dulu, riset dalam belakangan" ke prompt task supaya tidak terulang; efektivitasnya baru bisa dikonfirmasi setelah beberapa hari run berikutnya benar-benar menghasilkan commit. |
+| **Auto daily progress + journal** | 🟡 Membaik, masih dipantau | Setelah bug 14-hari (6-19 Sept) ketemu dan aturan "checkpoint dulu, riset belakangan" ditambahkan ke prompt (20 Sept), run tanggal 18, 19, 20, dan 21 September (hari ini) semuanya sukses menghasilkan commit nyata — 4 hari berturut-turut. Tanda awal yang bagus, tapi belum resmi ditutup sebagai "selesai" — perlu beberapa hari lagi konsisten sebelum berubah ke 🟢. |
 
 **Legenda:** 🟢 live/jalan · 🟡 sedang dikerjakan · 🔵 nunggu aksi Bryan · ⚪ ide/belum mulai

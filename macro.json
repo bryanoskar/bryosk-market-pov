@@ -1,7 +1,7 @@
 {
   "_comment": "Single source of truth for macro indicators (Plan A Tier 1). NOT YET wired into index.html render — see PLAN-macro-json.md for remaining steps. Each value carries a 'source' = the FRED / Trading Economics series ID it will auto-fetch from in Tier 2.",
-  "asOf": "2026-09-20",
-  "lastUpdated": "2026-09-20 07:00 WIB",
+  "asOf": "2026-09-19",
+  "lastUpdated": "2026-09-21 07:00 WIB",
   "values": {
     "us10y": {
       "label": "US 10Y Treasury",
@@ -47,16 +47,16 @@
     },
     "usdidr": {
       "label": "USD/IDR",
-      "value": "~17,450",
-      "delta": "stable, slightly firmer",
-      "note": "assessed as stable, holding roughly Rp17,400–17,500 — a touch firmer than three weeks ago despite the confirmed Fed hike",
+      "value": "~17,800",
+      "delta": "weakened past 17,700",
+      "note": "corrected on re-verification (18 Sept print: 17,813, +0.22% that session) — the prior 'stable near 17,400–17,500' read was carried forward without a fresh check and turns out to have understated the Fed-hike pressure on the rupiah",
       "source": { "provider": "TradingEconomics", "series": "indonesia/currency" }
     },
     "gold": {
       "label": "Gold (XAU)",
-      "value": "~$4,275",
-      "delta": "slipped further, still no hedge bid",
-      "note": "eased to roughly $4,270-4,280 even as the 10Y hit an 18-year high and the oil crisis deepened — firm dollar + high real yields still outweighing haven demand; still well below January's ~$5,300–5,600 record",
+      "value": "~$4,400",
+      "delta": "rebounded off the ~$4,275 low",
+      "note": "rose toward $4,400 by Fri 19 Sept as falling oil prices eased inflation fears and pulled the 10Y down from its 15 Sept peak — the hedge bid finally showed up once the rate-shock/oil-shock combo started to unwind; still well below January's ~$5,300–5,600 record",
       "source": { "provider": "TradingView", "series": "TVC:GOLD", "caveat": "no free FRED/TE daily series; keep manual or use a market-data API in a later tier" }
     },
     "wti": {

@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BryOsk Market PoV — Daily Cross-Asset Read</title>
+<meta name="description" content="Daily institutional-grade market read across crypto, US, China/HK, and Indonesia. Bull/Base/Bear scenarios, Buy/Hold/Sell positions, full archived track record.">
+<meta name="theme-color" content="#00447c">
+<link rel="canonical" href="https://bryanoskar.github.io/bryosk-market-pov/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BryOsk Market PoV">
+<meta property="og:title" content="BryOsk Market PoV — Daily Cross-Asset Read">
+<meta property="og:description" content="Daily institutional-grade market read · crypto · US · Indonesia · China/HK · macro. Bull/Base/Bear scenarios, Buy/Hold/Sell positions, full archive.">
+<meta property="og:url" content="https://bryanoskar.github.io/bryosk-market-pov/">
+<meta property="og:image" content="https://bryanoskar.github.io/bryosk-market-pov/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="BryOsk Market PoV — Daily Cross-Asset Read">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BryOsk Market PoV — Daily Cross-Asset Read">
+<meta name="twitter:description" content="Daily institutional-grade market read · crypto · US · Indonesia · China/HK · macro. Bull/Base/Bear scenarios, Buy/Hold/Sell positions.">
+<meta name="twitter:image" content="https://bryanoskar.github.io/bryosk-market-pov/og-image.png">
+<style>
+  :root{
+    --ink:#212121; --muted:#6b7280; --line:#e4e3dd; --bg:#f2f3f4; --card:#ffffff;
+    --pos:#16a36a; --neg:#e0453e; --accent:#00447c; --teal:#0b7b9e; --sand:#dddace; --sand2:#c6c3b6; --navy:#002756;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth; -webkit-text-size-adjust:100%;}
+  body{background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif; line-height:1.6; font-size:16px; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:780px; margin:0 auto; padding:0 22px 90px;}
+
+  .hero{position:relative; overflow:hidden; border-radius:0 0 22px 22px; background:linear-gradient(135deg,var(--navy) 0%,var(--accent) 58%,var(--teal) 120%); color:#fff; padding:42px 30px 30px; margin:0 -22px 0; box-shadow:0 18px 50px -24px rgba(0,39,86,.6);}
+  .hero::after{content:""; position:absolute; inset:0; background:radial-gradient(800px 300px at 80% -10%,rgba(120,190,220,.28),transparent 60%); animation:drift 14s ease-in-out infinite alternate;}
+  @keyframes drift{from{transform:translateX(-30px)} to{transform:translateX(30px)}}
+  .brand{font-size:12px; letter-spacing:.28em; text-transform:uppercase; opacity:.78; font-weight:600; position:relative; z-index:1;}
+  .hero h1{font-size:31px; font-weight:800; letter-spacing:-.02em; margin:8px 0 4px; position:relative; z-index:1;}
+  .hero .date{font-size:13px; opacity:.72; position:relative; z-index:1;}
+  .gauge{position:relative; z-index:1; margin-top:20px;}
+  .gauge .lab{display:flex; justify-content:space-between; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; opacity:.7; margin-bottom:6px;}
+  .gtrack{height:8px; border-radius:6px; background:linear-gradient(90deg,#e0453e,#e8b13e,#16a36a); position:relative;}
+  .gmark{position:absolute; top:50%; width:16px; height:16px; border-radius:50%; background:#fff; border:3px solid var(--accent); transform:translate(-50%,-50%); left:0; transition:left 1.4s cubic-bezier(.2,.8,.2,1); box-shadow:0 2px 8px rgba(0,0,0,.3);}
+  .gval{font-size:12px; opacity:.9; margin-top:8px; font-weight:600;}
+
+  .tickerwrap{margin:0 -22px 0; background:var(--navy);}
+  .livebar{display:flex; align-items:center; gap:8px; justify-content:center; flex-wrap:wrap; font-size:11.5px; color:var(--muted); padding:10px 0 0; text-align:center;}
+  .dot{width:8px; height:8px; border-radius:50%; background:var(--pos); display:inline-block; opacity:.35; animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(22,163,106,.5)}70%{box-shadow:0 0 0 7px rgba(22,163,106,0)}100%{box-shadow:0 0 0 0 rgba(22,163,106,0)}}
+
+  .tabbar{position:sticky; top:0; z-index:20; display:flex; gap:4px; background:rgba(242,243,244,.93); backdrop-filter:saturate(180%) blur(8px); padding:10px 0 12px; margin:14px 0 6px; border-bottom:1px solid var(--line); overflow-x:auto; -webkit-overflow-scrolling:touch;}
+  .tab{flex:0 0 auto; padding:9px 15px; font-size:13px; font-weight:700; color:var(--muted); background:none; border:none; cursor:pointer; border-radius:8px; white-space:nowrap; transition:color .2s, background .2s;}
+  .tab:hover{color:var(--ink);}
+  .tab.active{color:#fff; background:var(--accent); box-shadow:0 6px 16px -10px rgba(0,68,124,.8);}
+  .tabind{position:absolute; bottom:6px; left:0; width:0; height:3px; background:var(--teal); border-radius:3px; transition:left .32s cubic-bezier(.2,.8,.2,1), width .32s cubic-bezier(.2,.8,.2,1);}
+  .tabpanel{display:none;}
+  .tabpanel.active{display:block; animation:panelIn .42s ease;}
+  @keyframes panelIn{from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none}}
+  .tabpanel.active section{animation:rise .5s ease backwards;}
+  .tabpanel.active section:nth-child(1){animation-delay:.03s} .tabpanel.active section:nth-child(2){animation-delay:.10s}
+  .tabpanel.active section:nth-child(3){animation-delay:.17s} .tabpanel.active section:nth-child(4){animation-delay:.24s}
+  .tabpanel.active section:nth-child(5){animation-delay:.31s} .tabpanel.active section:nth-child(6){animation-delay:.38s}
+  @keyframes rise{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
+
+  h2{font-size:11.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:26px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);}
+  section:first-child h2{margin-top:14px;}
+  .bottomline{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal); padding:18px 20px; font-size:16.5px; border-radius:8px; box-shadow:0 6px 20px -16px rgba(0,0,0,.25);} .bottomline strong{color:var(--accent);}
+
+  .rows{display:flex; flex-direction:column; gap:8px;}
+  .row{display:grid; grid-template-columns:96px 100px 1fr; gap:12px; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; text-decoration:none; color:inherit; cursor:pointer; transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;}
+  .row:hover{transform:translateY(-2px); box-shadow:0 10px 26px -14px rgba(0,68,124,.35); border-color:var(--sand2);}
+  .row:hover .asset::after{opacity:1; transform:translateX(0);}
+  .asset{font-weight:700; font-size:14.5px; position:relative;}
+  .asset .livetag{font-size:8.5px; letter-spacing:.05em; color:var(--teal); font-weight:700; display:block; margin-top:1px;}
+  .asset::after{content:"↗"; font-size:11px; color:var(--muted); opacity:0; margin-left:5px; transform:translateX(-4px); transition:.18s; display:inline-block;}
+  .lvl{font-variant-numeric:tabular-nums; font-weight:700; font-size:14.5px;}
+  .delta{font-variant-numeric:tabular-nums; font-weight:700; font-size:13px;}
+  .pos{color:var(--pos);} .neg{color:var(--neg);} .flat{color:var(--muted);}
+  .rt{display:flex; flex-direction:column; gap:5px;}
+  .bartrack{height:5px; background:#e8e8e3; border-radius:4px; overflow:hidden;}
+  .bar{height:100%; width:0; border-radius:4px; transition:width 1.1s cubic-bezier(.2,.8,.2,1);}
+  .bar.pos{background:var(--pos);} .bar.neg{background:var(--neg);} .bar.flat{background:var(--sand2);}
+  /* Hot Today — what's moving in each market (Stocks tab) */
+  .hot-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;}
+  .hot-card{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; box-shadow:0 6px 18px -16px rgba(0,0,0,.25);}
+  .hot-card h3{font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:8px;}
+  .hot-row{padding:6px 0; border-bottom:1px solid #f0efe9;}
+  .hot-row:last-child{border-bottom:none;}
+  .hot-sym{font-weight:700; font-size:13px; margin-right:6px;}
+  .hot-row .delta{font-size:12.5px;}
+  .hot-why{font-size:11.5px; color:#555; margin-top:2px; line-height:1.4;}
+  @media(max-width:600px){.hot-grid{grid-template-columns:1fr;}}
+  /* Journal Research — clickable list */
+  .jr-list{display:flex; flex-direction:column; gap:12px;}
+  .jr-link{display:flex; align-items:center; gap:14px; background:var(--card); border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:10px; padding:18px 22px; text-decoration:none; color:inherit; transition:transform .2s ease, box-shadow .2s ease, border-left-color .2s ease; box-shadow:0 6px 22px -18px rgba(0,0,0,.28);}
+  .jr-link:hover{transform:translateY(-2px); border-left-color:var(--teal); box-shadow:0 12px 28px -18px rgba(0,0,0,.38);}
+  .jr-link-icon{font-size:22px; flex-shrink:0;}
+  .jr-link-title{flex:1; font-size:16px; font-weight:800; color:var(--navy); line-height:1.35;}
+  .jr-link-arrow{font-size:18px; font-weight:700; color:var(--accent); flex-shrink:0;}
+  .jr-link:hover .jr-link-arrow{transform:translateX(3px);}
+  /* Macro Dashboard (Plan A Tier 1 — rendered from macro.json) */
+  .mb-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+  .mb-card{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal); border-radius:10px; padding:12px 14px;}
+  .mb-lab{font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); font-weight:700; margin-bottom:4px;}
+  .mb-val{font-size:18px; font-weight:800; color:var(--navy); line-height:1.2;}
+  .mb-delta{font-size:11.5px; color:var(--accent); font-weight:600; margin:2px 0 5px;}
+  .mb-note{font-size:11.5px; color:#555; line-height:1.4;}
+  .mb-stamp{margin-top:11px; font-size:11.5px; color:var(--muted); font-style:italic;}
+  @media(max-width:600px){.mb-grid{grid-template-columns:1fr 1fr;}}
+  /* ============================================================
+     UI POLISH v2 (2026-07-19) — tasteful, same palette
+     Consistent hover-lift, gradient heading accents, delta pills,
+     brand scrollbars/selection, micro-interactions. Motion-safe.
+     ============================================================ */
+  /* Consistent interactive hover-lift across all card types */
+  .hot-card,.mb-card,.scard,.watchitem{transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;}
+  .hot-card:hover,.mb-card:hover,.scard:hover,.watchitem:hover{transform:translateY(-2px); box-shadow:0 12px 28px -16px rgba(0,68,124,.32);}
+  .mb-card:hover{border-left-color:var(--accent);}
+  /* Gradient accent bar under section headings — premium touch */
+  h2{position:relative;}
+  h2::after{content:""; position:absolute; left:0; bottom:-1px; width:44px; height:3px; border-radius:3px; background:linear-gradient(90deg,var(--accent),var(--teal)); transition:width .3s cubic-bezier(.2,.8,.2,1);}
+  .tabpanel.active section:hover h2::after{width:72px;}
+  /* Delta pills — color-coded, eye-catching (Hot Today + Macro board) */
+  .hot-row .delta,.mb-delta{display:inline-block; padding:1px 8px; border-radius:20px; font-variant-numeric:tabular-nums;}
+  .hot-row .delta.pos,.mb-delta{background:rgba(22,163,106,.12); color:var(--pos);}
+  .hot-row .delta.neg{background:rgba(224,69,62,.12); color:var(--neg);}
+  .hot-row .delta.flat{background:rgba(198,195,182,.35); color:#7a7560;}
+  .mb-delta{background:rgba(11,123,158,.12); color:var(--teal); font-weight:700;}
+  /* Gauge mark — soft glow pulse to draw the eye to the risk score */
+  .gmark{animation:gaugeGlow 2.6s ease-in-out infinite;}
+  @keyframes gaugeGlow{0%,100%{box-shadow:0 2px 8px rgba(0,0,0,.3)}50%{box-shadow:0 2px 8px rgba(0,0,0,.3),0 0 0 6px rgba(255,255,255,.18)}}
+  /* Hero subtle shine sweep */
+  .hero::before{content:""; position:absolute; top:0; left:-60%; width:40%; height:100%; background:linear-gradient(100deg,transparent,rgba(255,255,255,.14),transparent); transform:skewX(-18deg); animation:heroShine 7s ease-in-out 1s infinite; z-index:0;}
+  @keyframes heroShine{0%{left:-60%}22%,100%{left:130%}}
+  /* Tab micro-interaction */
+  .tab{transition:color .2s, background .2s, transform .12s ease;}
+  .tab:active{transform:scale(.96);}
+  .tab.active{transform:translateY(-1px);}
+  /* Bottom line — gentle hover emphasis */
+  .bottomline{transition:box-shadow .2s ease, transform .2s ease;}
+  .bottomline:hover{box-shadow:0 12px 30px -18px rgba(0,68,124,.4);}
+  /* Brand scrollbars + selection */
+  ::selection{background:rgba(11,123,158,.22);}
+  .tabbar::-webkit-scrollbar{height:0;}
+  html{scrollbar-width:thin; scrollbar-color:var(--sand2) transparent;}
+  body::-webkit-scrollbar{width:10px;} body::-webkit-scrollbar-thumb{background:var(--sand2); border-radius:8px; border:3px solid var(--bg);}
+  /* Accessibility: honour reduced-motion */
+  @media(prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
+  }
+  /* Sparkline rows (crypto): replace flat bar with a 7-day SVG mini-chart */
+  .sparkrow .bartrack{height:22px; background:transparent; border-radius:0; overflow:visible;}
+  .spark{display:block; width:100%; height:22px; opacity:0; animation:sparkIn .55s ease forwards;}
+  @keyframes sparkIn{from{opacity:0; transform:translateY(2px)} to{opacity:1; transform:none}}
+  /* TradingView mini-chart rows: live chart embed when market open */
+  .tvrow .bartrack{height:auto; min-height:130px; background:transparent; border-radius:0; overflow:visible; padding:0;}
+  .tvrow .tradingview-widget-container{height:130px;}
+  .drv{font-size:12.5px; color:#555;}
+
+  .lbstamp{font-size:11px; color:var(--muted); margin:-6px 0 10px;}
+  .lbgrid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;}
+  .lbcard{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 13px;}
+  .lbcard h3{font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px; color:var(--accent); font-weight:700;}
+  .lbrow{display:flex; justify-content:space-between; gap:6px; font-size:12.5px; padding:5px 0; border-bottom:1px solid #f0efe9; font-variant-numeric:tabular-nums;}
+  .lbrow:last-child{border-bottom:none;} .lbsym{font-weight:700;} .lbv{color:#777; margin-left:auto; margin-right:8px;}
+
+  .seg{display:inline-flex; gap:4px; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:4px; margin-bottom:12px; flex-wrap:wrap;}
+  .segbtn{padding:7px 14px; font-size:12.5px; font-weight:700; color:var(--muted); background:none; border:none; border-radius:7px; cursor:pointer; transition:.18s;}
+  .segbtn.active{background:var(--accent); color:#fff;}
+  .topic{background:var(--sand); border-radius:10px; padding:13px 16px; font-size:13.5px; margin-bottom:10px;} .topic strong{color:var(--accent);}
+  .caps{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:13px 16px; margin-top:8px; font-size:13px;}
+  .caps>strong{color:var(--accent); display:block; margin-bottom:6px; font-size:11px; letter-spacing:.06em; text-transform:uppercase;}
+  .cap-l{margin:4px 0;} .cap-l b{color:var(--teal);}
+  .mvr{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:13px 16px; margin-bottom:8px; box-shadow:0 6px 18px -16px rgba(0,0,0,.25);}
+  .mvsym{font-weight:800; font-size:15px;} .mvwhy,.mvlt{font-size:13px; color:#444; margin-top:4px;}
+  .tvbox{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:6px; overflow:hidden;}
+  .cap{font-size:11.5px; color:var(--muted); margin:0 0 8px;}
+
+  ul{padding-left:18px;} li{margin:8px 0; font-size:14.8px;} li strong{font-weight:700;}
+  .conf{display:inline-block; font-size:10px; letter-spacing:.06em; text-transform:uppercase; background:#e9e7df; color:var(--accent); padding:2px 9px; border-radius:10px; font-weight:700; margin-left:4px;}
+  .tilt{background:var(--card); border:1px solid var(--line); border-left:4px solid var(--teal); padding:17px 20px; border-radius:8px; font-size:15px; box-shadow:0 6px 20px -16px rgba(0,0,0,.25);} .tilt b{color:var(--accent);}
+
+  /* Assets-to-watch tile (Outlook tab, 2-3 week horizon) */
+  .watchitem{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:8px; padding:11px 14px; margin-bottom:8px; box-shadow:0 4px 14px -12px rgba(0,0,0,.2);}
+  .watchitem .wh{font-size:13.5px; font-weight:800; color:var(--ink); margin-bottom:4px;}
+  .watchitem .wh b{color:var(--accent); margin-right:6px;}
+  .watchitem .wh em{color:var(--teal); font-style:normal; font-weight:700;}
+  .watchitem .ww{font-size:12.5px; color:#555; line-height:1.55;}
+  .scen{display:flex; flex-direction:column; gap:10px;}
+  .scard{border:1px solid var(--line); border-left:4px solid; border-radius:10px; padding:13px 16px; background:var(--card); box-shadow:0 6px 18px -16px rgba(0,0,0,.25);}
+  .scard.bull{border-left-color:var(--pos);} .scard.base{border-left-color:var(--sand2);} .scard.bear{border-left-color:var(--neg);}
+  .scard .sh{font-weight:800; font-size:12.5px; text-transform:uppercase; letter-spacing:.07em; margin-bottom:3px;}
+  .scard.bull .sh{color:var(--pos);} .scard.base .sh{color:#8a8674;} .scard.bear .sh{color:var(--neg);}
+  .scard .prob{float:right; font-size:12px; color:var(--muted); font-weight:700;} .scard .sp{font-size:13.5px; color:#444;}
+
+  /* POSITIONS */
+  .posnote{background:rgba(0,68,124,.05); border:1px solid var(--line); border-left:3px solid var(--accent); padding:12px 16px; font-size:12.5px; color:#444; border-radius:8px; margin-bottom:14px;}
+  .posnote strong{color:var(--accent);}
+  .poscontrols{display:flex; align-items:center; gap:10px; margin-bottom:14px; flex-wrap:wrap;}
+  .posinput{flex:1; min-width:200px; padding:10px 14px; font-size:13px; border:1px solid var(--line); border-radius:8px; background:var(--card); color:var(--ink); font-family:inherit; outline:none; transition:.15s;}
+  .posinput::placeholder{color:var(--muted);}
+  .posinput:focus{border-color:var(--accent); box-shadow:0 0 0 3px rgba(0,68,124,.1);}
+  .postag{font-size:10.5px; color:var(--muted); letter-spacing:.07em; text-transform:uppercase; font-weight:700; white-space:nowrap;}
+  .mkthd{font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--teal); font-weight:700; margin:16px 0 8px;}
+  .mkthd:first-child{margin-top:0;}
+  .posgrid{display:flex; flex-direction:column; gap:10px;}
+  .poscard{background:var(--card); border:1px solid var(--line); border-left:4px solid; border-radius:10px; padding:11px 14px; box-shadow:0 6px 18px -16px rgba(0,0,0,.25); transition:transform .15s ease, box-shadow .15s ease;}
+  .poscard:hover{transform:translateY(-1px); box-shadow:0 10px 26px -14px rgba(0,68,124,.3);}
+  .poscard.buy{border-left-color:var(--pos);} .poscard.hold{border-left-color:var(--sand2);} .poscard.sell,.poscard.avoid{border-left-color:var(--neg);}
+  .poscard .topline{display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; flex-wrap:wrap; gap:8px;}
+  .poscard .sym{font-weight:800; font-size:15.5px;} .poscard .sym small{color:var(--muted); font-weight:600; font-size:13px; margin-left:4px;}
+  .poscard .badge{font-size:10.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; padding:4px 11px; border-radius:14px;}
+  .poscard .badge.buy{background:rgba(22,163,106,.13); color:var(--pos);}
+  .poscard .badge.hold{background:rgba(198,195,182,.4); color:#7a7560;}
+  .poscard .badge.sell,.poscard .badge.avoid{background:rgba(224,69,62,.13); color:var(--neg);}
+  .poscard .meta{font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:5px;}
+  .poscard .thesis{font-size:12.5px; color:#333; margin-bottom:3px; line-height:1.5;}
+  .poscard .thesis strong, .poscard .risk strong{color:var(--accent);}
+  .poscard .risk{font-size:12px; color:#555; line-height:1.5;}
+  .poscard-spark{display:flex; align-items:center; gap:6px; margin-bottom:6px;}
+  .poscard-spark .spark-lbl{font-size:9.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; font-weight:700;}
+  .poscard-spark svg.spark{width:84px; height:20px;}
+
+  .share{position:fixed; right:18px; bottom:18px; z-index:30; background:var(--accent); color:#fff; border:none; border-radius:30px; padding:13px 20px; font-size:14px; font-weight:700; cursor:pointer; box-shadow:0 10px 30px -8px rgba(0,68,124,.6); transition:transform .15s;}
+  .share:hover{transform:scale(1.05);}
+  .foot{margin-top:34px; padding-top:16px; border-top:1px solid var(--line); font-size:12px; color:var(--muted);}
+  .src{margin-top:6px; line-height:1.9;} .src a{color:var(--teal); text-decoration:none; border-bottom:1px dotted var(--sand2);}
+  @media(max-width:520px){
+    .hero h1{font-size:25px;} .row{grid-template-columns:78px 82px 1fr; gap:9px; padding:11px;}
+    .drv{font-size:11.5px;} .asset{font-size:13px;} .lbgrid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="brand">BryOsk · Market PoV</div>
+    <h1>Cross-Asset Read</h1>
+    <div class="date" id="dateline"></div>
+    <div class="gauge"><div class="lab"><span>Risk-Off</span><span>Neutral</span><span>Risk-On</span></div><div class="gtrack"><div class="gmark" id="gmark"></div></div><div class="gval" id="gval"></div></div>
+  </div>
+
+  <div class="tickerwrap">
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+      {"symbols":[
+        {"description":"S&P 500","proName":"FOREXCOM:SPXUSD"},
+        {"description":"Nasdaq 100","proName":"FOREXCOM:NSXUSD"},
+        {"description":"Dow","proName":"FOREXCOM:DJI"},
+        {"description":"BTC","proName":"BINANCE:BTCUSDT"},
+        {"description":"ETH","proName":"BINANCE:ETHUSDT"},
+        {"description":"Gold","proName":"TVC:GOLD"},
+        {"description":"WTI","proName":"TVC:USOIL"},
+        {"description":"Hang Seng","proName":"HSI:HSI"},
+        {"description":"Shanghai","proName":"SSE:000001"},
+        {"description":"CSI 300","proName":"SSE:000300"},
+        {"description":"USD/IDR","proName":"FX_IDC:USDIDR"}
+      ],"showSymbolLogo":true,"colorTheme":"light","isTransparent":true,"displayMode":"adaptive","locale":"en"}
+      </script>
+    </div>
+  </div>
+  <div class="livebar"><span class="dot" id="livedot"></span><span id="livestamp">Connecting live prices…</span></div>
+
+  <div class="tabbar" id="tabbar" role="tablist" aria-label="Market view sections">
+    <button class="tab active" role="tab" id="tab-0" aria-controls="panel-0" aria-selected="true" tabindex="0">Overview</button>
+    <button class="tab" role="tab" id="tab-1" aria-controls="panel-1" aria-selected="false" tabindex="-1">Positions</button>
+    <button class="tab" role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1">Crypto</button>
+    <button class="tab" role="tab" id="tab-3" aria-controls="panel-3" aria-selected="false" tabindex="-1">Stocks</button>
+    <button class="tab" role="tab" id="tab-4" aria-controls="panel-4" aria-selected="false" tabindex="-1">Macro &amp; Global</button>
+    <button class="tab" role="tab" id="tab-5" aria-controls="panel-5" aria-selected="false" tabindex="-1">Outlook</button>
+    <!-- JOURNAL TAB HIDDEN (Bryan's request 2026-07-19 — re-enable by removing style="display:none" here AND on the panel below) -->
+    <button class="tab" role="tab" id="tab-6" aria-controls="panel-6" aria-selected="false" tabindex="-1" style="display:none">📓 My Journal Research</button>
+    <div class="tabind" id="tabind"></div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="tabpanel active" role="tabpanel" id="panel-0" aria-labelledby="tab-0" tabindex="0">
+    <section><h2>Bottom Line</h2><div class="bottomline" id="bottomline"></div></section>
+    <section><h2>Cross-Asset Snapshot · crypto live · tap a row for chart</h2><div class="rows" id="rows"></div></section>
+    <section><h2>Bull · Base · Bear · whole market</h2><div class="scen" id="scenOverview"></div></section>
+    <section><h2>Conviction Tilt</h2><div class="tilt" id="tilt"></div></section>
+  </div>
+
+  <!-- POSITIONS -->
+  <div class="tabpanel" role="tabpanel" id="panel-1" aria-labelledby="tab-1" tabindex="0">
+    <section>
+      <h2>Positions · Buy / Hold / Sell · focus list</h2>
+      <div class="posnote"><strong>Research / education, not financial advice.</strong> Each rating reflects a personal PoV with stated <strong>conviction</strong> and <strong>time horizon</strong>; size & risk-management are yours. Small-cap exposure uses ETFs / indices as a defensible proxy.</div>
+      <div class="poscontrols"><input type="text" id="posFilter" placeholder="Filter by ticker, name, market, BUY/HOLD/SELL…" class="posinput" autocomplete="off"><span class="postag" id="posCount"></span></div>
+      <div id="positions"></div>
+    </section>
+  </div>
+
+  <!-- CRYPTO -->
+  <div class="tabpanel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" tabindex="0">
+    <section><h2>Crypto Leaderboard · LIVE</h2>
+      <div class="lbstamp" id="lbstamp">Loading live data…</div>
+      <div class="lbgrid">
+        <div class="lbcard"><h3>Top Volume (24h)</h3><div id="lbVol"></div></div>
+        <div class="lbcard"><h3>Top Gainers (24h)</h3><div id="lbGain"></div></div>
+        <div class="lbcard"><h3>Top Losers (24h)</h3><div id="lbLoss"></div></div>
+      </div>
+    </section>
+    <section><h2>By Market Cap · LIVE</h2>
+      <div class="lbgrid">
+        <div class="lbcard"><h3>Large Cap</h3><div id="capLarge"></div></div>
+        <div class="lbcard"><h3>Mid Cap</h3><div id="capMid"></div></div>
+        <div class="lbcard"><h3>Small Cap</h3><div id="capSmall"></div></div>
+      </div>
+    </section>
+    <section><h2>Derivatives Positioning Flow</h2><ul id="derivFlow"></ul></section>
+    <section><h2>Funding &amp; Leverage</h2><ul id="funding"></ul></section>
+    <section><h2>Crypto Technicals</h2><ul id="techCrypto"></ul></section>
+    <section><h2>Bull · Base · Bear · crypto</h2><div class="scen" id="scenCrypto"></div></section>
+  </div>
+
+  <!-- STOCKS -->
+  <div class="tabpanel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" tabindex="0">
+    <section><h2>Stock Movers · LIVE</h2>
+      <div class="seg" id="stkSeg">
+        <button class="segbtn active" data-market="us">US</button>
+        <button class="segbtn" data-market="id">Indonesia</button>
+        <button class="segbtn" data-market="cn">China</button>
+      </div>
+      <div id="stkPanel"></div>
+      <div id="stocksWidgets">
+        <div class="tvbox tvlazy" data-market="us" data-src="https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js" data-cfg='{"colorTheme":"light","dateRange":"1D","exchange":"US","showChart":false,"locale":"en","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":400}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
+        <div class="tvbox tvlazy" data-market="id" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"Indonesia Top Caps","originalName":"Indonesia","symbols":[{"name":"IDX:BBCA","displayName":"Bank Central Asia"},{"name":"IDX:BBRI","displayName":"Bank BRI"},{"name":"IDX:BMRI","displayName":"Bank Mandiri"},{"name":"IDX:TLKM","displayName":"Telkom"},{"name":"IDX:ASII","displayName":"Astra Intl"},{"name":"IDX:UNVR","displayName":"Unilever Indonesia"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
+        <div class="tvbox tvlazy" data-market="cn" data-src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" data-cfg='{"colorTheme":"light","isTransparent":true,"locale":"en","width":"100%","height":400,"showSymbolLogo":true,"symbolsGroups":[{"name":"China — US-listed ADRs & ETFs","originalName":"China","symbols":[{"name":"AMEX:FXI","displayName":"iShares China Large-Cap"},{"name":"AMEX:ASHR","displayName":"CSI 300 ETF (ASHR)"},{"name":"NYSE:BABA","displayName":"Alibaba"},{"name":"NASDAQ:PDD","displayName":"PDD Holdings"},{"name":"NYSE:NIO","displayName":"NIO"},{"name":"NASDAQ:BIDU","displayName":"Baidu"}]}]}'><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
+      </div>
+    </section>
+    <section><h2>🔥 Hot Today · what's actually moving</h2><div id="hotToday"></div></section>
+    <section><h2>Equity Technicals</h2><ul id="techEquity"></ul></section>
+    <section><h2>Bull · Base · Bear · equities</h2><div class="scen" id="scenStocks"></div></section>
+  </div>
+
+  <!-- MACRO & GLOBAL -->
+  <div class="tabpanel" role="tabpanel" id="panel-4" aria-labelledby="tab-4" tabindex="0">
+    <section><h2>Macro Dashboard · key indicators · single source</h2><div id="macroBoard"></div></section>
+    <section><h2>China &amp; Hong Kong</h2><ul id="chinaHK"></ul></section>
+    <section><h2>What's Driving It</h2><ul id="drivers"></ul></section>
+    <section><h2>Current News</h2><ul id="news"></ul></section>
+    <section><h2>Macro Technicals · gold · oil · rates · FX</h2><ul id="techMacro"></ul></section>
+    <section><h2>Bull · Base · Bear · macro &amp; global</h2><div class="scen" id="scenMacro"></div></section>
+  </div>
+
+  <!-- OUTLOOK -->
+  <div class="tabpanel" role="tabpanel" id="panel-5" aria-labelledby="tab-5" tabindex="0">
+    <section><h2>Capital Rotation &amp; Flow Forecast</h2><ul id="rotation"></ul></section>
+    <section><h2>Corporate Actions Watch</h2><ul id="corp"></ul></section>
+    <section><h2>What We're Watching · 24–48h</h2><ul id="watch"></ul></section>
+    <section><h2>Assets to Watch · next 2–3 weeks</h2><div id="assetsWatch"></div></section>
+    <section><h2>Bull · Base · Bear · strategy</h2><div class="scen" id="scenOutlook"></div></section>
+  </div>
+
+  <!-- MY JOURNAL RESEARCH — HIDDEN (Bryan's request 2026-07-19; re-enable by removing style="display:none" on the button above; this panel stays inert while hidden) -->
+  <div class="tabpanel" role="tabpanel" id="panel-6" aria-labelledby="tab-6" tabindex="0">
+    <div id="journalList"></div>
+  </div>
+
+  <div class="foot">
+    <div style="margin-bottom:14px; padding:12px 16px; background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal); border-radius:8px; font-size:13.5px; display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px;">
+      <a href="track-record.html" style="color:var(--accent); font-weight:800; text-decoration:none;">📊 Track Record →</a>
+      <a href="simulator.html" style="color:var(--accent); font-weight:800; text-decoration:none;">🧮 Simulator Proyeksi →</a>
+      <!-- crypto-monitor.html exists locally but isn't pushed yet (Bryan keeps push control on this file) — link hidden until it's live, see ROADMAP-JOURNAL.md -->
+      <a href="about/" style="color:var(--accent); font-weight:800; text-decoration:none;">📖 About &amp; Methodology →</a>
+      <span style="color:var(--muted); font-size:12.5px;">every past note, unedited · how each day's read is produced</span>
+    </div>
+    <strong>Research / education, not financial advice.</strong> Ticker tape, crypto rows, leaderboard, cap-tiers &amp; stock-mover panels update <strong>live</strong> in your browser (CoinGecko + TradingView). Written analysis, positions, scenarios, technicals, derivatives &amp; funding are authored as of the date above; stock cap-tier names are illustrative; small-cap exposure uses ETFs / indices as proxy.
+    <div class="src" id="sources"></div>
+  </div>
+</div>
+<button class="share" onclick="doShare()">Share ↗</button>
+
+<script>
+/* ====== DATA — the daily run replaces ONLY this object ====== */
+const DATA = {
+  dateLong:"Monday, 21 September 2026",
+  feedTime:"2026-09-21 07:00 WIB",
+  riskScore:52, riskLabel:"Neutral, tilting cautious · the Fed's first hike in years is confirmed and the oil crisis deepened, but equities absorbed both without cracking",
+  bottomLine:"<strong>Two of this site's biggest live threads both resolved in the two-and-a-half weeks since the last update — and neither resolved gently.</strong> The Fed's Sept 15–16 FOMC delivered the hike this page had been flagging as rising-odds since Jackson Hole: a unanimous 25bp move to <strong>3.75–4.00%</strong>, the first hike in three years, with the Fed's own projections pointing to at least one more before year-end. The Dow dropped ~630pts (-1.21%) and the S&amp;P slipped 0.45% to 7,551.81 on announcement day (16 Sept) as the US 10Y spiked to <strong>~5.02%</strong> intraday Tuesday (15 Sept) — the highest since 2007 — but Treasury yields then retreated, equities rebounded Thursday and Friday, and the S&amp;P closed the week at 7,650.50 (+0.17% Fri), Nasdaq +0.39%. Net: a hawkish surprise the market ultimately absorbed rather than a re-rating event. <strong>Oil is the bigger unresolved story.</strong> The Iran war ground on through September with a real supply shock this time — the East-West Crude Oil Pipeline shut down 11 Sept alongside renewed Hormuz/Bab-al-Mandab disruption, which the IEA reportedly called among the largest supply disruptions on record — and WTI pushed up to roughly <strong>$99–100</strong>, well above the <strong>~$92</strong> level flagged three weeks ago. There is a genuine de-escalation thread too: Iran and Oman reportedly agreed a plan to reopen the Strait on 16 Sept, and President Trump said 17 Sept that the US was nearing the end of the war — but nothing is confirmed yet, so treat oil as still elevated and two-sided rather than resolved. Gold has since rebounded to roughly <span data-mref=\"gold\">~$4,400</span> (from ~$4,275) as falling oil eased inflation fears and pulled the 10Y down from its peak — the hedge bid finally showed up once that combo started to unwind. <strong>China/Hong Kong turned constructive into a catalyst, not a headwind</strong>: Shanghai Composite closed near 3,912 (+0.94% on 18 Sept, +2.4% y/y) and Hang Seng near 24,751 (+0.60%), both tech-led, ahead of the 24 Sept Trump–Xi summit where AI-chip access is reportedly a headline topic — a clear improvement on the Iran-driven Hang Seng weakness flagged three weeks ago. <strong>Indonesia</strong> is now framed by local desks as sideways-to-bearish for September (projected IHSG range ~6,400–6,705) with the rupiah, on re-verification, actually weaker than previously assessed — roughly Rp17,800, not the Rp17,400–17,500 'stable' band carried forward last cycle. <strong>Crypto has stabilized well off the early-Sept dip</strong> — see the live snapshot below for the current print rather than a fixed figure here; treat any specific number in this paragraph's prior versions as superseded. This is a wide-gap catch-up refresh after a run of automation cycles that reported success without actually publishing (see the journal) — the core levels above are freshly sourced, but the deeper narrative arrays (scenarios, drivers, position theses) still carry some Sept 3 framing and are flagged for the next session's sweep.",
+  snapshot:[
+    {a:"BTC",cg:"bitcoin",lvl:"~$81,300",d:"live",dir:"pos",mag:16,drv:"Recovered well off the early-Sept dip flagged three weeks ago — see the live price above for the current print rather than this fallback",url:"https://www.tradingview.com/symbols/BTCUSD/"},
+    {a:"ETH",cg:"ethereum",lvl:"~$2,490",d:"live",dir:"flat",mag:14,drv:"Tracking BTC's recovery off the early-Sept dip — specific level not independently re-verified this cycle; see the live price above",url:"https://www.tradingview.com/symbols/ETHUSD/"},
+    {a:"SOL",cg:"solana",lvl:"~$94",d:"live",dir:"flat",mag:18,drv:"Assumed tracking the broader complex's recovery — specific level not independently re-verified this cycle, see live price above",url:"https://www.tradingview.com/symbols/SOLUSD/"},
+    {a:"XRP",cg:"ripple",lvl:"~$1.45",d:"live",dir:"flat",mag:16,drv:"Assumed tracking the broader complex's recovery — specific level not independently re-verified this cycle, see live price above",url:"https://www.tradingview.com/symbols/XRPUSD/"},
+    {a:"Gold",tv:"TVC:GOLD",lvl:"<span data-mref=\"gold\">~$4,400</span>",d:"rebounded off the ~$4,275 low",dir:"pos",mag:16,drv:"Rose back to ~$4,400 as falling oil eased inflation fears and pulled the 10Y down from its 15 Sept peak — the hedge bid finally showed up",url:"https://www.tradingview.com/symbols/XAUUSD/"},
+    {a:"S&P 500",tv:"FOREXCOM:SPXUSD",lvl:"~7,650",d:"+0.17% (18 Sept)",dir:"pos",mag:14,drv:"Closed the FOMC week higher after whipsawing on the 16 Sept hike announcement — down 0.45% announcement-day, then rebounded Thu/Fri as yields retreated",url:"https://www.tradingview.com/symbols/SPX/"},
+    {a:"Nasdaq",tv:"FOREXCOM:NSXUSD",lvl:"~26,700",d:"+0.39% (18 Sept)",dir:"pos",mag:14,drv:"Also closed the FOMC week firmer, clawing back the announcement-day dip as Treasury yields eased from their spike",url:"https://www.tradingview.com/symbols/IXIC/"},
+    {a:"10Y UST",lvl:"<span data-mref=\"us10y\">~4.93%</span>",d:"off an 18-yr high",dir:"neg",mag:16,drv:"Spiked to ~5.02% intraday 15 Sept — highest since 2007 — on the confirmed Fed hike, then eased to ~4.93–4.94% by week's end as the initial shock faded",url:"https://www.tradingview.com/symbols/TVC-US10Y/"},
+    {a:"Shanghai",tv:"SSE:000001",lvl:"~3,912",d:"+0.94% (18 Sept)",dir:"pos",mag:12,drv:"Tech-led gains (SMIC, Hygon, Zhongji Innolight) into the 24 Sept Trump–Xi summit — up 2.4% y/y",url:"https://www.tradingview.com/symbols/SSE-000001/"},
+    {a:"CSI 300",tv:"SSE:000300",lvl:"~4,600",d:"see live",dir:"flat",mag:12,drv:"No fresher print confirmed this cycle — carried forward, flagged for a closer look next session",url:"https://www.tradingview.com/symbols/SSE-000300/"},
+    {a:"Hang Seng",tv:"HSI:HSI",lvl:"~24,751",d:"+0.60% (18 Sept)",dir:"pos",mag:14,drv:"Turned constructive — tech-led gains ahead of the 24 Sept Trump–Xi summit (AI-chip access reportedly a headline topic), a clear improvement on early-Sept Iran-driven weakness",url:"https://www.tradingview.com/symbols/HSI-HSI/"},
+    {a:"WTI",tv:"TVC:USOIL",lvl:"<span data-mref=\"wti\">~$99</span>",d:"multi-month high on a real supply shock",dir:"neg",mag:24,drv:"Jumped further on the 11 Sept East-West pipeline shutdown plus renewed Hormuz/Bab-al-Mandab disruption — reportedly among the largest supply disruptions on record; a 16–17 Sept Iran–Oman reopening plan + Trump 'nearing the end' comments are a genuine but unconfirmed de-escalation thread",url:"https://www.tradingview.com/symbols/WTI/"},
+    {a:"IHSG",tv:"IDX:COMPOSITE",lvl:"~6,550",d:"sideways-bearish outlook",dir:"flat",mag:28,drv:"Local desks now frame September as sideways-to-bearish (projected range ~6,400–6,705) rather than the straight-line extension flagged three weeks ago — Fed/BI policy and oil the swing factors",url:"https://www.tradingview.com/symbols/IDX-COMPOSITE/"},
+    {a:"USD/IDR",tv:"FX_IDC:USDIDR",lvl:"<span data-mref=\"usdidr\">~17,800</span>",d:"weakened past 17,700",dir:"neg",mag:18,drv:"Corrected on re-verification (18 Sept print: 17,813) — the 'stable near 17,400–17,500' read carried forward last cycle had understated the Fed-hike pressure on the rupiah",url:"https://www.tradingview.com/symbols/USDIDR/"}
+  ],
+  positions:[
+    /* CRYPTO */
+    {sym:"BTC", name:"Bitcoin", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Med", horizon:"1–3m", cg:"bitcoin", thesis:"<strong>The early-September dip proved temporary.</strong> BTC has recovered well off its early-Sept low (see the live price above) even as the Fed delivered the hike this page had flagged as rising-odds — the macro backdrop got more hawkish, not less, and crypto absorbed it anyway. Holding through the move; the Clarity Act still hasn't passed.", risk:"A further Hormuz/oil escalation, the Clarity Act floor vote slipping again, or the Fed's own guidance toward one more hike this year could still pressure crypto specifically. (See live price in the snapshot.)"},
+    {sym:"ETH", name:"Ethereum", market:"Crypto", cap:"Mega cap", position:"HOLD", conviction:"Low–Med", horizon:"1–3m", cg:"ethereum", thesis:"Tracking BTC's recovery off the early-Sept dip; no fresh idiosyncratic ETH catalyst this cycle, just following BTC's structure. (See live price in the snapshot.)", risk:"Shares BTC's risk: an unresolved Clarity Act vote, the Fed's projected additional hike this year, or a further Hormuz/oil escalation could reopen the early-Sept low as a test."},
+    /* US */
+    {sym:"NVDA", name:"Nvidia", market:"US", cap:"Mega cap", position:"BUY", conviction:"High", horizon:"6–12m", thesis:"AI mega-cap leadership carrying US indices to fresh records. Structural AI / data-center spend is load-bearing for the broader rotation thesis. Add on quality-growth dips.", risk:"AI-capex pause, China export-rule tightening, or sentiment unwind off rich multiples."},
+    {sym:"MU", name:"Micron", market:"US", cap:"Large cap", position:"HOLD", conviction:"Med", horizon:"3–6m", thesis:"HBM/AI-memory super-cycle confirmed; demand-leadership narrative intact. Parabolic $1T spike from May has consolidated into a healthier base. Tactical adds on 8–10% pullbacks rather than chases.", risk:"Memory's notorious cyclicality; demand digestion if hyperscaler capex slows in H2."},
+    {sym:"XLE", name:"Energy Select Sector ETF", market:"US", cap:"Large-cap ETF", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"YTD sector leader on capex discipline + cyclical rotation. <strong>The war-risk escalation kept compounding rather than resolving</strong>: the 11 Sept East-West pipeline shutdown plus renewed Hormuz/Bab-al-Mandab disruption pushed WTI to <span data-mref=\"wti\">~$99</span>, reportedly among the largest supply disruptions on record — a real war-driven supply shock, not a clean bullish setup. There is now a genuine (unconfirmed) de-escalation thread too — a 16–17 Sept Iran–Oman reopening plan + Trump 'nearing the end' comments — which would be the biggest swing risk to this ETF this quarter. Still worth a fresh conviction check with Bryan given how far the underlying situation has moved either direction. ❓", risk:"Two-sided and now more extreme in both directions than three weeks ago: further Iranian escalation could spike oil well past $100 (bullish near-term) but a real Hormuz reopening + war-end signal would fast-unwind the entire risk premium XLE has been riding."},
+    {sym:"VRT", name:"Vertiv", market:"US", cap:"Mid cap", position:"BUY", conviction:"High", horizon:"6–12m", thesis:"AI-infrastructure picks-and-shovels: liquid cooling, power &amp; thermal gear for hyperscale + AI data centers. Benefits regardless of which model wins. Today's AI mega-cap strength (NVDA, MU) confirms capex bid intact.", risk:"Hyperscaler capex pause; valuation already extended after the AI run."},
+    {sym:"NET", name:"Cloudflare", market:"US", cap:"Mid cap", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"CDN → security + AI inference platform transition (Workers AI &amp; Zero Trust). Enterprise large-deal momentum is the near-term catalyst. AI-platform thesis alive in today's market.", risk:"Competitive intensity (Akamai, Fastly, hyperscalers); broader AI sentiment unwind."},
+    /* HONG KONG */
+    {sym:"0700.HK", name:"Tencent", market:"Hong Kong", cap:"Mega cap", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"HK's pullback (Hang Seng ~25,330, -0.9% Tuesday) now traces to the Iran-driven oil/inflation move plus property-sector weakness — a fresher, more macro-linked driver than the Alibaba-placement story from two weeks ago. Tencent's specific reaction to this move not independently re-verified this cycle. AI/LLM commercialisation re-rating still the live catalyst; cheapest-China-tech proxy via gaming, cloud, ads.", risk:"Fresh US–China tension (tariff threat, bank-sanctions talk over Iran-oil dealings) plus the Hormuz-driven inflation/tightening worries could still spill into broad HK/China risk sentiment even for names not directly implicated."},
+    {sym:"HSCEI", name:"HK H-share Mid/Small proxy", market:"Hong Kong", cap:"Mid/Small-cap ETF", position:"HOLD", conviction:"Low", horizon:"3–6m", thesis:"Hang Seng's cool-off now looks macro-driven (Iran-driven oil/inflation move, property-sector weakness) rather than a clean Alibaba-specific re-rating. Mainland breadth is actually more stable than the last read — Shanghai roughly flat near 3,941, up ~3.5% over the past month; CSI 300 not freshly confirmed. Low conviction, waiting for the dust to settle.", risk:"Thin liquidity, China/HK headline-sensitive; further US–China tariff/sanctions escalation or a widening Hormuz conflict is the swing risk now, not just domestic sentiment."},
+    /* CHINA */
+    {sym:"Sungrow (300274)", name:"Sungrow Power Supply", market:"China", cap:"Mid cap", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"Renewables + AI-data-center power: inverter/storage leader. Anti-involution policy may stabilise solar margins while AI compute build drives power-supply gear demand. Today's AI-capex strength supports.", risk:"Solar oversupply still real near-term; US tariff risk on Chinese clean-tech; A-share sentiment soft."},
+    {sym:"LONGi (601012)", name:"LONGi Green Energy", market:"China", cap:"Mid cap", position:"AVOID", conviction:"Med", horizon:"3–6m", thesis:"Largest solar module maker caught in the price-war / oversupply cycle. Anti-involution policy may help eventually but timing uncertain, and US tariffs add downside. Stay sidelined.", risk:"Faster-than-expected policy shift restoring pricing power; trade-deal news that lifts solar broadly."},
+    /* INDONESIA */
+    {sym:"BBCA", name:"Bank Central Asia", market:"Indonesia", cap:"Large cap", position:"BUY", conviction:"Med–High", horizon:"6–12m", thesis:"<strong>The straight-line rally framing from three weeks ago no longer holds</strong> — local desks now project September as sideways-to-bearish for IHSG (range ~6,400–6,705) rather than a clean extension. BBCA's specific price and Mandiri Sekuritas's PT Rp7,300 call have not been independently re-verified this cycle; carried forward pending a closer check. Fundamentals unchanged: dominant franchise, structurally profitable, cheap valuation. Hold the position; treat the more cautious September framing as a reason to size adds carefully rather than a reason to exit.", risk:"The Fed's confirmed hike (and signaled second one) or a worse-than-expected oil shock spilling into EM risk sentiment; rupiah weakness if the BI hike loses traction; net-interest-margin pressure; the specific price/PT above needs re-verification, so don't treat it as current."},
+    {sym:"CPIN", name:"Charoen Pokphand Indonesia", market:"Indonesia", cap:"Mid cap", position:"BUY", conviction:"Med", horizon:"6–12m", thesis:"Defensive consumer bid thesis intact: dominant poultry producer, resilient domestic demand even through rupiah stress. Quiet compounder — not dependent on a straight-line IDX rally, which local desks now call sideways-to-bearish for September anyway. MSCI's August review downgraded CPIN from the Global Standard to the Small Cap index effective 31 Aug; the passive-outflow event has landed. Not a change to the fundamental thesis.", risk:"Feed-cost (corn/soy) volatility; rupiah-driven import-cost pressure if BI hike fails; lingering MSCI Small Cap passive-outflow pressure as index funds finish rebalancing."},
+    {sym:"BREN", name:"Barito Renewables Energy", market:"Indonesia", cap:"Mid cap", position:"AVOID", conviction:"Low–Med", horizon:"1–3m", thesis:"Forced passive selling from earlier index deletion has completed — peak pressure past, but free-float / concentration overhang remains. Watch for capitulation low + corporate moves improving free float as the catalyst. Not a buy yet, but the deletion-trade is past peak.", risk:"Faster-than-expected snapback once positioning fully cleans; corporate moves boosting free float; broader IDX recovery momentum."}
+  ],
+  derivFlow:[
+    "<strong>A genuine short squeeze, not just spot buying</strong> — over $1B in BTC shorts were liquidated in roughly an hour on 19 Aug as the Treasury buyback news hit; a ~$2.7B squeeze is the single biggest driver most-cited for the initial leg of the move.",
+    "<strong>Spot-ETF inflows followed, not just derivatives froth</strong> — $1.9B+ into US spot BTC ETFs the week of 21 Aug suggests real allocator demand layered on top of the squeeze, not a pure leverage event.",
+    "<strong>Sentiment now Greed (readings ~58–73 depending on gauge)</strong> — a sharp flip from Fear in a single day (per one tracker, +16 points), among the sharpest sentiment swings of the year. Worth watching for overheated/crowded-long conditions after such a fast move.",
+    "<em>Proxy note:</em> OI &amp; volume from the connected feed at the timestamp above — positioning flow, not browser-live spot exchange netflows."
+  ],
+  funding:[
+    "<strong>The rally's inputs were mostly one-off catalysts</strong> — a short squeeze + a Treasury policy announcement + ETF inflows — rather than a slow funding-rate grind, which argues for two-way risk on follow-through vs. a clean give-back.",
+    "<strong>Watch for crowded-long extremes</strong> — after a ~25% (BTC) / ~35% (ETH) two-week move and a Fear→Greed sentiment flip, funding/basis data (not independently re-verified this cycle) is the thing to check before adding here.",
+    "<strong>Net read:</strong> constructive but extended — the move has real fundamental+flow support, not pure euphoria, but the pace argues for patience over chasing.",
+    "<em>Proxy note:</em> basis (perp vs index) + OI from the feed as of the timestamp above — funding-pressure proxy, not a third-party aggregated funding index."
+  ],
+  techCrypto:[
+    "<strong>BTC has recovered well off its early-September dip</strong> (see the live price above for the current print) — the $65k pivot from earlier this year is now well below spot. Structure watch: hold above the $74k–78k shelf keeps the recovery intact; a break back under it would reopen the early-Sept low as the next test. Resistance: the prior local highs, then the psychological $80k–85k zone.",
+    "<strong>ETH — tracking BTC's recovery</strong>, specific level not independently re-verified this cycle. Support: $2,300 → $2,050 (former resistance, now support). Resistance: $2,450 → $2,600.",
+    "<strong>SOL</strong> — assumed tracking the broader complex's recovery; specific level not independently re-verified this cycle. Support: $85 → $74 (old pivot). Resistance: $100.",
+    "<strong>XRP</strong> — assumed tracking the broader complex's recovery; specific level not independently re-verified this cycle. Support: $1.30 → $1.20. Resistance: $1.55.",
+    "<strong>Gold <span data-mref=\"gold\">~$4,400</span></strong> — rebounded off the ~$4,275 low as falling oil eased inflation fears and pulled the 10Y down from its peak; finally acting like a hedge again."
+  ],
+  techEquity:[
+    "<strong>S&amp;P 500</strong> — whipsawed on the 16 Sept FOMC (-0.45% announcement day) then closed the week at 7,650.50 (+0.17% Fri) as yields retreated. Support ~7,550–7,600 (held through the hike). Near-highs regime intact, but the tape stayed two-way through a real hawkish surprise.",
+    "<strong>Nasdaq</strong> — same pattern: dipped on the hike, then advanced Thu/Fri (+0.39% Fri) as Treasury yields eased off their spike. Breadth still the watch into Q3 earnings.",
+    "<strong>Shanghai</strong> — turned constructive: +0.94% to 3,912 on 18 Sept, +2.4% y/y, tech-led (SMIC, Hygon, Zhongji Innolight) ahead of the 24 Sept Trump–Xi summit.",
+    "<strong>CSI 300</strong> — no fresher print confirmed this cycle; carried forward at ~4,600, flagged for a closer look next session.",
+    "<strong>Hang Seng</strong> — reversed higher: +0.60% to 24,751 on 18 Sept, also tech-led into the Trump–Xi summit — a clear improvement on the Iran-driven weakness flagged three weeks ago.",
+    "<strong>IHSG</strong> — local desks now frame September as sideways-to-bearish (projected range ~6,400–6,705), a more cautious read than the straight-line MSCI-deletion-proof rally described three weeks ago; Fed policy, BI policy/rupiah, and the oil shock are the named swing factors."
+  ],
+  techMacro:[
+    "<strong>Gold <span data-mref=\"gold\">~$4,400</span></strong> — rebounded off the ~$4,275 low as falling oil eased inflation fears and pulled the 10Y down from its peak — firm dollar aside, the hedge bid finally showed up. Still well below January's ~$5,300–5,600 record.",
+    "<strong>WTI <span data-mref=\"wti\">~$99</span></strong> — jumped on a real supply shock: the 11 Sept East-West pipeline shutdown plus renewed Hormuz/Bab-al-Mandab disruption, reportedly among the largest supply disruptions on record. Saudi Arabia has since added ship-to-ship crude transfers near Oman's Sohar port as a workaround, and a 16–17 Sept Iran–Oman reopening plan + Trump 'nearing the end' comments are a genuine but unconfirmed de-escalation thread — treat as elevated and two-sided, not resolved.",
+    "<strong>US 10Y <span data-mref=\"us10y\">~4.93%</span></strong> — the hike this page had been flagging as rising-odds is now confirmed: the Fed raised 25bp to 3.75–4.00% on 16 Sept (first hike in 3 years, unanimous, one more projected this year). The 10Y spiked to ~5.02% intraday 15 Sept — highest since 2007 — before easing to ~4.93–4.94% as the shock faded.",
+    "<strong>DXY <span data-mref=\"dxy\">~99.5</span></strong> — not independently re-verified this cycle; carried forward, flagged for next session given the scale of the rate move since.",
+    "<strong>USD/IDR <span data-mref=\"usdidr\">~17,800</span></strong> — corrected on re-verification (18 Sept print: 17,813); the 'stable near 17,400–17,500' read carried forward last cycle had understated the Fed-hike pressure on the rupiah."
+  ],
+  stockMarkets:{
+    us:{ topic:"Whipsawed on the confirmed 16 Sept Fed hike (25bp to 3.75–4.00%, first in 3 years) — Dow -631pts/-1.21% announcement day — then absorbed it, closing the week higher (S&amp;P +0.17% Fri to 7,650.50, Nasdaq +0.39% Fri) as the 10Y retreated from an 18-year high.",
+      movers:[
+        {sym:"—", chg:"see live", dir:"pos", why:"The post-FOMC rebound was broad-based rather than a single-name story — specific mover %s not independently re-verified this cycle.", lt:"Watch whether the calm holds or the Fed's signaled second hike this year reasserts rate pressure."},
+        {sym:"CVX", chg:"see live", dir:"pos", why:"Energy stayed bid as WTI jumped on the pipeline-shutdown supply shock.", lt:"Direct beneficiary while the oil risk premium stays elevated."},
+        {sym:"—", chg:"—", dir:"flat", why:"Other individual mover %s not independently re-verified this cycle — see live snapshot for index levels.", lt:"Flagged for a closer per-name look next session."}],
+      caps:{large:"NVDA, Microsoft, Broadcom (AI mega-caps, now more rate-sensitive)", mid:"S&P MidCap 400 / MDY — cyclical &amp; industrial tilt", small:"Russell 2000 / IWM — rate-sensitive; watch for the Fed's signaled second hike"} },
+    id:{ topic:"Turned more cautious: local desks now frame September as sideways-to-bearish for IHSG (projected range ~6,400–6,705) rather than the straight-line MSCI-deletion-proof rally described three weeks ago. Rupiah, on re-verification, is weaker than previously assessed — roughly Rp17,800 (18 Sept print: 17,813), not the Rp17,400–17,500 'stable' band carried forward last cycle. BBCA/IHSG-specific levels not independently re-verified this cycle — flagged for next session.",
+      movers:[
+        {sym:"BBCA", chg:"see live", dir:"flat", why:"Mandiri Sekuritas's BUY call (PT Rp7,300) not re-confirmed this cycle; needs a fresh check against the more cautious September framing.", lt:"Structural franchise; recovery-leveraged, dividend-supported."},
+        {sym:"BBRI / BMRI", chg:"see live", dir:"flat", why:"Assumed tracking the same more-cautious September backdrop as BBCA — not independently re-verified this cycle.", lt:"Structural franchises; recovery-leveraged."},
+        {sym:"GOTO", chg:"see live", dir:"neg", why:"MSCI Global Standard removal (effective 31 Aug) still the standing overhang; no fresher news this cycle.", lt:"Sentiment- and flow-sensitive."}],
+      caps:{large:"BBCA, BBRI, BMRI, TLKM, ASII (index heavyweights)", mid:"Domestic-consumption &amp; property mid-caps", small:"IDX SmallCap — illiquid, recovery-leveraged"} },
+    cn:{ topic:"Turned constructive into the 24 Sept Trump–Xi summit: Shanghai Composite +0.94% to 3,912 (18 Sept, +2.4% y/y) and Hang Seng +0.60% to 24,751 (18 Sept), both tech-led (SMIC, Hygon, Zhongji Innolight on the mainland side) — a clear reversal of the Iran-driven HK weakness flagged three weeks ago. Bessent-He Lifeng talks reportedly wrapped this past weekend ahead of the summit, with AI-chip access a headline topic.",
+      movers:[
+        {sym:"SMIC (0981/688981)", chg:"+2.85%", dir:"pos", why:"Led mainland tech gains 18 Sept ahead of the Trump–Xi summit's AI-chip-access agenda item.", lt:"Direct read-through if the summit eases chip-access friction."},
+        {sym:"Tencent (0700)", chg:"see live", dir:"flat", why:"Broader HK tech-led rally into the summit; per-name move not independently re-verified this cycle.", lt:"Cheapest-China-tech proxy via gaming, cloud, ads."},
+        {sym:"Alibaba (9988)", chg:"see live", dir:"flat", why:"Prior HK$80bn placement overhang not re-confirmed this cycle; assumed participating in the broader tech rally into the summit.", lt:"Cloud/AI turnaround thesis intact."}],
+      caps:{large:"Kweichow Moutai, CATL, ICBC, SMIC", mid:"CSI 500 — mid-cap industrials", small:"CSI 1000 / ChiNext — high-beta small-caps"} }
+  },
+  hotToday:{
+    us:[
+      {sym:"—", chg:"see live", dir:"pos", why:"S&P/Nasdaq closed the FOMC week higher after whipsawing on the 16 Sept hike — broad-based, not single-name"},
+      {sym:"CVX", chg:"see live", dir:"pos", why:"Energy stayed bid as WTI jumped on the pipeline-shutdown supply shock"},
+      {sym:"—", chg:"—", dir:"flat", why:"Other individual mover %s not independently re-verified this cycle — see live snapshot for index levels"}
+    ],
+    id:[
+      {sym:"BBCA", chg:"see live", dir:"flat", why:"Level not independently re-verified against the new sideways-bearish September framing — flagged for next session"},
+      {sym:"GOTO", chg:"see live", dir:"neg", why:"MSCI Global Standard removal (effective 31 Aug) still the standing overhang"},
+      {sym:"CPIN", chg:"see live", dir:"neg", why:"MSCI Small Cap downgrade (effective 31 Aug) still the standing overhang"},
+      {sym:"—", chg:"—", dir:"flat", why:"Other individual mover %s not independently re-verified this cycle — see live snapshot for IHSG level"}
+    ],
+    cn:[
+      {sym:"SMIC (0981)", chg:"+2.85%", dir:"pos", why:"Led mainland tech gains 18 Sept ahead of the Trump–Xi summit's AI-chip-access agenda item"},
+      {sym:"Hang Seng tech", chg:"see live", dir:"pos", why:"Tech-led +0.60% index gain 18 Sept into the 24 Sept Trump–Xi summit"},
+      {sym:"—", chg:"—", dir:"flat", why:"Other individual mover %s not independently re-verified this cycle — broader move tied to summit positioning"}
+    ]
+  },
+  chinaHK:[
+    "<strong>Mainland turned constructive:</strong> Shanghai Composite +0.94% to 3,912 (18 Sept), +2.4% y/y, tech-led (SMIC, Hygon, Zhongji Innolight, NAURA) ahead of the 24 Sept Trump–Xi summit. CSI 300 not freshly confirmed this cycle; still shown at ~4,600, flagged for a closer look.",
+    "<strong>Hong Kong also reversed higher:</strong> Hang Seng +0.60% to 24,751 (18 Sept), also tech-led — a clear improvement on the Iran-driven weakness flagged three weeks ago. US Treasury Secretary Bessent was reportedly meeting China's Vice Premier He Lifeng this past weekend for final prep ahead of the summit, with AI-chip access a headline topic. Tencent/Alibaba per-name moves not independently re-verified this cycle."
+  ],
+  drivers:[
+    "<strong>The Fed hike this page had flagged as rising-odds is now confirmed:</strong> 25bp to 3.75–4.00% on 16 Sept, first hike in 3 years, unanimous, with the Fed's own projections pointing to one more this year. Markets whipsawed (Dow -1.21% announcement day) then absorbed it (S&amp;P/Nasdaq both higher by Friday's close).",
+    "<strong>Oil had its real supply shock, not just a war-risk premium:</strong> the 11 Sept East-West pipeline shutdown plus renewed Hormuz/Bab-al-Mandab disruption pushed WTI to ~$99–100, reportedly among the largest supply disruptions on record — well above the ~$92 flagged three weeks ago.",
+    "<strong>But a genuine de-escalation thread emerged too:</strong> Iran and Oman reportedly agreed a plan to reopen the Strait on 16 Sept, and Trump said 17 Sept the US was nearing the end of the war — unconfirmed, but the first credible de-escalation signal in weeks.",
+    "<strong>The 10Y hit an 18-year high, then retraced fast:</strong> spiked to ~5.02% intraday 15 Sept (highest since 2007) on the Fed decision, then eased to ~4.93–4.94% by week's end. Gold has since rebounded to ~$4,400 as the falling-oil/easing-yields combo finally gave it a hedge bid.",
+    "<strong>China/HK flipped from headwind to tailwind:</strong> both Shanghai (+0.94%) and Hang Seng (+0.60%) rallied into the 24 Sept Trump–Xi summit, reversing the early-Sept Iran-driven weakness.",
+    "<strong>Indonesia turned more cautious, and the rupiah call needed a correction:</strong> local desks now frame September as sideways-to-bearish (IHSG range ~6,400–6,705) rather than the straight-line MSCI-deletion-proof rally described three weeks ago; re-verifying the rupiah found it's actually weakened to ~Rp17,800, not the 'stable ~17,400–17,500' figure carried forward last cycle."
+  ],
+  news:[
+    "<strong>Fed hikes for the first time in three years:</strong> the FOMC raised rates 25bp to 3.75–4.00% on 16 Sept, a unanimous decision, with the Summary of Economic Projections pointing to at least one more hike this year.",
+    "<strong>Markets whipsawed, then absorbed the hike:</strong> Dow -631pts/-1.21% and S&amp;P -0.45% to 7,551.81 on announcement day; both rebounded Thu/Fri as yields retreated, with the S&amp;P closing the week at 7,650.50 (+0.17% Fri) and Nasdaq +0.39% Friday.",
+    "<strong>The 10Y hit its highest level since 2007:</strong> spiked to ~5.02% intraday 15 Sept before easing to ~4.93–4.94% by week's end.",
+    "<strong>Oil's supply shock deepened:</strong> the East-West Crude Oil Pipeline shut down 11 Sept alongside renewed Hormuz/Bab-al-Mandab disruption — reportedly among the largest supply disruptions on record — pushing WTI to roughly $99–100.",
+    "<strong>A genuine (unconfirmed) de-escalation thread:</strong> Iran and Oman reportedly agreed a Strait-reopening plan 16 Sept; Trump said 17 Sept the US was nearing the end of the war.",
+    "<strong>China/HK rallied into the Trump–Xi summit:</strong> Shanghai +0.94% (18 Sept, tech-led), Hang Seng +0.60% (18 Sept) — the 24 Sept summit is reportedly centered on AI-chip access.",
+    "<strong>Indonesia's read turned more cautious:</strong> local desks project a sideways-to-bearish September for IHSG (range ~6,400–6,705); rupiah still assessed as stable.",
+    "<strong>Crypto stabilized well off its early-Sept dip</strong> — see the live snapshot for the current print.",
+    "<strong>On deck:</strong> whether the Iran–Oman reopening plan actually lands, the Fed's signaled additional hike this year, the Clarity Act's Senate vote, and how the 24 Sept Trump–Xi summit lands for China/HK sentiment."
+  ],
+  rotation:[
+    "<strong>Where money went:</strong> equities took the Fed-hike hit in stride (a brief, sharp dip fully round-tripped within the week), while the bigger structural story was the oil/rates repricing — 10Y hit an 18-year high before retreating, WTI jumped on a real supply shock. China/HK flipped from a drag to a tailwind into the Trump–Xi summit. <span class='conf'>Confidence: Medium</span>",
+    "<strong>If the Iran–Oman Hormuz reopening plan actually lands:</strong> oil's risk premium unwinds fast, XLE's recent strength fades, and risk appetite likely broadens further into cyclicals/EM/China alongside the already-recovering crypto complex.",
+    "<strong>If the reopening plan stalls or the Fed delivers its signaled second hike:</strong> oil stays elevated, the 10Y could retest its recent highs, and the equity/crypto calm seen this past week would be tested again."
+  ],
+  corp:[
+    "<strong>Fed hiked 25bp to 3.75–4.00% on 16 Sept</strong> — first hike in 3 years, unanimous, with one more projected this year; markets whipsawed then absorbed it by week's end.",
+    "<strong>Oil's supply shock is the bigger unresolved story:</strong> the 11 Sept pipeline shutdown + renewed Hormuz/Bab-al-Mandab disruption pushed WTI to ~$99–100 — a real war-driven shock, not the grinding climb described three weeks ago.",
+    "<strong>A credible but unconfirmed de-escalation thread emerged:</strong> Iran–Oman's 16 Sept reopening plan and Trump's 17 Sept 'nearing the end' comments — worth a close watch next session.",
+    "<strong>China/HK rallied into the 24 Sept Trump–Xi summit</strong> (Shanghai +0.94%, Hang Seng +0.60%, both 18 Sept) — a reversal of the early-Sept Iran-driven weakness.",
+    "<strong>Indonesia's fundamental case needs a closer look:</strong> local desks now project September sideways-to-bearish rather than a straight-line extension — flagged for the next session's IHSG/BBCA-specific sweep."
+  ],
+  watch:[
+    "<strong>Whether the Iran–Oman Hormuz reopening plan (16 Sept) actually materializes</strong> — the first credible de-escalation signal after a real supply-shock escalation (11 Sept pipeline shutdown). Oil, gold and broader risk sentiment all hinge on this.",
+    "<strong>The Fed's signaled additional hike this year</strong> — the 16 Sept hike was delivered as flagged; the SEP points to at least one more before year-end.",
+    "<strong>Whether the 10Y settles near ~4.9% or retests its ~5.02% (18-year) high</strong> — the pace of the retreat this past week was fast; worth confirming it holds.",
+    "<strong>The 24 Sept Trump–Xi summit</strong> — AI-chip access reportedly a headline topic; China/HK have already rallied into it, so the outcome is a real two-way risk.",
+    "<strong>Indonesia's sideways-to-bearish September framing</strong> — a more cautious read than three weeks ago; needs an IHSG/BBCA-specific fact-check next session.",
+    "<strong>Clarity Act's promised Senate vote</strong> — still a promise, not law, for crypto's regulatory tailwind. No fresher news this cycle."
+  ],
+  assetsWatch:[
+    {asset:"WTI / Hormuz", trigger:"Iran–Oman reopening plan lands, or the supply shock persists", why:"The 11 Sept East-West pipeline shutdown + renewed Hormuz/Bab-al-Mandab disruption pushed WTI to ~$99–100 — among the largest supply disruptions on record. A 16 Sept reopening plan + Trump's 'nearing the end' comments (17 Sept) are a genuine but unconfirmed de-escalation thread."},
+    {asset:"US 10Y / Fed", trigger:"Settle near ~4.9%, or retest the ~5.02% 18-year high", why:"The Fed hiked 25bp to 3.75–4.00% on 16 Sept (first in 3 years) with one more projected this year; the 10Y spiked to its highest since 2007 before retreating fast — confirm the retreat holds."},
+    {asset:"Gold", trigger:"Hold the ~$4,400 rebound, or fade back toward $4,275", why:"Finally acted like a hedge as falling oil eased inflation fears and pulled the 10Y down from its peak — worth watching whether that relationship holds if oil reverses back up."},
+    {asset:"BTC / ETH", trigger:"Hold the recovery, or reopen the early-Sept low", why:"Recovered well off the early-Sept dip even through a confirmed Fed hike (see live price above) — a constructive sign, but the Clarity Act vote and the Fed's signaled second hike are still live risks."},
+    {asset:"Trump–Xi summit (24 Sept)", trigger:"AI-chip access outcome", why:"Shanghai (+0.94%) and Hang Seng (+0.60%) both rallied into the summit on 18 Sept — a real two-way risk given how much is now priced in ahead of the meeting."},
+    {asset:"IHSG / BBCA", trigger:"Hold the recovery, or the sideways-bearish September call plays out", why:"Local desks now project September sideways-to-bearish (range ~6,400–6,705) — a more cautious read than the straight-line extension described three weeks ago; flagged for a closer IHSG/BBCA-specific check next session."}
+  ],
+  tilt:"<b>The two biggest live threads both resolved — and neither gently.</b> The Fed delivered its first hike in three years (25bp to 3.75–4.00%, 16 Sept, one more projected this year); equities whipsawed on the announcement then closed the week higher as the 10Y retreated from an 18-year high (~5.02%) back to ~4.93–4.94%. Oil's story is the more unresolved one: a real supply shock (11 Sept pipeline shutdown + renewed Hormuz disruption) pushed WTI to ~$99–100, but a credible, unconfirmed de-escalation thread (Iran–Oman reopening plan, Trump's 'nearing the end' comments) emerged in the same week. <b>China/HK flipped from headwind to tailwind</b>, rallying into the 24 Sept Trump–Xi summit. <b>Crypto held its recovery</b> through a confirmed hawkish surprise — a genuinely constructive sign (see live price above). <b>Indonesia is the one that needs a closer look</b>: local desks now call September sideways-to-bearish rather than the straight-line rally described three weeks ago. <b>Net: more constructive than three weeks ago on rates/equities/China, but oil is now a bigger and more two-sided risk, and Indonesia's fundamental case needs re-verifying next session.</b> <span class='conf'>Med Conviction</span><br><span style='color:#6b7280;font-size:13.5px;'>Turns more defensive if the Hormuz reopening plan stalls or the Fed's signaled second hike lands hawkishly; more constructive on a confirmed Strait reopening or a dovish Trump–Xi summit outcome. Personal research, not advice.</span>",
+  scenarios:{
+    overview:{bull:{prob:"~25%",text:"The Iran–Oman Hormuz reopening plan actually lands, the Trump–Xi summit (24 Sept) produces a real thaw, and the Fed's signaled second hike gets pushed out: oil's risk premium unwinds, China/HK's rally extends, and risk appetite broadens further into crypto/EM."},base:{prob:"~40%",text:"The reopening plan slow-walks (talks continue, no confirmed resolution), the Fed delivers its signaled second hike later this year, and the Trump–Xi summit is constructive but incremental: equities stay resilient near current levels, oil stays elevated but doesn't spike further, choppy rather than trending hard."},bear:{prob:"~35%",text:"The Hormuz reopening plan collapses and the supply shock persists or worsens, the Fed hikes again sooner than expected, and/or the Trump–Xi summit disappoints: oil pushes past $100 sustainably, the 10Y retests its 18-year high, and this month's equity/crypto/China resilience unwinds."}},
+    crypto:{bull:{prob:"~20%",text:"The Clarity Act passes and the Hormuz situation de-escalates: both overhangs lift; BTC extends its recovery to fresh highs for the cycle."},base:{prob:"~45%",text:"Consolidates around its post-recovery range as the Fed's signaled second hike, the Clarity Act vote and the Hormuz outcome all play out in parallel — see live price above for the current level."},bear:{prob:"~35%",text:"A further Hormuz escalation or a hawkish surprise from the Fed's next move triggers a broad risk-off spiral, reopening the early-September low as a real test."}},
+    stocks:{bull:{prob:"~20%",text:"The Hormuz reopening plan lands and the Trump–Xi summit produces a real thaw: oil's risk premium unwinds, yields stay contained, breadth broadens past AI mega-caps into cyclicals, energy and China."},base:{prob:"~45%",text:"Equities keep absorbing the confirmed Fed hike and elevated oil the way they did this past week — resilient near current levels without a clean re-rating either way; China/HK's rally into the summit continues at a measured pace."},bear:{prob:"~35%",text:"The Fed's signaled second hike lands hawkishly and/or the oil supply shock worsens: this month's calm proves premature, a mega-cap pullback drags indices, and the China/HK rally reverses if the Trump–Xi summit disappoints."}},
+    macro:{bull:{prob:"~20%",text:"The Hormuz reopening plan lands and the Fed's next move gets pushed further out: 10Y eases from ~4.93% toward 4.5–4.7%, oil retreats from ~$99 back toward the low-$80s, gold resumes acting as a hedge."},base:{prob:"~40%",text:"10Y holds ~4.85–5.00%, WTI stays elevated ~$92–102 on a slow-walking (not resolved, not re-escalating) Hormuz situation, DXY firm keeping gold subdued near ~$4,250–4,300; IDX trades the sideways-bearish range local desks now project."},bear:{prob:"~40%",text:"The Hormuz reopening plan collapses and the Fed's signaled second hike lands sooner/hawkishly: 10Y retests ~5.0–5.2%, oil pushes sustainably past $100, DXY firms further; EM, China and crypto all sell off harder."}},
+    outlook:{bull:{prob:"~20%",text:"Add on a confirmed Hormuz reopening + a dovish Trump–Xi summit + the Fed pushing its next hike further out: lean further into the crypto recovery, Indonesia banks once the sideways-bearish call clears, and China/HK's rally; take profits on XLE's supply-shock spike."},base:{prob:"~40%",text:"More careful, not chasing: let the Hormuz reopening plan and the Fed's next move clarify before adding further to crypto or XLE, hold Indonesia banks but re-verify the fundamental case against the new sideways-bearish September framing, ride China/HK's rally into the summit without over-extending."},bear:{prob:"~40%",text:"Get defensive: trim XLE's war-driven exposure if the reopening plan collapses, keep cash, wait for the Fed's next move and the Trump–Xi summit outcome to clarify before adding risk elsewhere — gold still isn't behaving as an automatic hedge this cycle."}}
+  },
+  journal:[
+    { title:"Bitcoin — Rabu, 24 Juni 2026", pdf:"https://drive.google.com/file/d/1g8qElvdKqmasi_w2Dl2-3hJD8k5_y8ZN/view?usp=drive_link" }
+  ],
+  sources:[
+    ["CoinDesk — Bitcoin price","https://www.coindesk.com/price/bitcoin"],
+    ["CryptoTimes — BTC's August rally was not a retail story, 27 Aug 2026","https://www.cryptotimes.io/2026/08/27/inside-cryptos-fastest-week-of-2026-bitcoins-august-price-rally-was-not-a-retail-story/"],
+    ["CoinDesk — Senate opens first stage of Clarity Act voting, 8 Aug 2026","https://www.coindesk.com/policy/2026/08/08/u-s-senate-opens-first-stage-of-crypto-clarity-act-voting-to-give-bill-a-chance-next-month"],
+    ["CNBC — Fed meeting, Jackson Hole, Warsh, 28 Aug 2026","https://www.cnbc.com/2026/08/27/stock-market-today-live-updates.html"],
+    ["Advisor Perspectives — Treasury yields snapshot, 28 Aug 2026","https://www.advisorperspectives.com/dshort/updates/2026/08/28/treasury-yields-snapshot-august-28-2026"],
+    ["Al Jazeera — Oil prices, Strait of Hormuz reopening hopes dented, 12 Aug 2026","https://www.aljazeera.com/economy/2026/8/12/oil-prices-rise-as-attacks-dent-hopes-for-strait-of-hormuz-reopening"],
+    ["Buckhead Energy — WTI/oil prices today, 29 Aug 2026","https://www.buckheadenergy.com/oil-gas-prices"],
+    ["CNBC — Gold price today, 28 Aug 2026","https://www.cnbc.com/select/the-price-of-gold-today-august-28-2026-and-the-best-places-to-buy/"],
+    ["Yahoo Finance — Dow, S&P 500, Nasdaq end week down, rate-hike bets jump, 28 Aug 2026","https://finance.yahoo.com/markets/live/stock-market-today-friday-august-28-dow-sp-500-nasdaq-dip-fed-warsh-jackson-hole-speech-081514091.html"],
+    ["Databoks — IHSG strengthened, 18 Aug 2026","https://databoks.katadata.co.id/en/market/statistics/6a842ed965d8e/indonesia-stock-exchange-index-ihsg-strengthened-by-075-tuesday-august-18-2026"],
+    ["Tirto — Rupiah dan IHSG, 24 Aug 2026","https://tirto.id/rupiah-dan-ihsg-hari-ini-24-agustus-2026-kompak-menguat-hBHf"],
+    ["Threads/@tonnikho — MSCI August 2026 Index Review details, Indonesia","https://www.threads.com/@tonnikho/post/Db9dTAIkqO6/info-update-msci-msci-august-index-review-announcement-date-august-all-changes"],
+    ["Fortune IDN — Harga saham BBCA, 26 Aug 2026","https://www.fortuneidn.com/market/harga-saham-pt-bank-central-asia-tbk-bbca-hari-ini-26-august-2026-00-k4c38-cf67gq"],
+    ["Achmad Nurhidayat — Investor asing borong saham BBCA","https://achmadnurhidayat.id/investor-asing-borong-saham-bbca-pekan-lalu"],
+    ["Moomoo — HSI/Alibaba midday close, 24 Aug 2026","https://www.moomoo.com/community/feed/alibaba-baba-us-as-of-the-midday-close-on-august-117148549054470"],
+    ["Business Recorder — China/HK stocks slip as AI shares retreat","https://www.brecorder.com/news/40435347/china-hk-stocks-slip-as-ai-shares-retreat-energy-bucks-trend"],
+    ["Washington Post — US carries out new military strikes in Iran, 1 Sept 2026","https://www.washingtonpost.com/national-security/2026/09/01/us-carries-out-new-military-strikes-iran/"],
+    ["Washington Times — US strikes IRGC targets in Iran after attempted attacks on Hormuz vessels, 1 Sept 2026","https://www.washingtontimes.com/news/2026/sep/1/us-strikes-irgc-targets-iran-attempted-attacks-vessels-strait-hormuz/"],
+    ["TheStreet — Dow futures slide on renewed U.S.-Iran conflict, 1 Sept 2026","https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-1-2026"],
+    ["Vantage Markets — US Dollar Index holds 99.40 as hike bets surge, 31 Aug–4 Sept 2026","https://www.vantagemarkets.com/market-analysis/us-dollar-index-dxy-holds-99-40-hike-bets-surge-august-31-september-4-2026/"],
+    ["Vibiznews — IHSG hampir 6.600, bursa kembali bergairah, 2 Sept 2026","https://vibiznews.com/index.php/2026/09/02/ihsg-hampir-6-600-bursa-kembali-bergairah-tapi-jangan-terlena/"],
+    ["Ajaib — Harga saham BBCA hari ini","https://ajaib.co.id/saham/aset/BBCA"],
+    ["Yahoo Finance — Bitcoin and ethereum prices today, crypto tumbles as Iran war reignites, 2 Sept 2026","https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-wednesday-september-2-2026-crypto-prices-tumble-as-iran-war-reignites-112639522.html"],
+    ["Yahoo Finance — Stock market today, Dow edges higher as oil prices rise and bond yields climb, 2 Sept 2026","https://finance.yahoo.com/markets/stocks/articles/stock-market-today-sept-2-134032621.html"],
+    ["CNBC — Dow rises nearly 300 points to snap three-day slide as Treasury yields cool, 1 Sept 2026","https://www.cnbc.com/2026/09/01/stock-market-today-live-updates.html"],
+    ["CNBC — The price of gold today, Sept 2 2026, gold slips further as military actions escalate in Iran","https://www.cnbc.com/select/the-price-of-gold-today-september-2-2026-and-the-best-places-to-buy/"],
+    ["Forbes Advisor — Crude oil price today, Sept 2 2026","https://www.forbes.com/advisor/investing/oil-prices-today/"],
+    ["Bloomberg — US launches new round of Iran strikes as Strait tensions grow, 1 Sept 2026","https://www.bloomberg.com/news/articles/2026-09-01/us-launches-new-round-of-iran-strikes-as-strait-tensions-grow"],
+    ["Trading Economics — China Shanghai Composite stock market index","https://tradingeconomics.com/china/stock-market"],
+    ["CNBC — Fed rate decision, September 2026: rates rise to 3.75–4%, 16 Sept 2026","https://www.cnbc.com/2026/09/16/fed-rate-decision-september-2026.html"],
+    ["Yahoo Finance — Stock market today: Dow, S&P 500 plummet after Fed hikes, 16 Sept 2026","https://finance.yahoo.com/markets/stocks/articles/stock-market-today-sept-16-133949098.html"],
+    ["TheStreet — Stock market today: Nasdaq, S&P 500 surge on post-Fed rate hike buying, 17 Sept 2026","https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-17-2026"],
+    ["Discovery Alert — Gold price forecast, 10-year Treasury yields, mid-Sept 2026","https://discoveryalert.com/analysis/gold-price-forecast-real-yields-september-2026/"],
+    ["GlobalSecurity.org — Iran War 2026, Day 203 update, 18 September 2026","https://www.globalsecurity.org/military/ops/iran-war-oprep.htm"],
+    ["Wikipedia — 2026 Iran war fuel crisis (East-West pipeline shutdown, Hormuz/Bab-al-Mandab disruption)","https://en.wikipedia.org/wiki/2026_Iran_war_fuel_crisis"],
+    ["Kontan — IHSG diproyeksi sideways-bearish di September 2026","https://investasi.kontan.co.id/news/ihsg-diproyeksi-sideways-bearish-di-september-2026-cek-rekomendasi-sahamnya"],
+    ["24/7 Wall St. — Shanghai/Hang Seng close, 18 September 2026","https://247wallst.com/cards/hong-kong-gave-back-0-28-at-the-close-while-shanghai-finish-hsi-market-bell-01m200nt1cyqwwm7dq1y7436w5"]
+  ]
+};
+/* ====== RENDER ENGINE — do not edit below ====== */
+const $=id=>document.getElementById(id);
+$("dateline").textContent=DATA.dateLong+"  ·  Authored "+DATA.feedTime;
+$("bottomline").innerHTML=DATA.bottomLine;
+$("gval").textContent="Risk score "+DATA.riskScore+"/100 — "+DATA.riskLabel;
+$("tilt").innerHTML=DATA.tilt;
+const li=arr=>arr.map(x=>"<li>"+x+"</li>").join("");
+["derivFlow","funding","techCrypto","techEquity","techMacro","chinaHK","drivers","news","rotation","corp","watch"].forEach(k=>$(k).innerHTML=li(DATA[k]));
+/* ====== Macro Dashboard — Plan A Tier 1: render from macro.json (single source) ====== */
+/* Inline fallback so the board still renders on local file:// preview or if the fetch fails.
+   On GitHub Pages (https) the fetch succeeds and macro.json is the live source of truth. */
+const MACRO_FALLBACK={asOf:"2026-09-19",lastUpdated:"2026-09-21 07:00 WIB",values:{
+  us10y:{label:"US 10Y Treasury",value:"~4.93%",delta:"off an 18-year high",note:"spiked to ~5.02% intraday 15 Sept (highest since 2007) on the confirmed Fed hike, then eased to ~4.93–4.94% by week's end"},
+  fedFunds:{label:"Fed Funds Rate",value:"3.75–4.00%",delta:"hiked 25bp on 16 Sept",note:"first hike in 3 years, unanimous; Fed's own projections point to at least one more hike this year"},
+  usCPI:{label:"US CPI (YoY)",value:"~3.9%",delta:"not independently re-verified this cycle",note:"carried forward from three weeks ago; flagged for next session's sweep"},
+  usPCE:{label:"US PCE (YoY)",value:"~3.5%",delta:"unchanged since last update",note:"not independently re-verified this cycle; watch alongside the next CPI print"},
+  dxy:{label:"Dollar Index (DXY)",value:"~99.5",delta:"not independently re-verified this cycle",note:"carried forward; flagged for next session given the scale of the rate move since"},
+  biRate:{label:"Bank Indonesia Rate",value:"+75bp since May",delta:"not independently re-verified this cycle",note:"carried forward; IHSG/BBCA-specific levels flagged for next session's re-check against the new sideways-bearish September framing"},
+  usdidr:{label:"USD/IDR",value:"~17,800",delta:"weakened past 17,700",note:"corrected on re-verification (18 Sept print: 17,813) — the prior 'stable near 17,400–17,500' read had not been freshly checked and understated the Fed-hike pressure on the rupiah"},
+  gold:{label:"Gold (XAU)",value:"~$4,400",delta:"rebounded off the ~$4,275 low",note:"rose toward $4,400 by Fri 19 Sept as falling oil eased inflation fears and pulled the 10Y down from its 15 Sept peak"},
+  wti:{label:"WTI Crude",value:"~$99",delta:"multi-month high on a real supply shock",note:"the 11 Sept East-West pipeline shutdown plus renewed Hormuz/Bab-al-Mandab disruption pushed WTI to ~$99–100 — reportedly among the largest supply disruptions on record; a 16–17 Sept Iran–Oman reopening plan is a genuine but unconfirmed de-escalation thread"}
+}};
+function renderMacro(d){
+  if(!$("macroBoard")) return;
+  if(!d||!d.values){ d=MACRO_FALLBACK; }
+  const v=d.values, order=["us10y","fedFunds","usCPI","usPCE","dxy","biRate","usdidr","gold","wti"];
+  const cards=order.filter(k=>v[k]).map(k=>{const x=v[k];
+    return `<div class="mb-card"><div class="mb-lab">${x.label}</div><div class="mb-val">${x.value}</div>`+
+      (x.delta?`<div class="mb-delta">${x.delta}</div>`:"")+(x.note?`<div class="mb-note">${x.note}</div>`:"")+`</div>`;}).join("");
+  const stamp=`<div class="mb-stamp">Macro values as of ${d.asOf||"—"}${d.lastUpdated?" · "+d.lastUpdated:""} · single source: macro.json (FRED / Trading Economics auto-feed planned)</div>`;
+  $("macroBoard").innerHTML=`<div class="mb-grid">${cards}</div>${stamp}`;
+  syncMacroProse(d);
+}
+/* Keeps scattered macro-figure mentions (snapshot rows, techMacro, XLE thesis) in sync with
+   macro.json so a single-source refresh can never leave two contradicting numbers on the page
+   (root cause of the WTI $88/$90/$93 and $90/$77 incidents). Author new mentions by wrapping the
+   current-value number in <span data-mref="KEY">...</span> using the macro.json key. */
+function syncMacroProse(d){
+  if(!d||!d.values) return;
+  document.querySelectorAll("[data-mref]").forEach(el=>{
+    const m=d.values[el.dataset.mref];
+    if(m&&m.value) el.textContent=m.value;
+  });
+}
+fetch("macro.json").then(r=>r.ok?r.json():Promise.reject()).then(renderMacro).catch(()=>renderMacro(MACRO_FALLBACK));
+$("rows").innerHTML=DATA.snapshot.map(r=>
+  `<a class="row${r.cg?' sparkrow':''}${r.tv?' tvrow':''}" href="${r.url}" target="_blank" rel="noopener" ${r.cg?`data-cg="${r.cg}" `:""}${r.tv?`data-tv="${r.tv}"`:""}>
+     <span class="asset">${r.a}${r.cg?'<span class="livetag">● LIVE</span>':''}</span>
+     <span><span class="lvl">${r.lvl}</span></span>
+     <span class="rt"><span><span class="delta ${r.dir}">${r.d}</span> <span class="drv">— ${r.drv}</span></span>
+       <span class="bartrack"><span class="bar ${r.dir}" data-mag="${r.mag}"></span></span></span>
+   </a>`).join("");
+function renderScen(id,obj){ $(id).innerHTML=["bull","base","bear"].map(k=>
+  `<div class="scard ${k}"><div class="sh">${k.toUpperCase()}<span class="prob">${obj[k].prob}</span></div><div class="sp">${obj[k].text}</div></div>`).join(""); }
+["overview","crypto","stocks","macro","outlook"].forEach(k=>renderScen("scen"+k.charAt(0).toUpperCase()+k.slice(1),DATA.scenarios[k]));
+if(DATA.assetsWatch && $("assetsWatch")){
+  $("assetsWatch").innerHTML=DATA.assetsWatch.map(a=>
+    `<div class="watchitem"><div class="wh"><b>${a.asset}</b> · <em>${a.trigger}</em></div><div class="ww">${a.why}</div></div>`).join("");
+}
+if(DATA.hotToday && $("hotToday")){
+  const HOT_LABELS={us:"🇺🇸 US", id:"🇮🇩 Indonesia", cn:"🇨🇳 China / HK"};
+  $("hotToday").innerHTML="<div class=\"hot-grid\">"+["us","id","cn"].map(mkt=>{
+    const items=DATA.hotToday[mkt]||[];
+    return `<div class="hot-card"><h3>${HOT_LABELS[mkt]}</h3>`+
+      items.map(r=>`<div class="hot-row"><span class="hot-sym">${r.sym}</span><span class="delta ${r.dir}">${r.chg}</span><div class="hot-why">${r.why}</div></div>`).join("")
+    +`</div>`;
+  }).join("")+"</div>";
+}
+if(DATA.journal && $("journalList")){
+  $("journalList").innerHTML="<div class='jr-list'>"+DATA.journal.map(j=>`
+    <a class="jr-link" href="${j.pdf}" target="_blank" rel="noopener">
+      <span class="jr-link-icon">📄</span>
+      <span class="jr-link-title">${j.title}</span>
+      <span class="jr-link-arrow">→</span>
+    </a>
+  `).join("")+"</div>";
+}
+$("sources").innerHTML="Sources: "+DATA.sources.map(s=>`<a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a>`).join(" · ");
+
+/* ====== POSITIONS render ====== */
+(function renderPositions(){
+  const groups={}; DATA.positions.forEach(p=>{ if(!groups[p.market]) groups[p.market]=[]; groups[p.market].push(p); });
+  const order=["Crypto","US","Hong Kong","China","Indonesia"];
+  let html="";
+  order.forEach(mkt=>{
+    if(!groups[mkt]) return;
+    html+=`<div class="mkthd">${mkt}</div><div class="posgrid">`;
+    groups[mkt].forEach(p=>{
+      const cls=p.position.toLowerCase();
+      html+=`<div class="poscard ${cls}">
+        <div class="topline"><span class="sym">${p.sym}<small>${p.name?" · "+p.name:""}</small></span><span class="badge ${cls}">${p.position}</span></div>
+        <div class="meta">${p.cap} · ${p.horizon} · ${p.conviction} conviction</div>
+        ${p.cg?`<div class="poscard-spark" data-cg="${p.cg}"><span class="spark-lbl">7D</span></div>`:""}
+        <div class="thesis"><strong>Thesis:</strong> ${p.thesis}</div>
+        <div class="risk"><strong>Key risk:</strong> ${p.risk}</div>
+      </div>`;
+    });
+    html+="</div>";
+  });
+  $("positions").innerHTML=html;
+})();
+/* positions filter */
+(function(){
+  const inp=$("posFilter"), cnt=$("posCount");
+  function update(){
+    const q=inp.value.toLowerCase().trim(); let visible=0;
+    document.querySelectorAll("#positions .poscard").forEach(c=>{
+      const show=!q || c.textContent.toLowerCase().includes(q);
+      c.style.display=show?"":"none"; if(show) visible++;
+    });
+    document.querySelectorAll("#positions .mkthd").forEach(h=>{
+      const grid=h.nextElementSibling;
+      if(grid && grid.classList.contains("posgrid")){
+        const any=[...grid.children].some(c=>c.style.display!=="none");
+        h.style.display=any?"":"none"; grid.style.display=any?"":"none";
+      }
+    });
+    cnt.textContent=visible+" of "+DATA.positions.length+" shown";
+  }
+  inp.addEventListener("input",update); update();
+})();
+
+/* ====== TABS + motion ====== */
+const tabs=[...document.querySelectorAll(".tab")];
+const panels=[...document.querySelectorAll(".tabpanel")];
+const ind=$("tabind");
+function initWidget(box){ if(!box||box.dataset.done) return; const s=document.createElement("script"); s.type="text/javascript"; s.async=true; s.src=box.dataset.src; s.text=box.dataset.cfg; box.querySelector(".tradingview-widget-container").appendChild(s); box.dataset.done="1"; }
+function moveInd(i){ const t=tabs[i]; ind.style.left=t.offsetLeft+"px"; ind.style.width=t.offsetWidth+"px"; }
+const STOCKS_TAB_INDEX=3;
+function activate(i,{focus}={}){
+  tabs.forEach((t,j)=>{const on=j===i; t.classList.toggle("active",on); t.setAttribute("aria-selected",on?"true":"false"); t.tabIndex=on?0:-1;});
+  panels.forEach((p,j)=>p.classList.toggle("active",j===i));
+  moveInd(i);
+  if(i===STOCKS_TAB_INDEX) renderStk(curMkt);
+  panels[i].querySelectorAll(".bar").forEach(b=>{b.style.width="0";requestAnimationFrame(()=>requestAnimationFrame(()=>b.style.width=b.dataset.mag+"%"));});
+  $("tabbar").scrollIntoView({block:"start"});
+  if(focus) tabs[i].focus();
+}
+tabs.forEach((t,i)=>t.addEventListener("click",()=>activate(i)));
+$("tabbar").addEventListener("keydown",e=>{
+  const visible=tabs.map((t,i)=>({t,i})).filter(x=>x.t.style.display!=="none");
+  const cur=visible.findIndex(x=>x.t===document.activeElement);
+  if(cur<0) return;
+  let next=null;
+  if(e.key==="ArrowRight") next=visible[(cur+1)%visible.length].i;
+  else if(e.key==="ArrowLeft") next=visible[(cur-1+visible.length)%visible.length].i;
+  else if(e.key==="Home") next=visible[0].i;
+  else if(e.key==="End") next=visible[visible.length-1].i;
+  if(next!==null){ e.preventDefault(); activate(next,{focus:true}); }
+});
+window.addEventListener("resize",()=>{const a=tabs.findIndex(t=>t.classList.contains("active"));if(a>=0)moveInd(a);});
+
+/* ====== STOCKS segmented control ====== */
+let curMkt="us";
+const STK=DATA.stockMarkets;
+function renderStk(mkt){
+  curMkt=mkt; const m=STK[mkt];
+  $("stkPanel").innerHTML=
+    `<div class="topic"><strong>Hot topic:</strong> ${m.topic}</div>`+
+    m.movers.map(s=>`<div class="mvr"><span class="mvsym">${s.sym} <span class="delta ${s.dir}">${s.chg}</span></span><div class="mvwhy"><strong>Why:</strong> ${s.why}</div><div class="mvlt"><strong>Long-term:</strong> ${s.lt}</div></div>`).join("")+
+    `<div class="caps"><strong>Across market caps (illustrative)</strong><div class="cap-l"><b>Large:</b> ${m.caps.large}</div><div class="cap-l"><b>Mid:</b> ${m.caps.mid}</div><div class="cap-l"><b>Small:</b> ${m.caps.small}</div></div>`;
+  document.querySelectorAll("#stkSeg .segbtn").forEach(b=>b.classList.toggle("active",b.dataset.market===mkt));
+  document.querySelectorAll("#stocksWidgets .tvbox").forEach(b=>b.style.display=b.dataset.market===mkt?"block":"none");
+  initWidget(document.querySelector('#stocksWidgets .tvbox[data-market="'+mkt+'"]'));
+}
+document.querySelectorAll("#stkSeg .segbtn").forEach(b=>b.addEventListener("click",()=>renderStk(b.dataset.market)));
+
+function initOverviewCharts(){
+  document.querySelectorAll(".tvrow:not([data-tv-done])").forEach(row=>{
+    const sym=row.dataset.tv; if(!sym) return;
+    const track=row.querySelector(".bartrack"); if(!track) return;
+    track.innerHTML='<div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div>';
+    const s=document.createElement("script");
+    s.type="text/javascript"; s.async=true;
+    s.src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js";
+    s.text=JSON.stringify({symbol:sym,width:"100%",height:130,locale:"en",dateRange:"1M",colorTheme:"light",isTransparent:true,autosize:false,largeChartUrl:"",noTimeScale:true,trendLineColor:"rgba(0, 68, 124, 1)",underLineColor:"rgba(0, 68, 124, 0.15)",underLineBottomColor:"rgba(0, 68, 124, 0)"});
+    track.querySelector(".tradingview-widget-container").appendChild(s);
+    row.setAttribute("data-tv-done","1");
+  });
+}
+window.addEventListener("load",()=>{
+  moveInd(0);
+  setTimeout(()=>{$("gmark").style.left=DATA.riskScore+"%";},250);
+  setTimeout(()=>document.querySelectorAll(".tabpanel.active .bar").forEach(b=>b.style.width=b.dataset.mag+"%"),450);
+  setTimeout(initOverviewCharts,600);
+});
+
+/* ====== LIVE crypto (CoinGecko) ====== */
+function fmtP(p){ if(p>=1000) return "$"+Math.round(p).toLocaleString("en-US"); if(p>=1) return "$"+p.toFixed(2); return "$"+p.toFixed(4); }
+/* Smooth count-up/down between price updates (~500ms ease-out cubic) */
+function animNum(el, target, fmt, dur=500){
+  const prev = el.dataset.cur !== undefined ? parseFloat(el.dataset.cur) : target;
+  if(prev === target){ el.textContent = fmt(target); el.dataset.cur = target; return; }
+  const t0 = performance.now();
+  function step(now){
+    const t = Math.min(1, (now - t0) / dur);
+    const e = 1 - Math.pow(1 - t, 3);
+    const v = prev + (target - prev) * e;
+    el.textContent = fmt(v);
+    if(t < 1) requestAnimationFrame(step);
+    else { el.textContent = fmt(target); el.dataset.cur = target; }
+  }
+  requestAnimationFrame(step);
+}
+async function liveUpdate(){
+  try{
+    const r=await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,ripple&vs_currencies=usd&include_24hr_change=true");
+    if(!r.ok) throw 0; const d=await r.json();
+    document.querySelectorAll(".row[data-cg]").forEach(row=>{
+      const o=d[row.dataset.cg]; if(!o) return;
+      const p=o.usd, ch=o.usd_24h_change||0, dir=ch>=0?"pos":"neg";
+      animNum(row.querySelector(".lvl"), p, fmtP);
+      const dEl=row.querySelector(".delta"); dEl.textContent=(ch>=0?"+":"")+ch.toFixed(1)+"%"; dEl.className="delta "+dir;
+      const bar=row.querySelector(".bar"); bar.className="bar "+dir; bar.style.width=Math.min(Math.abs(ch)*18,100)+"%";
+    });
+    $("livedot").style.opacity=1; $("livestamp").textContent="Live crypto prices · updated "+new Date().toLocaleTimeString();
+  }catch(e){ $("livestamp").textContent="Live feed unavailable — showing the daily snapshot (analysis still current)"; }
+}
+function sparkSVG(prices, width=120, height=22){
+  if(!prices || prices.length<2) return "";
+  const min=Math.min(...prices), max=Math.max(...prices), range=max-min||1, N=prices.length;
+  const pad=2;
+  const pts=prices.map((p,i)=>`${(i/(N-1)*width).toFixed(1)},${(height-pad-((p-min)/range)*(height-pad*2)).toFixed(1)}`).join(" ");
+  const up=prices[N-1]>=prices[0];
+  const stroke=up?"#16a36a":"#e0453e";
+  const fill=up?"rgba(22,163,106,0.14)":"rgba(224,69,62,0.14)";
+  const area=pts+` ${width},${height} 0,${height}`;
+  return `<svg class="spark" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none"><polygon points="${area}" fill="${fill}"/><polyline points="${pts}" fill="none" stroke="${stroke}" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
+}
+async function liveMarkets(){
+  try{
+    const r=await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&price_change_percentage=24h&sparkline=true");
+    if(!r.ok) throw 0; const m=await r.json();
+    const fmtV=v=>v>=1e9?"$"+(v/1e9).toFixed(1)+"B":"$"+Math.round(v/1e6)+"M";
+    const pct=c=>(c>=0?"+":"")+(c||0).toFixed(1)+"%"; const ch=c=>c.price_change_percentage_24h||0;
+    const mk=(arr,val)=>arr.map(c=>`<div class="lbrow"><span class="lbsym">${c.symbol.toUpperCase()}</span><span class="lbv">${val(c)}</span><span class="${ch(c)>=0?'pos':'neg'}">${pct(ch(c))}</span></div>`).join("");
+    const top100=m.slice(0,100);
+    $("lbVol").innerHTML=mk([...m].sort((a,b)=>b.total_volume-a.total_volume).slice(0,5), c=>fmtV(c.total_volume));
+    $("lbGain").innerHTML=mk([...top100].sort((a,b)=>ch(b)-ch(a)).slice(0,5), c=>fmtP(c.current_price));
+    $("lbLoss").innerHTML=mk([...top100].sort((a,b)=>ch(a)-ch(b)).slice(0,5), c=>fmtP(c.current_price));
+    $("capLarge").innerHTML=mk(m.slice(0,5), c=>fmtP(c.current_price));
+    $("capMid").innerHTML=mk(m.slice(49,54), c=>fmtP(c.current_price));
+    $("capSmall").innerHTML=mk(m.slice(195,200), c=>fmtP(c.current_price));
+    $("lbstamp").textContent="● Live · updated "+new Date().toLocaleTimeString()+" · Large=top5 · Mid≈#50 · Small≈#200 by mkt cap";
+    // Sparklines for crypto rows in the Cross-Asset Snapshot
+    const sparkMap={};
+    m.forEach(c=>{ if(c.sparkline_in_7d && c.sparkline_in_7d.price) sparkMap[c.id]=c.sparkline_in_7d.price; });
+    document.querySelectorAll(".sparkrow").forEach(row=>{
+      const prices=sparkMap[row.dataset.cg]; if(!prices) return;
+      const track=row.querySelector(".bartrack"); if(!track) return;
+      track.innerHTML=sparkSVG(prices);
+    });
+    // Position-card sparklines (crypto only — live 7D data; no free keyless equity source yet)
+    document.querySelectorAll(".poscard-spark[data-cg]").forEach(el=>{
+      const prices=sparkMap[el.dataset.cg]; if(!prices) return;
+      el.innerHTML=`<span class="spark-lbl">7D</span>`+sparkSVG(prices,84,20);
+    });
+  }catch(e){ $("lbstamp").textContent="Live data temporarily unavailable (CoinGecko rate-limited) — retrying…"; }
+}
+liveUpdate(); setInterval(liveUpdate,60000);
+liveMarkets(); setInterval(liveMarkets,90000);
+
+function doShare(){
+  if(navigator.share){navigator.share({title:"BryOsk Market PoV",text:DATA.bottomLine.replace(/<[^>]+>/g,""),url:location.href}).catch(()=>{});}
+  else{navigator.clipboard&&navigator.clipboard.writeText(location.href);alert("Link copied. For Instagram, screenshot the story card.");}
+}
+</script>
+</body>
+</html>

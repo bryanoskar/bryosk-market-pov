@@ -1,7 +1,7 @@
 {
   "_comment": "Single source of truth for macro indicators (Plan A Tier 1). NOT YET wired into index.html render — see PLAN-macro-json.md for remaining steps. Each value carries a 'source' = the FRED / Trading Economics series ID it will auto-fetch from in Tier 2.",
   "asOf": "2026-09-19",
-  "lastUpdated": "2026-09-21 07:00 WIB",
+  "lastUpdated": "2026-09-21 10:15 WIB",
   "values": {
     "us10y": {
       "label": "US 10Y Treasury",
@@ -19,9 +19,9 @@
     },
     "usCPI": {
       "label": "US CPI (YoY)",
-      "value": "~3.9%",
-      "delta": "not independently re-verified this cycle",
-      "note": "carried forward from three weeks ago — flagged for next session's sweep",
+      "value": "~3.4%",
+      "delta": "held steady",
+      "note": "August print (BLS, released 11 Sept): headline CPI +3.4% YoY, unchanged from July, on a gasoline-driven +0.4% m/m headline move; core eased to its lowest annual pace since March 2021. Corrects the prior ~3.9% figure, which was stale and overstated",
       "source": { "provider": "FRED", "series": "CPIAUCSL" }
     },
     "usPCE": {
@@ -33,16 +33,16 @@
     },
     "dxy": {
       "label": "Dollar Index (DXY)",
-      "value": "~99.5",
-      "delta": "not independently re-verified this cycle",
-      "note": "carried forward from three weeks ago; flagged for next session given the scale of the rate move since",
+      "value": "~100.3",
+      "delta": "firmed to a post-hike high",
+      "note": "re-verified (TradingEconomics/FXStreet): DXY held above 99.50 into the 16 Sept FOMC decision, then firmed to ~100.3 by 21 Sept as the confirmed hike (plus signaled second one) supported the dollar — consistent with, and part of the same story as, the rupiah's fresh weakness. Corrects the prior ~99.5 figure, which was stale",
       "source": { "provider": "FRED", "series": "DTWEXBGS", "caveat": "DXY proper is ICE; DTWEXBGS is FRED's broad trade-weighted USD index — close proxy, label accordingly" }
     },
     "biRate": {
       "label": "Bank Indonesia Rate",
       "value": "+75bp cumulative since May",
       "delta": "not independently re-verified this cycle",
-      "note": "carried forward; local desks now frame September as sideways-to-bearish for IHSG rather than a straight-line extension — flagged for next session's IHSG/BBCA-specific re-check",
+      "note": "BI rate itself not independently re-verified this cycle; IHSG/BBCA were re-checked separately and confirm the sideways-to-bearish September framing (IHSG 6,441.16 on 18 Sept, BBCA down to ~Rp6,300)",
       "source": { "provider": "TradingEconomics", "series": "indonesia/interest-rate" }
     },
     "usdidr": {

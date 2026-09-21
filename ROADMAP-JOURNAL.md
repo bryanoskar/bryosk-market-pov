@@ -12,6 +12,28 @@
 
 ---
 
+## 2026-09-21 (Senin) — Sesi kedua hari ini — DXY & CPI AS diperbaiki, IHSG/BBCA akhirnya diverifikasi ulang
+
+### ✅ Dikerjakan (sesi kedua)
+- **Ini sesi otomatis KEDUA untuk tanggal 21 Sept** (sesi pertama pagi tadi sudah commit `61796bf` dengan koreksi emas & rupiah — lihat catatan di bawah). Situs sudah "up to date" untuk hari ini (dateLong sudah 21 Sept, health check bersih), jadi sesi ini fokus menuntaskan 3 angka yang dari beberapa hari lalu ditandai "belum diverifikasi ulang": **DXY, CPI AS, dan IHSG/BBCA**.
+- **DXY (Dollar Index) ternyata sudah menguat, bukan diam di angka lama.** Situs menulis DXY "~99,5" sejak beberapa siklus lalu tanpa dicek ulang. Data riil (TradingEconomics/FXStreet): DXY bertahan di atas 99,50 menjelang keputusan FOMC 16 Sept, lalu menguat ke **~100,3** pada 21 Sept — searah dengan cerita kenaikan suku bunga The Fed yang sama yang juga melemahkan rupiah (sudah dikoreksi sesi sebelumnya). Diperbaiki di `macro.json` + `MACRO_FALLBACK` + teks techMacro.
+- **🐛 CPI AS (inflasi) ternyata salah cukup jauh dan arahnya juga tidak akurat.** Situs menulis CPI YoY "~3,9%" — data resmi BLS (rilis 11 Sept, untuk data Agustus): **inflasi headline YoY 3,4%** (tidak berubah dari Juli), inflasi inti malah turun ke level terendah sejak Maret 2021. Selisihnya ~0,5 poin persentase, cukup besar untuk sebuah metrik makro utama. Diperbaiki di `macro.json` + `MACRO_FALLBACK`.
+- **IHSG & BBCA akhirnya diverifikasi ulang** (sudah 2 hari tercatat sebagai "belum dicek" di jurnal). IHSG ditutup **6.441,16 pada Jumat 18 Sept (-0,33%)** — persis di dalam rentang sideways-bearish yang sudah diproyeksikan (~6.400-6.705), jadi framing situs TIDAK perlu diubah, hanya angka snapshot-nya (dari perkiraan lama ~6.550 → 6.441 yang sudah terkonfirmasi). BBCA ternyata sudah melemah cukup jelas sepanjang September: dari ~Rp6.800 awal bulan ke ~Rp6.300 pada 18-21 Sept (sekitar -7% sebulan), akibat tekanan sektor perbankan pasca kenaikan The Fed. Target harga BUY Mandiri Sekuritas (Rp7.300) sendiri belum dikonfirmasi ulang, tapi kalau benar, itu masih menyiratkan potensi upside ~15-16% dari harga sekarang — jadi rating BUY tidak diubah, hanya angka & narasinya yang di-update supaya jujur.
+- **Cakupan edit**: `macro.json` (usCPI, dxy, catatan biRate) + `index.html` (MACRO_FALLBACK, techMacro DXY, snapshot IHSG, thesis posisi BBCA, mover ID di tab Stocks & Hot Today, topic Indonesia, 3 baris di corp/watch/assetsWatch yang sebelumnya bilang "flagged untuk sesi berikutnya" — sekarang diisi hasil verifikasi nyata).
+- Verifikasi: `python -m http.server 8137` + Claude Browser — 0 error console, DXY span → 100.3 (live dari macro.json), CPI card → 3.4%, IHSG "6,441" muncul 10×, BBCA "Rp6,300" muncul 11×, tidak ada lagi sisa teks lama ("~6.550" atau "needs a fresh check").
+
+### 🐛 Error & Fix (sesi kedua)
+- CPI AS "~3,9%" ternyata angka basi & salah arah kecil (riil 3,4%) — sama persis pola bug rupiah kemarin: angka dibawa terus tanpa verifikasi ulang selama beberapa siklus. Diperbaiki.
+
+### ⏸ Butuh Bryan (sesi kedua)
+- Tidak ada.
+
+### ➡️ Berikutnya (sesi kedua)
+- BI Rate (suku bunga acuan Bank Indonesia) dan BBRI/BMRI (harga spesifik) masih belum diverifikasi ulang — carry forward.
+- Kalau data sudah stabil beberapa hari lagi, lanjut roadmap: Simulator Phase 2 (worst/base/bull), Crypto Monitor, atau mobile UX/dark-mode.
+
+---
+
 ## 2026-09-21 (Senin) — Automasi harian (jalan otomatis pagi) — koreksi harga emas & rupiah + kabar baik soal bug otomasi
 
 ### ✅ Dikerjakan

@@ -12,6 +12,33 @@
 
 ---
 
+## 2026-09-30 (Rabu) — Automasi harian — selamatkan update 25 Sept yang tidak pernah di-commit + sinkronkan macro.json
+
+### ✅ Dikerjakan
+- **Health check: situs tertinggal 9 hari** (konten terakhir di-push ke GitHub: auto-archive 21 Sept). Namun bukan berarti 9 hari tanpa kerja — sesi sebelumnya sudah membuat progres, hanya tidak pernah tersimpan ke GitHub:
+  1. **Commit lokal `217d374` ("Daily automation (2nd run)")** — ada di repo lokal tapi belum pernah di-push ke origin. Ini commit sesi otomatis ke-2 tanggal 21 Sept (verifikasi DXY/CPI/IHSG/BBCA).
+  2. **Perubahan besar di working copy yang belum di-commit** — sesi sebelumnya (kemungkinan sekitar 28 Sept) sudah melakukan refresh pasar lengkap sampai data Jumat 25 Sept: 10Y naik ke ~5,18% (tertinggi sejak krisis 2007-08), IHSG tembus di bawah kisaran proyeksi ke 6.241,89, minyak turun ke ~$92 (harapan pembukaan Hormuz), emas melemah ke ~$4.280, summit Trump-Xi kecewakan pasar (gencatan dagang diperpanjang hanya 2 bulan, bukan 1 tahun yang diharapkan), rupiah melemah ke ~Rp17.900. Semua tertulis di `index.html` working copy — tapi tidak pernah di-commit.
+- **🐛 Bug data kritis ditemukan dan diperbaiki sebelum ada yang live:** `macro.json` masih menyimpan data 21 Sept (gold ~$4.400, WTI ~$99, 10Y ~4,93%, USD/IDR ~17.800), sementara teks narasi di `index.html` working copy sudah pakai angka 25 Sept yang lebih baru. Kalau didorong ke GitHub dalam kondisi itu, fungsi `syncMacroProse()` akan mengambil nilai dari `macro.json` dan menimpa semua span `data-mref` di halaman — jadi pengunjung akan melihat harga emas "$4.400" di kartu macro padahal narasi bilang "turun ke ~$4.280". Itu kontradiksi yang terlihat oleh pengunjung dan merusak kepercayaan. Diperbaiki: `macro.json` di-update ke data 25 Sept (gold $4.280, WTI $92, 10Y 5.18%, USD/IDR 17.900, BI Rate 5.75% dikonfirmasi di rapat 22-23 Sept).
+- **Tanggal diperbarui ke 30 September** (`dateLong` + `feedTime`). Data inti dari sesi sebelumnya yang bersumber hingga 25 Sept dipertahankan (sudah riset asli, tidak saya ulang). Catatan ditambahkan ke `bottomLine` bahwa data Sens 28 Sept – Rab 30 Sept belum diverifikasi mandiri; satu item yang perlu diperhatikan: harapan pembukaan Hormuz tampaknya memudar (Iran gagal sepakati proposal, Trump dikabarkan menolak tawaran conditional Iran) → harga minyak kemungkinan rebound dari $92 minggu ini.
+- **Semua perubahan pending sekaligus di-commit dan di-push**: commit lokal yang tertunda (217d374) + perbaikan macro.json + update tanggal, semuanya masuk ke 1 commit baru.
+- Verifikasi: `python -m http.server 8137` + Claude Browser — **0 console error**, dateline "Wednesday, 30 September 2026 · Authored 2026-09-30 07:00 WIB", semua span `data-mref` (us10y, wti, gold, usdidr) menunjukkan nilai 25 Sept yang benar secara konsisten.
+
+### 🐛 Error & Fix
+- **macro.json vs index.html tidak sinkron** — working copy index.html sudah update data 25 Sept di teks narasi, tapi macro.json masih data 21 Sept. Kalau commit dalam kondisi ini, fungsi `syncMacroProse()` akan menimpa spans dengan angka lama dari macro.json, membuat kontradiksi terlihat di halaman live. Diperbaiki dengan menyinkronkan macro.json ke data 25 Sept yang sama.
+- **Bug otomasi 14-hari terulang lagi** — meski pattern "checkpoint dulu, riset belakangan" sudah ditambahkan ke prompt sejak 20 Sept, ternyata ada 2 sesi (kemungkinan lebih) yang mengerjakan perubahan nyata tapi tidak selesai sampai commit + push. Satu run bahkan menyimpan commit lokal (217d374) tanpa push. Aturan sudah ada tapi tidak cukup mencegah. Ini perlu dilihat di sisi platform — apakah run mati sebelum langkah commit/push.
+
+### ⏸ Butuh Bryan
+- Tidak ada signup/KYC/pembayaran.
+- **Angka WTI untuk 28-30 Sept belum diverifikasi** — minyak kemungkinan sudah naik dari $92 kembali ke kisaran $99-100+ karena pembicaraan Hormuz macet. Lihat harga live di papan macro. Kalau Bryan bisa cek dan konfirmasi, saya update di sesi berikutnya.
+- **BBCA & IHSG post-25 Sept** belum diverifikasi — IHSG mungkin sudah bergerak lebih jauh dari 6.241 setelah breakdown Jumat 25 Sept.
+
+### ➡️ Berikutnya
+- Verifikasi ulang WTI, IHSG, dan mungkin BBCA untuk data awal Oktober (minggu ini).
+- Pantau apakah bug otomasi push perlu penanganan lebih dalam — lihat log run platform.
+- Roadmap: Simulator Phase 2 (worst/base/bull scenarios interaktif) atau Crypto Monitor polish.
+
+---
+
 ## 2026-09-21 (Senin) — Sesi kedua hari ini — DXY & CPI AS diperbaiki, IHSG/BBCA akhirnya diverifikasi ulang
 
 ### ✅ Dikerjakan (sesi kedua)
@@ -371,6 +398,6 @@
 | **Investment Simulator** | 🟢 Live (Phase 0) | `simulator.html`. Next: Phase 2 worst/base/bull. Refresh 5Y otomatis bulanan. |
 | **Crypto Monitor** | 🟡 Siap, nunggu publish | `crypto-monitor.html` sudah jadi & terverifikasi, tapi belum pernah di-push (Bryan pegang kendali). Link nav disembunyikan sementara biar tidak 404 di situs live — aktifkan begitu Bryan bilang go. |
 | Premium platform (paywall) | 🔵 Nunggu Bryan | Trakteer dulu → Vercel+Midtrans nanti. KYC. |
-| **Auto daily progress + journal** | 🟡 Membaik, masih dipantau | Setelah bug 14-hari (6-19 Sept) ketemu dan aturan "checkpoint dulu, riset belakangan" ditambahkan ke prompt (20 Sept), run tanggal 18, 19, 20, dan 21 September (hari ini) semuanya sukses menghasilkan commit nyata — 4 hari berturut-turut. Tanda awal yang bagus, tapi belum resmi ditutup sebagai "selesai" — perlu beberapa hari lagi konsisten sebelum berubah ke 🟢. |
+| **Auto daily progress + journal** | 🔴 Bug terulang | Meski aturan "checkpoint dulu, riset belakangan" sudah ditambahkan ke prompt (20 Sept), sesi-sesi otomatis antara 21-30 Sept tidak berhasil push ke GitHub. Ada commit lokal yang tidak di-push (217d374) dan satu working copy besar yang tidak di-commit. Run otomatis perlu dilihat di platform (apakah mati sebelum langkah commit/push). Semua pending diperbaiki dan di-push di sesi hari ini (30 Sept). |
 
 **Legenda:** 🟢 live/jalan · 🟡 sedang dikerjakan · 🔵 nunggu aksi Bryan · ⚪ ide/belum mulai

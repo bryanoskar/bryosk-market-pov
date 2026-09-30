@@ -1,13 +1,13 @@
 {
   "_comment": "Single source of truth for macro indicators (Plan A Tier 1). NOT YET wired into index.html render — see PLAN-macro-json.md for remaining steps. Each value carries a 'source' = the FRED / Trading Economics series ID it will auto-fetch from in Tier 2.",
-  "asOf": "2026-09-19",
-  "lastUpdated": "2026-09-21 10:15 WIB",
+  "asOf": "2026-09-25",
+  "lastUpdated": "2026-09-30 07:00 WIB",
   "values": {
     "us10y": {
       "label": "US 10Y Treasury",
-      "value": "~4.93%",
-      "delta": "off an 18-year high",
-      "note": "spiked to ~5.02% intraday 15 Sept (highest since 2007) on the confirmed Fed hike, then eased to ~4.93–4.94% by week's end as the initial shock faded",
+      "value": "~5.18%",
+      "delta": "highest since 2007–08 financial crisis",
+      "note": "climbed through last week's ~5.02% spike to ~5.18–5.2% on 24–25 Sept on inflation worries — the highest since the 2007–08 financial crisis. Fed funds 3.75–4.00% after the 16 Sept hike; one more projected this year.",
       "source": { "provider": "FRED", "series": "DGS10" }
     },
     "fedFunds": {
@@ -21,7 +21,7 @@
       "label": "US CPI (YoY)",
       "value": "~3.4%",
       "delta": "held steady",
-      "note": "August print (BLS, released 11 Sept): headline CPI +3.4% YoY, unchanged from July, on a gasoline-driven +0.4% m/m headline move; core eased to its lowest annual pace since March 2021. Corrects the prior ~3.9% figure, which was stale and overstated",
+      "note": "August print (BLS, released 11 Sept): headline CPI +3.4% YoY, unchanged from July; core eased to its lowest annual pace since March 2021.",
       "source": { "provider": "FRED", "series": "CPIAUCSL" }
     },
     "usPCE": {
@@ -34,36 +34,36 @@
     "dxy": {
       "label": "Dollar Index (DXY)",
       "value": "~100.3",
-      "delta": "firmed to a post-hike high",
-      "note": "re-verified (TradingEconomics/FXStreet): DXY held above 99.50 into the 16 Sept FOMC decision, then firmed to ~100.3 by 21 Sept as the confirmed hike (plus signaled second one) supported the dollar — consistent with, and part of the same story as, the rupiah's fresh weakness. Corrects the prior ~99.5 figure, which was stale",
+      "delta": "at a two-month high",
+      "note": "at a two-month high alongside the 10Y spike; held above ~100 as of 25 Sept. Exact intraday level not independently re-verified this cycle.",
       "source": { "provider": "FRED", "series": "DTWEXBGS", "caveat": "DXY proper is ICE; DTWEXBGS is FRED's broad trade-weighted USD index — close proxy, label accordingly" }
     },
     "biRate": {
       "label": "Bank Indonesia Rate",
-      "value": "+75bp cumulative since May",
-      "delta": "not independently re-verified this cycle",
-      "note": "BI rate itself not independently re-verified this cycle; IHSG/BBCA were re-checked separately and confirm the sideways-to-bearish September framing (IHSG 6,441.16 on 18 Sept, BBCA down to ~Rp6,300)",
+      "value": "5.75%",
+      "delta": "held on 22–23 Sept",
+      "note": "Bank Indonesia held the BI-Rate at 5.75% at the 22–23 September 2026 meeting — a stability decision as the rupiah was under pressure from rising US yields and a firm dollar",
       "source": { "provider": "TradingEconomics", "series": "indonesia/interest-rate" }
     },
     "usdidr": {
       "label": "USD/IDR",
-      "value": "~17,800",
-      "delta": "weakened past 17,700",
-      "note": "corrected on re-verification (18 Sept print: 17,813, +0.22% that session) — the prior 'stable near 17,400–17,500' read was carried forward without a fresh check and turns out to have understated the Fed-hike pressure on the rupiah",
+      "value": "~17,900",
+      "delta": "weakened further",
+      "note": "~17,903 on 25 Sept (BI JISDOR 17,917) — edging toward 18,000 as US yields and the dollar climbed; Bank Indonesia held at 5.75% on 22–23 Sept but the rupiah continued to weaken",
       "source": { "provider": "TradingEconomics", "series": "indonesia/currency" }
     },
     "gold": {
       "label": "Gold (XAU)",
-      "value": "~$4,400",
-      "delta": "rebounded off the ~$4,275 low",
-      "note": "rose toward $4,400 by Fri 19 Sept as falling oil prices eased inflation fears and pulled the 10Y down from its 15 Sept peak — the hedge bid finally showed up once the rate-shock/oil-shock combo started to unwind; still well below January's ~$5,300–5,600 record",
+      "value": "~$4,280",
+      "delta": "gave back the prior week's rebound",
+      "note": "down 1%+ on the week ending 25 Sept as the 10Y hit a post-2007 high and the dollar a two-month high — rates are driving gold again, not oil; still well below January's ~$5,300–5,600 record",
       "source": { "provider": "TradingView", "series": "TVC:GOLD", "caveat": "no free FRED/TE daily series; keep manual or use a market-data API in a later tier" }
     },
     "wti": {
       "label": "WTI Crude",
-      "value": "~$99",
-      "delta": "multi-month high on a real supply shock",
-      "note": "the 11 Sept East-West Crude Oil Pipeline shutdown plus renewed Hormuz/Bab-al-Mandab disruption pushed WTI to roughly $99-100 — reportedly among the largest supply disruptions on record. A 16-17 Sept Iran-Oman Strait-reopening plan plus Trump's 'nearing the end' comments are a genuine but unconfirmed de-escalation thread — treat as elevated and two-sided, not resolved",
+      "value": "~$92",
+      "delta": "eased on Hormuz-reopening hopes (25 Sept settle)",
+      "note": "settled $92.41 on 25 Sept (-2.33%) as Iran floated a conditional Strait reopening. Trump rejected at least one Iranian proposal — nothing agreed. As of early week (28–30 Sept), Hormuz deal optimism appears to have faded and prices may be rebounding — not independently re-verified; see live data.",
       "source": { "provider": "FRED", "series": "DCOILWTICO" }
     }
   }

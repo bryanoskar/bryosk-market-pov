@@ -12,6 +12,38 @@
 
 ---
 
+## 2026-10-01 (Kamis) — Automasi harian — bump ke 1 Oktober, perpanjang catatan data belum diverifikasi
+
+### ✅ Dikerjakan
+- **Health check: bersih.** Auto-archive `archive/metadata.json` sudah terbaru (di-push tadi pagi oleh GitHub Action). Branch sudah up-to-date dengan origin/main. Tidak ada broken link atau console error.
+- **Stalled-run check:** Entri terakhir jurnal adalah 30 Sept — ini run otomatis pertama untuk tanggal 1 Oktober, jadi tidak ada gap yang mencurigakan. Run sebelumnya berhasil commit + push. Bug 14-hari tampaknya masih terkendali.
+- **Tanggal di-bump ke 1 Oktober 2026**: `dateLong` → "Thursday, 1 October 2026", `feedTime` → "2026-10-01 07:00 WIB".
+- **`macro.json` lastUpdated** di-update ke "2026-10-01 07:00 WIB" (asOf tetap "2026-09-25" karena itu tanggal terakhir data diverifikasi langsung).
+- **`MACRO_FALLBACK.lastUpdated`** (inline di `index.html`) juga di-update ke "2026-10-01 07:00 WIB".
+- **Catatan `bottomLine` diperbarui**: periode "belum diverifikasi mandiri" diperpanjang dari 28–30 Sept menjadi 28 Sept – 1 Okt; klarifikasi bahwa kesepakatan Hormuz masih belum terjadi (Trump menolak tawaran Iran); WTI/IHSG/rupiah untuk awal Oktober masih menunggu verifikasi live.
+- **6 pencarian web dilakukan (batas harian)**: kripto, ekuitas AS/10Y, WTI/Hormuz, emas, IHSG, USD/IDR. Data penting yang ditemukan:
+  - **IHSG**: Sept 9 terakhir tercatat di 6.678, lalu breakdown ke 6.241 pada 25 Sept (konsisten dengan narasi situs).
+  - **WTI/Hormuz**: Kontrak futures Oktober 2026 sempat settle di $85–89 (akhir Agustus) sebelum eskalasi militer; Selat Hormuz masih terblokir sejak Feb 2026, negosiasi Iran-Oman belum berhasil — WTI bisa bergerak di kisaran $85–92 tergantung perkembangan Hormuz. Tidak ada data spot 1 Oktober yang pasti, jadi narasi situs tetap level-based dengan catatan verifikasi.
+  - **Emas**: Sekitar $4.077 per 30 Juli 2026; proyeksi Oktober $4.297–4.775. Angka $4.280 (25 Sept) di situs masih dalam kisaran yang wajar.
+  - **USD/IDR**: Per 4 Agustus 2026 sekitar Rp17.857; situs mencatat ~Rp17.900 untuk 25 Sept — masuk akal.
+  - **10Y/S&P**: 10Y di 4,81% per Sept 8 (sebelum kenaikan Fed 16 Sept); setelah hike, kenaikan ke ~5,18% per 25 Sept masuk akal. Tidak ada data 1 Oktober yang ditemukan.
+- Verifikasi: `python -m http.server 8137` + Claude Browser → **0 console error**, dateline terbaca "Thursday, 1 October 2026 · Authored 2026-10-01 07:00 WIB".
+- Commit + push ke GitHub: `817488e`. Mirror `BryOsk-Market-PoV.html` dan `report-template.html` diperbarui.
+
+### 🐛 Error & Fix
+- `simulator.html` terlihat sebagai staged change di `git status` padahal `git diff --staged` menunjukkan kosong (kemungkinan perbedaan line-ending saja). Di-unstage agar tidak mengotori commit ini — perlu dicek lebih lanjut.
+
+### ⏸ Butuh Bryan
+- **WTI, IHSG, dan rupiah per 1 Oktober belum diverifikasi**: minta Bryan cek level live (macro board di situs sudah pasang data live dari CoinGecko/TradingView). Kalau WTI sudah jauh bergerak dari $92 (25 Sept), perlu update `macro.json` + narasi di sesi berikutnya.
+- **BBCA** — harga setelah sell-off akhir September belum dikonfirmasi. Terakhir tercatat ~Rp6.300 (18–21 Sept).
+
+### ➡️ Berikutnya
+- Kalau Bryan bisa konfirmasi level WTI/IHSG/BBCA terbaru, update `macro.json` di sesi berikutnya.
+- Roadmap: Simulator Phase 2 (worst/base/bull scenarios interaktif) atau Crypto Monitor polish — pilih 1 di run berikutnya.
+- Investigasi status `simulator.html` yang muncul sebagai staged tapi diff kosong.
+
+---
+
 ## 2026-09-30 (Rabu) — Automasi harian — selamatkan update 25 Sept yang tidak pernah di-commit + sinkronkan macro.json
 
 ### ✅ Dikerjakan

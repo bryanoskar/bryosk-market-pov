@@ -1,7 +1,15 @@
 {
-  "lastUpdated": "2026-09-21",
+  "lastUpdated": "2026-09-30",
   "since": "2026-05-27",
   "entries": [
+    {
+      "date": "2026-09-30",
+      "dateLong": "Wednesday, 30 September 2026",
+      "riskScore": 47,
+      "riskLabel": "Neutral, tilting cautious · the US 10Y broke to a fresh post-2007 high (~5.2%) and IHSG broke below its range, but US equities shrugged it off and oil eased on Hormuz-reopening hopes",
+      "bottomLineExcerpt": "A week of crosscurrents: the bond market got worse, oil got better, and US stocks ignored the bond market. The US 10Y broke through last week's ~5.02% spike to roughly ~5.18% (24–25 Sept) — its highest since the 2007–08 financial crisis — on renewed inflation worries, with the dollar at a two-month high. That is essentially the rates leg of this page's own bear macro scenario (\"10Y retests ~5.0–5.2%\") showing up. Yet the S&amp;P 500 closed Friday 25 Sept at 7,743.41 (+0.51%, +0.63% on the week) ",
+      "file": "2026-09-30.html"
+    },
     {
       "date": "2026-09-21",
       "dateLong": "Monday, 21 September 2026",

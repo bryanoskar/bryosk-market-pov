@@ -1,7 +1,7 @@
 {
   "_comment": "Single source of truth for macro indicators (Plan A Tier 1). NOT YET wired into index.html render — see PLAN-macro-json.md for remaining steps. Each value carries a 'source' = the FRED / Trading Economics series ID it will auto-fetch from in Tier 2.",
   "asOf": "2026-09-25",
-  "lastUpdated": "2026-09-30 07:00 WIB",
+  "lastUpdated": "2026-10-01 07:00 WIB",
   "values": {
     "us10y": {
       "label": "US 10Y Treasury",

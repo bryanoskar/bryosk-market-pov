@@ -12,6 +12,36 @@
 
 ---
 
+## 2026-10-06 (Selasa) — Automasi harian — Hormuz reopening jadi narasi utama; bump + update WTI/gold/10Y
+
+### 🐛 Stalled-run bug MASIH BERULANG (prioritas tinggi)
+- Entri jurnal terakhir adalah **1 Oktober**. Hari ini 6 Oktober — artinya **4–5 run otomatis (2–5 Oktober) "berhasil" menurut platform tapi tidak menghasilkan satu pun commit atau entri jurnal**. Ini adalah ulangan persis bug 14-hari yang sudah dicatat berkali-kali. Dicek di `list_scheduled_tasks`: `lastRunAt` adalah 5 Oktober 17:51 UTC — run kemarin bahkan sudah jalan, tapi tidak ada jejaknya di repo. Bug ini belum selesai. Untuk Bryan: pertimbangkan apakah ada yang bisa dilakukan di sisi platform (misalnya kurangi beban run, atau pastikan run tidak mati sebelum langkah commit).
+
+### ✅ Dikerjakan
+- **Narasi utama diperbarui: Selat Hormuz mulai dibuka.** Ini adalah perubahan terbesar sejak beberapa bulan terakhir — laporan ~40 tanker melintas Hormuz dalam satu malam membalik narasi blockade yang sudah menopang WTI di atas $90 sejak awal tahun. WTI di-update dari ~$92 (25 Sept) ke **~$82**, dan analis sudah mulai memangkas proyeksi harga minyak 2026 (rata-rata WTI ke ~$79–80/barel). Belum ada perjanjian resmi — risiko geopolitik tetap dua arah.
+- **Gold diperbarui ke ~$4.177** (dari ~$4.280): dikonfirmasi $4.176,81 pada 1 Oktober — turun 2,4% dalam seminggu akibat yield yang terus naik dan dolar yang kuat.
+- **10Y diperbarui ke ~5.24%** (dari ~5.18%): yield terus bergerak naik hingga awal Oktober, memperpanjang rekor tertinggi sejak krisis 2007–08; naik ~115bps dari awal 2026.
+- **Tanggal di-bump ke 6 Oktober 2026**: `dateLong` → "Tuesday, 6 October 2026", `feedTime` → "2026-10-06 07:00 WIB".
+- **`macro.json` diperbarui**: `asOf` → "2026-10-01", `lastUpdated` → "2026-10-06 07:00 WIB", values WTI/gold/10Y disesuaikan.
+- **`MACRO_FALLBACK` di `index.html`** disinkronkan ke nilai yang sama.
+- **`bottomLine` ditulis ulang** untuk mencerminkan perubahan Hormuz + gold + 10Y. Data S&P (7.666 per 1 Oktober) dan China/HK (summit Trump-Xi kecewakan pasar) dipertahankan. IHSG/rupiah untuk 2–5 Oktober ditandai tidak diverifikasi mandiri.
+- **6 pencarian web dilakukan (sesuai batas)**: kripto, ekuitas AS/10Y, WTI/Hormuz, emas, IHSG/rupiah, China-HK/tarif.
+- **Verifikasi**: `python -m http.server 8137` + Claude Browser — **0 console error**, dateline "Tuesday, 6 October 2026 · Authored 2026-10-06 07:00 WIB", semua span `data-mref` (wti ×4 → $82, gold ×4 → $4.177, us10y ×3 → 5.24%) terkonfirmasi konsisten dari `macro.json`.
+
+### 🐛 Error & Fix
+- Tidak ada error teknis hari ini. Satu-satunya "error" adalah stalled-run bug yang masih belum terpecahkan di level platform (lihat bagian atas).
+
+### ⏸ Butuh Bryan
+- **IHSG, rupiah 2–5 Oktober belum diverifikasi**: cek level live di papan macro situs. Perlu konfirmasi apakah IHSG sudah bounce dari 6.241 (25 Sept) atau breakdown lebih jauh.
+- **Hormuz deal**: pantau apakah ada perjanjian resmi yang ditandatangani — kalau ya, WTI bisa turun lebih jauh ke $75–80.
+- **Stalled-run bug**: pertimbangkan apakah ada langkah di sisi platform yang bisa dilakukan agar run tidak mati sebelum commit.
+
+### ➡️ Berikutnya
+- Kalau Bryan bisa konfirmasi level IHSG/rupiah awal Oktober, update `macro.json` di sesi berikutnya.
+- Roadmap: Simulator Phase 2 (worst/base/bull scenarios interaktif) — sudah lama tertunda; pilih ini kalau run berikutnya tidak ada update data mendesak.
+
+---
+
 ## 2026-10-01 (Kamis) — Automasi harian — bump ke 1 Oktober, perpanjang catatan data belum diverifikasi
 
 ### ✅ Dikerjakan

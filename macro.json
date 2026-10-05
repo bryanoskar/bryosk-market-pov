@@ -1,13 +1,13 @@
 {
   "_comment": "Single source of truth for macro indicators (Plan A Tier 1). NOT YET wired into index.html render — see PLAN-macro-json.md for remaining steps. Each value carries a 'source' = the FRED / Trading Economics series ID it will auto-fetch from in Tier 2.",
-  "asOf": "2026-09-25",
-  "lastUpdated": "2026-10-01 07:00 WIB",
+  "asOf": "2026-10-01",
+  "lastUpdated": "2026-10-06 07:00 WIB",
   "values": {
     "us10y": {
       "label": "US 10Y Treasury",
-      "value": "~5.18%",
-      "delta": "highest since 2007–08 financial crisis",
-      "note": "climbed through last week's ~5.02% spike to ~5.18–5.2% on 24–25 Sept on inflation worries — the highest since the 2007–08 financial crisis. Fed funds 3.75–4.00% after the 16 Sept hike; one more projected this year.",
+      "value": "~5.24%",
+      "delta": "post-2007 high extended further",
+      "note": "continued rising to ~5.24% by early October (from ~5.18% on 25 Sept) — extending the highest level since the 2007–08 financial crisis; the 10Y has climbed ~115bps YTD (opened 2026 at 4.16%). Fed funds 3.75–4.00% after the 16 Sept hike; one more projected this year.",
       "source": { "provider": "FRED", "series": "DGS10" }
     },
     "fedFunds": {
@@ -54,16 +54,16 @@
     },
     "gold": {
       "label": "Gold (XAU)",
-      "value": "~$4,280",
-      "delta": "gave back the prior week's rebound",
-      "note": "down 1%+ on the week ending 25 Sept as the 10Y hit a post-2007 high and the dollar a two-month high — rates are driving gold again, not oil; still well below January's ~$5,300–5,600 record",
+      "value": "~$4,177",
+      "delta": "continued lower through 1 Oct",
+      "note": "confirmed ~$4,176.81 on 1 October (down from ~$4,280 on 25 Sept, -2.4% over the week) — rising 10Y yields and a firm dollar continue to outweigh the safe-haven bid; still well below January's ~$5,300–5,600 record",
       "source": { "provider": "TradingView", "series": "TVC:GOLD", "caveat": "no free FRED/TE daily series; keep manual or use a market-data API in a later tier" }
     },
     "wti": {
       "label": "WTI Crude",
-      "value": "~$92",
-      "delta": "eased on Hormuz-reopening hopes (25 Sept settle)",
-      "note": "settled $92.41 on 25 Sept (-2.33%) as Iran floated a conditional Strait reopening. Trump rejected at least one Iranian proposal — nothing agreed. As of early week (28–30 Sept), Hormuz deal optimism appears to have faded and prices may be rebounding — not independently re-verified; see live data.",
+      "value": "~$82",
+      "delta": "dropped sharply — Hormuz reopening",
+      "note": "fell from ~$92 (25 Sept) to ~$82 as the Strait of Hormuz began returning to normal — reports of ~40 tankers transiting in a single night; analysts cutting 2026 forecasts (avg WTI revised to ~$79–$80). Nothing formally signed yet, geopolitical risk stays two-sided; see live macro board.",
       "source": { "provider": "FRED", "series": "DCOILWTICO" }
     }
   }

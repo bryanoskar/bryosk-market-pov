@@ -1,7 +1,15 @@
 {
-  "lastUpdated": "2026-10-01",
+  "lastUpdated": "2026-10-06",
   "since": "2026-05-27",
   "entries": [
+    {
+      "date": "2026-10-06",
+      "dateLong": "Tuesday, 6 October 2026",
+      "riskScore": 47,
+      "riskLabel": "Neutral, tilting cautious · the US 10Y broke to a fresh post-2007 high (~5.2%) and IHSG broke below its range, but US equities shrugged it off and oil eased on Hormuz-reopening hopes",
+      "bottomLineExcerpt": "The biggest macro shift in months: the Strait of Hormuz is reopening — oil is falling. Reports of ~40 tankers transiting in a single night broke the Hormuz-blockade narrative that had driven WTI above $90 for months. WTI crude dropped from ~$92 (25 Sept) to roughly ~$82 and analysts are already cutting their 2026 oil price forecasts (average WTI revised down to ~$79–80/barrel). Nothing is formally signed yet, so the geopolitical risk stays two-sided — but the direction has shifted. Meanwhile, th",
+      "file": "2026-10-06.html"
+    },
     {
       "date": "2026-10-01",
       "dateLong": "Thursday, 1 October 2026",

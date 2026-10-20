@@ -12,6 +12,43 @@
 
 ---
 
+## 2026-10-20 (Selasa) — Automasi harian — selamatkan update 14 Okt yang nyangkut + koreksi besar: minyak BALIK NAIK ke ~$96
+
+### 🐛 Stalled-run bug BERULANG LAGI — sekarang ada 3 pola kegagalan berbeda (prioritas tinggi)
+Entri jurnal terakhir **6 Oktober**; hari ini **20 Oktober** → **14 hari tanpa commit konten lagi**. Saya cek `list_task_runs` (63 total run) dan ketemu 3 pola kegagalan berbeda dalam 2 minggu ini:
+1. **Run 14 Okt jalan ~3,5 jam** (02:45–06:24 UTC) lalu mati — sudah selesai mengedit `index.html` + `macro.json` (bump ke 14 Okt, update WTI/emas/10Y/IHSG) **tapi tidak pernah commit**. Edit-nya masih nyangkut sebagai perubahan belum-tersimpan di folder repo. Ini pola stall klasik: kerja selesai, mati sebelum langkah commit. **Hari ini saya selamatkan edit itu** (tidak saya buang).
+2. **Run 16 Okt GAGAL** dengan error akses: *"Your organization has disabled Claude subscription access for Claude Code — use an Anthropic API key instead, or ask your admin to enable access."* Ini bukan bug kode kita — ini setting akun/organisasi. ⏸ Perlu Bryan (lihat bawah).
+3. **Run 15, 17, 18, 19 Okt "berhasil" tapi cuma jalan ~15–25 detik** masing-masing — artinya langsung keluar tanpa mengerjakan apa pun (tidak mungkin health check + riset + edit + commit selesai dalam 15 detik). Ini pola "no-op" baru.
+
+Kesimpulan untuk Bryan: bug stall ini bukan satu masalah, tapi beberapa. Yang paling bisa ditindak dari sisi Bryan adalah **#2 (akses organisasi dimatikan 16 Okt)** — kalau akses Claude Code lewat subscription di-nonaktifkan di level organisasi, sebagian run otomatis akan gagal total. Mohon dicek di pengaturan organisasi/admin.
+
+### ✅ Dikerjakan
+- **Selamatkan + commit pekerjaan 14 Okt yang nyangkut.** Perubahan belum-tersimpan dari run 14 Okt (coherent & rapi) saya jadikan dasar, lalu saya perbarui ke hari ini.
+- **KOREKSI DATA BESAR — minyak balik naik.** Edit 14 Okt bilang "Hormuz normalisasi, WTI tahan di ~$82, minyak turun." **Riset hari ini menunjukkan itu sudah terbalik:** WTI **balik naik ke ~$96** (futures November settle ~$97,97 pada 15 Okt, +~6% seminggu). Kapal memang melintas Hormuz lagi (40+ dalam 24 jam) **tapi** alur cuma ~dua-pertiga normal, dan premi risiko balik lagi karena belum ada kesepakatan resmi AS–Iran. Ini perubahan pasar terbesar sejak update terakhir → saya update `riskLabel`, `bottomLine`, kartu snapshot WTI, dan `macro.json`/`MACRO_FALLBACK`.
+- **Tanggal di-bump ke 20 Oktober 2026**: `dateLong` → "Tuesday, 20 October 2026", `feedTime` → "2026-10-20 07:00 WIB".
+- **10Y disesuaikan ke ~5,2%** (edit 14 Okt menurunkannya ke ~5,1%; riset menunjukkan masih ~5,2%, 5,24% pada 1 Okt — tertinggi sejak 2007). Ditambah catatan FOMC berikutnya 27–28 Okt.
+- **Emas ~$4.180** (range-bound ~$4.130–4.200 sepanjang paruh Oktober; low ~$4.125 LBMA fix 8 Okt, balik ~$4.180 pada 13 Okt) — konsisten dengan edit 14 Okt, hanya dipertajam.
+- **IHSG & rupiah dipertahankan level-based**: IHSG berat di zona ~5.800–6.100 (dari 6.241 pada 25 Sept), rupiah ~17.900 menekan garis 18.000 (~17.936 pada 15 Okt). Ditandai 16–20 Okt belum diverifikasi mandiri.
+- **6 pencarian web (sesuai batas)**: kripto, ekuitas AS/10Y/Fed, emas, WTI/Hormuz, IHSG/rupiah (China/HK digabung ke catatan — tidak ada perkembangan baru selain summit 24 Sept yang sudah tercatat).
+- **Verifikasi**: `python -m http.server 8137` + Claude Browser → **0 console error**. Semua span `data-mref` ter-render benar dari `macro.json`: wti ×4 → ~$96, us10y ×3 → ~5,2%, gold ×4 → ~$4.180, usdidr ×2 → ~17.900. Dateline terbaca "Tuesday, 20 October 2026 · Authored 2026-10-20 07:00 WIB".
+
+### 🐛 Error & Fix
+- **Konflik narasi minyak (kritis, DIPERBAIKI):** edit 14 Okt menyatakan minyak turun/Hormuz normal; data 15 Okt menunjukkan minyak balik ~$96. Diperbaiki di semua permukaan harian utama (riskLabel, bottomLine, snapshot WTI, macro board).
+- **Tidak bisa pakai `git pull --rebase` di awal** karena ada perubahan belum-tersimpan (justru edit 14 Okt yang berharga). Benar — saya inspeksi dulu dengan `git diff`, tidak di-clobber, lalu lipat masuk. Branch sebenarnya sudah up-to-date dengan origin (HEAD `b2c86fb`).
+
+### ⏸ Butuh Bryan
+- **AKSES ORGANISASI (paling penting):** run 16 Okt gagal karena "organization has disabled Claude subscription access for Claude Code." Tolong cek pengaturan admin/organisasi — kalau akses subscription dimatikan, run otomatis akan gagal.
+- **Bagian analisis mendalam masih bertanggal 25 Sept.** Section "Macro Technicals", "What happened / scenarios", dan trigger di bawah halaman masih memakai narasi diskresioner 25 Sept ("minyak turun ke $92 karena harapan Hormuz dibuka", emas "~$4.280"). Angka di dalam span `data-mref` otomatis ikut live (jadi tidak salah angka), **tapi prosa di sekitarnya sudah usang** — khususnya cerita minyak yang sekarang terbalik. Ini narasi/opini diskresioner Bryan yang (sesuai aturan) tidak saya tulis ulang sendiri. **Refresh penuh paling baik dilakukan bareng Bryan.**
+- **`crypto-monitor.html` masih untracked** (belum pernah di-commit ke git). Saya sengaja tidak commit otomatis karena itu workstream lain. Kalau mau dipush, konfirmasi.
+- **Level 16–20 Okt (IHSG, rupiah, S&P, 10Y spot) belum diverifikasi mandiri** — papan macro live di situs yang jadi acuan.
+
+### ➡️ Berikutnya
+- Kalau Bryan bisa konfirmasi akses organisasi sudah aktif, run otomatis mestinya stabil lagi.
+- Refresh penuh bagian diskresioner (Macro Technicals + scenarios) bareng Bryan untuk cerminkan minyak balik naik + rezim rate tinggi.
+- Roadmap murni-kode yang tertunda: Simulator Phase 2 (worst/base/bull interaktif) — dipilih di run berikutnya kalau tidak ada update data mendesak.
+
+---
+
 ## 2026-10-06 (Selasa) — Automasi harian — Hormuz reopening jadi narasi utama; bump + update WTI/gold/10Y
 
 ### 🐛 Stalled-run bug MASIH BERULANG (prioritas tinggi)

@@ -1,13 +1,13 @@
 {
   "_comment": "Single source of truth for macro indicators (Plan A Tier 1). NOT YET wired into index.html render — see PLAN-macro-json.md for remaining steps. Each value carries a 'source' = the FRED / Trading Economics series ID it will auto-fetch from in Tier 2.",
-  "asOf": "2026-10-01",
-  "lastUpdated": "2026-10-06 07:00 WIB",
+  "asOf": "2026-10-15",
+  "lastUpdated": "2026-10-20 07:00 WIB",
   "values": {
     "us10y": {
       "label": "US 10Y Treasury",
-      "value": "~5.24%",
-      "delta": "post-2007 high extended further",
-      "note": "continued rising to ~5.24% by early October (from ~5.18% on 25 Sept) — extending the highest level since the 2007–08 financial crisis; the 10Y has climbed ~115bps YTD (opened 2026 at 4.16%). Fed funds 3.75–4.00% after the 16 Sept hike; one more projected this year.",
+      "value": "~5.2%",
+      "delta": "still near post-2007 high",
+      "note": "still pinned near ~5.2% into mid-October (5.24% on 1 Oct) — around the highest level since the 2007–08 financial crisis; the 10Y has climbed ~100+bps YTD (opened 2026 at 4.16%). Fed funds 3.75–4.00% after the 16 Sept hike; next FOMC 27–28 Oct, one more hike projected this year. Levels for 16–20 Oct not independently verified — see live macro board.",
       "source": { "provider": "FRED", "series": "DGS10" }
     },
     "fedFunds": {
@@ -48,22 +48,22 @@
     "usdidr": {
       "label": "USD/IDR",
       "value": "~17,900",
-      "delta": "weakened further",
-      "note": "~17,903 on 25 Sept (BI JISDOR 17,917) — edging toward 18,000 as US yields and the dollar climbed; Bank Indonesia held at 5.75% on 22–23 Sept but the rupiah continued to weaken",
+      "delta": "pressing 18,000",
+      "note": "around ~17,900–17,940 into mid-October (~17,936 on 15 Oct) — pressing the 18,000 line as US yields and the dollar stay firm; Bank Indonesia held at 5.75% on 22–23 Sept. Levels for 16–20 Oct not independently verified — see live macro board",
       "source": { "provider": "TradingEconomics", "series": "indonesia/currency" }
     },
     "gold": {
       "label": "Gold (XAU)",
-      "value": "~$4,177",
-      "delta": "continued lower through 1 Oct",
-      "note": "confirmed ~$4,176.81 on 1 October (down from ~$4,280 on 25 Sept, -2.4% over the week) — rising 10Y yields and a firm dollar continue to outweigh the safe-haven bid; still well below January's ~$5,300–5,600 record",
+      "value": "~$4,180",
+      "delta": "range-bound (mid-Oct)",
+      "note": "holding a ~$4,130–4,200 band through mid-October — low ~$4,125 (LBMA fix $4,124.55 on 8 Oct), back near ~$4,180 by 13 Oct — rising 10Y yields and a firm dollar keep capping the safe-haven bid; still well below January's ~$5,300–5,600 record",
       "source": { "provider": "TradingView", "series": "TVC:GOLD", "caveat": "no free FRED/TE daily series; keep manual or use a market-data API in a later tier" }
     },
     "wti": {
       "label": "WTI Crude",
-      "value": "~$82",
-      "delta": "dropped sharply — Hormuz reopening",
-      "note": "fell from ~$92 (25 Sept) to ~$82 as the Strait of Hormuz began returning to normal — reports of ~40 tankers transiting in a single night; analysts cutting 2026 forecasts (avg WTI revised to ~$79–$80). Nothing formally signed yet, geopolitical risk stays two-sided; see live macro board.",
+      "value": "~$96",
+      "delta": "premium snapped back",
+      "note": "reversed back up from the early-Oct ~$82 dip to ~$96 — November futures settled ~$97.97 on 15 Oct (+~6% on the week). Ships are transiting Hormuz again (40+ in 24h) but flows run ~two-thirds of baseline and the risk premium returns without a formal US–Iran deal. Nothing formally signed, risk stays two-sided; see live macro board.",
       "source": { "provider": "FRED", "series": "DCOILWTICO" }
     }
   }

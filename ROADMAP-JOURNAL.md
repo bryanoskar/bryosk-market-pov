@@ -44,8 +44,16 @@ Kesimpulan untuk Bryan: bug stall ini bukan satu masalah, tapi beberapa. Yang pa
 
 ### ➡️ Berikutnya
 - Kalau Bryan bisa konfirmasi akses organisasi sudah aktif, run otomatis mestinya stabil lagi.
-- Refresh penuh bagian diskresioner (Macro Technicals + scenarios) bareng Bryan untuk cerminkan minyak balik naik + rezim rate tinggi.
 - Roadmap murni-kode yang tertunda: Simulator Phase 2 (worst/base/bull interaktif) — dipilih di run berikutnya kalau tidak ada update data mendesak.
+
+### ✅ Tambahan (bareng Bryan, sore 20 Okt) — REFRESH PENUH bagian analisis mendalam
+Bryan minta langsung: refresh penuh **Macro Technicals + scenarios** biar cerminkan minyak balik naik ~$96 + rezim rate tinggi. Dikerjakan menyeluruh dan konsisten lintas semua array narasi (bukan cuma 2 bagian), supaya tidak ada kontradiksi di halaman yang sama:
+- **Macro Technicals (techMacro)**: WTI ditulis ulang jadi "balik naik ~$96, premi Hormuz kembali, flow ~dua-pertiga normal, belum ada deal" (support ~$82 / resistance ~$100); 10Y ~5,2% + FOMC 27–28 Okt; emas range-bound ~$4.130–4.200; DXY & USD/IDR disegarkan.
+- **Scenarios (5 set: overview/crypto/stocks/macro/outlook)**: titik awal diperbarui — minyak **sudah** naik ~$96 (bukan lagi "easing"). Bull = deal Hormuz/AS–Iran tarik minyak+yield turun; base = tanpa deal, minyak tetap tinggi ~$90–100 + 10Y ~5,0–5,2%; bear = minyak re-spike >$100 / 10Y tembus 5,2%. **Probabilitas Bryan TIDAK saya ubah** (itu keputusan diskresioner Bryan) — hanya teks faktualnya.
+- **Tilt (ringkasan Outlook)**: dibingkai ulang — sekarang **dua** titik tekanan (rate + minyak), bukan satu; relief tetap bergantung pada deal Hormuz/AS–Iran. Med Conviction dipertahankan.
+- **Konsistensi lintas array**: drivers, news, rotation, corp, watch, assetsWatch, stockMarkets (us/id), hotToday — semua baris "minyak turun karena harapan Hormuz / WTI $92" diperbaiki ke narasi reversal. Mover energi diubah dari "CVX tailwind memudar" → "XLE/energi tailwind balik". Level IHSG diseragamkan ke zona ~5.800–6.100.
+- **Angka equity AS (S&P/Nasdaq/Dow) dipertahankan apa adanya** bertanggal 25 Sept + diberi label "last verified / mid-Okt belum diverifikasi" — tidak saya karang gerakan equity harian baru (belum terverifikasi).
+- **Verifikasi**: http.server 8137 + Claude Browser → hanya CoinGecko CORS (diabaikan sesuai aturan), 0 error JS lain. Cek otomatis: 0 sisa narasi "oil eased $92", 0 sisa "$4.280" di prosa, bahasa reversal muncul 5×, FOMC 27–28 Okt ada, semua span data-mref konsisten satu nilai (wti $96, us10y 5,2%, gold $4.180, usdidr 17.900).
 
 ---
 
